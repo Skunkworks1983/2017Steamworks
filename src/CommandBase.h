@@ -2,10 +2,10 @@
 #define COMMAND_BASE_H
 
 #include <string>
-#include "Commands/Command.h" //fslash
+#include "Commands/Command.h"
 #include "OI.h"
 #include "WPILib.h"
-#include "Subsystems\cDriveBase.h" //bslash
+#include "Subsystems/cDriveBase.h"
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a
@@ -17,7 +17,8 @@ public:
 	CommandBase(const std::string &name);
 	CommandBase();
 	static void init();
-	static cDriveBase *drivebase; //used c at beginning but not necessary (see rules)
-};
+	static cDriveBase *s_drivebase;
+	static OI *s_oi;
+	};
 
 #endif

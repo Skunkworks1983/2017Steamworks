@@ -7,15 +7,16 @@
 //^^^ fix auto generated comments
 #include <Commands/cRunTankDrive.h>
 #include <Subsystems/cDriveBase.h>
-
+#include <OI.h>
+#include <CommandBase.h>
 cRunTankDrive::cRunTankDrive() { //don't ignore your warnings
 
-	Requires(drivebase);
+	Requires(s_drivebase);
 }
 
 void cRunTankDrive::Initialize(){
-	CommandBase::drivebase->setLeftSpeed(speed); //variable speed is never given a value
-	CommandBase::drivebase->setRightSpeed(speed);
+	CommandBase::s_drivebase->setLeftSpeed(CommandBase::s_oi->getLeftStickY());
+	CommandBase::s_drivebase->setRightSpeed(CommandBase::s_oi->getRightStickY());
 }
 
 void cRunTankDrive::Execute(){

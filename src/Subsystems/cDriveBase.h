@@ -7,11 +7,10 @@
 
 #ifndef SRC_SUBSYSTEMS_CDRIVEBASE_H_
 #define SRC_SUBSYSTEMS_CDRIVEBASE_H_
-
-//why 2 new lines?
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include "cMotor.h"
+#include <OI.h>
 
 class cDriveBase: public Subsystem {
 private:
@@ -21,15 +20,15 @@ private:
 	cMotor* rightMotor1;
 	cMotor* rightMotor2;
 	cMotor* rightMotor3;
-public:
-		cDriveBase(); //different tab length
-		~cDriveBase();
-		void InitDefaultCommand();
-		void resetEncoder();
-		void setLeftSpeed(double speed);
-		void setRightSpeed(double speed);
 
-		void setBrakeMode(bool brake);
+	public:
+	cDriveBase();
+	~cDriveBase();
+	void InitDefaultCommand();
+	void resetEncoder();
+	void setLeftSpeed(double speed);
+	void setRightSpeed(double speed);
+	void setBrakeMode(bool brake);
 };
 
 #endif /* SRC_SUBSYSTEMS_CDRIVEBASE_H_ */

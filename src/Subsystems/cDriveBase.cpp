@@ -32,39 +32,22 @@ cDriveBase::~cDriveBase() {
 	delete rightMotor2;
 	delete rightMotor3;
 }
-
 void cDriveBase::setBrakeMode(bool brake) {
-
 	leftMotor1->setBrakeMode(brake);
-
-	leftMotor2->setBrakeMode(brake); //so many new lines
-
+	leftMotor2->setBrakeMode(brake);
 	leftMotor3->setBrakeMode(brake);
-
 	rightMotor1->setBrakeMode(brake);
-
 	rightMotor2->setBrakeMode(brake);
-
 	rightMotor3->setBrakeMode(brake);
-
 }
-
 void cDriveBase::InitDefaultCommand() {
 	SetDefaultCommand(new cRunTankDrive());
-
 }
-
 void cDriveBase::resetEncoder() {
-
 }
-
 void cDriveBase::setLeftSpeed(double speed) {
-
 }
-
 void cDriveBase::setRightSpeed(double speed) {
-
-
 }
 
 

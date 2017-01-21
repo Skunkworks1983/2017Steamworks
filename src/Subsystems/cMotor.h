@@ -6,7 +6,7 @@
  */
 
 #ifndef SRC_SUBSYSTEMS_CMOTOR_H_
-#define SRC_SUBSYSTEMS_CMOTOR_H_      //in general use more new lines and remove extraneous ones
+#define SRC_SUBSYSTEMS_CMOTOR_H_
 #include <CANTalon.h>
 class cMotor: public PIDSource, public PIDOutput {
 private:
@@ -18,10 +18,5 @@ public:
 	void setOutput(float output);
 	void PIDWrite(float output) override;
 	double PIDGet() override;
-
-//too much white space
-
 };
-
-
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */
