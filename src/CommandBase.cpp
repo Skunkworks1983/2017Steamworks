@@ -1,6 +1,6 @@
 #include "CommandBase.h"
-#include "Commands/Scheduler.h"    //forward slash
-#include "Subsystems\cDriveBase.h" //backslash
+#include "Commands/Scheduler.h"
+#include "Subsystems\cDriveBase.h"
 
 cDriveBase* CommandBase::s_drivebase = NULL;
 OI* CommandBase::s_oi = NULL;

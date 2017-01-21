@@ -16,8 +16,7 @@ cMotor::cMotor(int port):m_motor(port) {
 cMotor::~cMotor() {
 	// TODO Auto-generated destructor stub
 }
- bool cMotor::setBrakeMode(bool brake) { //don't ignore warnings
-
+ bool cMotor::setBrakeMode(bool brake) {
 	if(brake == true){
 		 m_motor.ConfigNeutralMode(CANSpeedController::kNeutralMode_Brake);
 		 return true;
@@ -34,8 +33,18 @@ void cMotor::setOutput(float output) {
 void cMotor::PIDWrite(float output){
 	m_motor.Set(output);
 }
-double cMotor::PIDGet(){ //don't ignore warnings
+double cMotor::PIDGet(){
 	return m_motor.GetEncPosition();
 	//we need to change this, not right
 	//return sensor output for pid
-};
+}
+
+void cMotor::setEnabled(bool enabled){
+	if (m_motor.IsEnabled() && !enabled) {
+		m_motor.Enable();
+	}
+	if (!m_motor.IsEnabled() && enabled) {
+		m_motor.Disable();
+	}
+
+}

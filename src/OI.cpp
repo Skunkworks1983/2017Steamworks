@@ -5,9 +5,7 @@ OI::OI()
 {
 	m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
 	m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
-	//JoystickButton *collect = NULL;
 }
-
 float OI::getLeftStickY(){
 	return m_leftStick->GetY();
 }

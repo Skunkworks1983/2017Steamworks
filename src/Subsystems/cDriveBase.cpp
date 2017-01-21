@@ -46,8 +46,25 @@ void cDriveBase::InitDefaultCommand() {
 void cDriveBase::resetEncoder() {
 }
 void cDriveBase::setLeftSpeed(double speed) {
-}
+	speed = speed * DRIVEBASE_LEFT_DIRECTION;
+	leftMotor1->setOutput(speed);
+	leftMotor2->setOutput(speed);
+	leftMotor3->setOutput(speed);
+	}
 void cDriveBase::setRightSpeed(double speed) {
+	speed = speed * DRIVEBASE_RIGHT_DIRECTION;
+	rightMotor1->setOutput(speed);
+	rightMotor2->setOutput(speed);
+	rightMotor3->setOutput(speed);
+}
+
+void cDriveBase::setEnabled(bool enabled) {
+	leftMotor1->setEnabled(enabled);
+	leftMotor2->setEnabled(enabled);
+	leftMotor3->setEnabled(enabled);
+	rightMotor1->setEnabled(enabled);
+	rightMotor2->setEnabled(enabled);
+	rightMotor3->setEnabled(enabled);
 }
 
 

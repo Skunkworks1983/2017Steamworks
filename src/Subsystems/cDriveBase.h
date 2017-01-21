@@ -29,6 +29,7 @@ private:
 	void setLeftSpeed(double speed);
 	void setRightSpeed(double speed);
 	void setBrakeMode(bool brake);
+	void setEnabled(bool enabled);
 };
 
 #endif /* SRC_SUBSYSTEMS_CDRIVEBASE_H_ */

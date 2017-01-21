@@ -18,5 +18,6 @@ public:
 	void setOutput(float output);
 	void PIDWrite(float output) override;
 	double PIDGet() override;
+	void setEnabled(bool enabled);
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */
