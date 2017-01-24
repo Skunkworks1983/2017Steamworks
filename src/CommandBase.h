@@ -5,7 +5,7 @@
 #include "Commands/Command.h"
 #include "OI.h"
 #include "WPILib.h"
-
+#include "Subsystems/cDriveBase.h"
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a
@@ -17,6 +17,8 @@ public:
 	CommandBase(const std::string &name);
 	CommandBase();
 	static void init();
-};
+	static cDriveBase *s_drivebase;
+	static OI *s_oi;
+	};
 
 #endif

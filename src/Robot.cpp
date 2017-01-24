@@ -1,7 +1,9 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "CommandBase.h"
-
+#include "Subsystems/cDriveBase.h"
+#include <OI.h>
+#include "Commands/cRunTankDrive.h"
 class Robot: public IterativeRobot
 {
 private:
@@ -10,6 +12,9 @@ private:
 
 	void RobotInit()
 	{
+		CommandBase::s_drivebase = new cDriveBase();
+		CommandBase::s_oi = new OI();
+
 	}
 
 	/**
@@ -45,6 +50,7 @@ private:
 
 	void TeleopInit()
 	{
+		Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
 	}
 
 	void TeleopPeriodic()
