@@ -8,6 +8,9 @@
 #ifndef SRC_SUBSYSTEMS_CMOTOR_H_
 #define SRC_SUBSYSTEMS_CMOTOR_H_
 #include <CANTalon.h>
+#include <PIDSource.h>
+#include <PIDOutput.h>
+
 class cMotor: public PIDSource, public PIDOutput
 {
 private:
@@ -17,7 +20,7 @@ public:
     virtual ~cMotor();
     void setBrakeMode(bool brake);
     void setOutput(float output);
-    void PIDWrite(float output) override;
+    void PIDWrite(double output) override;
     double PIDGet() override;
     void setEnabled(bool enabled);
 };

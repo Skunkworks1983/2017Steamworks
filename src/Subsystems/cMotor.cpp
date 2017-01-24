@@ -34,7 +34,7 @@ void cMotor::setOutput(float output)
 {
     m_motor.Set(output);
 }
-void cMotor::PIDWrite(float output)
+void cMotor::PIDWrite(double output)
 {
     m_motor.Set(output);
 }
