@@ -1,35 +1,53 @@
+/*
+ *  This file handles the Messenger system.
+ *  We create a socket to talk to the raspberry pi to
+ *  from the roborio. ez $$
+ *  Written by Nathan Tresham
+ */
+
 #include "Messenger.h"
 
-Messenger::Messenger(char *server, char *port) {
-	struct addrinfo hints;
-	int addrinfo_stat;
+// Creates a new messenger instance
+c_Messenger::c_Messenger(char *server, char *port)
+{
+    struct addrinfo hints;
+    int addrinfo_stat;
 
-	memset((char*) &hints, 0, sizeof(hints));
-	hints.ai_socktype = SOCK_DGRAM;
-	hints.ai_family = AF_UNSPEC;
-	hints.ai_flags = AI_NUMERICSERV;
-	hints.ai_protocol = 0;
+    // Create the out variable for the connection settings
+    memset((char*) &hints, 0, sizeof(hints));
+    hints.ai_socktype = SOCK_DGRAM;
+    hints.ai_family = AF_UNSPEC;
+    hints.ai_flags = AI_NUMERICSERV;
+    hints.ai_protocol = 0;
 
-	if((addrinfo_stat = getaddrinfo(server, port, &hints, &info)) != 0) {
-	    std::cout << "couldn't get address info\n";
-	    return;
-	}
+    // Attempt to get the address information of the system we're connecting to
+    // for later, and save the settings in hints & info
+    if((addrinfo_stat = getaddrinfo(server, port, &hints, &m_info)) != 0)
+    {
+        std::cout << "couldn't get address info\n";
+        return;
+    }
 
-	if((sock = socket(info->ai_family, info->ai_socktype, info->ai_protocol)) == -1) {
-		std::cout << "couldn't open socket\n";
-	    return;
-	}
+    // Attempt to create the socket
+    if((m_sock = socket(m_info->ai_family, m_info->ai_socktype, m_info->ai_protocol)) == -1)
+    {
+        std::cout << "couldn't create socket\n";
+        return;
+    }
 }
 
-
-Messenger::~Messenger() {
-	delete &sock;
-	delete info;
+c_Messenger::~c_Messenger()
+{
+    delete &m_sock;
+    delete m_info;
 }
 
-
-void Messenger::SendMessage(std::string message) {
-    if(sendto(sock, message.c_str(), message.size(), 0, info->ai_addr, info->ai_addrlen) == -1) {
-    	std::cout << "sendto failed\n";
+// Sends a string through the socket
+void c_Messenger::SendMessage(std::string message)
+{
+    // Send a message to the socket using the connection settings obtained earlier
+    if(sendto(m_sock, message.c_str(), message.size(), 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
+    {
+        std::cout << "sendto failed\n";
     }
 }

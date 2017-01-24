@@ -8,19 +8,20 @@
 #include <netdb.h>
 #include <string.h>
 
-#define IP "10.76.5.17"
-#define PORT "8888"
+#define RPI_IP "10.76.5.17"
+#define RPI_PORT "8888"
 
-class Messenger {
-	private:
-		int sock;
-		addrinfo* info;
+class c_Messenger
+{
+private:
+    int m_sock;
+    addrinfo* m_info;
 
-	public:
-		Messenger(char* server, char* port);
-		~Messenger();
+public:
+    c_Messenger(char* server, char* port);
+    ~c_Messenger();
 
-		void SendMessage(std::string message);
+    void SendMessage(std::string message);
 };
 
 #endif
