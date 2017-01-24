@@ -14,6 +14,7 @@
 class c_Messenger
 {
 private:
+    int a;
     int m_sock;
     addrinfo* m_info;
 
