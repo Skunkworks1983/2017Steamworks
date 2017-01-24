@@ -7,8 +7,7 @@
 class Robot: public IterativeRobot
 {
 private:
-	std::unique_ptr<Command> autonomousCommand;
-	SendableChooser *chooser;
+    std::unique_ptr<Command> autonomousCommand;
 
 	void RobotInit()
 	{
@@ -17,11 +16,12 @@ private:
 
 	}
 
-	/**
+    /**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
+     * the robot is disabled.
      */
+
 	void DisabledInit()
 	{
 	}
