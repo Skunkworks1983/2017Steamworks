@@ -4,6 +4,9 @@
 #include "Subsystems/cDriveBase.h"
 #include <OI.h>
 #include "Commands/cRunTankDrive.h"
+
+bool postMatch = false;
+
 class Robot: public IterativeRobot
 {
 private:
@@ -13,7 +16,7 @@ private:
 	{
 		CommandBase::s_drivebase = new cDriveBase();
 		CommandBase::s_oi = new OI();
-
+		CommandBase::s_messenger = new cMessenger(RPI_IP, RPI_PORT);
 	}
 
     /**
@@ -24,6 +27,10 @@ private:
 
 	void DisabledInit()
 	{
+	    if(postMatch) {
+	        CommandBase::s_messenger->SendMessage("disabled");
+	        CommandBase::s_messenger->SendMessage("shutdown");
+	    }
 	}
 
 	void DisabledPeriodic()
@@ -41,6 +48,7 @@ private:
 	 */
 	void AutonomousInit()
 	{
+	    postMatch = true;
 	}
 
 	void AutonomousPeriodic()
@@ -50,6 +58,7 @@ private:
 
 	void TeleopInit()
 	{
+	    postMatch = true;
 		Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
 	}
 

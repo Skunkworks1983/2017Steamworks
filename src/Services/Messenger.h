@@ -8,10 +8,10 @@
 #include <netdb.h>
 #include <string.h>
 
-#define RPI_IP "10.76.5.17"
+#define RPI_IP "10.19.83.217"
 #define RPI_PORT "8888"
 
-class c_Messenger
+class cMessenger
 {
 private:
     int a;
@@ -19,8 +19,8 @@ private:
     addrinfo* m_info;
 
 public:
-    c_Messenger(char* server, char* port);
-    ~c_Messenger();
+    cMessenger(char* server, char* port);
+    ~cMessenger();
 
     void SendMessage(std::string message);
 };

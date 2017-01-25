@@ -6,6 +6,7 @@
 #include "OI.h"
 #include "WPILib.h"
 #include "Subsystems/cDriveBase.h"
+#include "Services/Messenger.h"
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a
@@ -19,6 +20,7 @@ public:
 	static void init();
 	static cDriveBase *s_drivebase;
 	static OI *s_oi;
+	static cMessenger *s_messenger;
 	};
 
 #endif
