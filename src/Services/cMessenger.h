@@ -2,6 +2,7 @@
 #define MESSENGER_H
 
 #include <iostream>
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -14,7 +15,6 @@
 class cMessenger
 {
 private:
-    int a;
     int m_sock;
     addrinfo* m_info;
 
@@ -23,6 +23,7 @@ public:
     ~cMessenger();
 
     void SendMessage(std::string message);
+    std::string RecieveMessage();
 };
 
 #endif

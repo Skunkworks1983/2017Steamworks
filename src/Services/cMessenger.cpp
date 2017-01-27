@@ -5,7 +5,7 @@
  *  Written by Nathan Tresham
  */
 
-#include "Messenger.h"
+#include <Services/cMessenger.h>
 
 // Creates a new messenger instance
 cMessenger::cMessenger(char *server, char *port)
@@ -46,8 +46,19 @@ cMessenger::~cMessenger()
 void cMessenger::SendMessage(std::string message)
 {
     // Send a message to the socket using the connection settings obtained earlier
-    if(sendto(m_sock, message.c_str(), message.size(), 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
+    if(sendto(m_sock, message.c_str(), 1024, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
     {
         std::cout << "sendto failed\n";
     }
+}
+
+
+std::string cMessenger::RecieveMessage() {
+    char message[1024];
+
+    if(recv(m_sock, message, 1024, 0) == -1) {
+        std::cout << "recvfrom failed\n";
+    }
+
+    return message;
 }
