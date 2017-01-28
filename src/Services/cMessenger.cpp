@@ -38,14 +38,13 @@ cMessenger::cMessenger(char *server, char *port)
 
 cMessenger::~cMessenger()
 {
-    delete &m_sock;
-    delete m_info;
+    freeaddrinfo(m_info);
 }
 
 // Sends a string through the socket
 void cMessenger::SendMessage(cMessage message)
 {
-    std::string message_tosend = message.Pack();
+    std::string message_tosend = message.PackToSend();
 
     // Send a message to the socket using the connection settings obtained earlier
     if(sendto(m_sock, &message_tosend, MSG_LEN, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
@@ -54,7 +53,8 @@ void cMessenger::SendMessage(cMessage message)
     }
 }
 
-cMessage cMessenger::ReceiveMessage()
+// Remember to delete return value
+cMessage* cMessenger::ReceiveMessage()
 {
     char* message_buffer;
 
@@ -64,5 +64,5 @@ cMessage cMessenger::ReceiveMessage()
     }
 
     std::string message_converted(message_buffer);
-    return *(new cMessage(message_converted));
+    return new cMessage(message_converted);
 }

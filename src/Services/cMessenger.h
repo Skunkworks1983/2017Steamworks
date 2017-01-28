@@ -30,7 +30,7 @@ public:
     ~cMessenger();
 
     void SendMessage(cMessage message);
-    cMessage ReceiveMessage();
+    cMessage* ReceiveMessage();
 };
 
 #endif

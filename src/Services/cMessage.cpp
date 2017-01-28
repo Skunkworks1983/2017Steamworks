@@ -17,7 +17,7 @@ cMessage::~cMessage()
     delete &message;
 }
 
-std::string cMessage::Pack()
+std::string cMessage::PackToSend()
 {
     return message;
 }
