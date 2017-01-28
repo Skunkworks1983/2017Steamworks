@@ -5,10 +5,10 @@
  *  Written by Nathan Tresham
  */
 
-#include "Messenger.h"
+#include <Services/cMessenger.h>
 
 // Creates a new messenger instance
-c_Messenger::c_Messenger(char *server, char *port)
+cMessenger::cMessenger(char *server, char *port)
 {
     struct addrinfo hints;
     int addrinfo_stat;
@@ -36,18 +36,33 @@ c_Messenger::c_Messenger(char *server, char *port)
     }
 }
 
-c_Messenger::~c_Messenger()
+cMessenger::~cMessenger()
 {
     delete &m_sock;
     delete m_info;
 }
 
 // Sends a string through the socket
-void c_Messenger::SendMessage(std::string message)
+void cMessenger::SendMessage(cMessage message)
 {
+    std::string message_tosend = message.Pack();
+
     // Send a message to the socket using the connection settings obtained earlier
-    if(sendto(m_sock, message.c_str(), message.size(), 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
+    if(sendto(m_sock, &message_tosend, MSG_LEN, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
     {
         std::cout << "sendto failed\n";
     }
+}
+
+cMessage cMessenger::ReceiveMessage()
+{
+    char* message_buffer;
+
+    if(recv(m_sock, message_buffer, MSG_LEN, 0) == -1)
+    {
+        std::cout << "recvfrom failed\n";
+    }
+
+    std::string message_converted(message_buffer);
+    return *(new cMessage(message_converted));
 }

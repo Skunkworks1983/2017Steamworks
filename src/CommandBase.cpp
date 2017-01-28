@@ -4,6 +4,7 @@
 
 cDriveBase* CommandBase::s_drivebase = NULL;
 OI* CommandBase::s_oi = NULL;
+cMessenger* CommandBase::s_messenger = NULL;
 
 CommandBase::CommandBase(const std::string &name) :
         Command(name)
