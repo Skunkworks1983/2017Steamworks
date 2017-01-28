@@ -8,9 +8,14 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <string.h>
+#include <errno.h>
+
+#include <Services/cMessage.h>
 
 #define RPI_IP "10.19.83.217"
 #define RPI_PORT "8888"
+
+#define MSG_LEN 1024
 
 class cMessenger
 {
@@ -19,11 +24,13 @@ private:
     addrinfo* m_info;
 
 public:
+    bool m_isPostMatch;
+
     cMessenger(char* server, char* port);
     ~cMessenger();
 
-    void SendMessage(std::string message);
-    std::string RecieveMessage();
+    void SendMessage(cMessage message);
+    cMessage ReceiveMessage();
 };
 
 #endif

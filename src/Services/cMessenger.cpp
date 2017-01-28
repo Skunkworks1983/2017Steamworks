@@ -43,22 +43,26 @@ cMessenger::~cMessenger()
 }
 
 // Sends a string through the socket
-void cMessenger::SendMessage(std::string message)
+void cMessenger::SendMessage(cMessage message)
 {
+    std::string message_tosend = message.Pack();
+
     // Send a message to the socket using the connection settings obtained earlier
-    if(sendto(m_sock, message.c_str(), 1024, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
+    if(sendto(m_sock, &message_tosend, MSG_LEN, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
     {
         std::cout << "sendto failed\n";
     }
 }
 
+cMessage cMessenger::ReceiveMessage()
+{
+    char* message_buffer;
 
-std::string cMessenger::RecieveMessage() {
-    char message[1024];
-
-    if(recv(m_sock, message, 1024, 0) == -1) {
+    if(recv(m_sock, message_buffer, MSG_LEN, 0) == -1)
+    {
         std::cout << "recvfrom failed\n";
     }
 
-    return message;
+    std::string message_converted(message_buffer);
+    return *(new cMessage(message_converted));
 }
