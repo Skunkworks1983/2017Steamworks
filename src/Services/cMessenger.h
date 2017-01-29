@@ -3,12 +3,8 @@
 
 #include <iostream>
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <netdb.h>
 #include <string.h>
-#include <errno.h>
 
 #include <Services/cMessage.h>
 
@@ -29,7 +25,7 @@ public:
     cMessenger(char* server, char* port);
     ~cMessenger();
 
-    void SendMessage(cMessage message);
+    void SendMessage(cMessage* message);
     cMessage* ReceiveMessage();
 };
 

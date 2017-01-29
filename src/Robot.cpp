@@ -4,6 +4,7 @@
 #include "Subsystems/cDriveBase.h"
 #include <OI.h>
 #include "Commands/cRunTankDrive.h"
+#include <errno.h>
 
 class Robot: public IterativeRobot
 {
@@ -17,14 +18,20 @@ private:
 
 	void DisabledInit()
 	{
-	    if(CommandBase::s_messenger->m_isPostMatch) {
-	        CommandBase::s_messenger->SendMessage(*(new cMessage("disabled")));
-	        CommandBase::s_messenger->SendMessage(*(new cMessage("shutdown")));
-	    }
+        cMessage* msg1 = new cMessage("disabled");
+
+        if(CommandBase::s_messenger->m_isPostMatch) {
+            CommandBase::s_messenger->SendMessage(msg1);
+        }
+
+        std::cout << CommandBase::s_messenger->ReceiveMessage()->getmessage() << "\n";
+
+        delete msg1;
 	}
 
 	void DisabledPeriodic()
 	{
+
 	}
 
 	void AutonomousInit()

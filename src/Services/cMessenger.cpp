@@ -6,32 +6,39 @@
  */
 
 #include <Services/cMessenger.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <errno.h>
+#include <iostream>
 
 // Creates a new messenger instance
 cMessenger::cMessenger(char *server, char *port)
 {
+    m_isPostMatch = false;
+
     struct addrinfo hints;
     int addrinfo_stat;
 
     // Create the out variable for the connection settings
     memset((char*) &hints, 0, sizeof(hints));
     hints.ai_socktype = SOCK_DGRAM;
-    hints.ai_family = AF_UNSPEC;
+    hints.ai_family = AF_INET;
     hints.ai_flags = AI_NUMERICSERV;
     hints.ai_protocol = 0;
 
     // Attempt to get the address information of the system we're connecting to
     // for later, and save the settings in hints & info
-    if((addrinfo_stat = getaddrinfo(server, port, &hints, &m_info)) != 0)
+    if((addrinfo_stat = getaddrinfo(RPI_IP, RPI_PORT, &hints, &m_info)) != 0)
     {
-        std::cout << "couldn't get address info\n";
+        std::cout << "couldn't get address info, error: " << errno << "\n";
         return;
     }
 
     // Attempt to create the socket
     if((m_sock = socket(m_info->ai_family, m_info->ai_socktype, m_info->ai_protocol)) == -1)
     {
-        std::cout << "couldn't create socket\n";
+        std::cout << "couldn't create socket, error: " << errno << "\n";
         return;
     }
 }
@@ -42,25 +49,33 @@ cMessenger::~cMessenger()
 }
 
 // Sends a string through the socket
-void cMessenger::SendMessage(cMessage message)
+void cMessenger::SendMessage(cMessage* message)
 {
-    std::string message_tosend = message.PackToSend();
+    std::string toSend = message->PackToSend();
 
     // Send a message to the socket using the connection settings obtained earlier
-    if(sendto(m_sock, &message_tosend, MSG_LEN, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
+    if(sendto(m_sock, toSend.c_str(), toSend.size() + 1, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
     {
-        std::cout << "sendto failed\n";
+        std::cout << "sendto failed, error: " << errno << "\n";
     }
 }
 
 // Remember to delete return value
 cMessage* cMessenger::ReceiveMessage()
 {
-    char* message_buffer;
+    char message_buffer[MSG_LEN];
 
-    if(recv(m_sock, message_buffer, MSG_LEN, 0) == -1)
+    if(recv(m_sock, message_buffer, MSG_LEN, MSG_DONTWAIT) == -1)
     {
-        std::cout << "recvfrom failed\n";
+        if(errno != EAGAIN)
+        {
+            std::cout << "recvfrom failed, error: " << errno << "\n";
+            return new cMessage("message failed");
+        }
+        else
+        {
+            strcpy(message_buffer, "no message");
+        }
     }
 
     std::string message_converted(message_buffer);
