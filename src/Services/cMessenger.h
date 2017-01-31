@@ -27,6 +27,7 @@ public:
 
     void SendMessage(cMessage* message);
     cMessage* ReceiveMessage();
+    std::string* GetMessage();
 };
 
 #endif

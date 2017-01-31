@@ -24,7 +24,7 @@ private:
             CommandBase::s_messenger->SendMessage(msg1);
         }
 
-        std::cout << CommandBase::s_messenger->ReceiveMessage()->getmessage() << "\n";
+        std::cout << CommandBase::s_messenger->ReceiveMessage()->GetMessage() << "\n";
 
         delete msg1;
 	}

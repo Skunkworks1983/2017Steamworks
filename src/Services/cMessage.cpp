@@ -14,10 +14,18 @@ cMessage::cMessage(std::string message_)
 
 cMessage::~cMessage()
 {
-    delete &message;
+
 }
 
+// these two functions will eventually be different.
+// for now, all we do is send a string over the socket
+// but eventually we will pack integers for the positions
+// of the goal into the PackToSend function
 std::string cMessage::PackToSend()
 {
+    return message;
+}
+
+std::string cMessage::GetMessage() {
     return message;
 }

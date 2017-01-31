@@ -12,6 +12,7 @@ public:
     ~cMessage();
 
     std::string PackToSend();
+    std::string GetMessage();
 };
 
 #endif
