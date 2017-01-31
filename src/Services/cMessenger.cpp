@@ -64,6 +64,7 @@ void cMessenger::SendMessage(cMessage* message)
 cMessage* cMessenger::ReceiveMessage()
 {
     char message_buffer[MSG_LEN];
+    memset(message_buffer, 0, MSG_LEN);
 
     if(recv(m_sock, message_buffer, MSG_LEN, MSG_DONTWAIT) == -1)
     {
@@ -71,10 +72,6 @@ cMessage* cMessenger::ReceiveMessage()
         {
             std::cout << "recvfrom failed, error: " << errno << "\n";
             return new cMessage("message failed");
-        }
-        else
-        {
-            strcpy(message_buffer, "no message");
         }
     }
 

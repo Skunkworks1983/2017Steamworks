@@ -18,15 +18,7 @@ private:
 
 	void DisabledInit()
 	{
-        cMessage* msg1 = new cMessage("disabled");
 
-        if(CommandBase::s_messenger->m_isPostMatch) {
-            CommandBase::s_messenger->SendMessage(msg1);
-        }
-
-        std::cout << CommandBase::s_messenger->ReceiveMessage()->GetMessage() << "\n";
-
-        delete msg1;
 	}
 
 	void DisabledPeriodic()
@@ -47,11 +39,26 @@ private:
 	void TeleopInit()
 	{
 	    CommandBase::s_messenger->m_isPostMatch = true;
+
+        cMessage* msg1 = new cMessage("disabled");
+
+        if(CommandBase::s_messenger->m_isPostMatch) {
+            CommandBase::s_messenger->SendMessage(msg1);
+        }
+
+        delete msg1;
 	}
 
 	void TeleopPeriodic()
 	{
 		Scheduler::GetInstance()->Run();
+
+
+		std::string msg = CommandBase::s_messenger->ReceiveMessage()->GetMessage();
+
+		if(msg[0] != 0) {
+		    std::cout << msg << "\n";
+		}
 	}
 
 	void TestPeriodic()
