@@ -68,7 +68,7 @@ cMessage* cMessenger::ReceiveMessage()
 
     if(recv(m_sock, message_buffer, MSG_LEN, MSG_DONTWAIT) == -1)
     {
-        if(errno != EAGAIN)
+        if(errno != EAGAIN && errno != EWOULDBLOCK)
         {
             std::cout << "recvfrom failed, error: " << errno << "\n";
             return new cMessage("message failed");

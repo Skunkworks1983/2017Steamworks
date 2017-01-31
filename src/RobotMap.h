@@ -3,18 +3,22 @@
 
 #include "WPILib.h"
 
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
- 
+
 // For example to map the left and right motors, you could define the
 // following variables to use with your drivetrain subsystem.
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
+
+const char* RPI_IP = "10.19.83.217";
+const char* RPI_PORT = "8888";
+
+const int MSG_LEN
 
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
