@@ -11,9 +11,10 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include <iostream>
+#include "../RobotMap.h"
 
 // Creates a new messenger instance
-cMessenger::cMessenger(char *server, char *port)
+cMessenger::cMessenger(const char *server, const char *port)
 {
     m_isPostMatch = false;
 

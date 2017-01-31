@@ -15,8 +15,8 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
-const char* RPI_IP = "10.19.83.217";
-const char* RPI_PORT = "8888";
+#define RPI_IP "10.19.83.217"
+#define RPI_PORT "8888"
 
 const int MSG_LEN = 1024;
 

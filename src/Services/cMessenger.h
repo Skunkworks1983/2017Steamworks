@@ -17,7 +17,7 @@ private:
 public:
     bool m_isPostMatch;
 
-    cMessenger(char* server, char* port);
+    cMessenger(const char* server, const char* port);
     ~cMessenger();
 
     void SendMessage(cMessage* message);

@@ -5,6 +5,7 @@
 #include <OI.h>
 #include "Commands/cRunTankDrive.h"
 #include <errno.h>
+#include "RobotMap.h"
 
 class Robot: public IterativeRobot
 {

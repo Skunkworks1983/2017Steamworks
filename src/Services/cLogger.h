@@ -2,13 +2,10 @@
 #define LOGGER_H
 
 #include <string>
-#include <log4cxx/log4cxx.h>
-#include <log4cxx/logger.h>
 
 class cLogger
 {
 private:
-    log4cxx::LoggerPtr logger;
 
 public:
     cLogger();
