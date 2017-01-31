@@ -1,0 +1,20 @@
+/*
+ * climbRope.h
+ *
+ *  Created on: Jan 25, 2017
+ *      Author: s-4036956
+ */
+
+#ifndef SRC_COMMANDS_CCLIMBROPE_H_
+#define SRC_COMMANDS_CCLIMBROPE_H_
+
+#include <Commands/Command.h>
+
+class cClimbRope: public frc::Command
+{
+public:
+    cClimbRope();
+    virtual ~cClimbRope();
+};
+
+#endif /* SRC_COMMANDS_CCLIMBROPE_H_ */

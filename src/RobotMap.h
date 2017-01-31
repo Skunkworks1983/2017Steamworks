@@ -16,7 +16,7 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 const int DRIVEBASE_LEFT_DIRECTION = -1;
-const int DRIVEBASE_RIGHT_DIRECTION = 1;
+cosnt int DRIVEBASE_RIGHT_DIRECTION = 1;
 
 const int DRIVEBASE_LEFTMOTOR_1_PORT = 0;
 const int DRIVEBASE_LEFTMOTOR_2_PORT = 1;
@@ -27,6 +27,9 @@ const int DRIVEBASE_RIGHTMOTOR_3_PORT = 13;
 
 const int OI_JOYSTICK_LEFT_PORT = 1;
 const int OI_JOYSTICK_RIGHT_PORT = 0;
+
+const int OI_JOYSTICK_OPERATOR_PORT = 2;
+
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:
 //const int RANGE_FINDER_PORT = 1;
