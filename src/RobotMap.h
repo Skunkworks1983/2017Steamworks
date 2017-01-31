@@ -18,7 +18,7 @@
 const char* RPI_IP = "10.19.83.217";
 const char* RPI_PORT = "8888";
 
-const int MSG_LEN
+const int MSG_LEN = 1024;
 
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
