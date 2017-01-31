@@ -11,15 +11,15 @@
 
 cTurnDegree::cTurnDegree()
 {
-    targetAngle = 135; //we gotta change this bois
+    targetAngle = 135; //we gotta change this
     angleRemaining = 0; //this is ok
 }
 
 void cTurnDegree::Initialize()
 {
     //driveBase->setTargetAngle(targetAngle);
-    //TODO gotta make that setTargetAngle class mhm
-    //guys i cant find setTargetAngle idk
+    //TODO gotta make that setTargetAngle class
+
 }
 
 void cTurnDegree::Execute()
