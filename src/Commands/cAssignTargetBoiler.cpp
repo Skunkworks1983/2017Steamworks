@@ -12,6 +12,30 @@ cAssignTargetBoiler::cAssignTargetBoiler()
     // TODO Auto-generated constructor stub
     
 }
+void cAssignTargetBoiler::Initialize()
+{
+
+}
+
+void cAssignTargetBoiler::Execute()
+{
+
+}
+
+bool cAssignTargetBoiler::IsFinished()
+{
+    return false;
+}
+
+void cAssignTargetBoiler::End()
+{
+
+}
+
+void cAssignTargetBoiler::Interrupted()
+{
+
+}
 
 cAssignTargetBoiler::~cAssignTargetBoiler()
 {

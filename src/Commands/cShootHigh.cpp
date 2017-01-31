@@ -12,6 +12,30 @@ cShootHigh::cShootHigh()
     // TODO Auto-generated constructor stub
     
 }
+void cShootHigh::Initialize()
+{
+
+}
+
+void cShootHigh::Execute()
+{
+
+}
+
+bool cShootHigh::IsFinished()
+{
+    return false;
+}
+
+void cShootHigh::End()
+{
+
+}
+
+void cShootHigh::Interrupted()
+{
+
+}
 
 cShootHigh::~cShootHigh()
 {

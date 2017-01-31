@@ -12,6 +12,30 @@ cDepositGear::cDepositGear()
     // TODO Auto-generated constructor stub
     
 }
+void cDepositGear::Initialize()
+{
+
+}
+
+void cDepositGear::Execute()
+{
+
+}
+
+bool cDepositGear::IsFinished()
+{
+    return false;
+}
+
+void cDepositGear::End()
+{
+
+}
+
+void cDepositGear::Interrupted()
+{
+
+}
 
 cDepositGear::~cDepositGear()
 {

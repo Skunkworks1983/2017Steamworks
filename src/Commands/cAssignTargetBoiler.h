@@ -15,6 +15,12 @@ class cAssignTargetBoiler: public frc::Command
 public:
     cAssignTargetBoiler();
     virtual ~cAssignTargetBoiler();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CASSIGNTARGETBOILER_H_ */

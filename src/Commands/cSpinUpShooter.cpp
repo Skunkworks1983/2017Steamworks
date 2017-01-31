@@ -12,6 +12,30 @@ cSpinUpShooter::cSpinUpShooter()
     // TODO Auto-generated constructor stub
     
 }
+void cSpinUpShooter::Initialize()
+{
+
+}
+
+void cSpinUpShooter::Execute()
+{
+
+}
+
+bool cSpinUpShooter::IsFinished()
+{
+    return false;
+}
+
+void cSpinUpShooter::End()
+{
+
+}
+
+void cSpinUpShooter::Interrupted()
+{
+
+}
 
 cSpinUpShooter::~cSpinUpShooter()
 {

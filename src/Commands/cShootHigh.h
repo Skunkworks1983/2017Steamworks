@@ -15,6 +15,12 @@ class cShootHigh: public frc::Command
 public:
     cShootHigh();
     virtual ~cShootHigh();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CSHOOTHIGH_H_ */

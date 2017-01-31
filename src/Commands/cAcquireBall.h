@@ -15,6 +15,12 @@ class cAcquireBall: public frc::Command
 public:
     cAcquireBall();
     virtual ~cAcquireBall();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CACQUIREBALL_H_ */

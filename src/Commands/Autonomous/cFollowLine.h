@@ -10,11 +10,17 @@
 
 #include <Commands/Command.h>
 
-class cFollowLine: public frc::Command
+class cAssignTargetGear: public frc::Command
 {
 public:
     cFollowLine();
     virtual ~cFollowLine();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_AUTONOMOUS_CFOLLOWLINE_H_ */

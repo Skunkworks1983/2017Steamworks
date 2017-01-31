@@ -15,6 +15,12 @@ class cAcquireGear: public frc::Command
 public:
     cAcquireGear();
     virtual ~cAcquireGear();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CACQUIREGEAR_H_ */

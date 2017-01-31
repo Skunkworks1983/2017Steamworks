@@ -12,6 +12,30 @@ cFollowLine::cFollowLine()
     // TODO Auto-generated constructor stub
     
 }
+void cFollowLine::Initialize()
+{
+
+}
+
+void cFollowLine::Execute()
+{
+
+}
+
+bool cFollowLine::IsFinished()
+{
+    return false;
+}
+
+void cFollowLine::End()
+{
+
+}
+
+void cFollowLine::Interrupted()
+{
+
+}
 
 cFollowLine::~cFollowLine()
 {

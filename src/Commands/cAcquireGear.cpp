@@ -12,6 +12,30 @@ cAcquireGear::cAcquireGear()
     // TODO Auto-generated constructor stub
     
 }
+void cAcquireGear::Initialize()
+{
+
+}
+
+void cAcquireGear::Execute()
+{
+
+}
+
+bool cAcquireGear::IsFinished()
+{
+    return false;
+}
+
+void cAcquireGear::End()
+{
+
+}
+
+void cAcquireGear::Interrupted()
+{
+
+}
 
 cAcquireGear::~cAcquireGear()
 {

@@ -12,6 +12,30 @@ cAssignTargetGear::cAssignTargetGear()
     // TODO Auto-generated constructor stub
     
 }
+void cAssignTargetGear::Initialize()
+{
+
+}
+
+void cAssignTargetGear::Execute()
+{
+
+}
+
+bool cAssignTargetGear::IsFinished()
+{
+    return false;
+}
+
+void cAssignTargetGear::End()
+{
+
+}
+
+void cAssignTargetGear::Interrupted()
+{
+
+}
 
 cAssignTargetGear::~cAssignTargetGear()
 {

@@ -15,6 +15,12 @@ class cDepositGear: public frc::Command
 public:
     cDepositGear();
     virtual ~cDepositGear();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CDEPOSITGEAR_H_ */

@@ -7,7 +7,7 @@ class OI
 private:
 
     Joystick *m_buttons; //this isn't a joystick
-    //its the operating buttons <3
+    //it's the operating buttons <3
 
     Joystick *m_leftStick;
     Joystick *m_rightStick;

@@ -12,6 +12,30 @@ cAcquireBall::cAcquireBall()
     // TODO Auto-generated constructor stub
     
 }
+void cAcquireBall::Initialize()
+{
+
+}
+
+void cAcquireBall::Execute()
+{
+
+}
+
+bool cAcquireBall::IsFinished()
+{
+    return false;
+}
+
+void cAcquireBall::End()
+{
+
+}
+
+void cAcquireBall::Interrupted()
+{
+
+}
 
 cAcquireBall::~cAcquireBall()
 {

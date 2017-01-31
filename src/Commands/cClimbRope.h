@@ -15,6 +15,12 @@ class cClimbRope: public frc::Command
 public:
     cClimbRope();
     virtual ~cClimbRope();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CCLIMBROPE_H_ */

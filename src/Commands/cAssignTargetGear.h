@@ -15,6 +15,12 @@ class cAssignTargetGear: public frc::Command
 public:
     cAssignTargetGear();
     virtual ~cAssignTargetGear();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CASSIGNTARGETGEAR_H_ */

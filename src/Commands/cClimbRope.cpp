@@ -12,6 +12,30 @@ cClimbRope::cClimbRope()
     // TODO Auto-generated constructor stub
     
 }
+void cClimbRope::Initialize()
+{
+
+}
+
+void cClimbRope::Execute()
+{
+
+}
+
+bool cClimbRope::IsFinished()
+{
+    return false;
+}
+
+void cClimbRope::End()
+{
+
+}
+
+void cClimbRope::Interrupted()
+{
+
+}
 
 cClimbRope::~cClimbRope()
 {

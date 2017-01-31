@@ -15,6 +15,12 @@ class cSpinUpShooter: public frc::Command
 public:
     cSpinUpShooter();
     virtual ~cSpinUpShooter();
+
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
 };
 
 #endif /* SRC_COMMANDS_CSPINUPSHOOTER_H_ */
