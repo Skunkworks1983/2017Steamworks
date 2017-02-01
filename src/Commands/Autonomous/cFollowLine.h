@@ -10,7 +10,7 @@
 
 #include <Commands/Command.h>
 
-class cAssignTargetGear: public frc::Command
+class cFollowLine: public frc::Command
 {
 public:
     cFollowLine();

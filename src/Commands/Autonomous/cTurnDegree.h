@@ -23,6 +23,6 @@ public:
     bool IsFinished();
     void End();
     void Interrupted();
-}
+};
 
 #endif /* SRC_COMMANDS_AUTONOMOUS_CTURNDEGREE_H_ */

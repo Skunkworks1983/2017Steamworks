@@ -4,64 +4,69 @@
 #include "Subsystems/cDriveBase.h"
 #include <OI.h>
 #include "Commands/cRunTankDrive.h"
+#include <errno.h>
+#include "RobotMap.h"
+
 class Robot: public IterativeRobot
 {
 private:
-    std::unique_ptr<Command> autonomousCommand;
+    void RobotInit()
+    {
+        CommandBase::s_drivebase = new cDriveBase();
+        CommandBase::s_oi = new OI();
+        CommandBase::s_messenger = new cMessenger(RPI_IP, RPI_PORT);
+    }
 
-	void RobotInit()
-	{
-		CommandBase::s_drivebase = new cDriveBase();
-		CommandBase::s_oi = new OI();
+    void DisabledInit()
+    {
 
-	}
+    }
 
-    /**
-     * This function is called once each time the robot enters Disabled mode.
-     * You can use it to reset any subsystem information you want to clear when
-     * the robot is disabled.
-     */
+    void DisabledPeriodic()
+    {
 
-	void DisabledInit()
-	{
-	}
+    }
 
-	void DisabledPeriodic()
-	{
-	}
+    void AutonomousInit()
+    {
+        CommandBase::s_messenger->m_isPostMatch = true;
+    }
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select between different autonomous modes
-	 * using the dashboard. The sendable chooser code works with the Java SmartDashboard. If you prefer the LabVIEW
-	 * Dashboard, remove all of the chooser code and uncomment the GetString code to get the auto name from the text box
-	 * below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
-	 * or additional comparisons to the if-else structure below with additional strings & commands.
-	 */
-	void AutonomousInit()
-	{
-	}
+    void AutonomousPeriodic()
+    {
+        Scheduler::GetInstance()->Run();
+    }
 
-	void AutonomousPeriodic()
-	{
-		Scheduler::GetInstance()->Run();
-	}
+    void TeleopInit()
+    {
+        CommandBase::s_messenger->m_isPostMatch = true;
 
-	void TeleopInit()
-	{
-		Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
-	}
+        cMessage* msg1 = new cMessage("disabled");
 
-	void TeleopPeriodic()
-	{
-		Scheduler::GetInstance()->Run();
-	}
+        if(CommandBase::s_messenger->m_isPostMatch)
+        {
+            CommandBase::s_messenger->SendMessage(msg1);
+        }
 
-	void TestPeriodic()
-	{
-		LiveWindow::GetInstance()->Run();
-	}
+        delete msg1;
+    }
+
+    void TeleopPeriodic()
+    {
+        Scheduler::GetInstance()->Run();
+
+        std::string msg = CommandBase::s_messenger->ReceiveMessage()->GetMessage();
+
+        if(msg[0] != 0)
+        {
+            std::cout << msg << "\n";
+        }
+    }
+
+    void TestPeriodic()
+    {
+        LiveWindow::GetInstance()->Run();
+    }
 };
 
 START_ROBOT_CLASS(Robot)

@@ -1,6 +1,8 @@
 .cproject
+desktop.ini
+.classpath
 .project
+.settings/
 build.properties
 build.xml
-.settings
 Debug
