@@ -7,9 +7,9 @@
 
 #include <Services/cMessage.h>
 
-cMessage::cMessage(std::string message_)
+cMessage::cMessage(std::string message)
 {
-    message = message_;
+    this->message = message;
 }
 
 cMessage::~cMessage()
@@ -26,6 +26,7 @@ std::string cMessage::PackToSend()
     return message;
 }
 
-std::string cMessage::GetMessage() {
+std::string cMessage::GetMessage()
+{
     return message;
 }

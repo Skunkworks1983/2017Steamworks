@@ -8,11 +8,6 @@
 
 #include <Services/cMessage.h>
 
-#define RPI_IP "10.19.83.24"
-#define RPI_PORT "5555"
-
-#define MSG_LEN 1024
-
 class cMessenger
 {
 private:
@@ -22,12 +17,11 @@ private:
 public:
     bool m_isPostMatch;
 
-    cMessenger(char* server, char* port);
+    cMessenger(const char* server, const char* port);
     ~cMessenger();
 
     void SendMessage(cMessage* message);
     cMessage* ReceiveMessage();
-    std::string* GetMessage();
 };
 
 #endif

@@ -19,12 +19,6 @@ cLogger::~cLogger()
 
 }
 
-// Log a general message to the log
-void cLogger::Log(std::string message)
-{
-
-}
-
 // Log a debug message to the log
 void cLogger::Log_Debug(std::string message)
 {

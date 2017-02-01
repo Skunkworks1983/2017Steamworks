@@ -8,7 +8,7 @@ class cMessage
 private:
     std::string message;
 public:
-    cMessage(std::string message_);
+    cMessage(std::string message);
     ~cMessage();
 
     std::string PackToSend();
