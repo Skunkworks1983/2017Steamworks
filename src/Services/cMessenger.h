@@ -8,8 +8,8 @@
 
 #include <Services/cMessage.h>
 
-#define RPI_IP "10.19.83.217"
-#define RPI_PORT "8888"
+#define RPI_IP "10.19.83.24"
+#define RPI_PORT "5555"
 
 #define MSG_LEN 1024
 

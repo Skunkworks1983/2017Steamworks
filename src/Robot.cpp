@@ -4,6 +4,7 @@
 #include "Subsystems/cDriveBase.h"
 #include <OI.h>
 #include "Commands/cRunTankDrive.h"
+#include "Commands/cPointToBoiler.h"
 #include <errno.h>
 
 class Robot: public IterativeRobot
@@ -29,6 +30,9 @@ private:
 	void AutonomousInit()
 	{
 	    CommandBase::s_messenger->m_isPostMatch = true;
+	    cPointToBoiler* pointing = new cPointToBoiler();
+	    std::cout << "whoa man got here" << std::endl;
+	    Scheduler::GetInstance()->AddCommand(pointing);
 	}
 
 	void AutonomousPeriodic()

@@ -1,13 +1,11 @@
 #include "./cPidUDP.h"
 #include <string>
 #include "../Services/cMessenger.h"
-
-#define RPI_IP "10.19.83.217"
-#define RPI_PORT "8888"
+#include <CommandBase.h>
 
 cPidUDP::cPidUDP()
 {
-	messenger = new cMessenger(RPI_IP, RPI_PORT);
+	messenger = CommandBase::s_messenger;
 }
 
 double cPidUDP::PIDGet()
