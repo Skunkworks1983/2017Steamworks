@@ -1,6 +1,7 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
+#include <Services/cMessenger.h>
 #include <string>
 #include "Commands/Command.h"
 #include "OI.h"
@@ -19,6 +20,7 @@ public:
 	static void init();
 	static cDriveBase *s_drivebase;
 	static OI *s_oi;
+	static cMessenger *s_messenger;
 	};
 
 #endif
