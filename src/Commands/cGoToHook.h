@@ -39,7 +39,7 @@ private:
 	bool isBehindLeftArm = false;
 	bool isToRight = false;
 	bool isToLeft = false;
-	bool goalIsInView = true;
+	bool goalIsInView = true	;
 
 public:
 	cGoToHook();
