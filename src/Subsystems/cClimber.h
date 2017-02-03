@@ -9,8 +9,8 @@
 class cClimber : public Subsystem
 {
 private:
-    cMotor* motor1;
-    cMotor* motor2;
+    cMotor* m_motor1;
+    cMotor* m_motor2;
 
 public:
     cClimber();

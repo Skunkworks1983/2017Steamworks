@@ -1,31 +1,33 @@
 #include "cTurret.h"
 #include <RobotMap.h>
 
-cTurret::cTurret() : Subsystem("cTurret")
+cTurret::cTurret() :
+        Subsystem("cTurret")
 {
-    motor1 = new cMotor(TURRET_MOTOR1_PORT);
+    m_motor1 = new cMotor(TURRET_MOTOR1_PORT);
 }
 
 cTurret::~cTurret()
 {
-    delete motor1;
+    delete m_motor1;
 }
 
-void cTurret::InitDefaultCommand() {
+void cTurret::InitDefaultCommand()
+{
 
 }
 
 void cTurret::setSpeed(float speed)
 {
-    motor1->setOutput(speed);
+    m_motor1->setOutput(speed);
 }
 
-
-void cTurret::setOrientation(float heading) {
+void cTurret::setOrientation(float heading)
+{
 
 }
 
-
-void cTurret::rotate(float degrees) {
+void cTurret::rotate(float degrees)
+{
 
 }
