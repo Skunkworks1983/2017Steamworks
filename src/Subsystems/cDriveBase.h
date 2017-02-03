@@ -14,12 +14,12 @@
 
 class cDriveBase: public Subsystem {
 private:
-	cMotor* leftMotor1;
-	cMotor* leftMotor2;
-	cMotor* leftMotor3;
-	cMotor* rightMotor1;
-	cMotor* rightMotor2;
-	cMotor* rightMotor3;
+	cMotor* m_leftMotor1;
+	cMotor* m_leftMotor2;
+	cMotor* m_leftMotor3;
+	cMotor* m_rightMotor1;
+	cMotor* m_rightMotor2;
+	cMotor* m_rightMotor3;
 
 	public:
 	cDriveBase();

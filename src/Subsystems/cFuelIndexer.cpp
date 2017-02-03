@@ -1,21 +1,23 @@
 #include "cFuelIndexer.h"
 #include <RobotMap.h>
 
-cFuelIndexer::cFuelIndexer() : Subsystem("cFuelIndexer")
+cFuelIndexer::cFuelIndexer() :
+        Subsystem("cFuelIndexer")
 {
-    motor1 = new cMotor(FUELINDEXER_MOTOR1_PORT);
+    m_motor1 = new cMotor(FUELINDEXER_MOTOR1_PORT);
 }
 
 cFuelIndexer::~cFuelIndexer()
 {
-    delete motor1;
+    delete m_motor1;
 }
 
-void cFuelIndexer::InitDefaultCommand() {
+void cFuelIndexer::InitDefaultCommand()
+{
 
 }
 
 void cFuelIndexer::setSpeed(float speed)
 {
-    motor1->setOutput(speed);
+    m_motor1->setOutput(speed);
 }

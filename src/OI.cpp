@@ -22,6 +22,8 @@ OI::OI()
     m_climbRope = new JoystickButton(m_buttons, 3);
     m_spinUpShooter = new JoystickButton(m_buttons, 2);
 
+    m_climbRope->WhenPressed(new cClimbRope());
+
 }
 float OI::getLeftStickY()
 {

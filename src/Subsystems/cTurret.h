@@ -9,7 +9,7 @@
 class cTurret : public Subsystem
 {
 private:
-    cMotor* motor1;
+    cMotor* m_motor1;
 
 public:
     cTurret();

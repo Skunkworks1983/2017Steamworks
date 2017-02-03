@@ -1,24 +1,26 @@
 #include "cClimber.h"
 #include <RobotMap.h>
 
-cClimber::cClimber() : Subsystem("cClimber")
+cClimber::cClimber() :
+        Subsystem("cClimber")
 {
-    motor1 = new cMotor(CLIMBER_MOTOR1_PORT);
-    motor2 = new cMotor(CLIMBER_MOTOR2_PORT);
+    m_motor1 = new cMotor(CLIMBER_MOTOR1_PORT);
+    m_motor2 = new cMotor(CLIMBER_MOTOR2_PORT);
 }
 
 cClimber::~cClimber()
 {
-    delete motor1;
-    delete motor2;
+    delete m_motor1;
+    delete m_motor2;
 }
 
-void cClimber::InitDefaultCommand() {
+void cClimber::InitDefaultCommand()
+{
 
 }
 
 void cClimber::setSpeed(float speed)
 {
-    motor1->setOutput(speed);
-    motor2->setOutput(speed);
+    m_motor1->setOutput(speed);
+    m_motor2->setOutput(speed);
 }

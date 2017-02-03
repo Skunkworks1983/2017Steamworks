@@ -1,24 +1,26 @@
 #include "cShooter.h"
 #include <RobotMap.h>
 
-cShooter::cShooter() : Subsystem("cShooter")
+cShooter::cShooter() :
+        Subsystem("cShooter")
 {
-    motor1 = new cMotor(SHOOTER_MOTOR1_PORT);
-    motor2 = new cMotor(SHOOTER_MOTOR2_PORT);
+    m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT);
+    m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT);
 }
 
 cShooter::~cShooter()
 {
-    delete motor1;
-    delete motor2;
+    delete m_motor1;
+    delete m_motor2;
 }
 
-void cShooter::InitDefaultCommand() {
+void cShooter::InitDefaultCommand()
+{
 
 }
 
 void cShooter::setSpeed(float speed)
 {
-    motor1->setOutput(speed);
-    motor2->setOutput(speed);
+    m_motor1->setOutput(speed);
+    m_motor2->setOutput(speed);
 }
