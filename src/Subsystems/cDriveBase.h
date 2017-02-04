@@ -11,25 +11,34 @@
 #include <Commands/Subsystem.h>
 #include "cMotor.h"
 #include <OI.h>
+#include "Subsystems/cMotorGroup.h"
 
-class cDriveBase: public Subsystem {
+class cDriveBase: public Subsystem
+{
 private:
-	cMotor* m_leftMotor1;
-	cMotor* m_leftMotor2;
-	cMotor* m_leftMotor3;
-	cMotor* m_rightMotor1;
-	cMotor* m_rightMotor2;
-	cMotor* m_rightMotor3;
+    cMotorGroup* m_motorGroupLeft;
+    cMotorGroup* m_motorGroupRight;
+    cMotorGroup* m_motorGroupAll;
+    cMotor* m_leftMotor1;
+    cMotor* m_leftMotor2;
+    cMotor* m_leftMotor3;
+    cMotor* m_rightMotor1;
+    cMotor* m_rightMotor2;
+    cMotor* m_rightMotor3;
 
-	public:
-	cDriveBase();
-	~cDriveBase();
-	void InitDefaultCommand();
-	void resetEncoder();
-	void setLeftSpeed(double speed);
-	void setRightSpeed(double speed);
-	void setBrakeMode(bool brake);
-	void setEnabled(bool enabled);
+public:
+    cDriveBase();
+    ~cDriveBase();
+    void InitDefaultCommand();
+    void resetEncoder();
+    void setLeftSpeed(double speed);
+    void setRightSpeed(double speed);
+    void setBrakeMode(bool brake); //stop dat boi
+    void setEnabled(bool enabled);
+    cMotorGroup* getMotorGroupLeft();
+    cMotorGroup* getMotorGroupRight();
+    cMotorGroup* getMotorGroupAll();
+
 };
 
 #endif /* SRC_SUBSYSTEMS_CDRIVEBASE_H_ */
