@@ -24,3 +24,8 @@ void cShooter::setSpeed(float speed)
     m_motor1->setOutput(speed);
     m_motor2->setOutput(speed);
 }
+
+double cShooter::getSpeed()
+{
+	return 0;
+}
