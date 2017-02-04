@@ -1,4 +1,3 @@
-#include <Commands/cAcquireBall.h>
 #include "OI.h"
 #include "RobotMap.h"
 #include <Commands/cAcquireGear.h>
@@ -6,6 +5,9 @@
 #include <Commands/cDepositGear.h>
 #include <Commands/cShootHigh.h>
 #include <Commands/cSpinUpShooter.h>
+#include <Commands/cRunFuelFlap.h>
+#include <Commands/cRunFuelLoader.h>
+#include <Commands/cRunHopperIntake.h>
 
 OI::OI()
 {
@@ -14,6 +16,7 @@ OI::OI()
     m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
 
+    m_fuelLoader = new JoystickButton(m_buttons, 9);
     m_acquireGear = new JoystickButton(m_buttons, 8);
     m_acquireBall = new JoystickButton(m_buttons, 7);
     m_assignTargetBoiler = new JoystickButton(m_buttons, 6);
@@ -27,6 +30,10 @@ OI::OI()
 
     m_climbRope->WhenPressed(new cClimbRope(1, ROPECLIMB_COMMAND_TIME_ON));
     m_climbRope->WhenReleased(new cClimbRope(0, ROPECLIMB_COMMAND_TIME_OFF));
+
+    m_acquireBall->WhenPressed(new cRunHopperIntake(1, FUELCOLLECTOR_COMMAND_TIME_ON));
+
+    m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
 }
 
 float OI::getLeftStickY()

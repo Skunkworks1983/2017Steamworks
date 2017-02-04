@@ -19,6 +19,8 @@ private:
     JoystickButton *m_shootHigh;
     JoystickButton *m_climbRope;
     JoystickButton *m_spinUpShooter;
+    JoystickButton *m_loadBall;
+    JoystickButton *m_fuelLoader;
 
 public:
     OI();

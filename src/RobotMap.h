@@ -15,7 +15,7 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
-#define RPI_IP "10.19.83.217"
+#define RPI_IP "10.19.83.102"
 #define RPI_PORT "8888"
 
 const int MSG_LEN = 1024;
@@ -45,9 +45,14 @@ const float CLIMBER_MOTOR_DIRECTION = 1;
 
 
 const int FUELCOLLECTOR_MOTOR1_PORT = 10000;
+const int FUELCOLLECTOR_MOTOR2_PORT = 10000;
+
+const int FUELCOLLECTOR_COMMAND_TIME_ON = 5;
 
 
-const int FUELINDEXER_MOTOR1_PORT = 10000;
+const int FUELLOADER_MOTOR1_PORT = 10000;
+
+const int FUELLOADER_COMMAND_TIME_ON = 5;
 
 
 const int TURRET_MOTOR1_PORT = 10000;

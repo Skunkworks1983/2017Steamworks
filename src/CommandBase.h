@@ -9,6 +9,8 @@
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
+#include "Subsystems/cFuelCollector.h"
+#include "Subsystems/cFuelLoader.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -18,14 +20,16 @@
 class CommandBase: public Command
 {
 public:
-	CommandBase(const std::string &name);
-	CommandBase();
-	static void init();
-	static cDriveBase *s_drivebase;
-	static OI *s_oi;
-	static cMessenger *s_messenger;
-	static cClimber * s_climber;
-	static cGearCollector* s_gearCollector;
-	};
+    CommandBase(const std::string &name);
+    CommandBase();
+    static void init();
+    static cDriveBase *s_drivebase;
+    static OI *s_oi;
+    static cMessenger *s_messenger;
+    static cClimber * s_climber;
+    static cGearCollector* s_gearCollector;
+    static cFuelCollector* s_fuelCollector;
+    static cFuelLoader* s_fuelLoader;
+};
 
 #endif
