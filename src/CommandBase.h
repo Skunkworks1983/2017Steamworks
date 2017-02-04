@@ -9,6 +9,7 @@
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
+#include "Subsystems/cShooter.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -26,6 +27,7 @@ public:
 	static cMessenger *s_messenger;
 	static cClimber * s_climber;
 	static cGearCollector* s_gearCollector;
+	static cShooter* s_shooter;
 	};
 
 #endif
