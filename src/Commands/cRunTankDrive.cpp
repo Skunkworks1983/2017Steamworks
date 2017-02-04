@@ -4,7 +4,6 @@
 #include <CommandBase.h>
 cRunTankDrive::cRunTankDrive()
 {
-
     Requires(s_drivebase);
 }
 

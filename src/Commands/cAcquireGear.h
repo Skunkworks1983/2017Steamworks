@@ -12,8 +12,11 @@
 
 class cAcquireGear: public frc::Command
 {
+private:
+    bool m_state;
+
 public:
-    cAcquireGear();
+    cAcquireGear(bool state, float timeout = 0);
     virtual ~cAcquireGear();
 
     void Initialize();
