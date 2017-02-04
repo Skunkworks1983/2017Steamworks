@@ -59,6 +59,5 @@ void cMotor::setEnabled(bool enabled)
 }
 bool cMotor::hasEncoder()
 {
-    //how do ?
-    return true; //or do i return false
+    return m_hasEncoder;
 }

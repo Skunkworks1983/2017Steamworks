@@ -13,7 +13,6 @@ OI::OI()
 
     m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
-    //here comes dat boi ~(. ^ .)~
 
     m_acquireGear = new JoystickButton(m_buttons, 8);
     m_acquireBall = new JoystickButton(m_buttons, 7);
