@@ -34,6 +34,12 @@ const int OI_JOYSTICK_RIGHT_PORT = 0;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
+const int DRIVEBASE_FOOT_PER_TICK = 0.0025;
+
+const float SIMPLEDRIVEFORWARD_PID_P = 1;
+const float SIMPLEDRIVEFORWARD_PID_I = 1;
+const float SIMPLEDRIVEFORWARD_PID_D = 1;
+
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:
 //const int RANGE_FINDER_PORT = 1;

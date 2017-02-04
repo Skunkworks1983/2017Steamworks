@@ -9,13 +9,13 @@
 #include <CANTalon.h>
 #include <RobotMap.h>
 
-cMotor::cMotor(int port) :
-        m_motor(port)
+cMotor::cMotor(int port, bool hasEncoder):m_motor(port) //this is ok
 {
+    m_hasEncoder = hasEncoder;
 }
-
 cMotor::~cMotor()
 {
+
 }
 void cMotor::setBrakeMode(bool brake)
 
@@ -56,4 +56,9 @@ void cMotor::setEnabled(bool enabled)
         m_motor.Disable();
     }
 
+}
+bool cMotor::hasEncoder()
+{
+    //how do ?
+    return true; //or do i return false
 }
