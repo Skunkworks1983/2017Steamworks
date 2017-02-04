@@ -9,14 +9,17 @@
 class cGearCollector: public Subsystem
 {
 private:
-    cMotor* m_motor1;
+    Servo* m_servo1;
 
 public:
     cGearCollector();
     ~cGearCollector();
     void InitDefaultCommand();
 
-    void setSpeed(float speed);
+    void setFlapState(bool isOpen);
+
+    void setServoAngle(float angle);
+    float getServoAngle();
 };
 
 #endif

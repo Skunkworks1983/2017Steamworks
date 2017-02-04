@@ -41,6 +41,8 @@ const int OI_JOYSTICK_OPERATOR_PORT = 2;
 const int CLIMBER_MOTOR1_PORT = 10000;
 const int CLIMBER_MOTOR2_PORT = 10000;
 
+const float CLIMBER_MOTOR_DIRECTION = 1;
+
 
 const int FUELCOLLECTOR_MOTOR1_PORT = 10000;
 
@@ -55,7 +57,13 @@ const int SHOOTER_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR2_PORT = 10000;
 
 
-const int GEARCOLLECTOR_MOTOR1_PORT = 10000;
+const int GEARCOLLECTOR_SERVO1_PORT = 10000;
+
+const int GEARCOLLECTOR_OPEN_ANGLE = 170;
+const int GEARCOLLECTOR_CLOSE_ANGLE = 0;
+
+const float ROPECLIMB_COMMAND_TIME_ON = 30;
+const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:

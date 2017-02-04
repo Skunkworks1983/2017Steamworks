@@ -12,13 +12,15 @@
 
 class cClimbRope: public frc::Command
 {
+private:
+    float m_speed;
+
 public:
-    cClimbRope();
+    cClimbRope(float speed, float timeout);
     virtual ~cClimbRope();
 
     void Initialize();
-    void Execute();
-    bool IsFinished();
+    void Execute();bool IsFinished();
     void End();
     void Interrupted();
 };

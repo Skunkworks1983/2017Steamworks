@@ -5,13 +5,16 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cAcquireGear.h>
+#include "cAcquireGear.h"
+#include <RobotMap.h>
+#include <CommandBase.h>
 
-cAcquireGear::cAcquireGear()
+cAcquireGear::cAcquireGear(bool state, float timeout) : m_state(state)
 {
-    // TODO Auto-generated constructor stub
-    
+    Requires(CommandBase::s_gearCollector);
+    SetTimeout(timeout);
 }
+
 void cAcquireGear::Initialize()
 {
 
@@ -19,7 +22,7 @@ void cAcquireGear::Initialize()
 
 void cAcquireGear::Execute()
 {
-
+    CommandBase::s_gearCollector->setFlapState(m_state);
 }
 
 bool cAcquireGear::IsFinished()
@@ -34,11 +37,11 @@ void cAcquireGear::End()
 
 void cAcquireGear::Interrupted()
 {
-
+    End();
 }
 
 cAcquireGear::~cAcquireGear()
 {
-    // TODO Auto-generated destructor stub
+
 }
 
