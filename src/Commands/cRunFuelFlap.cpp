@@ -15,31 +15,30 @@ cRunFuelFlap::cRunFuelFlap(float speed, float timeout) :
     SetTimeout(timeout);
 }
 
-
-void cRunFuelFlap::Initialize() {
+void cRunFuelFlap::Initialize()
+{
 
 }
 
-
-void cRunFuelFlap::Execute() {
+void cRunFuelFlap::Execute()
+{
     CommandBase::s_fuelCollector->setCollectorFlapSpeed(m_speed);
 }
 
-
-bool cRunFuelFlap::IsFinished() {
+bool cRunFuelFlap::IsFinished()
+{
     return false;
 }
 
-
-void cRunFuelFlap::End() {
+void cRunFuelFlap::End()
+{
 
 }
 
-
-void cRunFuelFlap::Interrupted() {
+void cRunFuelFlap::Interrupted()
+{
     End();
 }
-
 
 cRunFuelFlap::~cRunFuelFlap()
 {

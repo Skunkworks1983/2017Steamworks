@@ -8,36 +8,37 @@
 #include <CommandBase.h>
 #include <Commands/cRunFuelLoader.h>
 
-cRunFuelLoader::cRunFuelLoader(float speed, float timeout) : m_speed(speed)
+cRunFuelLoader::cRunFuelLoader(float speed, float timeout) :
+        m_speed(speed)
 {
     // TODO Auto-generated constructor stub
     SetTimeout(timeout);
 }
 
-void cRunFuelLoader::Initialize() {
+void cRunFuelLoader::Initialize()
+{
 
 }
 
-
-void cRunFuelLoader::Execute() {
+void cRunFuelLoader::Execute()
+{
     CommandBase::s_fuelLoader->setSpeed(m_speed);
 }
 
-
-bool cRunFuelLoader::IsFinished() {
+bool cRunFuelLoader::IsFinished()
+{
     return false;
 }
 
-
-void cRunFuelLoader::End() {
+void cRunFuelLoader::End()
+{
 
 }
 
-
-void cRunFuelLoader::Interrupted() {
+void cRunFuelLoader::Interrupted()
+{
     End();
 }
-
 
 cRunFuelLoader::~cRunFuelLoader()
 {
