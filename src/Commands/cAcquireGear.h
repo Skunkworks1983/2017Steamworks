@@ -13,10 +13,10 @@
 class cAcquireGear: public frc::Command
 {
 private:
-    float m_desiredAngle;
+    bool m_state;
 
 public:
-    cAcquireGear(float position, float timeout = 0);
+    cAcquireGear(bool state, float timeout = 0);
     virtual ~cAcquireGear();
 
     void Initialize();

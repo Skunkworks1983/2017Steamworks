@@ -17,7 +17,17 @@ void cGearCollector::InitDefaultCommand()
 
 }
 
-
-void cGearCollector::setServoAngle(float angle) {
+void cGearCollector::setServoAngle(float angle)
+{
     m_servo1->SetAngle(angle);
+}
+
+float cGearCollector::getServoAngle()
+{
+    return m_servo1->GetAngle();
+}
+
+void cGearCollector::setState(bool state)
+{
+    m_servo1->SetAngle(state ? GEARCOLLECTOR_OPEN_ANGLE : GEARCOLLECTOR_CLOSE_ANGLE);
 }

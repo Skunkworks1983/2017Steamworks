@@ -20,8 +20,7 @@ public:
     virtual ~cClimbRope();
 
     void Initialize();
-    void Execute();
-    bool IsFinished();
+    void Execute();bool IsFinished();
     void End();
     void Interrupted();
 };

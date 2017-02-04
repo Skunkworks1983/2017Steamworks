@@ -5,11 +5,12 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cClimbRope.h>
+#include "cClimbRope.h"
 #include <CommandBase.h>
 #include <RobotMap.h>
 
-cClimbRope::cClimbRope(float speed, float timeout) : m_speed(speed)
+cClimbRope::cClimbRope(float speed, float timeout) :
+        m_speed(speed)
 {
     Requires(CommandBase::s_climber);
     SetTimeout(timeout);

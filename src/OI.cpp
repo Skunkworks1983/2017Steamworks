@@ -22,8 +22,8 @@ OI::OI()
     m_climbRope = new JoystickButton(m_buttons, 3);
     m_spinUpShooter = new JoystickButton(m_buttons, 2);
 
-    m_acquireGear->WhenPressed(new cAcquireGear(GEARCOLLECTOR_OPEN_ANGLE, 1));
-    m_acquireGear->WhenReleased(new cAcquireGear(GEARCOLLECTOR_CLOSE_ANGLE, 1));
+    m_acquireGear->WhenPressed(new cAcquireGear(true, 1));
+    m_acquireGear->WhenReleased(new cAcquireGear(false, 1));
 
     m_climbRope->WhenPressed(new cClimbRope(1, ACQUIREGEAR_COMMAND_TIME_ON));
     m_climbRope->WhenReleased(new cClimbRope(0, ACQUIREGEAR_COMMAND_TIME_OFF));

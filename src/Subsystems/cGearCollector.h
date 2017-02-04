@@ -16,7 +16,10 @@ public:
     ~cGearCollector();
     void InitDefaultCommand();
 
+    void setState(bool state);
+
     void setServoAngle(float angle);
+    float getServoAngle();
 };
 
 #endif

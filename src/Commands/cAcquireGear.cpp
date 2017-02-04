@@ -5,11 +5,11 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cAcquireGear.h>
+#include "cAcquireGear.h"
 #include <RobotMap.h>
 #include <CommandBase.h>
 
-cAcquireGear::cAcquireGear(float position, float timeout) : m_desiredAngle(position)
+cAcquireGear::cAcquireGear(bool state, float timeout) : m_state(state)
 {
     Requires(CommandBase::s_gearcollector);
     SetTimeout(timeout);
@@ -22,7 +22,7 @@ void cAcquireGear::Initialize()
 
 void cAcquireGear::Execute()
 {
-    CommandBase::s_gearcollector->setServoAngle(m_desiredAngle);
+    CommandBase::s_gearcollector->setState(m_state);
 }
 
 bool cAcquireGear::IsFinished()
