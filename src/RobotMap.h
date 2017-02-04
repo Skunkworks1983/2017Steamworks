@@ -62,8 +62,8 @@ const int GEARCOLLECTOR_SERVO1_PORT = 10000;
 const int GEARCOLLECTOR_OPEN_ANGLE = 170;
 const int GEARCOLLECTOR_CLOSE_ANGLE = 0;
 
-const float ACQUIREGEAR_COMMAND_TIME_ON = 30;
-const float ACQUIREGEAR_COMMAND_TIME_OFF = 1;
+const float ROPECLIMB_COMMAND_TIME_ON = 30;
+const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:

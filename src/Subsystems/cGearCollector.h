@@ -16,7 +16,7 @@ public:
     ~cGearCollector();
     void InitDefaultCommand();
 
-    void setState(bool state);
+    void setFlapState(bool isOpen);
 
     void setServoAngle(float angle);
     float getServoAngle();

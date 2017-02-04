@@ -27,7 +27,7 @@ float cGearCollector::getServoAngle()
     return m_servo1->GetAngle();
 }
 
-void cGearCollector::setState(bool state)
+void cGearCollector::setFlapState(bool isOpen)
 {
-    m_servo1->SetAngle(state ? GEARCOLLECTOR_OPEN_ANGLE : GEARCOLLECTOR_CLOSE_ANGLE);
+    m_servo1->SetAngle(isOpen ? GEARCOLLECTOR_OPEN_ANGLE : GEARCOLLECTOR_CLOSE_ANGLE);
 }

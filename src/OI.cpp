@@ -25,8 +25,8 @@ OI::OI()
     m_acquireGear->WhenPressed(new cAcquireGear(true, 1));
     m_acquireGear->WhenReleased(new cAcquireGear(false, 1));
 
-    m_climbRope->WhenPressed(new cClimbRope(1, ACQUIREGEAR_COMMAND_TIME_ON));
-    m_climbRope->WhenReleased(new cClimbRope(0, ACQUIREGEAR_COMMAND_TIME_OFF));
+    m_climbRope->WhenPressed(new cClimbRope(1, ROPECLIMB_COMMAND_TIME_ON));
+    m_climbRope->WhenReleased(new cClimbRope(0, ROPECLIMB_COMMAND_TIME_OFF));
 }
 
 float OI::getLeftStickY()

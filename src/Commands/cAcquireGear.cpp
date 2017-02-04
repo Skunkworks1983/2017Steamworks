@@ -11,7 +11,7 @@
 
 cAcquireGear::cAcquireGear(bool state, float timeout) : m_state(state)
 {
-    Requires(CommandBase::s_gearcollector);
+    Requires(CommandBase::s_gearCollector);
     SetTimeout(timeout);
 }
 
@@ -22,7 +22,7 @@ void cAcquireGear::Initialize()
 
 void cAcquireGear::Execute()
 {
-    CommandBase::s_gearcollector->setState(m_state);
+    CommandBase::s_gearCollector->setFlapState(m_state);
 }
 
 bool cAcquireGear::IsFinished()

@@ -25,7 +25,7 @@ public:
 	static OI *s_oi;
 	static cMessenger *s_messenger;
 	static cClimber * s_climber;
-	static cGearCollector* s_gearcollector;
+	static cGearCollector* s_gearCollector;
 	};
 
 #endif

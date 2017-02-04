@@ -7,7 +7,7 @@ cDriveBase* CommandBase::s_drivebase = NULL;
 cClimber* CommandBase::s_climber = NULL;
 OI* CommandBase::s_oi = NULL;
 cMessenger* CommandBase::s_messenger = NULL;
-cGearCollector* CommandBase::s_gearcollector = NULL;
+cGearCollector* CommandBase::s_gearCollector = NULL;
 
 CommandBase::CommandBase(const std::string &name) :
         Command(name)
