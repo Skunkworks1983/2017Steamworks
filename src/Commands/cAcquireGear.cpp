@@ -6,12 +6,15 @@
  */
 
 #include <Commands/cAcquireGear.h>
+#include <RobotMap.h>
+#include <CommandBase.h>
 
-cAcquireGear::cAcquireGear()
+cAcquireGear::cAcquireGear(float position, float timeout) : m_desiredAngle(position)
 {
-    // TODO Auto-generated constructor stub
-    
+    Requires(CommandBase::s_gearcollector);
+    SetTimeout(timeout);
 }
+
 void cAcquireGear::Initialize()
 {
 
@@ -19,7 +22,7 @@ void cAcquireGear::Initialize()
 
 void cAcquireGear::Execute()
 {
-
+    CommandBase::s_gearcollector->setServoAngle(m_desiredAngle);
 }
 
 bool cAcquireGear::IsFinished()
@@ -34,11 +37,11 @@ void cAcquireGear::End()
 
 void cAcquireGear::Interrupted()
 {
-
+    End();
 }
 
 cAcquireGear::~cAcquireGear()
 {
-    // TODO Auto-generated destructor stub
+
 }
 

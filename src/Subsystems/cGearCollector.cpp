@@ -4,12 +4,12 @@
 cGearCollector::cGearCollector() :
         Subsystem("cGearCollector")
 {
-    m_motor1 = new cMotor(GEARCOLLECTOR_MOTOR1_PORT);
+    m_servo1 = new Servo(GEARCOLLECTOR_SERVO1_PORT);
 }
 
 cGearCollector::~cGearCollector()
 {
-    delete m_motor1;
+    delete m_servo1;
 }
 
 void cGearCollector::InitDefaultCommand()
@@ -17,7 +17,7 @@ void cGearCollector::InitDefaultCommand()
 
 }
 
-void cGearCollector::setSpeed(float speed)
-{
-    m_motor1->setOutput(speed);
+
+void cGearCollector::setServoAngle(float angle) {
+    m_servo1->SetAngle(angle);
 }

@@ -7,6 +7,9 @@
 #include "OI.h"
 #include "WPILib.h"
 #include "Subsystems/cDriveBase.h"
+#include "Subsystems/cClimber.h"
+#include "Subsystems/cGearCollector.h"
+
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a
@@ -21,6 +24,8 @@ public:
 	static cDriveBase *s_drivebase;
 	static OI *s_oi;
 	static cMessenger *s_messenger;
+	static cClimber * s_climber;
+	static cGearCollector* s_gearcollector;
 	};
 
 #endif

@@ -6,12 +6,15 @@
  */
 
 #include <Commands/cClimbRope.h>
+#include <CommandBase.h>
+#include <RobotMap.h>
 
-cClimbRope::cClimbRope()
+cClimbRope::cClimbRope(float speed, float timeout) : m_speed(speed)
 {
-    // TODO Auto-generated constructor stub
-    
+    Requires(CommandBase::s_climber);
+    SetTimeout(timeout);
 }
+
 void cClimbRope::Initialize()
 {
 
@@ -19,7 +22,7 @@ void cClimbRope::Initialize()
 
 void cClimbRope::Execute()
 {
-
+    CommandBase::s_climber->setSpeed(m_speed);
 }
 
 bool cClimbRope::IsFinished()
@@ -29,12 +32,12 @@ bool cClimbRope::IsFinished()
 
 void cClimbRope::End()
 {
-
+    CommandBase::s_climber->setSpeed(0);
 }
 
 void cClimbRope::Interrupted()
 {
-
+    End();
 }
 
 cClimbRope::~cClimbRope()
