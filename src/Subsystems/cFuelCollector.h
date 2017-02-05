@@ -9,19 +9,20 @@
 #define SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_
 
 #include <Commands/Subsystem.h>
+#include "WPILib.h"
 #include "cMotor.h"
 
 class cFuelCollector: public frc::Subsystem
 {
 private:
     cMotor* m_hopperMotor;
-    cMotor* m_collectorFlapMotor;
+    Servo* m_collectorFlapServo;
 
 public:
     cFuelCollector();
     virtual ~cFuelCollector();
 
-    void setCollectorFlapSpeed(float speed);
+    void setCollectorFlapAngle(float angle);
     void setHopperDrumSpeed(float speed);
 };
 

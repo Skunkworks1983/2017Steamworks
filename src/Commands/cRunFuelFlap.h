@@ -9,19 +9,19 @@
 #define SRC_COMMANDS_CRUNFUELFLAP_H_
 
 #include <Commands/Command.h>
+#include <RobotMap.h>
 
 class cRunFuelFlap: public frc::Command
 {
 private:
-    float m_speed;
+    FuelCollectorPosition m_position;
 
 public:
-    cRunFuelFlap(float speed, float timeout);
+    cRunFuelFlap(FuelCollectorPosition position, float timeout);
     virtual ~cRunFuelFlap();
 
     void Initialize();
-    void Execute();
-    bool IsFinished();
+    void Execute();bool IsFinished();
     void End();
     void Interrupted();
 };

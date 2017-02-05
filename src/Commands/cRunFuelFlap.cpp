@@ -7,9 +7,10 @@
 
 #include <Commands/cRunFuelFlap.h>
 #include <CommandBase.h>
+#include <RobotMap.h>
 
-cRunFuelFlap::cRunFuelFlap(float speed, float timeout) :
-        m_speed(speed)
+cRunFuelFlap::cRunFuelFlap(FuelCollectorPosition position, float timeout) :
+        m_position(position)
 {
     // TODO Auto-generated constructor stub
     SetTimeout(timeout);
@@ -22,7 +23,7 @@ void cRunFuelFlap::Initialize()
 
 void cRunFuelFlap::Execute()
 {
-    CommandBase::s_fuelCollector->setCollectorFlapSpeed(m_speed);
+    CommandBase::s_fuelCollector->setCollectorFlapAngle(m_position);
 }
 
 bool cRunFuelFlap::IsFinished()

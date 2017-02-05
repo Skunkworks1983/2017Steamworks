@@ -13,12 +13,12 @@ cFuelCollector::cFuelCollector() :
 {
     // TODO Auto-generated constructor stub
     m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT);
-    m_collectorFlapMotor = new cMotor(FUELCOLLECTOR_MOTOR2_PORT);
+    m_collectorFlapServo = new Servo(FUELCOLLECTOR_MOTOR2_PORT);
 }
 
-void cFuelCollector::setCollectorFlapSpeed(float speed)
+void cFuelCollector::setCollectorFlapAngle(float angle)
 {
-    m_collectorFlapMotor->setOutput(speed);
+    m_collectorFlapServo->SetAngle(angle);
 }
 
 void cFuelCollector::setHopperDrumSpeed(float speed)
@@ -30,6 +30,6 @@ cFuelCollector::~cFuelCollector()
 {
     // TODO Auto-generated destructor stub
     delete m_hopperMotor;
-    delete m_collectorFlapMotor;
+    delete m_collectorFlapServo;
 }
 
