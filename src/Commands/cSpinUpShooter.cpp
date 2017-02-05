@@ -6,6 +6,9 @@
  */
 
 #include <Commands/cSpinUpShooter.h>
+#include "Subsystems/cShooter.h"
+#include "RobotMap.h"
+#include "CommandBase.h"
 
 cSpinUpShooter::cSpinUpShooter()
 {
@@ -19,7 +22,16 @@ void cSpinUpShooter::Initialize()
 
 void cSpinUpShooter::Execute()
 {
-
+	cShooter* shooter = CommandBase::s_shooter;
+	double speed = shooter->getSpeed();
+	if(speed < SHOOTER_TARGET_SPEED)
+	{
+		shooter->setSpeed(1);
+	}
+	else
+	{
+		shooter->setSpeed(0);
+	}
 }
 
 bool cSpinUpShooter::IsFinished()
@@ -29,12 +41,12 @@ bool cSpinUpShooter::IsFinished()
 
 void cSpinUpShooter::End()
 {
-
+	CommandBase::s_shooter->setSpeed(0);
 }
 
 void cSpinUpShooter::Interrupted()
 {
-
+	End();
 }
 
 cSpinUpShooter::~cSpinUpShooter()

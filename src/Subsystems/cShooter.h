@@ -18,6 +18,7 @@ public:
     void InitDefaultCommand();
 
     void setSpeed(float speed);
+    double getSpeed();
 };
 
 #endif
