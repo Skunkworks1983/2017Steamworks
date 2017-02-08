@@ -5,7 +5,8 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cAssignTargetGear.h>
+#include <RobotMap.h>
+#include "cAssignTargetGear.h"
 
 cAssignTargetGear::cAssignTargetGear()
 {
@@ -14,7 +15,7 @@ cAssignTargetGear::cAssignTargetGear()
 }
 void cAssignTargetGear::Initialize()
 {
-
+    LOG_INFO("starting cAssignTargetGear");
 }
 
 void cAssignTargetGear::Execute()
@@ -29,12 +30,13 @@ bool cAssignTargetGear::IsFinished()
 
 void cAssignTargetGear::End()
 {
-
+    LOG_INFO("ending cAssignTargetGear");
 }
 
 void cAssignTargetGear::Interrupted()
 {
-
+    LOG_INFO("interrupted cAssignTargetGear");
+    End();
 }
 
 cAssignTargetGear::~cAssignTargetGear()

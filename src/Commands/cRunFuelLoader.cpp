@@ -6,6 +6,7 @@
  */
 
 #include <CommandBase.h>
+#include <RobotMap.h>
 #include <Commands/cRunFuelLoader.h>
 
 cRunFuelLoader::cRunFuelLoader(float speed, float timeout) :
@@ -17,7 +18,7 @@ cRunFuelLoader::cRunFuelLoader(float speed, float timeout) :
 
 void cRunFuelLoader::Initialize()
 {
-
+    LOG_INFO("starting cRunFuelLoader");
 }
 
 void cRunFuelLoader::Execute()
@@ -32,11 +33,12 @@ bool cRunFuelLoader::IsFinished()
 
 void cRunFuelLoader::End()
 {
-
+    LOG_INFO("ending cRunFuelLoader");
 }
 
 void cRunFuelLoader::Interrupted()
 {
+    LOG_INFO("interrupted cRunFuelLoader");
     End();
 }
 

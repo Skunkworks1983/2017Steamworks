@@ -5,7 +5,8 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cAssignTargetBoiler.h>
+#include <RobotMap.h>
+#include "cAssignTargetBoiler.h"
 
 cAssignTargetBoiler::cAssignTargetBoiler()
 {
@@ -14,7 +15,7 @@ cAssignTargetBoiler::cAssignTargetBoiler()
 }
 void cAssignTargetBoiler::Initialize()
 {
-
+    LOG_INFO("starting cAssignTargetBoiler");
 }
 
 void cAssignTargetBoiler::Execute()
@@ -29,12 +30,13 @@ bool cAssignTargetBoiler::IsFinished()
 
 void cAssignTargetBoiler::End()
 {
-
+    LOG_INFO("ending cAssignTargetBoiler");
 }
 
 void cAssignTargetBoiler::Interrupted()
 {
-
+    LOG_INFO("interrupted cAssignTargetBoiler");
+    End();
 }
 
 cAssignTargetBoiler::~cAssignTargetBoiler()

@@ -18,7 +18,7 @@ cRunFuelFlap::cRunFuelFlap(FuelCollectorPosition position, float timeout) :
 
 void cRunFuelFlap::Initialize()
 {
-
+    LOG_INFO("starting cRunFuelFlap");
 }
 
 void cRunFuelFlap::Execute()
@@ -33,11 +33,12 @@ bool cRunFuelFlap::IsFinished()
 
 void cRunFuelFlap::End()
 {
-
+    LOG_INFO("ending cRunFuelFlap");
 }
 
 void cRunFuelFlap::Interrupted()
 {
+    LOG_INFO("interrupted cRunFuelFlap");
     End();
 }
 

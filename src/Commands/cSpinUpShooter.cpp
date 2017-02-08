@@ -6,6 +6,7 @@
  */
 
 #include <Commands/cSpinUpShooter.h>
+#include <RobotMap.h>
 
 cSpinUpShooter::cSpinUpShooter()
 {
@@ -14,7 +15,7 @@ cSpinUpShooter::cSpinUpShooter()
 }
 void cSpinUpShooter::Initialize()
 {
-
+    LOG_INFO("starting cSpinUpShooter");
 }
 
 void cSpinUpShooter::Execute()
@@ -29,12 +30,12 @@ bool cSpinUpShooter::IsFinished()
 
 void cSpinUpShooter::End()
 {
-
+    LOG_INFO("ending cSpinUpShooter");
 }
 
 void cSpinUpShooter::Interrupted()
 {
-
+    LOG_INFO("interrupted cSpinUpShooter");
 }
 
 cSpinUpShooter::~cSpinUpShooter()

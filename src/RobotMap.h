@@ -15,11 +15,13 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
+#define ROBOT_NAME "lol"
+#define LOGFILE_NAME "/U/robotLog"
+
 enum FuelCollectorPosition {
     UP = 90,
     DOWN = 0
 };
-
 
 #define RPI_IP "10.19.83.102"
 #define RPI_PORT "8888"
@@ -67,6 +69,35 @@ const int GEARCOLLECTOR_CLOSE_ANGLE = 0;
 
 const float ROPECLIMB_COMMAND_TIME_ON = 30;
 const float ROPECLIMB_COMMAND_TIME_OFF = 1;
+
+
+
+#include <Services/cLogger.h>
+
+#define LOG_DEBUG(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Debug);}
+
+#define LOG_INFO(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Info);}
+
+#define LOG_WARNING(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Warning);}
+
+#define LOG_ERROR(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Error);}
+
+#define LOG_RECORD(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Record);}
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:

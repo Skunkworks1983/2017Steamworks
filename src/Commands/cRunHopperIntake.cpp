@@ -7,6 +7,7 @@
 
 #include <Commands/cRunHopperIntake.h>
 #include <CommandBase.h>
+#include <RobotMap.h>
 
 cRunHopperIntake::cRunHopperIntake(float speed, float timeout) :
         m_speed(speed)
@@ -17,7 +18,7 @@ cRunHopperIntake::cRunHopperIntake(float speed, float timeout) :
 
 void cRunHopperIntake::Initialize()
 {
-
+    LOG_INFO("starting cRunHopperIntake");
 }
 
 void cRunHopperIntake::Execute()
@@ -32,11 +33,12 @@ bool cRunHopperIntake::IsFinished()
 
 void cRunHopperIntake::End()
 {
-
+    LOG_INFO("ending cRunHopperIntake");
 }
 
 void cRunHopperIntake::Interrupted()
 {
+    LOG_INFO("interrupted cRunHopperIntake");
     End();
 }
 

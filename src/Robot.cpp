@@ -13,6 +13,8 @@ class Robot: public IterativeRobot
 private:
     void RobotInit()
     {
+        LOG_INFO("RobotInit called");
+
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
         CommandBase::s_climber = new cClimber();
@@ -21,7 +23,7 @@ private:
 
     void DisabledInit()
     {
-
+        LOG_INFO("DisabledInit called");
     }
 
     void DisabledPeriodic()
@@ -31,6 +33,7 @@ private:
 
     void AutonomousInit()
     {
+        LOG_INFO("AutonomousInit called");
         CommandBase::s_messenger->m_isPostMatch = true;
     }
 
@@ -41,6 +44,7 @@ private:
 
     void TeleopInit()
     {
+        LOG_INFO("TeleopInit called");
         CommandBase::s_messenger->m_isPostMatch = true;
 
         cMessage* msg1 = new cMessage("disabled");
