@@ -6,14 +6,20 @@
  */
 #include "AutoBase.h"
 
-AutoBase::AutoBase()
-{
+
+double AutoBase::angleTapeRobotPivotPoint = 0;
+double AutoBase::distanceToPivotPoint = 0;
+double AutoBase::angleRobotPivotPointGoal = 0;
+
+AutoBase::AutoBase() {
 
 }
 
-AutoBase::~AutoBase()
-{
+AutoBase::~AutoBase() {
 
 }
+
+
+
 
 
