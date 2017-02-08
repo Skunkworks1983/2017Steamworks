@@ -41,9 +41,6 @@ public:
 
 
 
-#endif /* SRC_SUBSYSTEMS_TRAJECTORY_H_ */
-
-
 
 
 #endif /* SRC_SUBSYSTEMS_CTARGETINGCOMPUTER_H_ */

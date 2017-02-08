@@ -7,14 +7,23 @@
 
 #ifndef SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
+#include <RobotMap.h>
+
 
 class AutoBase
 {
 private:
 
+
+
+
 public:
+	static double angleTapeRobotPivotPoint;
+	static double distanceToPivotPoint;
+	static double angleRobotPivotPointGoal;
     AutoBase();
     ~AutoBase();
+
 //TODO REQUIRES
     //gyro code (navx, ahrs?)
     //gear mechanism
