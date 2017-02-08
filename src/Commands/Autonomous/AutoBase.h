@@ -14,7 +14,7 @@ class AutoBase
 {
 private:
 
-
+    CommandGroup placeGear = new CommandGroup;
 
 
 public:

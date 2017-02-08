@@ -93,5 +93,4 @@ const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 #define angleGoalPivotPointTape ((45 * 3.14)/180) // surrogate for a real value
 #define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 1234 //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
 
-
 #endif
