@@ -9,7 +9,8 @@
 #include <CANTalon.h>
 #include <RobotMap.h>
 
-cMotor::cMotor(int port, bool hasEncoder):m_motor(port) //this is ok
+cMotor::cMotor(int port, MotorType motorType, bool hasEncoder) :
+        m_motor(port) //this is ok
 {
     m_hasEncoder = hasEncoder;
 }
@@ -32,11 +33,35 @@ void cMotor::setBrakeMode(bool brake)
 }
 void cMotor::setOutput(float output)
 {
+    switch(m_motorType)
+    {
+    case BaneBots775:
+        if(m_motor.GetOutputCurrent() >= BANEBOTS775_STALLING_CURRENT)
+        {
+            m_motor.Set(0);
+            return;
+        }
+        break;
+    case NeveRest40:
+        if(m_motor.GetOutputCurrent() >= NEVEREST40_STALLING_CURRENT)
+        {
+            m_motor.Set(0);
+            return;
+        }
+        break;
+    case CIM:
+        if(m_motor.GetOutputCurrent() >= CIM_STALLING_CURRENT)
+        {
+            m_motor.Set(0);
+            return;
+        }
+        break;
+    }
     m_motor.Set(output);
 }
 void cMotor::PIDWrite(double output)
 {
-    m_motor.Set(output);
+    setOutput(output);
 }
 double cMotor::PIDGet()
 {
