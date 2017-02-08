@@ -17,7 +17,7 @@ cTurnDegree::cTurnDegree(double targetAngle)
 
 void cTurnDegree::Initialize()
 {
-    //driveBase->setTargetAngle(targetAngle);
+    //AutoBase->setTargetAngle(targetAngle);
     //TODO gotta make that setTargetAngle class
 
 }

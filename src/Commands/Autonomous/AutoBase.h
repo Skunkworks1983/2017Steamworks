@@ -23,7 +23,13 @@ public:
 	static double angleRobotPivotPointGoal;
     AutoBase();
     ~AutoBase();
-
+    void Initialize();
+    void Execute();
+    bool IsFinished();
+    void End();
+    void Interrupted();
+    float setTargetAngle();
+    float setDistance();
 //TODO REQUIRES
     //gyro code (navx, ahrs?)
     //gear mechanism

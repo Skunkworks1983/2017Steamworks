@@ -2,6 +2,7 @@
 #include "Commands/Command.h"
 #include "CommandBase.h"
 #include "Subsystems/cDriveBase.h"
+#include "Subsystems/cClimber.h"
 #include <OI.h>
 #include "Commands/cRunTankDrive.h"
 #include <errno.h>
@@ -14,6 +15,7 @@ private:
     {
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
+        CommandBase::s_climber = new cClimber();
         CommandBase::s_messenger = new cMessenger(RPI_IP, RPI_PORT);
     }
 
