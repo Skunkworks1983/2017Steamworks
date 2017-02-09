@@ -1,12 +1,12 @@
-#include <Commands/cAcquireBall.h>
+#include <Commands/Shooter/cAcquireBall.h>
 #include "OI.h"
 #include "RobotMap.h"
-#include <Commands/cAcquireGear.h>
-#include <Commands/cClimbRope.h>
-#include <Commands/cDepositGear.h>
-#include <Commands/cShootHigh.h>
-#include <Commands/cSpinUpShooter.h>
-#include <Commands/cRotateTurret.h>
+#include <Commands/GearMechanism/cAcquireGear.h>
+#include <Commands/Climber/cClimbRope.h>
+#include <Commands/GearMechanism/cDepositGear.h>
+#include <Commands/Shooter/cShootHigh.h>
+#include <Commands/Shooter/cSpinUpShooter.h>
+#include <Commands/Turret/cRotateTurret.h>
 
 OI::OI()
 {
