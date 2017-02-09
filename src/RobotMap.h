@@ -93,4 +93,20 @@ const float CIM_STALLING_CURRENT = 133;
 //const int RANGE_FINDER_PORT = 1;
 //const int RANGE_FINDER_MODULE = 1;
 
+//AUTONOMOUS THINGS
+
+//SPECIFICALLY GEAR PLACEMENT THINGS
+#define ARM_ANGLE ((70*3.14)/180) // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
+#define DISTANCE_TO_RECOVERY_POINT 5 //placeholder! In feet, apparently
+/* the commented out values below are because they pertain to the path if the robot is outside of the arms, an unlikely scenario.
+#define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
+#define anglePerpindicularGoalPivotPoint ((70*3.14)/180)
+#define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
+#define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
+ */
+#define angleWallTapePivotPoint ((100 * 3.14)/180) //can you guess what im going to say here?
+#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT 1.5 // ibid.
+#define angleGoalPivotPointTape ((45 * 3.14)/180) // surrogate for a real value
+#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 1234 //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
+
 #endif
