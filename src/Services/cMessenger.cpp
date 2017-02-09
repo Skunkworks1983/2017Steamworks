@@ -62,6 +62,7 @@ void cMessenger::SendMessage(cMessage* message)
 }
 
 // Remember to delete return value
+// ^^make comment more descriptive
 cMessage* cMessenger::ReceiveMessage()
 {
     char message_buffer[MSG_LEN];

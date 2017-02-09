@@ -22,7 +22,7 @@ public:
     cMessenger(const char* server, const char* port);
     ~cMessenger();
 
-    void SendMessage(cMessage* message);
+    void SendMessage(cMessage* message); //Go to camel case on functions
     cMessage* ReceiveMessage();
 };
 
