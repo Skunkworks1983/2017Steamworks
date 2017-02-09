@@ -11,6 +11,7 @@
 #include "Subsystems/cGearCollector.h"
 #include "Subsystems/cFuelCollector.h"
 #include "Subsystems/cFuelLoader.h"
+#include "Subsystems/cShooter.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -30,6 +31,7 @@ public:
     static cGearCollector* s_gearCollector;
     static cFuelCollector* s_fuelCollector;
     static cFuelLoader* s_fuelLoader;
+    static cShooter* s_shooter;
 };
 
 #endif

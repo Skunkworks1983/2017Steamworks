@@ -11,6 +11,7 @@ cMessenger* CommandBase::s_messenger = NULL;
 cGearCollector* CommandBase::s_gearCollector = NULL;
 cFuelCollector* CommandBase::s_fuelCollector = NULL;
 cFuelLoader* CommandBase::s_fuelLoader = NULL;
+cShooter* CommandBase::s_shooter = NULL;
 
 CommandBase::CommandBase(const std::string &name) :
         Command(name)

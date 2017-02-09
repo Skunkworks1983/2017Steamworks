@@ -9,6 +9,7 @@
 #include "cMotor.h"
 #include <Subsystems/cDriveBase.h>
 #include "Commands/cRunTankDrive.h"
+#include "Subsystems/cMotorGroup.h"
 cDriveBase::cDriveBase() :
         Subsystem("cDriveBase")
 {
@@ -19,6 +20,25 @@ cDriveBase::cDriveBase() :
     m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT);
     m_rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT);
     m_rightMotor3 = new cMotor(DRIVEBASE_RIGHTMOTOR_3_PORT);
+
+    std::vector<iMotor*> leftMotors;
+    leftMotors.push_back(m_leftMotor1);
+    leftMotors.push_back(m_leftMotor2);
+    leftMotors.push_back(m_leftMotor3);
+
+    std::vector<iMotor*> rightMotors;
+    rightMotors.push_back(m_rightMotor1);
+    rightMotors.push_back(m_rightMotor2);
+    rightMotors.push_back(m_rightMotor3);
+
+    m_motorGroupLeft = new cMotorGroup(leftMotors);
+    m_motorGroupRight = new cMotorGroup(rightMotors);
+
+    std::vector<iMotor*> allMotors;
+    allMotors.push_back(m_motorGroupLeft);
+    allMotors.push_back(m_motorGroupRight);
+
+    m_motorGroupAll = new cMotorGroup(allMotors);
 }
 cDriveBase::~cDriveBase()
 {
@@ -71,3 +91,15 @@ void cDriveBase::setEnabled(bool enabled)
     m_rightMotor3->setEnabled(enabled);
 }
 
+cMotorGroup* cDriveBase::getMotorGroupRight()
+{
+    return m_motorGroupRight;
+}
+cMotorGroup* cDriveBase::getMotorGroupLeft()
+{
+    return m_motorGroupLeft;
+}
+cMotorGroup* cDriveBase::getMotorGroupAll()
+{
+    return m_motorGroupAll;
+}

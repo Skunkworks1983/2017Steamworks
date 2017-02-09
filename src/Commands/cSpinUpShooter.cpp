@@ -6,12 +6,15 @@
  */
 
 #include <Commands/cSpinUpShooter.h>
-#include <RobotMap.h>
+#include "Subsystems/cShooter.h"
+#include "RobotMap.h"
+#include "CommandBase.h"
+#include <sstream>
 
 cSpinUpShooter::cSpinUpShooter()
 {
     // TODO Auto-generated constructor stub
-    
+
 }
 void cSpinUpShooter::Initialize()
 {
@@ -20,7 +23,23 @@ void cSpinUpShooter::Initialize()
 
 void cSpinUpShooter::Execute()
 {
+    cShooter* shooter = CommandBase::s_shooter;
+    double speed = shooter->getSpeed();
 
+    std::stringstream message;
+
+    if(speed < SHOOTER_TARGET_SPEED)
+    {
+        message << "shooter speed below target at " << speed;
+        shooter->setSpeed(1);
+    }
+    else
+    {
+        message << "shooter speed above target at " << speed;
+        shooter->setSpeed(0);
+    }
+
+    LOG_INFO(message.str().c_str());
 }
 
 bool cSpinUpShooter::IsFinished()
@@ -31,15 +50,16 @@ bool cSpinUpShooter::IsFinished()
 void cSpinUpShooter::End()
 {
     LOG_INFO("ending cSpinUpShooter");
+    CommandBase::s_shooter->setSpeed(0);
 }
 
 void cSpinUpShooter::Interrupted()
 {
     LOG_INFO("interrupted cSpinUpShooter");
+    End();
 }
 
 cSpinUpShooter::~cSpinUpShooter()
 {
     // TODO Auto-generated destructor stub
 }
-

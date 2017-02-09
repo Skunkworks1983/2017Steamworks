@@ -1,4 +1,5 @@
 #include "cTurret.h"
+#include "cMotor.h"
 #include <RobotMap.h>
 
 cTurret::cTurret() :

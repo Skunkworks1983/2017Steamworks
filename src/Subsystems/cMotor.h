@@ -10,18 +10,22 @@
 #include <CANTalon.h>
 #include <PIDSource.h>
 #include <PIDOutput.h>
+#include "Subsystems/iMotor.h"
 
-class cMotor: public PIDSource, public PIDOutput
+class cMotor: public iMotor
 {
 private:
     CANTalon m_motor;
+    bool m_hasEncoder;
 public:
-    cMotor(int port);
+    cMotor(int port, bool hasEncoder = false);
     virtual ~cMotor();
     void setBrakeMode(bool brake);
     void setOutput(float output);
     void PIDWrite(double output) override;
     double PIDGet() override;
     void setEnabled(bool enabled);
+    bool hasEncoder();
+
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */

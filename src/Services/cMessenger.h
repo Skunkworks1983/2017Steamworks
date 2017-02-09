@@ -12,7 +12,9 @@ class cMessenger
 {
 private:
     int m_sock;
-    addrinfo* m_info;
+
+    sockaddr_in m_myaddr;
+    sockaddr_in m_remaddr;
 
 public:
     bool m_isPostMatch;

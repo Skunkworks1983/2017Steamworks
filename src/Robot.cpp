@@ -48,6 +48,7 @@ private:
         CommandBase::s_messenger->m_isPostMatch = true;
 
         cMessage* msg1 = new cMessage("disabled");
+        CommandBase::s_messenger->SendMessage(msg1);
 
         if(CommandBase::s_messenger->m_isPostMatch)
         {
