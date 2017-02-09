@@ -30,6 +30,7 @@ private:
 
 	void AutonomousInit()
 	{
+		std::cout << "whoa whoa whoa 0" << std::endl;
 	    CommandBase::s_messenger->m_isPostMatch = true;
 	    cPointToBoiler* pointing = new cPointToBoiler();
 	    std::cout << "whoa man got here" << std::endl;

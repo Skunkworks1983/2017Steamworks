@@ -4,11 +4,14 @@
 cPointToBoiler::cPointToBoiler() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	std::cout << "cptb const start" << std::endl;
 	m_p = 1;
 	m_i = 0;
 	m_d = 0;
 	m_udpInput = new cPidUDP();
+	std::cout << "cptb const after new pidudp" << std::endl;
 	m_pidCont = new cPIDOutputContainer();
+	std::cout << "cptb const after pidoc" << std::endl;
 	m_controller = new PIDController(m_p, m_i, m_d, m_udpInput, m_pidCont);
 
 	m_controller->SetInputRange(-1, 1);

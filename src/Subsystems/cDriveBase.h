@@ -17,17 +17,21 @@ private:
 	cMotor* leftMotor1;
 	cMotor* leftMotor2;
 	cMotor* leftMotor3;
+
 	cMotor* rightMotor1;
 	cMotor* rightMotor2;
 	cMotor* rightMotor3;
 
-	public:
+public:
 	cDriveBase();
 	~cDriveBase();
+
 	void InitDefaultCommand();
 	void resetEncoder();
+
 	void setLeftSpeed(double speed);
 	void setRightSpeed(double speed);
+
 	void setBrakeMode(bool brake);
 	void setEnabled(bool enabled);
 };
