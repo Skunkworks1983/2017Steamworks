@@ -9,35 +9,55 @@
 #include "cMotor.h"
 #include <Subsystems/cDriveBase.h>
 #include "Commands/cRunTankDrive.h"
+#include "Subsystems/cMotorGroup.h"
 cDriveBase::cDriveBase() :
         Subsystem("cDriveBase")
 {
-    leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT);
-    leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT);
-    leftMotor3 = new cMotor(DRIVEBASE_LEFTMOTOR_3_PORT);
+    m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT);
+    m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT);
+    m_leftMotor3 = new cMotor(DRIVEBASE_LEFTMOTOR_3_PORT);
 
-    rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT);
-    rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT);
-    rightMotor3 = new cMotor(DRIVEBASE_RIGHTMOTOR_3_PORT);
+    m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT);
+    m_rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT);
+    m_rightMotor3 = new cMotor(DRIVEBASE_RIGHTMOTOR_3_PORT);
+
+    std::vector<iMotor*> leftMotors;
+    leftMotors.push_back(m_leftMotor1);
+    leftMotors.push_back(m_leftMotor2);
+    leftMotors.push_back(m_leftMotor3);
+
+    std::vector<iMotor*> rightMotors;
+    rightMotors.push_back(m_rightMotor1);
+    rightMotors.push_back(m_rightMotor2);
+    rightMotors.push_back(m_rightMotor3);
+
+    m_motorGroupLeft = new cMotorGroup(leftMotors);
+    m_motorGroupRight = new cMotorGroup(rightMotors);
+
+    std::vector<iMotor*> allMotors;
+    allMotors.push_back(m_motorGroupLeft);
+    allMotors.push_back(m_motorGroupRight);
+
+    m_motorGroupAll = new cMotorGroup(allMotors);
 }
 cDriveBase::~cDriveBase()
 {
     // TODO Auto-generated destructor stub
-    delete leftMotor1;
-    delete leftMotor2;
-    delete leftMotor3;
-    delete rightMotor1;
-    delete rightMotor2;
-    delete rightMotor3;
+    delete m_leftMotor1;
+    delete m_leftMotor2;
+    delete m_leftMotor3;
+    delete m_rightMotor1;
+    delete m_rightMotor2;
+    delete m_rightMotor3;
 }
 void cDriveBase::setBrakeMode(bool brake)
 {
-    leftMotor1->setBrakeMode(brake);
-    leftMotor2->setBrakeMode(brake);
-    leftMotor3->setBrakeMode(brake);
-    rightMotor1->setBrakeMode(brake);
-    rightMotor2->setBrakeMode(brake);
-    rightMotor3->setBrakeMode(brake);
+    m_leftMotor1->setBrakeMode(brake);
+    m_leftMotor2->setBrakeMode(brake);
+    m_leftMotor3->setBrakeMode(brake);
+    m_rightMotor1->setBrakeMode(brake);
+    m_rightMotor2->setBrakeMode(brake);
+    m_rightMotor3->setBrakeMode(brake);
 }
 void cDriveBase::InitDefaultCommand()
 {
@@ -49,25 +69,37 @@ void cDriveBase::resetEncoder()
 void cDriveBase::setLeftSpeed(double speed)
 {
     speed = speed * DRIVEBASE_LEFT_DIRECTION;
-    leftMotor1->setOutput(speed);
-    leftMotor2->setOutput(speed);
-    leftMotor3->setOutput(speed);
+    m_leftMotor1->setOutput(speed);
+    m_leftMotor2->setOutput(speed);
+    m_leftMotor3->setOutput(speed);
 }
 void cDriveBase::setRightSpeed(double speed)
 {
     speed = speed * DRIVEBASE_RIGHT_DIRECTION;
-    rightMotor1->setOutput(speed);
-    rightMotor2->setOutput(speed);
-    rightMotor3->setOutput(speed);
+    m_rightMotor1->setOutput(speed);
+    m_rightMotor2->setOutput(speed);
+    m_rightMotor3->setOutput(speed);
 }
 
 void cDriveBase::setEnabled(bool enabled)
 {
-    leftMotor1->setEnabled(enabled);
-    leftMotor2->setEnabled(enabled);
-    leftMotor3->setEnabled(enabled);
-    rightMotor1->setEnabled(enabled);
-    rightMotor2->setEnabled(enabled);
-    rightMotor3->setEnabled(enabled);
+    m_leftMotor1->setEnabled(enabled);
+    m_leftMotor2->setEnabled(enabled);
+    m_leftMotor3->setEnabled(enabled);
+    m_rightMotor1->setEnabled(enabled);
+    m_rightMotor2->setEnabled(enabled);
+    m_rightMotor3->setEnabled(enabled);
 }
 
+cMotorGroup* cDriveBase::getMotorGroupRight()
+{
+    return m_motorGroupRight;
+}
+cMotorGroup* cDriveBase::getMotorGroupLeft()
+{
+    return m_motorGroupLeft;
+}
+cMotorGroup* cDriveBase::getMotorGroupAll()
+{
+    return m_motorGroupAll;
+}

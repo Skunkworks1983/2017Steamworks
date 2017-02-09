@@ -4,7 +4,6 @@
 #include <CommandBase.h>
 cRunTankDrive::cRunTankDrive()
 {
-
     Requires(s_drivebase);
 }
 
@@ -15,8 +14,37 @@ void cRunTankDrive::Initialize()
 
 void cRunTankDrive::Execute()
 {
-    CommandBase::s_drivebase->setLeftSpeed(CommandBase::s_oi->getLeftStickY());
-    CommandBase::s_drivebase->setRightSpeed(CommandBase::s_oi->getRightStickY());
+    float leftSpeed;
+    float rightSpeed;
+
+    leftSpeed = CommandBase::s_oi->getLeftStickY();
+    rightSpeed = CommandBase::s_oi->getRightStickY();
+
+    if(leftSpeed < .05 && leftSpeed > -.05)
+    {
+        CommandBase::s_drivebase->setLeftSpeed(0);
+    }
+    else if(leftSpeed < 0)
+    {
+        CommandBase::s_drivebase->setLeftSpeed((leftSpeed * leftSpeed) * -1);
+    }
+    else
+    {
+        CommandBase::s_drivebase->setLeftSpeed(leftSpeed * leftSpeed);
+    }
+
+    if(rightSpeed < .05 && rightSpeed > -.05)
+    {
+        CommandBase::s_drivebase->setRightSpeed(0);
+    }
+    else if(rightSpeed < 0)
+    {
+        CommandBase::s_drivebase->setRightSpeed((rightSpeed * rightSpeed) * -1);
+    }
+    else
+    {
+        CommandBase::s_drivebase->setRightSpeed(rightSpeed * rightSpeed);
+    }
 }
 
 bool cRunTankDrive::IsFinished()
