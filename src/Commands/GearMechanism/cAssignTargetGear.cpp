@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cAssignTargetGear.h>
+#include <Commands/GearMechanism/cAssignTargetGear.h>
 
 cAssignTargetGear::cAssignTargetGear()
 {

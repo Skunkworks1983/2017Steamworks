@@ -9,6 +9,7 @@ OI* CommandBase::s_oi = NULL;
 cMessenger* CommandBase::s_messenger = NULL;
 cGearCollector* CommandBase::s_gearCollector = NULL;
 cShooter* CommandBase::s_shooter = NULL;
+cTurret* CommandBase::s_turret = NULL;
 
 CommandBase::CommandBase(const std::string &name) :
         Command(name)

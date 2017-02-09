@@ -4,7 +4,7 @@
 cFuelIndexer::cFuelIndexer() :
         Subsystem("cFuelIndexer")
 {
-    m_motor1 = new cMotor(FUELINDEXER_MOTOR1_PORT);
+    m_motor1 = new cMotor(FUELINDEXER_MOTOR1_PORT, BaneBots775);
 }
 
 cFuelIndexer::~cFuelIndexer()

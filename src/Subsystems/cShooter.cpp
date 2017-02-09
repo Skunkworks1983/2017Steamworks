@@ -4,8 +4,8 @@
 cShooter::cShooter() :
         Subsystem("cShooter")
 {
-    m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT);
-    m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT);
+    m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775);
+    m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
 }
 
 cShooter::~cShooter()

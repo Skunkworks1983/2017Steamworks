@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cSpinUpShooter.h>
+#include <Commands/Shooter/cSpinUpShooter.h>
 #include "Subsystems/cShooter.h"
 #include "RobotMap.h"
 #include "CommandBase.h"

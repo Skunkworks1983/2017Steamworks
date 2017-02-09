@@ -37,7 +37,17 @@ const int OI_JOYSTICK_RIGHT_PORT = 0;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
-const int DRIVEBASE_FOOT_PER_TICK = 0.0025;
+const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 1;
+const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 2;
+const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3;
+const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
+const int OI_JOYSTICK_SHOOTHIGH = 5;
+const int OI_JOYSTICK_CLIMBROPE = 6;
+const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+const int OI_JOYSTICK_ROTATETURRETLEFT = 8;
+const int OI_JOYSTICK_ROTATETURRETRIGHT = 9;
+
+const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 
 const float SIMPLEDRIVEFORWARD_PID_P = 1;
 const float SIMPLEDRIVEFORWARD_PID_I = 1;
@@ -71,6 +81,12 @@ const int GEARCOLLECTOR_CLOSE_ANGLE = 0;
 const float ROPECLIMB_COMMAND_TIME_ON = 30;
 const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 
+const float CROTATETURRET_LEFT_SPEED = .5;
+const float CROTATETURRET_RIGHT_SPEED = -.5;
+
+const float BANEBOTS775_STALLING_CURRENT = 130;
+const float NEVEREST40_STALLING_CURRENT = 11.5;
+const float CIM_STALLING_CURRENT = 133;
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:
