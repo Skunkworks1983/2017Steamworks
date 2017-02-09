@@ -50,7 +50,7 @@ cMessenger::~cMessenger()
 }
 
 // Sends a string through the socket
-void cMessenger::SendMessage(cMessage* message)
+void cMessenger::sendMessage(cMessage* message)
 {
     std::string toSend = message->PackToSend();
 
@@ -61,9 +61,8 @@ void cMessenger::SendMessage(cMessage* message)
     }
 }
 
-// Remember to delete return value
-// ^^make comment more descriptive
-cMessage* cMessenger::ReceiveMessage()
+// This function receives a string from the remaddr source.
+cMessage* cMessenger::receiveMessage()
 {
     char message_buffer[MSG_LEN];
     memset(message_buffer, 0, MSG_LEN);

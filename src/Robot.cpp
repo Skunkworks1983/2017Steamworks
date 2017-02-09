@@ -48,11 +48,11 @@ private:
         CommandBase::s_messenger->m_isPostMatch = true;
 
         cMessage* msg1 = new cMessage("disabled");
-        CommandBase::s_messenger->SendMessage(msg1);
+        CommandBase::s_messenger->sendMessage(msg1);
 
         if(CommandBase::s_messenger->m_isPostMatch)
         {
-            CommandBase::s_messenger->SendMessage(msg1);
+            CommandBase::s_messenger->sendMessage(msg1);
         }
 
         delete msg1;
@@ -62,7 +62,7 @@ private:
     {
         Scheduler::GetInstance()->Run();
 
-        std::string msg = CommandBase::s_messenger->ReceiveMessage()->GetMessage();
+        std::string msg = CommandBase::s_messenger->receiveMessage()->GetMessage();
 
         if(msg[0] != 0)
         {
