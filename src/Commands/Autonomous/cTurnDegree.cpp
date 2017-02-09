@@ -9,7 +9,7 @@
 #include <CommandBase.h>
 #include <Subsystems/cDriveBase.h>
 
-cTurnDegree::cTurnDegree(double targetAngle)
+cTurnDegree::cTurnDegree()
 {
     targetAngle = 135; //we gotta change this
     angleRemaining = 0; //this is ok
