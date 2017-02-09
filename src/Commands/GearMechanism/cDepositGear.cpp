@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Commands/cDepositGear.h>
+#include <Commands/GearMechanism/cDepositGear.h>
 
 cDepositGear::cDepositGear()
 {

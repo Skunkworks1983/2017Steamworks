@@ -4,7 +4,7 @@
 cTurret::cTurret() :
         Subsystem("cTurret")
 {
-    m_motor1 = new cMotor(TURRET_MOTOR1_PORT);
+    m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
 }
 
 cTurret::~cTurret()

@@ -37,7 +37,17 @@ const int OI_JOYSTICK_RIGHT_PORT = 0;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
-const int DRIVEBASE_FOOT_PER_TICK = 0.0025;
+const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 1;
+const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 2;
+const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3;
+const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
+const int OI_JOYSTICK_SHOOTHIGH = 5;
+const int OI_JOYSTICK_CLIMBROPE = 6;
+const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+const int OI_JOYSTICK_ROTATETURRETLEFT = 8;
+const int OI_JOYSTICK_ROTATETURRETRIGHT = 9;
+
+const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 
 const float SIMPLEDRIVEFORWARD_PID_P = 1;
 const float SIMPLEDRIVEFORWARD_PID_I = 1;
@@ -71,26 +81,16 @@ const int GEARCOLLECTOR_CLOSE_ANGLE = 0;
 const float ROPECLIMB_COMMAND_TIME_ON = 30;
 const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 
+const float CROTATETURRET_LEFT_SPEED = .5;
+const float CROTATETURRET_RIGHT_SPEED = -.5;
+
+const float BANEBOTS775_STALLING_CURRENT = 130;
+const float NEVEREST40_STALLING_CURRENT = 11.5;
+const float CIM_STALLING_CURRENT = 133;
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:
 //const int RANGE_FINDER_PORT = 1;
 //const int RANGE_FINDER_MODULE = 1;
-
-//AUTONOMOUS THINGS
-
-//SPECIFICALLY GEAR PLACEMENT THINGS
-#define ARM_ANGLE ((70*3.14)/180) // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
-#define DISTANCE_TO_RECOVERY_POINT 5 //placeholder! In feet, apparently
-/* the commented out values below are because they pertain to the path if the robot is outside of the arms, an unlikely scenario.
-#define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
-#define anglePerpindicularGoalPivotPoint ((70*3.14)/180)
-#define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
-#define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
- */
-#define angleWallTapePivotPoint ((100 * 3.14)/180) //can you guess what im going to say here?
-#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT 1.5 // ibid.
-#define angleGoalPivotPointTape ((45 * 3.14)/180) // surrogate for a real value
-#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 1234 //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
 
 #endif

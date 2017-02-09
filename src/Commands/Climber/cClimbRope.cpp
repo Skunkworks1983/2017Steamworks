@@ -12,13 +12,16 @@
 cClimbRope::cClimbRope(float speed, float timeout) :
         m_speed(speed)
 {
-    Requires(CommandBase::s_climber);
-    SetTimeout(timeout);
+    if(timeout != 0)
+    {
+        SetTimeout(timeout);
+    }
+
 }
 
 void cClimbRope::Initialize()
 {
-
+    Requires(CommandBase::s_climber);
 }
 
 void cClimbRope::Execute()

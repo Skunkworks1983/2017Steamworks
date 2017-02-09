@@ -10,6 +10,7 @@
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
 #include "Subsystems/cShooter.h"
+#include "Subsystems/cTurret.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -28,6 +29,7 @@ public:
 	static cClimber * s_climber;
 	static cGearCollector* s_gearCollector;
 	static cShooter* s_shooter;
+	static cTurret* s_turret;
 	};
 
 #endif

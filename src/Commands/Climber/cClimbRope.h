@@ -16,7 +16,7 @@ private:
     float m_speed;
 
 public:
-    cClimbRope(float speed, float timeout);
+    cClimbRope(float speed, float timeout = 0);
     virtual ~cClimbRope();
 
     void Initialize();

@@ -4,7 +4,7 @@
 cFuelCollector::cFuelCollector() :
         Subsystem("cFuelCollector")
 {
-    m_motor1 = new cMotor(FUELCOLLECTOR_MOTOR1_PORT);
+    m_motor1 = new cMotor(FUELCOLLECTOR_MOTOR1_PORT, BaneBots775);
 }
 
 cFuelCollector::~cFuelCollector()
