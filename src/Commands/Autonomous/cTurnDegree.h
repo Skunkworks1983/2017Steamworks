@@ -17,7 +17,7 @@ private:
     float angleRemaining;
 
 public:
-    cTurnDegree();
+    cTurnDegree(double degree);
     void Initialize();
     void Execute();
     bool IsFinished();
