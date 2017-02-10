@@ -7,15 +7,21 @@
 
 #ifndef SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
+#include <Commands/CommandGroup.h>
+#include "RobotMap.h"
 
 class AutoBase
 {
 private:
+	 CommandGroup* placeGear;
+	public:
+		static double angleTapeRobotPivotPoint;
+		static double distanceToPivotPoint;
+		static double angleRobotPivotPointGoal;
+	    AutoBase();
+	    ~AutoBase();
+	    void Initialize();
 
-public:
-    AutoBase();
-    ~AutoBase();
-    void Initialize();
     void Execute();
     bool IsFinished();
     void End();
