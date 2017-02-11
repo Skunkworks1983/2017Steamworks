@@ -22,7 +22,7 @@ private:
     float m_distance;
     bool m_driveToLine;
 public:
-    cSimpleDriveForward(float distance, bool mode = false);
+    cSimpleDriveForward(float distance, bool stopAtLine = false);
     ~cSimpleDriveForward();
     void Initialize();
     void Execute();
