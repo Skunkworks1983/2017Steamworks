@@ -49,7 +49,8 @@ cMessenger::cMessenger(const char *server, const char *port)
 
 cMessenger::~cMessenger()
 {
-
+    delete m_lastBoilerData;
+    delete m_lastLiftData;
 }
 
 // Sends a string through the socket
@@ -101,13 +102,21 @@ cBoilerData* cMessenger::receiveBoilerData()
             // get the y pos
             y = atof(message.substr(0, message.length() + 1).c_str());
 
-            // return the new boiler data
+            // check if the member lastboilerdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastBoilerData != NULL) {
+                delete m_lastBoilerData;
+                m_lastBoilerData = NULL;
+            }
+
+            // edit the new member variable
             m_lastBoilerData = new cBoilerData(x, y);
         }
     }
 
     return m_lastBoilerData;
 }
+
 
 cLiftData* cMessenger::receiveLiftData()
 {
@@ -123,10 +132,18 @@ cLiftData* cMessenger::receiveLiftData()
             // cut the first portion of characters from the first space to the second space
             x = atof(message.substr(0, message.find(" ")).c_str());
 
-            // return the new boiler data
+            // check if the member lastliftdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastLiftData != NULL) {
+                delete m_lastLiftData;
+                m_lastLiftData = NULL;
+            }
+
+            // edit the new member variable
             m_lastLiftData = new cLiftData(x);
         }
     }
 
+    // return the last known position of the boiler if there is none on screen
     return m_lastLiftData;
 }
