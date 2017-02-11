@@ -16,6 +16,10 @@
 // Creates a new messenger instance
 cMessenger::cMessenger(const char *server, const char *port)
 {
+    // Initialize the last known variables
+    m_lastBoilerData = new cBoilerData(0, 0);
+    m_lastLiftData = new cLiftData(0);
+
     // bind to the udp socket
     if((m_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
@@ -98,11 +102,11 @@ cBoilerData* cMessenger::receiveBoilerData()
             y = atof(message.substr(0, message.length() + 1).c_str());
 
             // return the new boiler data
-            return new cBoilerData(x, y);
+            m_lastBoilerData = new cBoilerData(x, y);
         }
     }
 
-    return new cBoilerData(-1, -1);
+    return m_lastBoilerData;
 }
 
 cLiftData* cMessenger::receiveLiftData()
@@ -120,9 +124,9 @@ cLiftData* cMessenger::receiveLiftData()
             x = atof(message.substr(0, message.find(" ")).c_str());
 
             // return the new boiler data
-            return new cLiftData(x);
+            m_lastLiftData = new cLiftData(x);
         }
     }
 
-    return new cLiftData(-1);
+    return m_lastLiftData;
 }
