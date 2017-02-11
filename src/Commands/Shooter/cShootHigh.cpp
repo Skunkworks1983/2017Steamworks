@@ -6,6 +6,7 @@
  */
 
 #include <Commands/Shooter/cShootHigh.h>
+#include <RobotMap.h>
 
 cShootHigh::cShootHigh()
 {
@@ -14,7 +15,7 @@ cShootHigh::cShootHigh()
 }
 void cShootHigh::Initialize()
 {
-
+    LOG_INFO("started cShootHigh");
 }
 
 void cShootHigh::Execute()
@@ -29,12 +30,12 @@ bool cShootHigh::IsFinished()
 
 void cShootHigh::End()
 {
-
+    LOG_INFO("ending cShootHigh");
 }
 
 void cShootHigh::Interrupted()
 {
-
+    LOG_INFO("interrupted cShootHigh");
 }
 
 cShootHigh::~cShootHigh()
