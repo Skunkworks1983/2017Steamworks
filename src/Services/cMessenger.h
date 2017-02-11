@@ -19,13 +19,14 @@ private:
     cBoilerData* m_lastBoilerData;
     cLiftData* m_lastLiftData;
 
-    void sendMessage(std::string message);
     std::string receiveMessage();
 public:
     bool m_isPostMatch;
 
     cMessenger(const char* server, const char* port);
     ~cMessenger();
+
+    void sendMessage(std::string message);
 
     cBoilerData* receiveBoilerData();
     cLiftData* receiveLiftData();
