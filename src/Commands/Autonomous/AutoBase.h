@@ -14,10 +14,13 @@ class AutoBase
 {
 private:
 	 CommandGroup* placeGear;
+	 CommandGroup* driveToLine;
+
 	public:
 		static double angleTapeRobotPivotPoint;
 		static double distanceToPivotPoint;
 		static double angleRobotPivotPointGoal;
+		static bool reachedLine;
 	    AutoBase();
 	    ~AutoBase();
 	    void Initialize();

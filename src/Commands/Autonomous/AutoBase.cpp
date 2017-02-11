@@ -13,13 +13,18 @@ double AutoBase::angleTapeRobotPivotPoint = 0;
 double AutoBase::distanceToPivotPoint = 0;
 double AutoBase::angleRobotPivotPointGoal = 0;
 
-AutoBase::AutoBase() {
-    placeGear = new CommandGroup;
 
+AutoBase::AutoBase() {
+
+    placeGear = new CommandGroup;
     placeGear->AddSequential(new cTurnDegree(AutoBase::angleTapeRobotPivotPoint)); //assuming we're pointing directly at the tape. which i shouldn't do. fix later
     placeGear->AddSequential(new cSimpleDriveForward(AutoBase::distanceToPivotPoint));
     placeGear->AddSequential(new cTurnDegree(-(3.14 - AutoBase::angleRobotPivotPointGoal))); // it has to turn -(180 degrees - the angle)
     placeGear->AddSequential(new cSimpleDriveForward(DISTANCE_FROM_PIVOT_POINT_TO_GOAL));
+
+    driveToLine = new CommandGroup;
+    driveToLine->AddSequential(new cSimpleDriveForward(100, true));
+
 
 }
 
