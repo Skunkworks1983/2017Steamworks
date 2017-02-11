@@ -11,17 +11,10 @@ cPidUDP::cPidUDP()
 
 double cPidUDP::PIDGet()
 {
-	cMessage* message;
-	message = messenger->receiveMessage();
+	cBoilerData* message = messenger->receiveBoilerData();
 
-	double targetPos = 0;
-	std::string messageContent = message->GetMessage();
-	try {
-		targetPos = std::stod(messageContent);
-		std::cout << messageContent << std::endl;
-	} catch(...) {
-		std::cout << "Yea nope" << std::endl;
-	}
+	double targetPos = message->getX();
+	std::cout << targetPos << "\n";
 	return targetPos;
 }
 

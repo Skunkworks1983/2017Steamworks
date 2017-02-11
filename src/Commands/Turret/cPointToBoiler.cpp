@@ -5,7 +5,7 @@ cPointToBoiler::cPointToBoiler() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	std::cout << "cptb const start" << std::endl;
-	m_p = 1;
+	m_p = 2;
 	m_i = 0;
 	m_d = 0;
 	m_udpInput = new cPidUDP();
@@ -15,7 +15,7 @@ cPointToBoiler::cPointToBoiler() {
 	m_controller = new PIDController(m_p, m_i, m_d, m_udpInput, m_pidCont);
 
 	m_controller->SetInputRange(-1, 1);
-	m_controller->SetOutputRange(-0.25, 0.25);
+	m_controller->SetOutputRange(-0.5, 0.5);
 	m_controller->SetSetpoint(0);
 
 	CommandBase::s_drivebase->setEnabled(true);
@@ -34,6 +34,8 @@ void cPointToBoiler::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void cPointToBoiler::Execute() {
 	double speed = m_pidCont->getVal();
+
+	std::cout << m_controller->GetError() << "\n";
 
 	CommandBase::s_drivebase->setLeftSpeed(speed);
 	CommandBase::s_drivebase->setRightSpeed(-1*speed);
