@@ -13,15 +13,19 @@ class Robot: public IterativeRobot
 private:
     void RobotInit()
     {
+        LOG_INFO("RobotInit called");
+
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
         CommandBase::s_climber = new cClimber();
-        CommandBase::s_messenger = new cMessenger(RPI_IP, RPI_PORT);
+
+        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
     }
 
     void DisabledInit()
     {
-
+        LOG_INFO("DisabledInit called");
     }
 
     void DisabledPeriodic()
@@ -31,7 +35,7 @@ private:
 
     void AutonomousInit()
     {
-        CommandBase::s_messenger->m_isPostMatch = true;
+        LOG_INFO("AutonomousInit called");
     }
 
     void AutonomousPeriodic()
@@ -41,28 +45,17 @@ private:
 
     void TeleopInit()
     {
-        CommandBase::s_messenger->m_isPostMatch = true;
-
-        cMessage* msg1 = new cMessage("disabled");
-
-        if(CommandBase::s_messenger->m_isPostMatch)
-        {
-            CommandBase::s_messenger->SendMessage(msg1);
-        }
-
-        delete msg1;
+        LOG_INFO("TeleopInit called");
     }
 
     void TeleopPeriodic()
     {
+        cBoilerData* dat = CommandBase::s_boilerMessenger->receiveBoilerData();
+
+        if(dat->getX() != -1 && dat->getY() != -1)
+            std::cout << dat->getX() << ", " << dat->getY() << std::endl;
+
         Scheduler::GetInstance()->Run();
-
-        std::string msg = CommandBase::s_messenger->ReceiveMessage()->GetMessage();
-
-        if(msg[0] != 0)
-        {
-            std::cout << msg << "\n";
-        }
     }
 
     void TestPeriodic()
