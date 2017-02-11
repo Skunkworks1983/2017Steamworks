@@ -16,86 +16,51 @@
 // Creates a new messenger instance
 cMessenger::cMessenger(const char *server, const char *port)
 {
-    socklen_t addrlen = sizeof(m_remaddr); /* length of addresses */
-    int recvlen; /* # bytes received */
-    unsigned char buf[MSG_LEN]; /* receive buffer */
-
-    /* create a UDP socket */
-
+    // bind to the udp socket
     if((m_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
         perror("cannot create socket\n");
         return;
     }
 
-    /* bind the socket to any valid IP address and a specific port */
-
+    // create the configuration for our own host port
     memset((char *) &m_myaddr, 0, sizeof(m_myaddr));
     m_myaddr.sin_family = AF_INET;
     m_myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    m_myaddr.sin_port = htons(8888);
+    m_myaddr.sin_port = htons(std::stoi(port));
 
+    // settings for remote address
     memset((char *) &m_remaddr, 0, sizeof(m_remaddr));
     m_remaddr.sin_family = AF_INET;
-    inet_pton(AF_INET, "10.19.83.100", &(m_remaddr.sin_addr));
-    m_remaddr.sin_port = htons(8888);
+    inet_pton(AF_INET, server, &(m_remaddr.sin_addr));
+    m_remaddr.sin_port = htons(std::stoi(port));
 
+    // bind to the socket
     if(bind(m_sock, (struct sockaddr *) &m_myaddr, sizeof(m_myaddr)) < 0)
     {
         perror("bind failed");
         return;
     }
-
-    /*
-     m_isPostMatch = false;
-
-     struct addrinfo hints;
-     struct sockaddr_in myaddr;
-     int addrinfo_stat;
-
-     // Create the out variable for the connection settings
-     memset((char*) &hints, 0, sizeof(hints));
-     hints.ai_socktype = SOCK_DGRAM;
-     hints.ai_family = AF_INET;
-     hints.ai_flags = AI_NUMERICSERV;
-     hints.ai_protocol = 0;
-
-     // Attempt to get the address information of the system we're connecting to
-     // for later, and save the settings in hints & info
-     if((addrinfo_stat = getaddrinfo(RPI_IP, RPI_PORT, &hints, &m_info)) != 0)
-     {
-     std::cout << "couldn't get address info, error: " << errno << "\n";
-     return;
-     }
-
-     // Attempt to create the socket
-     if((m_sock = socket(m_info->ai_family, m_info->ai_socktype, m_info->ai_protocol)) == -1)
-     {
-     std::cout << "couldn't create socket, error: " << errno << "\n";
-     return;
-     }
-     */
 }
 
 cMessenger::~cMessenger()
 {
-
+    free(&m_myaddr);
+    free(&m_remaddr);
 }
 
 // Sends a string through the socket
-void cMessenger::SendMessage(cMessage* message)
+void cMessenger::sendMessage(std::string message)
 {
-    std::string toSend = message->PackToSend();
-
     // Send a message to the socket using the connection settings obtained earlier
-    if(sendto(m_sock, toSend.c_str(), toSend.size() + 1, 0, (struct sockaddr*) &m_remaddr, sizeof(m_remaddr)) == -1)
+    if(sendto(m_sock, message.c_str(), message.length() + 1, 0, (struct sockaddr*) &m_remaddr, sizeof(m_remaddr)) == -1)
     {
         std::cout << "sendto failed, error: " << errno << "\n";
     }
 }
 
 // Remember to delete return value
-cMessage* cMessenger::ReceiveMessage()
+std::string cMessenger::receiveMessage()
 {
     char message_buffer[MSG_LEN];
     memset(message_buffer, 0, MSG_LEN);
@@ -105,10 +70,60 @@ cMessage* cMessenger::ReceiveMessage()
         if(errno != EAGAIN && errno != EWOULDBLOCK)
         {
             std::cout << "recvfrom failed, error: " << errno << "\n";
-            return new cMessage("message failed");
+            return "message failed";
         }
     }
 
     std::string message_converted(message_buffer);
-    return new cMessage(message_converted);
+    return message_converted;
+}
+
+cBoilerData* cMessenger::receiveBoilerData()
+{
+    std::string message = receiveMessage();
+
+    if(message[0] != 0) {
+        if(message[0] == std::to_string(BOILER_PI_ID)[0]) {
+            int x, y;
+
+            // erase the id portion of the message, to remove the first space delimiter
+            message.erase(0, 2);
+
+            // cut the first portion of characters from the first space to the second space
+            x = atoi(message.substr(0, message.find(" ")).c_str());
+
+            // erase the x portion of the message
+            message.erase(0, message.find(" ") + 1);
+
+            // get the y pos
+            y = atoi(message.substr(0, message.length() + 1).c_str());
+
+            // return the new boiler data
+            return new cBoilerData(x, y);
+        }
+    }
+
+    return new cBoilerData(-1, -1);
+}
+
+cLiftData* cMessenger::receiveLiftData()
+{
+    std::string message = receiveMessage();
+
+    if(message[0] != 0) {
+        if(message[0] == std::to_string(GEAR_PI_ID)[0]) {
+            int x;
+
+            // erase the id portion of the message, to remove the first space delimiter
+            message.erase(0, 2);
+
+            // cut the first portion of characters from the first space to the second space
+            x = atoi(message.substr(0, message.find(" ")).c_str());
+
+            // return the new boiler data
+            return new cLiftData(x);
+        }
+    }
+
+    return new cLiftData(-1);
 }

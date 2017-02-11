@@ -45,29 +45,16 @@ private:
     void TeleopInit()
     {
         LOG_INFO("TeleopInit called");
-        CommandBase::s_messenger->m_isPostMatch = true;
-
-        cMessage* msg1 = new cMessage("disabled");
-        CommandBase::s_messenger->SendMessage(msg1);
-
-        if(CommandBase::s_messenger->m_isPostMatch)
-        {
-            CommandBase::s_messenger->SendMessage(msg1);
-        }
-
-        delete msg1;
     }
 
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        std::string msg = CommandBase::s_messenger->ReceiveMessage()->GetMessage();
+        cLiftData* dat = CommandBase::s_messenger->receiveLiftData();
 
-        if(msg[0] != 0)
-        {
-            std::cout << msg << "\n";
-        }
+        if(dat->getX() != -1)
+            std::cout << dat->getX() << std::endl;
     }
 
     void TestPeriodic()
