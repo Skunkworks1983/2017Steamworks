@@ -83,19 +83,19 @@ cBoilerData* cMessenger::receiveBoilerData()
 
     if(message[0] != 0) {
         if(message[0] == std::to_string(BOILER_PI_ID)[0]) {
-            int x, y;
+            float x, y;
 
             // erase the id portion of the message, to remove the first space delimiter
             message.erase(0, 2);
 
             // cut the first portion of characters from the first space to the second space
-            x = atoi(message.substr(0, message.find(" ")).c_str());
+            x = atof(message.substr(0, message.find(" ")).c_str());
 
             // erase the x portion of the message
             message.erase(0, message.find(" ") + 1);
 
             // get the y pos
-            y = atoi(message.substr(0, message.length() + 1).c_str());
+            y = atof(message.substr(0, message.length() + 1).c_str());
 
             // return the new boiler data
             return new cBoilerData(x, y);
@@ -111,13 +111,13 @@ cLiftData* cMessenger::receiveLiftData()
 
     if(message[0] != 0) {
         if(message[0] == std::to_string(GEAR_PI_ID)[0]) {
-            int x;
+            float x;
 
             // erase the id portion of the message, to remove the first space delimiter
             message.erase(0, 2);
 
             // cut the first portion of characters from the first space to the second space
-            x = atoi(message.substr(0, message.find(" ")).c_str());
+            x = atof(message.substr(0, message.find(" ")).c_str());
 
             // return the new boiler data
             return new cLiftData(x);

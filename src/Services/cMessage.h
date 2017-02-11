@@ -5,24 +5,24 @@
 
 class cBoilerData {
 private:
-    int m_x, m_y;
+    float m_x, m_y;
 
 public:
-    cBoilerData(int x, int y);
+    cBoilerData(float x, float y);
 
-    int getX();
-    int getY();
+    float getX();
+    float getY();
 };
 
 
 class cLiftData {
 private:
-    int m_x;
+    float m_x;
 
 public:
-    cLiftData(int x);
+    cLiftData(float x);
 
-    int getX();
+    float getX();
 };
 
 #endif
