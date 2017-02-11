@@ -1,13 +1,13 @@
 #include "OI.h"
 #include "RobotMap.h"
-#include <Commands/cAcquireGear.h>
-#include <Commands/cClimbRope.h>
-#include <Commands/cDepositGear.h>
-#include <Commands/cShootHigh.h>
-#include <Commands/cSpinUpShooter.h>
-#include <Commands/cRunFuelFlap.h>
-#include <Commands/cRunFuelLoader.h>
-#include <Commands/cRunHopperIntake.h>
+#include <Commands/GearMechanism/cAcquireGear.h>
+#include <Commands/Climber/cClimbRope.h>
+#include <Commands/GearMechanism/cDepositGear.h>
+#include <Commands/Shooter/cShootHigh.h>
+#include <Commands/Shooter/cSpinUpShooter.h>
+#include <Commands/FuelCollector/cRunFuelFlap.h>
+#include <Commands/FuelLoader/cRunFuelLoader.h>
+#include <Commands/FuelCollector/cRunHopperIntake.h>
 
 OI::OI()
 {

@@ -7,7 +7,7 @@
 
 #include <CommandBase.h>
 #include <RobotMap.h>
-#include <Commands/cRunFuelLoader.h>
+#include <Commands/FuelLoader/cRunFuelLoader.h>
 
 cRunFuelLoader::cRunFuelLoader(float speed, float timeout) :
         m_speed(speed)
