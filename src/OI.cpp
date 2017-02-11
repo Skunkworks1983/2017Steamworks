@@ -1,12 +1,14 @@
 #include <Commands/Shooter/cAcquireBall.h>
 #include "OI.h"
 #include "RobotMap.h"
-#include <Commands/GearMechanism/cAcquireGear.h>
-#include <Commands/Climber/cClimbRope.h>
-#include <Commands/GearMechanism/cDepositGear.h>
-#include <Commands/Shooter/cShootHigh.h>
-#include <Commands/Shooter/cSpinUpShooter.h>
-#include <Commands/Turret/cRotateTurret.h>
+#include <Commands/cAcquireGear.h>
+#include <Commands/cClimbRope.h>
+#include <Commands/cDepositGear.h>
+#include <Commands/cShootHigh.h>
+#include <Commands/cSpinUpShooter.h>
+#include <Commands/cRunFuelFlap.h>
+#include <Commands/cRunFuelLoader.h>
+#include <Commands/cRunHopperIntake.h>
 
 OI::OI()
 {
@@ -24,6 +26,8 @@ OI::OI()
     m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
     m_rotateTurretLeft = new JoystickButton(m_buttons, OI_JOYSTICK_ROTATETURRETLEFT);
     m_rotateTurretRight = new JoystickButton(m_buttons, OI_JOYSTICK_ROTATETURRETRIGHT);
+    m_fuelLoader = new JoystickButton(m_buttons, 9);
+    m_assignTargetBoiler = new JoystickButton(m_buttons, 6);
 
     m_acquireGear->WhenPressed(new cAcquireGear(true, 1));
     m_acquireGear->WhenReleased(new cAcquireGear(false, 1));
@@ -34,6 +38,10 @@ OI::OI()
     m_rotateTurretLeft->WhenPressed(new cRotateTurret(CROTATETURRET_LEFT_SPEED));
     m_rotateTurretRight->WhenPressed(new cRotateTurret(CROTATETURRET_RIGHT_SPEED));
 
+
+    m_acquireBall->WhenPressed(new cRunHopperIntake(1, FUELCOLLECTOR_COMMAND_TIME_ON));
+
+    m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
 }
 
 float OI::getLeftStickY()

@@ -14,6 +14,8 @@ class Robot: public IterativeRobot
 private:
     void RobotInit()
     {
+        LOG_INFO("RobotInit called");
+
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
         CommandBase::s_climber = new cClimber();
@@ -22,7 +24,7 @@ private:
 
     void DisabledInit()
     {
-
+        LOG_INFO("DisabledInit called");
     }
 
     void DisabledPeriodic()
@@ -37,6 +39,7 @@ private:
 	    cPointToBoiler* pointing = new cPointToBoiler();
 	    std::cout << "whoa man got here" << std::endl;
 	    Scheduler::GetInstance()->AddCommand(pointing);
+        LOG_INFO("AutonomousInit called");
 	}
 
     void AutonomousPeriodic()
@@ -46,13 +49,15 @@ private:
 
     void TeleopInit()
     {
+        LOG_INFO("TeleopInit called");
         CommandBase::s_messenger->m_isPostMatch = true;
 
         cMessage* msg1 = new cMessage("disabled");
+        CommandBase::s_messenger->sendMessage(msg1);
 
         if(CommandBase::s_messenger->m_isPostMatch)
         {
-            CommandBase::s_messenger->SendMessage(msg1);
+            CommandBase::s_messenger->sendMessage(msg1);
         }
 
         delete msg1;
@@ -62,7 +67,7 @@ private:
     {
         Scheduler::GetInstance()->Run();
 
-        std::string msg = CommandBase::s_messenger->ReceiveMessage()->GetMessage();
+        std::string msg = CommandBase::s_messenger->receiveMessage()->GetMessage();
 
         if(msg[0] != 0)
         {

@@ -15,11 +15,18 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
+#define ROBOT_NAME "lol"
+#define LOGFILE_NAME "/U/robotLog"
+
+enum FuelCollectorPosition {
+    UP = 90,
+    DOWN = 0
+};
+
 #define RPI_IP "10.19.83.100"
-#define RPI_PORT "5802"
+#define RPI_PORT "8888"
 
 const int MSG_LEN = 1024;
-
 
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
@@ -30,7 +37,6 @@ const int DRIVEBASE_LEFTMOTOR_3_PORT = 14;
 const int DRIVEBASE_RIGHTMOTOR_1_PORT = 15;
 const int DRIVEBASE_RIGHTMOTOR_2_PORT = 13;
 const int DRIVEBASE_RIGHTMOTOR_3_PORT = 13;
-
 
 const int OI_JOYSTICK_LEFT_PORT = 1;
 const int OI_JOYSTICK_RIGHT_PORT = 0;
@@ -58,20 +64,20 @@ const int CLIMBER_MOTOR2_PORT = 10000;
 
 const float CLIMBER_MOTOR_DIRECTION = 1;
 
-
 const int FUELCOLLECTOR_MOTOR1_PORT = 10000;
+const int FUELCOLLECTOR_MOTOR2_PORT = 10000;
 
+const int FUELCOLLECTOR_COMMAND_TIME_ON = 5;
 
-const int FUELINDEXER_MOTOR1_PORT = 10000;
+const int FUELLOADER_MOTOR1_PORT = 10000;
 
+const int FUELLOADER_COMMAND_TIME_ON = 5;
 
 const int TURRET_MOTOR1_PORT = 10000;
-
 
 const int SHOOTER_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR2_PORT = 10000;
 const double SHOOTER_TARGET_SPEED = 1; //rps
-
 
 const int GEARCOLLECTOR_SERVO1_PORT = 10000;
 
@@ -83,6 +89,33 @@ const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
+
+#include <Services/cLogger.h>
+
+#define LOG_DEBUG(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Debug);}
+
+#define LOG_INFO(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Info);}
+
+#define LOG_WARNING(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Warning);}
+
+#define LOG_ERROR(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Error);}
+
+#define LOG_RECORD(...) {\
+            char buf[1024];\
+            sprintf(buf, __VA_ARGS__);\
+            Logger::getLogger()->log(buf, Record);}
 
 const float BANEBOTS775_STALLING_CURRENT = 130;
 const float NEVEREST40_STALLING_CURRENT = 11.5;

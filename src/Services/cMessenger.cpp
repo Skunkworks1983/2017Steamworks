@@ -16,53 +16,53 @@
 // Creates a new messenger instance
 cMessenger::cMessenger(const char *server, const char *port)
 {
-    m_isPostMatch = false;
-
-    struct addrinfo hints;
-    int addrinfo_stat;
-
-    // Create the out variable for the connection settings
-    memset((char*) &hints, 0, sizeof(hints));
-    hints.ai_socktype = SOCK_DGRAM;
-    hints.ai_family = AF_INET;
-    hints.ai_flags = AI_NUMERICSERV;
-    hints.ai_protocol = 0;
-
-    // Attempt to get the address information of the system we're connecting to
-    // for later, and save the settings in hints & info
-    if((addrinfo_stat = getaddrinfo(RPI_IP, RPI_PORT, &hints, &m_info)) != 0)
+    // create a new socket
+    if((m_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
-        std::cout << "couldn't get address info, error: " << errno << "\n";
+        std::cout << "failed to create socket, errno " << errno << "\n";
         return;
     }
 
-    // Attempt to create the socket
-    if((m_sock = socket(m_info->ai_family, m_info->ai_socktype, m_info->ai_protocol)) == -1)
+    // configure the settings for our own address configuration (us)
+    memset((char *) &m_myaddr, 0, sizeof(m_myaddr));
+    m_myaddr.sin_family = AF_INET;
+    m_myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    m_myaddr.sin_port = htons((int) port);
+
+    // configure the settings for the target we're sending to (raspberry pies)
+    memset((char *) &m_remaddr, 0, sizeof(m_remaddr));
+    m_remaddr.sin_family = AF_INET;
+    inet_pton(AF_INET, server, &(m_remaddr.sin_addr));
+    m_remaddr.sin_port = htons((int) port);
+
+    // bind to the socket using the configuration of our own host, as defined above
+    if(bind(m_sock, (struct sockaddr*) &m_myaddr, sizeof(m_myaddr)) < 0)
     {
-        std::cout << "couldn't create socket, error: " << errno << "\n";
+        std::cout << "failed to bind to socket, errno " << errno << "\n";
         return;
     }
 }
 
 cMessenger::~cMessenger()
 {
-    freeaddrinfo(m_info);
+    free(&m_myaddr);
+    free(&m_remaddr);
 }
 
 // Sends a string through the socket
-void cMessenger::SendMessage(cMessage* message)
+void cMessenger::sendMessage(cMessage* message)
 {
     std::string toSend = message->PackToSend();
 
     // Send a message to the socket using the connection settings obtained earlier
-    if(sendto(m_sock, toSend.c_str(), toSend.size() + 1, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
+    if(sendto(m_sock, toSend.c_str(), toSend.size() + 1, 0, (struct sockaddr*) &m_remaddr, sizeof(m_remaddr)) == -1)
     {
         std::cout << "sendto failed, error: " << errno << "\n";
     }
 }
 
-// Remember to delete return value
-cMessage* cMessenger::ReceiveMessage()
+// This function receives a string from the remaddr source.
+cMessage* cMessenger::receiveMessage()
 {
     char message_buffer[MSG_LEN];
     memset(message_buffer, 0, MSG_LEN);
