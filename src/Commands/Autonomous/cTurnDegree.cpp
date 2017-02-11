@@ -11,8 +11,8 @@
 
 cTurnDegree::cTurnDegree(double degree)
 {
-    targetAngle = 135; //we gotta change this
-    angleRemaining = 0; //this is ok
+	m_targetAngle = 135; //we gotta change this
+	m_angleRemaining = 0; //this is ok
 }
 
 void cTurnDegree::Initialize()
