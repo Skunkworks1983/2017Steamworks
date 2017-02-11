@@ -3,16 +3,26 @@
 
 #include <string>
 
-class cMessage
-{
+class cBoilerData {
 private:
-    std::string message;
-public:
-    cMessage(std::string message);
-    ~cMessage();
+    int m_x, m_y;
 
-    std::string PackToSend();
-    std::string GetMessage();
+public:
+    cBoilerData(int x, int y);
+
+    int getX();
+    int getY();
+};
+
+
+class cLiftData {
+private:
+    int m_x;
+
+public:
+    cLiftData(int x);
+
+    int getX();
 };
 
 #endif
