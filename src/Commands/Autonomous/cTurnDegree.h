@@ -13,8 +13,8 @@
 class cTurnDegree: public frc::Command
 {
 private:
-    float targetAngle;
-    float angleRemaining;
+    float m_targetAngle;
+    float m_angleRemaining;
 
 public:
     cTurnDegree(double degree);

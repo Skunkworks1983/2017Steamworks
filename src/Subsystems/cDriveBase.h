@@ -25,6 +25,8 @@ private:
     cMotor* m_rightMotor1;
     cMotor* m_rightMotor2;
     cMotor* m_rightMotor3;
+	I2C* colorSensor;
+    int BitShift(uint8_t *colorReadout);
 
 public:
     cDriveBase();
@@ -38,6 +40,7 @@ public:
     cMotorGroup* getMotorGroupLeft();
     cMotorGroup* getMotorGroupRight();
     cMotorGroup* getMotorGroupAll();
+    bool CanSeeTape();
 
 };
 
