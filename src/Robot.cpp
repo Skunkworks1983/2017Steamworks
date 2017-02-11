@@ -18,7 +18,9 @@ private:
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
         CommandBase::s_climber = new cClimber();
-        CommandBase::s_messenger = new cMessenger(RPI_IP, RPI_PORT);
+
+        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
     }
 
     void DisabledInit()
@@ -34,7 +36,6 @@ private:
     void AutonomousInit()
     {
         LOG_INFO("AutonomousInit called");
-        CommandBase::s_messenger->m_isPostMatch = true;
     }
 
     void AutonomousPeriodic()
@@ -49,10 +50,10 @@ private:
 
     void TeleopPeriodic()
     {
-        cLiftData* dat = CommandBase::s_messenger->receiveLiftData();
+        cBoilerData* dat = CommandBase::s_boilerMessenger->receiveBoilerData();
 
-        if(dat->getX() != -1)
-            std::cout << dat->getX() << std::endl;
+        if(dat->getX() != -1 && dat->getY() != -1)
+            std::cout << dat->getX() << ", " << dat->getY() << std::endl;
 
         Scheduler::GetInstance()->Run();
     }

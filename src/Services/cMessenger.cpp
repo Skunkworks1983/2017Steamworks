@@ -45,8 +45,7 @@ cMessenger::cMessenger(const char *server, const char *port)
 
 cMessenger::~cMessenger()
 {
-    free(&m_myaddr);
-    free(&m_remaddr);
+
 }
 
 // Sends a string through the socket

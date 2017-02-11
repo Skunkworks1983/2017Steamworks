@@ -23,19 +23,16 @@ enum FuelCollectorPosition {
     DOWN = 0
 };
 
-#define BOILER_PI_IP "10.19.83.100"
-#define BOILER_PI_PORT "8888"
+#define BOILER_PI_IP "10.19.83.237"
+#define BOILER_PI_PORT "5802"
 
 const int BOILER_PI_ID = 0;
 
-#define GEAR_PI_IP
-#define GEAR_PI_PORT
+#define GEAR_PI_IP "10.19.83.217"
+#define GEAR_PI_PORT "5800"
 
 const int GEAR_PI_ID = 1;
 
-
-#define RPI_IP "10.19.83.100"
-#define RPI_PORT "8888"
 
 const int MSG_LEN = 1024;
 
