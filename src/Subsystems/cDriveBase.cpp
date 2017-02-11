@@ -10,8 +10,10 @@
 #include <Subsystems/cDriveBase.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Subsystems/cMotorGroup.h"
-cDriveBase::cDriveBase() :
-        Subsystem("cDriveBase")
+#include "Subsystems/cReversingMotorGroup.h"
+#include <PIDController.h>
+
+    cDriveBase::cDriveBase():Subsystem("cDriveBase")
 {
     m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM);
     m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM);
@@ -38,6 +40,15 @@ cDriveBase::cDriveBase() :
     allMotors.push_back(m_motorGroupLeft);
     allMotors.push_back(m_motorGroupRight);
 
+    std::vector<bool> reversed;
+    reversed.push_back(false);
+    reversed.push_back(false);
+    reversed.push_back(false);
+    reversed.push_back(true);
+    reversed.push_back(true);
+    reversed.push_back(true);
+
+    m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
     m_motorGroupAll = new cMotorGroup(allMotors);
 }
 cDriveBase::~cDriveBase()
@@ -72,7 +83,6 @@ void cDriveBase::setEnabled(bool enabled)
 {
     m_motorGroupAll->setEnabled(enabled);
 }
-
 cMotorGroup* cDriveBase::getMotorGroupRight()
 {
     return m_motorGroupRight;
@@ -84,4 +94,12 @@ cMotorGroup* cDriveBase::getMotorGroupLeft()
 cMotorGroup* cDriveBase::getMotorGroupAll()
 {
     return m_motorGroupAll;
+}
+cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
+{
+    return m_motorGroupGyro;
+}
+cGyro* cDriveBase::getGyro()
+{
+    return m_gyro;
 }

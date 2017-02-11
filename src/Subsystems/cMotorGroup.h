@@ -25,6 +25,7 @@ public:
     double PIDGet() override;
     void setEnabled(bool enabled) override;
     bool hasEncoder();
+    std::vector<iMotor*> GetMotorList();
 };
 
 #endif /* SRC_SUBSYSTEMS_CMOTORGROUP_H_ */

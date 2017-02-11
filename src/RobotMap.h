@@ -53,6 +53,10 @@ const float SIMPLEDRIVEFORWARD_PID_P = 1;
 const float SIMPLEDRIVEFORWARD_PID_I = 1;
 const float SIMPLEDRIVEFORWARD_PID_D = 1;
 
+const float TURNDEGREE_PID_P = 1;
+const float TURNDEGREE_PID_I = 1;
+const float TURNDEGREE_PID_D = 1;
+
 const int CLIMBER_MOTOR1_PORT = 10000;
 const int CLIMBER_MOTOR2_PORT = 10000;
 
@@ -88,6 +92,8 @@ const float BANEBOTS775_STALLING_CURRENT = 130;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
 const float CIM_STALLING_CURRENT = 133;
 
+const float TURNANGLE_TARGET_ANGLE = 71;
+const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:
 //const int RANGE_FINDER_PORT = 1;
