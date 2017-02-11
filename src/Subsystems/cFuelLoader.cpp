@@ -12,7 +12,7 @@ cFuelLoader::cFuelLoader() :
         Subsystem("cFuelLoader")
 {
     // TODO Auto-generated constructor stub
-    m_motor1 = new cMotor(FUELLOADER_MOTOR1_PORT);
+    m_motor1 = new cMotor(FUELLOADER_MOTOR1_PORT, BaneBots775);
 }
 
 void cFuelLoader::setSpeed(float speed)

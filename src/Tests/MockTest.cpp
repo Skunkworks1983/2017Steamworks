@@ -4,7 +4,7 @@
  *  Created on: Feb 7, 2017
  *      Author: Thomas
  */
-#include <gmock/gmock.h>
+/*#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 class Interface
@@ -31,3 +31,4 @@ TEST(MockTest, mockDetectsCall)
 	EXPECT_CALL(interface, method(::testing::_)).Times(1);
 	testFunction(&interface);
 }
+*/

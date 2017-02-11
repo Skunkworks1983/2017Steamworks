@@ -33,6 +33,7 @@ public:
     static cFuelCollector* s_fuelCollector;
     static cFuelLoader* s_fuelLoader;
     static cShooter* s_shooter;
+    static cTurret* s_turret;
 };
 
 #endif

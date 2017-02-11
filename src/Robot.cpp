@@ -4,8 +4,8 @@
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
 #include <OI.h>
-#include "Commands/cRunTankDrive.h"
-#include "Commands/cPointToBoiler.h"
+#include "Commands/DriveBase/cRunTankDrive.h"
+#include "Commands/Turret/cPointToBoiler.h"
 #include <errno.h>
 #include "RobotMap.h"
 

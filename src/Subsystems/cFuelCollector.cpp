@@ -12,7 +12,7 @@ cFuelCollector::cFuelCollector() :
         Subsystem("cFuelCollector")
 {
     // TODO Auto-generated constructor stub
-    m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT);
+    m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT, BaneBots775);
     m_collectorFlapServo = new Servo(FUELCOLLECTOR_MOTOR2_PORT);
 }
 

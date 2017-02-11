@@ -12,7 +12,7 @@ cPidUDP::cPidUDP()
 double cPidUDP::PIDGet()
 {
 	cMessage* message;
-	message = messenger->ReceiveMessage();
+	message = messenger->receiveMessage();
 
 	double targetPos = 0;
 	std::string messageContent = message->GetMessage();
