@@ -19,7 +19,9 @@ private:
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
         CommandBase::s_climber = new cClimber();
-        CommandBase::s_messenger = new cMessenger(RPI_IP, RPI_PORT);
+
+        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
     }
 
     void DisabledInit()
@@ -35,7 +37,6 @@ private:
 	void AutonomousInit()
 	{
 		std::cout << "whoa whoa whoa 0" << std::endl;
-	    CommandBase::s_messenger->m_isPostMatch = true;
 	    cPointToBoiler* pointing = new cPointToBoiler();
 	    std::cout << "whoa man got here" << std::endl;
 	    Scheduler::GetInstance()->AddCommand(pointing);
@@ -55,11 +56,6 @@ private:
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
-
-        cLiftData* dat = CommandBase::s_messenger->receiveLiftData();
-
-        if(dat->getX() != -1)
-            std::cout << dat->getX() << std::endl;
     }
 
     void TestPeriodic()

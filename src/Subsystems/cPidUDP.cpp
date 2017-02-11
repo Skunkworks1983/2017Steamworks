@@ -6,7 +6,7 @@
 
 cPidUDP::cPidUDP()
 {
-	messenger = CommandBase::s_messenger;
+	messenger = CommandBase::s_boilerMessenger;
 }
 
 double cPidUDP::PIDGet()

@@ -27,7 +27,8 @@ public:
     static void init();
     static cDriveBase *s_drivebase;
     static OI *s_oi;
-    static cMessenger *s_messenger;
+    static cMessenger *s_boilerMessenger;
+    static cMessenger* s_liftMessenger;
     static cClimber * s_climber;
     static cGearCollector* s_gearCollector;
     static cFuelCollector* s_fuelCollector;

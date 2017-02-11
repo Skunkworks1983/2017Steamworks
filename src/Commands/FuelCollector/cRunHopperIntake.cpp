@@ -5,7 +5,7 @@
  *      Author: Nathan
  */
 
-#include ".\cRunHopperIntake.h"
+#include <Commands/FuelCollector/cRunHopperIntake.h>
 #include <CommandBase.h>
 #include <RobotMap.h>
 

@@ -5,7 +5,7 @@
  *      Author: Nathan
  */
 
-#include ".\cRunFuelFlap.h"
+#include "cRunFuelFlap.h"
 #include <CommandBase.h>
 #include <RobotMap.h>
 

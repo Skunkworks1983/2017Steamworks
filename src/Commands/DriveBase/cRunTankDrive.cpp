@@ -2,6 +2,7 @@
 #include <Subsystems/cDriveBase.h>
 #include <OI.h>
 #include <CommandBase.h>
+#include <RobotMap.h>
 cRunTankDrive::cRunTankDrive()
 {
     Requires(s_drivebase);
@@ -9,6 +10,7 @@ cRunTankDrive::cRunTankDrive()
 
 void cRunTankDrive::Initialize()
 {
+    LOG_INFO("starting cRunTankDrive");
     CommandBase::s_drivebase->setEnabled(true);
 }
 
@@ -54,11 +56,12 @@ bool cRunTankDrive::IsFinished()
 
 void cRunTankDrive::End()
 {
-
+    LOG_INFO("ending cRunTankDrive");
 }
 
 void cRunTankDrive::Interrupted()
 {
+    LOG_INFO("interrupted cRunTankDrive");
     End();
 }
 
