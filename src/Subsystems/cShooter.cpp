@@ -1,11 +1,25 @@
 #include "cShooter.h"
 #include <RobotMap.h>
 
-cShooter::cShooter() :
-        Subsystem("cShooter")
+cShooter::cShooter(ShooterSide side) :
+        Subsystem("cShooter"), side(side)
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT);
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT);
+
+	switch (side) {
+		case LEFT:
+		talon = new CANTalon(SHOOTER_MOTOR1_PORT);
+		talon->SetSensorDirection(true);
+		break;
+		case RIGHT:
+		talon = new CANTalon(SHOOTER_MOTOR2_PORT);
+		break;
+	}
+	talon->SetControlMode(CANTalon::ControlMode::kSpeed);
+	talon->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
+	talon->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
+	talon->SetClosedLoopOutputDirection(true);
 }
 
 cShooter::~cShooter()
@@ -28,4 +42,75 @@ void cShooter::setSpeed(float speed)
 double cShooter::getSpeed()
 {
 	return 0;
+}
+
+cShooter *cShooter::getLeft()
+{
+	return left;
+}
+
+cShooter *cShooter::getRight()
+{
+	return right;
+}
+
+double cShooter::PIDGet()
+{
+	return talon->GetSpeed();
+}
+
+bool cShooter::isPIDEnabled()
+{
+	return talon->IsEnabled();
+}
+
+double cShooter::getError()
+{
+	return talon->GetClosedLoopError();
+}
+
+void cShooter::EnablePID()
+{
+	if (talon->GetControlMode() != CANTalon::ControlMode::kSpeed) {
+		talon->SetControlMode(CANTalon::ControlMode::kSpeed);
+	}
+	talon->Enable();
+	talon->EnableControl();
+}
+
+void cShooter::DisablePID()
+{
+	talon->ClearStickyFaults();
+	talon->SetControlMode(CANTalon::ControlMode::kPercentVbus);
+	talon->Set(0.0);
+	talon->SetControlMode(CANTalon::ControlMode::kSpeed);
+	talon->SetSetpoint(0.0);
+	talon->Set(0.0);
+	talon->Disable();
+	talon->Reset();
+}
+
+void cShooter::ResetPID()
+{
+	talon->Reset();
+}
+
+void cShooter::setSetpoint(float setpoint)
+{
+	if (setpoint != this->setpoint) {
+		this->setpoint = setpoint;
+	}
+	setpoint = (setpoint * SHOOTER_ENCODER_TICKS_PER_REV) / 10;
+	talon->Set(setpoint);
+	talon->SetSetpoint(setpoint);
+}
+
+double cShooter::getSetpoint()
+{
+	return talon->GetSetpoint();
+}
+
+void cShooter::setPID(double p, double i, double d)
+{
+	talon->SetPID(p, i, d);
 }
