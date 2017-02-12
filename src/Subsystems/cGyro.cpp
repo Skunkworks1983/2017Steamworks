@@ -16,6 +16,7 @@ cGyro::cGyro()
 
 cGyro::~cGyro()
 {
+    delete m_ahrs;
     // TODO Auto-generated destructor stub
 }
 

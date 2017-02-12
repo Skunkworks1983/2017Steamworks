@@ -9,6 +9,8 @@
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
+#include "Subsystems/cFuelCollector.h"
+#include "Subsystems/cFuelLoader.h"
 #include "Subsystems/cShooter.h"
 #include "Subsystems/cTurret.h"
 
@@ -20,16 +22,19 @@
 class CommandBase: public Command
 {
 public:
-	CommandBase(const std::string &name);
-	CommandBase();
-	static void init();
-	static cDriveBase *s_drivebase;
-	static OI *s_oi;
-	static cMessenger *s_messenger;
-	static cClimber * s_climber;
-	static cGearCollector* s_gearCollector;
-	static cShooter* s_shooter;
-	static cTurret* s_turret;
-	};
+    CommandBase(const std::string &name);
+    CommandBase();
+    static void init();
+    static cDriveBase *s_drivebase;
+    static OI *s_oi;
+    static cMessenger *s_boilerMessenger;
+    static cMessenger* s_liftMessenger;
+    static cClimber * s_climber;
+    static cGearCollector* s_gearCollector;
+    static cFuelCollector* s_fuelCollector;
+    static cFuelLoader* s_fuelLoader;
+    static cShooter* s_shooter;
+    static cTurret* s_turret;
+};
 
 #endif

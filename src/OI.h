@@ -21,6 +21,8 @@ private:
     JoystickButton *m_spinUpShooter;
     JoystickButton *m_rotateTurretLeft;
     JoystickButton *m_rotateTurretRight;
+    JoystickButton *m_loadBall;
+    JoystickButton *m_fuelLoader;
 
 public:
     OI();

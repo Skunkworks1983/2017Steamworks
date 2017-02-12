@@ -31,8 +31,6 @@ private:
     cMotor* m_rightMotor3;
     cGyro* m_gyro;
 
-    PIDController* m_pidController;
-
 public:
     cDriveBase();
     ~cDriveBase();

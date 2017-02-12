@@ -13,7 +13,8 @@
 #include "Subsystems/cReversingMotorGroup.h"
 #include <PIDController.h>
 
-    cDriveBase::cDriveBase():Subsystem("cDriveBase")
+cDriveBase::cDriveBase() :
+        Subsystem("cDriveBase")
 {
     m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM);
     m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM);
@@ -57,22 +58,27 @@ cDriveBase::~cDriveBase()
     delete m_motorGroupLeft;
     delete m_motorGroupRight;
 }
+
 void cDriveBase::setBrakeMode(bool brake)
 {
     m_motorGroupAll->setBrakeMode(brake);
 }
+
 void cDriveBase::InitDefaultCommand()
 {
     SetDefaultCommand(new cRunTankDrive());
 }
+
 void cDriveBase::resetEncoder()
 {
 }
+
 void cDriveBase::setLeftSpeed(double speed)
 {
     speed = speed * DRIVEBASE_LEFT_DIRECTION;
     m_motorGroupLeft->setOutput(speed);
 }
+
 void cDriveBase::setRightSpeed(double speed)
 {
     speed = speed * DRIVEBASE_RIGHT_DIRECTION;
@@ -83,22 +89,27 @@ void cDriveBase::setEnabled(bool enabled)
 {
     m_motorGroupAll->setEnabled(enabled);
 }
+
 cMotorGroup* cDriveBase::getMotorGroupRight()
 {
     return m_motorGroupRight;
 }
+
 cMotorGroup* cDriveBase::getMotorGroupLeft()
 {
     return m_motorGroupLeft;
 }
+
 cMotorGroup* cDriveBase::getMotorGroupAll()
 {
     return m_motorGroupAll;
 }
+
 cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
 {
     return m_motorGroupGyro;
 }
+
 cGyro* cDriveBase::getGyro()
 {
     return m_gyro;

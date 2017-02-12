@@ -5,6 +5,7 @@
  *      Author: Thomas
  */
 /*
+
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -32,4 +33,6 @@ TEST(MockTest, mockDetectsCall)
 	EXPECT_CALL(interface, method(::testing::_)).Times(1);
 	testFunction(&interface);
 }
+
 */
+
