@@ -16,14 +16,16 @@
 // Creates a new messenger instance
 cMessenger::cMessenger(const char *server, const char *port)
 {
+    // Initialize the last known variables
+    m_lastBoilerData = new cBoilerData(0, 0);
+    m_lastLiftData = new cLiftData(0);
+
     // bind to the udp socket
     if((m_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
         std::cout << "failed to create socket, errno " << errno << "\n";
         return;
     }
-
-    lastBoiler = new cBoilerData(0, 0);
 
     // create the configuration for our own host port
     memset((char *) &m_myaddr, 0, sizeof(m_myaddr));
@@ -52,7 +54,8 @@ cMessenger::cMessenger(const char *server, const char *port)
 
 cMessenger::~cMessenger()
 {
-
+    delete m_lastBoilerData;
+    delete m_lastLiftData;
 }
 
 // Sends a string through the socket
@@ -105,15 +108,21 @@ cBoilerData* cMessenger::receiveBoilerData()
             // get the y pos
             y = atof(message.substr(0, message.length() + 1).c_str());
 
-            lastBoiler = new cBoilerData(x, y);
+            // check if the member lastboilerdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastBoilerData != NULL) {
+                delete m_lastBoilerData;
+                m_lastBoilerData = NULL;
+            }
 
-            // return the new boiler data
-            return new cBoilerData(x, y);
+            // edit the new member variable
+            m_lastBoilerData = new cBoilerData(x, y);
         }
     }
 
-    return lastBoiler;
+    return m_lastBoilerData;
 }
+
 
 cLiftData* cMessenger::receiveLiftData()
 {
@@ -129,10 +138,18 @@ cLiftData* cMessenger::receiveLiftData()
             // cut the first portion of characters from the first space to the second space
             x = atof(message.substr(0, message.find(" ")).c_str());
 
-            // return the new boiler data
-            return new cLiftData(x);
+            // check if the member lastliftdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastLiftData != NULL) {
+                delete m_lastLiftData;
+                m_lastLiftData = NULL;
+            }
+
+            // edit the new member variable
+            m_lastLiftData = new cLiftData(x);
         }
     }
 
-    return new cLiftData(1000);
+    // return the last known position of the boiler if there is none on screen
+    return m_lastLiftData;
 }

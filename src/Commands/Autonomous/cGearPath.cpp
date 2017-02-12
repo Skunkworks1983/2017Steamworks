@@ -72,13 +72,16 @@ void cGearPath::FindGearPath() {
 		if (isInsideArms == true) {
 			//this part figures out the angle the robot must turn followed by the distance it must drive followed by the angle it must turn.
 			double anglePivotPointTapeRobot = (3.14 - angleWallTapePivotPoint -	 angleRobotTapeWall);
-			AutoBase::distanceToPivotPoint = sqrt(distanceToTape*distanceToTape + DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT
+			AutoBase::s_distanceToPivotPoint = sqrt(distanceToTape*distanceToTape + DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT
 			- 2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT * cos(anglePivotPointTapeRobot)); // law of cosines. a^2 = b^2 + c^2 - 2*b*c*cos(A) //this ends up being used
-			AutoBase::angleTapeRobotPivotPoint = acos((-DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT
-			+ AutoBase::distanceToPivotPoint * AutoBase::distanceToPivotPoint + distanceToTape * distanceToTape) / (2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT)); //this ends up being used
+			AutoBase::s_angleTapeRobotPivotPoint = acos((-DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT
+			+ AutoBase::s_distanceToPivotPoint * AutoBase::s_distanceToPivotPoint + distanceToTape * distanceToTape) / (2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT)); //this ends up being used
 			//cos(A) = ((- a * a + b * b + c * c) / 2 * b * c)
-			double angleRobotPivotPointTape = (3.14 - anglePivotPointTapeRobot -  AutoBase::angleTapeRobotPivotPoint);
-			AutoBase::angleRobotPivotPointGoal = (angleRobotPivotPointTape + angleGoalPivotPointTape); //this ends up being used
+			double angleRobotPivotPointTape = (3.14 - anglePivotPointTapeRobot -  AutoBase::s_angleTapeRobotPivotPoint);
+			AutoBase::s_angleRobotPivotPointGoal = (angleRobotPivotPointTape + angleGoalPivotPointTape); //this ends up being used
+			AutoBase::s_distanceToPivotPoint = ((AutoBase::s_distanceToPivotPoint * 180)/3.14); //turns out turndegree turns degrees
+			AutoBase::s_angleTapeRobotPivotPoint = ((AutoBase::s_angleTapeRobotPivotPoint * 180)/3.14);
+			AutoBase::s_angleRobotPivotPointGoal = ((AutoBase::s_angleRobotPivotPointGoal * 180)/3.14);
 
 		}
 }
