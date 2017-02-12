@@ -6,19 +6,19 @@
 cTurret::cTurret() :
         Subsystem("cTurret")
 {
-    m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
-    m_servo1 = new Servo(1);
+    //m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
+    m_servo1 = new Servo(8);
 }
 
 cTurret::~cTurret()
 {
-    delete m_motor1;
+    //delete m_motor1;
     delete m_servo1;
 }
 
 void cTurret::InitDefaultCommand()
 {
-    SetDefaultCommand(new cRotateTurret(0, 1000));
+    SetDefaultCommand(new cRotateTurret(0, 10));
 }
 
 void cTurret::setSpeed(float speed)

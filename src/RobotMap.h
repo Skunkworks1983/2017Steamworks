@@ -22,15 +22,15 @@ enum FuelCollectorPosition
     UP = 90, DOWN = 0
 };
 
-#define BOILER_PI_IP "10.19.83.237"
+#define BOILER_PI_IP "10.19.83.6"
 #define BOILER_PI_PORT "5802"
 
-const int BOILER_PI_ID = 0;
+const int BOILER_PI_ID = 1;
 
-#define GEAR_PI_IP "10.19.83.217"
+#define GEAR_PI_IP "10.19.83.7"
 #define GEAR_PI_PORT "5800"
 
-const int GEAR_PI_ID = 1;
+const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 

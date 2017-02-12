@@ -39,7 +39,7 @@ OI::OI()
     m_rotateTurretLeft->WhenPressed(new cRotateTurret(CROTATETURRET_LEFT_SPEED));
     m_rotateTurretRight->WhenPressed(new cRotateTurret(CROTATETURRET_RIGHT_SPEED));
 
-    m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
+    //m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
 }
 
 float OI::getLeftStickY()

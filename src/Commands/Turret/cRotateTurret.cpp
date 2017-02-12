@@ -10,9 +10,10 @@
 #include <CommandBase.h>
 #include <Services/cMessage.h>
 
-cRotateTurret::cRotateTurret(float speed, float timeout)
+cRotateTurret::cRotateTurret(float timeout)
 {
-    m_speed = speed;
+    Requires(CommandBase::s_turret);
+
     if(timeout != 0)
     {
         SetTimeout(timeout);
@@ -21,17 +22,12 @@ cRotateTurret::cRotateTurret(float speed, float timeout)
 
 void cRotateTurret::Initialize()
 {
-    Requires(CommandBase::s_turret);
+
 }
 
 void cRotateTurret::Execute()
 {
-    /*
-     cBoilerData* data = CommandBase::s_boilerMessenger->receiveBoilerData();
-     CommandBase::s_turret->setSpeed(-data->getX());
-     */
 
-    CommandBase::s_turret->m_servo1->SetAngle(1);
 }
 
 bool cRotateTurret::IsFinished()
@@ -41,7 +37,7 @@ bool cRotateTurret::IsFinished()
 
 void cRotateTurret::End()
 {
-    //CommandBase::s_turret->setSpeed(0);
+
 }
 
 void cRotateTurret::Interrupted()
@@ -51,6 +47,6 @@ void cRotateTurret::Interrupted()
 
 cRotateTurret::~cRotateTurret()
 {
-    // TODO Auto-generated destructor stub
+
 }
 
