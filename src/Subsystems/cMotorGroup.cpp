@@ -65,3 +65,7 @@ bool cMotorGroup::hasEncoder()
     return false; //TODO fix this
 }
 
+std::vector<iMotor*> cMotorGroup::GetMotorList()
+{
+    return m_motorList;
+}

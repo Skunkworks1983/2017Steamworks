@@ -95,5 +95,10 @@ void cGearPath::FindGearPath() {
 			double angleRobotPivotPointTape = (3.14 - anglePivotPointTapeRobot -  AutoBase::s_angleTapeRobotPivotPoint);
 			AutoBase::s_angleRobotPivotPointGoal = (angleRobotPivotPointTape + angleGoalPivotPointTape); //this ends up being used
 
+			AutoBase::s_distanceToPivotPoint = ((AutoBase::s_distanceToPivotPoint * 180)/3.14); //turns out turndegree turns degrees
+			AutoBase::s_angleTapeRobotPivotPoint = ((AutoBase::s_angleTapeRobotPivotPoint * 180)/3.14);
+			AutoBase::s_angleRobotPivotPointGoal = ((AutoBase::s_angleRobotPivotPointGoal * 180)/3.14);
+
+
 		}
 }

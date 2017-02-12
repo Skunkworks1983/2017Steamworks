@@ -7,28 +7,28 @@
 
 #include <Services/cMessage.h>
 
-cBoilerData::cBoilerData(int x, int y) : m_x(x), m_y(y) {
+cBoilerData::cBoilerData(float x, float y) : m_x(x), m_y(y) {
 
 }
 
 
-int cBoilerData::getX() {
+float cBoilerData::getX() {
     return m_x;
 }
 
 
-int cBoilerData::getY() {
+float cBoilerData::getY() {
     return m_y;
 }
 
 
 
-cLiftData::cLiftData(int x) : m_x(x) {
+cLiftData::cLiftData(float x) : m_x(x) {
 
 }
 
 
-int cLiftData::getX() {
+float cLiftData::getX() {
     return m_x;
 }
 

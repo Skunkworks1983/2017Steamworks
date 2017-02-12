@@ -10,6 +10,9 @@
 #include <Subsystems/cDriveBase.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Subsystems/cMotorGroup.h"
+#include "Subsystems/cReversingMotorGroup.h"
+#include <PIDController.h>
+
 cDriveBase::cDriveBase() :
         Subsystem("cDriveBase")
 {
@@ -38,7 +41,17 @@ cDriveBase::cDriveBase() :
     allMotors.push_back(m_motorGroupLeft);
     allMotors.push_back(m_motorGroupRight);
 
+    std::vector<bool> reversed;
+    reversed.push_back(false);
+    reversed.push_back(false);
+    reversed.push_back(false);
+    reversed.push_back(true);
+    reversed.push_back(true);
+    reversed.push_back(true);
+
+    m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
     m_motorGroupAll = new cMotorGroup(allMotors);
+
 }
 cDriveBase::~cDriveBase()
 {
@@ -46,22 +59,27 @@ cDriveBase::~cDriveBase()
     delete m_motorGroupLeft;
     delete m_motorGroupRight;
 }
+
 void cDriveBase::setBrakeMode(bool brake)
 {
     m_motorGroupAll->setBrakeMode(brake);
 }
+
 void cDriveBase::InitDefaultCommand()
 {
     SetDefaultCommand(new cRunTankDrive());
 }
+
 void cDriveBase::resetEncoder()
 {
 }
+
 void cDriveBase::setLeftSpeed(double speed)
 {
     speed = speed * DRIVEBASE_LEFT_DIRECTION;
     m_motorGroupLeft->setOutput(speed);
 }
+
 void cDriveBase::setRightSpeed(double speed)
 {
     speed = speed * DRIVEBASE_RIGHT_DIRECTION;
@@ -77,10 +95,12 @@ cMotorGroup* cDriveBase::getMotorGroupRight()
 {
     return m_motorGroupRight;
 }
+
 cMotorGroup* cDriveBase::getMotorGroupLeft()
 {
     return m_motorGroupLeft;
 }
+
 cMotorGroup* cDriveBase::getMotorGroupAll()
 {
     return m_motorGroupAll;
@@ -125,5 +145,15 @@ double cDriveBase::GetRightDistance() {
 	rightDistanceInches = (rightDistanceInches * .0098 / 5);
 	return rightDistanceInches;
 
+}
+
+cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
+{
+    return m_motorGroupGyro;
+}
+
+cGyro* cDriveBase::getGyro()
+{
+    return m_gyro;
 }
 

@@ -19,8 +19,8 @@ class cSimpleDriveForward: public frc::Command
 private:
     PIDController *m_pidController;
     cMotorGroup* motorGroupAll;
-    float distance;
-    bool m_driveMode;
+    float m_distance;
+    bool m_driveToLine;
 public:
     cSimpleDriveForward(float distance, bool stopAtLine = false);
     ~cSimpleDriveForward();

@@ -13,6 +13,9 @@
 #include <OI.h>
 #include "Subsystems/cMotorGroup.h"
 #include <AnalogInput.h>
+#include "Subsystems/cReversingMotorGroup.h"
+#include "Subsystems/cGyro.h"
+#include <PIDController.h>
 
 class cDriveBase: public Subsystem
 {
@@ -20,6 +23,7 @@ private:
     cMotorGroup* m_motorGroupLeft;
     cMotorGroup* m_motorGroupRight;
     cMotorGroup* m_motorGroupAll;
+    cReversingMotorGroup* m_motorGroupGyro;
     cMotor* m_leftMotor1;
     cMotor* m_leftMotor2;
     cMotor* m_leftMotor3;
@@ -31,6 +35,8 @@ private:
 	AnalogInput* m_rSonar;
 	AnalogInput* m_lSonar;
     int BitShift(uint8_t *colorReadout);
+
+    cGyro* m_gyro;
 
 
 public:
@@ -48,6 +54,9 @@ public:
     bool CanSeeTape();
     double GetLeftDistance();
     double GetRightDistance();
+    cReversingMotorGroup* getMotorGroupGyro();
+    cGyro* getGyro();
+
 
 
 };
