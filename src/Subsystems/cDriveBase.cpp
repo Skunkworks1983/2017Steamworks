@@ -10,6 +10,9 @@
 #include <Subsystems/cDriveBase.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Subsystems/cMotorGroup.h"
+#include "Subsystems/cReversingMotorGroup.h"
+#include <PIDController.h>
+
 cDriveBase::cDriveBase() :
         Subsystem("cDriveBase")
 {
@@ -38,8 +41,16 @@ cDriveBase::cDriveBase() :
     allMotors.push_back(m_motorGroupLeft);
     allMotors.push_back(m_motorGroupRight);
 
-    m_motorGroupAll = new cMotorGroup(allMotors);
+    std::vector<bool> reversed;
+    reversed.push_back(false);
+    reversed.push_back(false);
+    reversed.push_back(false);
+    reversed.push_back(true);
+    reversed.push_back(true);
+    reversed.push_back(true);
 
+    m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
+    m_motorGroupAll = new cMotorGroup(allMotors);
 
 }
 cDriveBase::~cDriveBase()
@@ -48,22 +59,27 @@ cDriveBase::~cDriveBase()
     delete m_motorGroupLeft;
     delete m_motorGroupRight;
 }
+
 void cDriveBase::setBrakeMode(bool brake)
 {
     m_motorGroupAll->setBrakeMode(brake);
 }
+
 void cDriveBase::InitDefaultCommand()
 {
     SetDefaultCommand(new cRunTankDrive());
 }
+
 void cDriveBase::resetEncoder()
 {
 }
+
 void cDriveBase::setLeftSpeed(double speed)
 {
     speed = speed * DRIVEBASE_LEFT_DIRECTION;
     m_motorGroupLeft->setOutput(speed);
 }
+
 void cDriveBase::setRightSpeed(double speed)
 {
     speed = speed * DRIVEBASE_RIGHT_DIRECTION;
@@ -79,36 +95,51 @@ cMotorGroup* cDriveBase::getMotorGroupRight()
 {
     return m_motorGroupRight;
 }
+
 cMotorGroup* cDriveBase::getMotorGroupLeft()
 {
     return m_motorGroupLeft;
 }
+
 cMotorGroup* cDriveBase::getMotorGroupAll()
 {
     return m_motorGroupAll;
 }
 
-bool cDriveBase::CanSeeTape() {
-	colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
-	uint8_t bufferR[COLOR_SENSOR_BYTE_LENGTH];
-	uint8_t bufferG[COLOR_SENSOR_BYTE_LENGTH];
-	uint8_t bufferB[COLOR_SENSOR_BYTE_LENGTH];
-	colorSensor->Read(COLOR_SENSOR_R_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferR);
-	colorSensor->Read(COLOR_SENSOR_G_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferG);
-	colorSensor->Read(COLOR_SENSOR_B_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferB);
-	if (BitShift(bufferR)  == FLOOR_TAPE_R) {
-		if (BitShift(bufferG) == FLOOR_TAPE_G) {
-			if (BitShift(bufferB) == FLOOR_TAPE_B) {
-				return true;
-			}
-		}
-	} else {
-		return false;
-	}
-
+cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
+{
+    return m_motorGroupGyro;
 }
-int BitShift(uint8_t *colorReadout) {
-	int shiftee = colorReadout[0] << 8;
-	shiftee = shiftee | colorReadout[1];
-	return shiftee;
+
+cGyro* cDriveBase::getGyro()
+{
+    return m_gyro;
+}
+bool cDriveBase::CanSeeTape()
+{
+    colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
+    uint8_t bufferR[COLOR_SENSOR_BYTE_LENGTH];
+    uint8_t bufferG[COLOR_SENSOR_BYTE_LENGTH];
+    uint8_t bufferB[COLOR_SENSOR_BYTE_LENGTH];
+    colorSensor->Read(COLOR_SENSOR_R_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferR);
+    colorSensor->Read(COLOR_SENSOR_G_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferG);
+    colorSensor->Read(COLOR_SENSOR_B_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferB);
+    if(BitShift(bufferR) == FLOOR_TAPE_R)
+    {
+        if(BitShift(bufferG) == FLOOR_TAPE_G)
+        {
+            if(BitShift(bufferB) == FLOOR_TAPE_B)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+int cDriveBase::BitShift(uint8_t *colorReadout)
+{
+    int shiftee = colorReadout[0] << 8;
+    shiftee = shiftee | colorReadout[1];
+    return shiftee;
+
 }

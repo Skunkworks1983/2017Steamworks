@@ -2,6 +2,7 @@
 #define ROBOTMAP_H
 
 #include "WPILib.h"
+#include <Services/cLogger.h>
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -15,24 +16,23 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
-#define ROBOT_NAME "lol"
-#define LOGFILE_NAME "/U/robotLog"
+const char* const ROBOT_NAME = "tim scoot";
+const char* const LOGFILE_NAME = "/U/robotLog";
 
 enum FuelCollectorPosition {
     UP = 90,
     DOWN = 0
 };
 
-#define BOILER_PI_IP "10.19.83.237"
-#define BOILER_PI_PORT "5802"
+const char* const BOILER_PI_IP = "10.19.83.237";
+const char* const BOILER_PI_PORT = "5802";
 
 const int BOILER_PI_ID = 0;
 
-#define GEAR_PI_IP "10.19.83.217"
-#define GEAR_PI_PORT "5800"
+const char* const GEAR_PI_IP = "10.19.83.217";
+const char* const GEAR_PI_PORT = "5800";
 
 const int GEAR_PI_ID = 1;
-
 
 const int MSG_LEN = 1024;
 
@@ -66,6 +66,10 @@ const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 const float SIMPLEDRIVEFORWARD_PID_P = 1;
 const float SIMPLEDRIVEFORWARD_PID_I = 1;
 const float SIMPLEDRIVEFORWARD_PID_D = 1;
+
+const float TURNDEGREE_PID_P = 1;
+const float TURNDEGREE_PID_I = 1;
+const float TURNDEGREE_PID_D = 1;
 
 const int CLIMBER_MOTOR1_PORT = 10000;
 const int CLIMBER_MOTOR2_PORT = 10000;
@@ -102,35 +106,36 @@ const float BANEBOTS775_STALLING_CURRENT = 130;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
 const float CIM_STALLING_CURRENT = 133;
 
+const float TURNANGLE_TARGET_ANGLE = 71;
+const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
+
 //AUTONOMOUS THINGS
 
 //COLOR SENSOR
 //datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
-#define COLOR_SENSOR_I2C_SLAVE_ADR 0x29
-#define COLOR_SENSOR_R_HIGH_REG 0x17 //apparently the high value of each registry is the accurate one.
-#define COLOR_SENSOR_G_HIGH_REG 0x19
-#define COLOR_SENSOR_B_HIGH_REG 0x1B
-#define COLOR_SENSOR_BYTE_LENGTH 2
-#define I2C_CHANNEL 1234
-#define FLOOR_TAPE_R 1234 //these are found experimentally, unfortunately.
-#define FLOOR_TAPE_G 1234 //ibid
-#define FLOOR_TAPE_B 1234 //hebids
+const int COLOR_SENSOR_I2C_SLAVE_ADR = 0x29;
+const int COLOR_SENSOR_R_HIGH_REG = 0x17; //apparently the high value of each registry is the accurate one.
+const int COLOR_SENSOR_G_HIGH_REG = 0x19;
+const int COLOR_SENSOR_B_HIGH_REG = 0x1B;
+const unsigned int COLOR_SENSOR_BYTE_LENGTH = 2;
+const int I2C_CHANNEL = 1234;
+const int FLOOR_TAPE_R = 1234; //these are found experimentally, unfortunately.
+const int FLOOR_TAPE_G = 1234;//ibid
+const int FLOOR_TAPE_B = 1234; //hebids
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
-#define ARM_ANGLE ((70*3.14)/180) // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
-#define DISTANCE_TO_RECOVERY_POINT 5 //placeholder! In feet, apparently (though that's super dumb)
+const float ARM_ANGLE = ((70*3.14)/180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
+const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
 /* the commented out values below are so because they pertain to the path if the robot is outside of the arms, an unlikely scenario.
 #define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
 #define anglePerpindicularGoalPivotPoint ((70*3.14)/180) //marcador de posicion
 #define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
 #define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
  */
-#define angleWallTapePivotPoint ((100 * 3.14)/180) //can you guess what im going to say here?
-#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT 1.5 // ibid.
-#define angleGoalPivotPointTape ((45 * 3.14)/180) // surrogate for a real value
-#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 1234 //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
-
-#include <Services/cLogger.h>
+const float angleWallTapePivotPoint = ((100 * 3.14)/180); //can you guess what im going to say here?
+const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = 1.5; // ibid.
+const float angleGoalPivotPointTape = ((45 * 3.14)/180); // surrogate for a real value
+const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 1234; //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
 
 #define LOG_DEBUG(...) {\
             char buf[1024];\

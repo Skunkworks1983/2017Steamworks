@@ -7,6 +7,7 @@
 #include "AutoBase.h"
 #include "cTurnDegree.h"
 #include "cSimpleDriveForward.h"
+#include <RobotMap.h>
 
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
