@@ -7,26 +7,29 @@
 
 #include <Services/cMessage.h>
 
-cMessage::cMessage(std::string message)
-{
-    this->message = message;
-}
-
-cMessage::~cMessage()
-{
+cBoilerData::cBoilerData(float x, float y) : m_x(x), m_y(y) {
 
 }
 
-// these two functions will eventually be different.
-// for now, all we do is send a string over the socket
-// but eventually we will pack integers for the positions
-// of the goal into the PackToSend function
-std::string cMessage::PackToSend()
-{
-    return message;
+
+float cBoilerData::getX() {
+    return m_x;
 }
 
-std::string cMessage::GetMessage()
-{
-    return message;
+
+float cBoilerData::getY() {
+    return m_y;
 }
+
+
+
+cLiftData::cLiftData(float x) : m_x(x) {
+
+}
+
+
+float cLiftData::getX() {
+    return m_x;
+}
+
+
