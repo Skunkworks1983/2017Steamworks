@@ -9,6 +9,7 @@
 #define SRC_SUBSYSTEMS_CREVERSINGMOTORGROUP_H_
 
 #include <Subsystems/cMotorGroup.h>
+#include "Subsystems/iReversingMotorGroup.h"
 
 class cReversingMotorGroup: public cMotorGroup
 {

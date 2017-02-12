@@ -15,8 +15,9 @@
 #include "Subsystems/cReversingMotorGroup.h"
 #include "Subsystems/cGyro.h"
 #include <PIDController.h>
+#include "Subsystems/iDriveBase.h"
 
-class cDriveBase: public Subsystem
+class cDriveBase: public iDriveBase
 {
 private:
     cMotorGroup* m_motorGroupLeft;

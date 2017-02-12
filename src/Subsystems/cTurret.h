@@ -5,8 +5,9 @@
 #include <Commands/Subsystem.h>
 #include <OI.h>
 #include "cMotor.h"
+#include "Subsystems/iTurret.h"
 
-class cTurret : public Subsystem
+class cTurret : public iTurret
 {
 private:
     cMotor* m_motor1;
