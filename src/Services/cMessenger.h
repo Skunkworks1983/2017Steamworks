@@ -16,6 +16,9 @@ private:
     sockaddr_in m_myaddr;
     sockaddr_in m_remaddr;
 
+    cBoilerData* lastBoiler;
+    cLiftData* lastLift;
+
     void sendMessage(std::string message);
     std::string receiveMessage();
 public:

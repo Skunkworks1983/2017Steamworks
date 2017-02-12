@@ -23,6 +23,8 @@ cMessenger::cMessenger(const char *server, const char *port)
         return;
     }
 
+    lastBoiler = new cBoilerData(0, 0);
+
     // create the configuration for our own host port
     memset((char *) &m_myaddr, 0, sizeof(m_myaddr));
     m_myaddr.sin_family = AF_INET;
@@ -34,6 +36,11 @@ cMessenger::cMessenger(const char *server, const char *port)
     m_remaddr.sin_family = AF_INET;
     inet_pton(AF_INET, server, &(m_remaddr.sin_addr));
     m_remaddr.sin_port = htons(std::stoi(port));
+
+    int bufLen = 100;
+    if(setsockopt(m_sock, SOL_SOCKET, SO_RCVBUF, &bufLen, sizeof(int)) == -1) {
+    	std::cout << "Sock opt err" << "\n";
+    }
 
     // bind to the socket
     if(bind(m_sock, (struct sockaddr *) &m_myaddr, sizeof(m_myaddr)) < 0)
@@ -98,12 +105,14 @@ cBoilerData* cMessenger::receiveBoilerData()
             // get the y pos
             y = atof(message.substr(0, message.length() + 1).c_str());
 
+            lastBoiler = new cBoilerData(x, y);
+
             // return the new boiler data
             return new cBoilerData(x, y);
         }
     }
 
-    return new cBoilerData(0, 0);
+    return lastBoiler;
 }
 
 cLiftData* cMessenger::receiveLiftData()
@@ -125,5 +134,5 @@ cLiftData* cMessenger::receiveLiftData()
         }
     }
 
-    return new cLiftData(0);
+    return new cLiftData(1000);
 }

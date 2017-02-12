@@ -19,9 +19,9 @@ public:
 private:
 	PIDSource* m_udpInput;
 	PIDController* m_controller;
-	int m_p;
-	int m_i;
-	int m_d;
+	float m_p;
+	float m_i;
+	float m_d;
 
 	cPIDOutputContainer* m_pidCont;
 };

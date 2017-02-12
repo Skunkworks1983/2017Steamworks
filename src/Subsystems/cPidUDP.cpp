@@ -14,7 +14,6 @@ double cPidUDP::PIDGet()
 	cBoilerData* message = messenger->receiveBoilerData();
 
 	double targetPos = message->getX();
-	std::cout << targetPos << "\n";
 	return targetPos;
 }
 
