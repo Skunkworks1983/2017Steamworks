@@ -10,16 +10,22 @@
 
 #include <CommandBase.h>
 #include <cstdbool>
+#include "RobotMap.h"
 
 class cShooter;
 
 class cShootPID: public CommandBase {
 private:
+	double p = SHOOTER_P;
+	double i = SHOOTER_I;
+	double d = SHOOTER_D;
 	double leftSpeed;
 	double rightSpeed;
 	float left_setpoint = 5;
 	float right_setpoint = 5;
 	float timeout;
+	bool leftRamped;
+	bool rightRamped;
 public:
 	cShootPID(double leftSpeed, double rightSpeed, float timeout = 0.0);
 	void Initialize();

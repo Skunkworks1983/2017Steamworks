@@ -56,10 +56,10 @@ const int TURRET_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR2_PORT = 10000;
 const double SHOOTER_TARGET_SPEED = 1; //rps
-const double P = 1;
-const double I = 0;
-const double D = 0;
-const double F = 0;
+const double SHOOTER_P = 1;
+const double SHOOTER_I = 0;
+const double SHOOTER_D = 0;
+const double SHOOTER_F = 0;
 const int SHOOTER_ENCODER_TICKS_PER_REV = 800; //placeholder
 
 
