@@ -6,12 +6,14 @@
 #include <OI.h>
 #include "cMotor.h"
 
-class cTurret : public Subsystem
+class cTurret: public Subsystem
 {
 private:
     cMotor* m_motor1;
 
 public:
+    Servo* m_servo1; // test servo
+
     cTurret();
     ~cTurret();
     void InitDefaultCommand();

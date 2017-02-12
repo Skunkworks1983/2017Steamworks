@@ -14,13 +14,12 @@
 // following variables to use with your drivetrain subsystem.
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
-
 #define ROBOT_NAME "lol"
 #define LOGFILE_NAME "/U/robotLog"
 
-enum FuelCollectorPosition {
-    UP = 90,
-    DOWN = 0
+enum FuelCollectorPosition
+{
+    UP = 90, DOWN = 0
 };
 
 #define BOILER_PI_IP "10.19.83.237"
@@ -32,7 +31,6 @@ const int BOILER_PI_ID = 0;
 #define GEAR_PI_PORT "5800"
 
 const int GEAR_PI_ID = 1;
-
 
 const int MSG_LEN = 1024;
 
@@ -108,10 +106,10 @@ const float CIM_STALLING_CURRENT = 133;
 #define ARM_ANGLE ((70*3.14)/180) // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
 #define DISTANCE_TO_RECOVERY_POINT 5 //placeholder! In feet, apparently (though that's super dumb)
 /* the commented out values below are so because they pertain to the path if the robot is outside of the arms, an unlikely scenario.
-#define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
-#define anglePerpindicularGoalPivotPoint ((70*3.14)/180) //marcador de posicion
-#define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
-#define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
+ #define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
+ #define anglePerpindicularGoalPivotPoint ((70*3.14)/180) //marcador de posicion
+ #define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
+ #define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
  */
 #define angleWallTapePivotPoint ((100 * 3.14)/180) //can you guess what im going to say here?
 #define DISTANCE_FROM_TAPE_TO_PIVOT_POINT 1.5 // ibid.

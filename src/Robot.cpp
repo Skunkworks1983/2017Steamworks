@@ -18,6 +18,7 @@ private:
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
         CommandBase::s_climber = new cClimber();
+        CommandBase::s_turret = new cTurret();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);

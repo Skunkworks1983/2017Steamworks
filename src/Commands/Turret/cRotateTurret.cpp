@@ -8,7 +8,7 @@
 #include <Commands/Turret/cRotateTurret.h>
 #include <RobotMap.h>
 #include <CommandBase.h>
-
+#include <Services/cMessage.h>
 
 cRotateTurret::cRotateTurret(float speed, float timeout)
 {
@@ -26,7 +26,12 @@ void cRotateTurret::Initialize()
 
 void cRotateTurret::Execute()
 {
-    CommandBase::s_turret->setSpeed(m_speed);
+    /*
+     cBoilerData* data = CommandBase::s_boilerMessenger->receiveBoilerData();
+     CommandBase::s_turret->setSpeed(-data->getX());
+     */
+
+    CommandBase::s_turret->m_servo1->SetAngle(1);
 }
 
 bool cRotateTurret::IsFinished()
@@ -36,7 +41,7 @@ bool cRotateTurret::IsFinished()
 
 void cRotateTurret::End()
 {
-    CommandBase::s_turret->setSpeed(0);
+    //CommandBase::s_turret->setSpeed(0);
 }
 
 void cRotateTurret::Interrupted()
