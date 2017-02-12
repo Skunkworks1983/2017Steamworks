@@ -9,6 +9,7 @@
 #define SRC_COMMANDS_AUTONOMOUS_CGEARPATH_H_
 #include <RobotMap.h>
 #include "AutoBase.h"
+#include "CommandBase.h"
 class cGearPath {
 private:
 

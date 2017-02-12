@@ -12,6 +12,7 @@
 #include "cMotor.h"
 #include <OI.h>
 #include "Subsystems/cMotorGroup.h"
+#include <AnalogInput.h>
 
 class cDriveBase: public Subsystem
 {
@@ -26,6 +27,12 @@ private:
     cMotor* m_rightMotor2;
     cMotor* m_rightMotor3;
 
+	I2C* m_colorSensor;
+	AnalogInput* m_rSonar;
+	AnalogInput* m_lSonar;
+    int BitShift(uint8_t *colorReadout);
+
+
 public:
     cDriveBase();
     ~cDriveBase();
@@ -38,6 +45,10 @@ public:
     cMotorGroup* getMotorGroupLeft();
     cMotorGroup* getMotorGroupRight();
     cMotorGroup* getMotorGroupAll();
+    bool CanSeeTape();
+    double GetLeftDistance();
+    double GetRightDistance();
+
 
 };
 

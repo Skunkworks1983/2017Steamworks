@@ -104,6 +104,27 @@ const float CIM_STALLING_CURRENT = 133;
 
 //AUTONOMOUS THINGS
 
+
+//COLOR SENSOR
+//datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
+#define COLOR_SENSOR_I2C_SLAVE_ADR 0x29
+#define COLOR_SENSOR_R_HIGH_REG 0x17 //apparently the high value of each registry is the accurate one.
+#define COLOR_SENSOR_G_HIGH_REG 0x19
+#define COLOR_SENSOR_B_HIGH_REG 0x1B
+#define COLOR_SENSOR_BYTE_LENGTH 2
+#define I2C_CHANNEL 1234
+#define FLOOR_TAPE_R_LOW 1234//these are found experimentally, unfortunately.
+#define FLOOR_TAPE_R_HIGH 1234 //and they will vary
+#define FLOOR_TAPE_G_LOW 1234//ibid
+#define FLOOR_TAPE_G_HIGH 1234//hebids
+#define FLOOR_TAPE_B_LOW 1234//shebids
+#define FLOOR_TAPE_B_HIGH 1234//webid
+//SONAR
+#define R_SONAR_I2C_CHANNEL 0x1234
+#define L_SONAR_I2C_CHANNEL 0x1234
+#define SONAR_BYTE_LENGTH 1
+#define SONAR_AN_REG 0x1234 //Pin 3. I think this will be the same on both?
+
 //SPECIFICALLY GEAR PLACEMENT THINGS
 #define ARM_ANGLE ((70*3.14)/180) // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
 #define DISTANCE_TO_RECOVERY_POINT 5 //placeholder! In feet, apparently (though that's super dumb)
@@ -113,6 +134,9 @@ const float CIM_STALLING_CURRENT = 133;
 #define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
 #define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
  */
+#define angleDistanceSensedDistanceSensorCenterOfRotation (150*3.14/180) //rads
+#define angleLeftDistanceSensorCenterOfRotationRightDistanceSensor (80*3.14/180) //rads
+#define DISTANCE_FROM_DISTANCE_SENSORS_TO_CENTER_OF_ROTATION 1234
 #define angleWallTapePivotPoint ((100 * 3.14)/180) //can you guess what im going to say here?
 #define DISTANCE_FROM_TAPE_TO_PIVOT_POINT 1.5 // ibid.
 #define angleGoalPivotPointTape ((45 * 3.14)/180) // surrogate for a real value

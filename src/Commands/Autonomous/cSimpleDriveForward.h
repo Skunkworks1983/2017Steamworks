@@ -20,8 +20,9 @@ private:
     PIDController *m_pidController;
     cMotorGroup* motorGroupAll;
     float distance;
+    bool m_driveMode;
 public:
-    cSimpleDriveForward(float distance);
+    cSimpleDriveForward(float distance, bool stopAtLine = false);
     ~cSimpleDriveForward();
     void Initialize();
     void Execute();

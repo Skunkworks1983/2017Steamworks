@@ -11,12 +11,13 @@
 #include <CommandBase.h>
 
 
-cSimpleDriveForward::cSimpleDriveForward(float distance)
+cSimpleDriveForward::cSimpleDriveForward(float distance, bool stopAtLine)
 {
     Requires(CommandBase::s_drivebase);
     double p = SIMPLEDRIVEFORWARD_PID_P;
     double i = SIMPLEDRIVEFORWARD_PID_I;
     double d = SIMPLEDRIVEFORWARD_PID_D;
+    m_driveMode = stopAtLine;
     motorGroupAll = CommandBase::s_drivebase->getMotorGroupAll();
     this->m_pidController = new PIDController(p, i, d, motorGroupAll, motorGroupAll);
     this->distance = (distance / DRIVEBASE_FOOT_PER_TICK);
@@ -30,7 +31,11 @@ void cSimpleDriveForward::Initialize()
 
 void cSimpleDriveForward::Execute()
 {
-
+	if (m_driveMode = true) {
+		if (CommandBase::s_drivebase->CanSeeTape() == true) {
+			End();
+		}
+	}
 }
 
 bool cSimpleDriveForward::IsFinished()
