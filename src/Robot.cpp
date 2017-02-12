@@ -22,6 +22,8 @@ private:
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+
+        CameraServer::GetInstance()->StartAutomaticCapture();
     }
 
     void DisabledInit()
