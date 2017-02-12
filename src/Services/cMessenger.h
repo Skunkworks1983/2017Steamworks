@@ -16,13 +16,17 @@ private:
     sockaddr_in m_myaddr;
     sockaddr_in m_remaddr;
 
-    void sendMessage(std::string message);
+    cBoilerData* m_lastBoilerData;
+    cLiftData* m_lastLiftData;
+
     std::string receiveMessage();
 public:
     bool m_isPostMatch;
 
     cMessenger(const char* server, const char* port);
     ~cMessenger();
+
+    void sendMessage(std::string message);
 
     cBoilerData* receiveBoilerData();
     cLiftData* receiveLiftData();

@@ -16,6 +16,10 @@
 // Creates a new messenger instance
 cMessenger::cMessenger(const char *server, const char *port)
 {
+    // Initialize the last known variables
+    m_lastBoilerData = new cBoilerData(0, 0);
+    m_lastLiftData = new cLiftData(0);
+
     // bind to the udp socket
     if((m_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
@@ -45,7 +49,8 @@ cMessenger::cMessenger(const char *server, const char *port)
 
 cMessenger::~cMessenger()
 {
-
+    delete m_lastBoilerData;
+    delete m_lastLiftData;
 }
 
 // Sends a string through the socket
@@ -83,27 +88,35 @@ cBoilerData* cMessenger::receiveBoilerData()
 
     if(message[0] != 0) {
         if(message[0] == std::to_string(BOILER_PI_ID)[0]) {
-            int x, y;
+            float x, y;
 
             // erase the id portion of the message, to remove the first space delimiter
             message.erase(0, 2);
 
             // cut the first portion of characters from the first space to the second space
-            x = atoi(message.substr(0, message.find(" ")).c_str());
+            x = atof(message.substr(0, message.find(" ")).c_str());
 
             // erase the x portion of the message
             message.erase(0, message.find(" ") + 1);
 
             // get the y pos
-            y = atoi(message.substr(0, message.length() + 1).c_str());
+            y = atof(message.substr(0, message.length() + 1).c_str());
 
-            // return the new boiler data
-            return new cBoilerData(x, y);
+            // check if the member lastboilerdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastBoilerData != NULL) {
+                delete m_lastBoilerData;
+                m_lastBoilerData = NULL;
+            }
+
+            // edit the new member variable
+            m_lastBoilerData = new cBoilerData(x, y);
         }
     }
 
-    return new cBoilerData(-1, -1);
+    return m_lastBoilerData;
 }
+
 
 cLiftData* cMessenger::receiveLiftData()
 {
@@ -111,18 +124,26 @@ cLiftData* cMessenger::receiveLiftData()
 
     if(message[0] != 0) {
         if(message[0] == std::to_string(GEAR_PI_ID)[0]) {
-            int x;
+            float x;
 
             // erase the id portion of the message, to remove the first space delimiter
             message.erase(0, 2);
 
             // cut the first portion of characters from the first space to the second space
-            x = atoi(message.substr(0, message.find(" ")).c_str());
+            x = atof(message.substr(0, message.find(" ")).c_str());
 
-            // return the new boiler data
-            return new cLiftData(x);
+            // check if the member lastliftdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastLiftData != NULL) {
+                delete m_lastLiftData;
+                m_lastLiftData = NULL;
+            }
+
+            // edit the new member variable
+            m_lastLiftData = new cLiftData(x);
         }
     }
 
-    return new cLiftData(-1);
+    // return the last known position of the boiler if there is none on screen
+    return m_lastLiftData;
 }

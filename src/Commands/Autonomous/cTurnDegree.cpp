@@ -20,7 +20,6 @@ cTurnDegree::cTurnDegree(float targetAngle)
     m_realNiceGyro = CommandBase:: s_drivebase->getGyro();
     this->m_pidController = new PIDController(TURNDEGREE_PID_P, TURNDEGREE_PID_I, TURNDEGREE_PID_D ,m_realNiceGyro, m_motorGroupGyro);
     m_pidController->SetSetpoint(m_targetAngle);
-
 }
 
 void cTurnDegree::Initialize()

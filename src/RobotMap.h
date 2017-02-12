@@ -111,6 +111,18 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 //AUTONOMOUS THINGS
 
+//COLOR SENSOR
+//datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
+const int COLOR_SENSOR_I2C_SLAVE_ADR = 0x29;
+const int COLOR_SENSOR_R_HIGH_REG = 0x17; //apparently the high value of each registry is the accurate one.
+const int COLOR_SENSOR_G_HIGH_REG = 0x19;
+const int COLOR_SENSOR_B_HIGH_REG = 0x1B;
+const unsigned int COLOR_SENSOR_BYTE_LENGTH = 2;
+const int I2C_CHANNEL = 1234;
+const int FLOOR_TAPE_R = 1234; //these are found experimentally, unfortunately.
+const int FLOOR_TAPE_G = 1234;//ibid
+const int FLOOR_TAPE_B = 1234; //hebids
+
 //SPECIFICALLY GEAR PLACEMENT THINGS
 const float ARM_ANGLE = ((70*3.14)/180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
 const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
