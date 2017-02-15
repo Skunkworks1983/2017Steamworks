@@ -22,7 +22,7 @@ private:
         //CommandBase::s_gearCollector = new cGearCollector();
         //CommandBase::s_fuelCollector = new cFuelCollector();
         //CommandBase::s_fuelLoader = new cFuelLoader();
-        //CommandBase::s_shooter = new cShooter();
+        CommandBase::s_shooter = new cShooter();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         //CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);

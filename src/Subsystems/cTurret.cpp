@@ -7,18 +7,24 @@ cTurret::cTurret() :
         Subsystem("cTurret")
 {
     //m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
-    m_servo1 = new Servo(8);
+    m_servoYaw = new Servo(8);
+    m_servoPitch = new Servo(9);
+
+    m_servoYaw->SetAngle(85);
+    m_servoPitch->SetAngle(85);
 }
 
 cTurret::~cTurret()
 {
-    //delete m_motor1;
-    delete m_servo1;
+    m_servoYaw->SetAngle(85);
+    m_servoPitch->SetAngle(85);
+
+    delete m_motor1;
 }
 
 void cTurret::InitDefaultCommand()
 {
-    SetDefaultCommand(new cRotateTurret(0, 10));
+    SetDefaultCommand(new cRotateTurret());
 }
 
 void cTurret::setSpeed(float speed)
@@ -34,4 +40,14 @@ void cTurret::setOrientation(float heading)
 void cTurret::rotate(float degrees)
 {
 
+}
+
+void cTurret::setManualEnabled(bool state)
+{
+    m_manualEnabled = state;
+}
+
+bool cTurret::isManualEnabled()
+{
+    return m_manualEnabled;
 }

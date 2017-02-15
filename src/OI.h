@@ -19,16 +19,18 @@ private:
     JoystickButton *m_shootHigh;
     JoystickButton *m_climbRope;
     JoystickButton *m_spinUpShooter;
-    JoystickButton *m_rotateTurretLeft;
-    JoystickButton *m_rotateTurretRight;
     JoystickButton *m_loadBall;
     JoystickButton *m_fuelLoader;
+    JoystickButton *m_enableTurretControl;
+    JoystickButton *m_enableShooterControl;
 
 public:
     OI();
     ~OI();
     float getLeftStickY();
     float getRightStickY();
+    float getTurretSlider();
+    float getShooterSlider();
 };
 
 #endif

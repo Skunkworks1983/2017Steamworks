@@ -27,5 +27,16 @@ void cShooter::setSpeed(float speed)
 
 double cShooter::getSpeed()
 {
-	return 0;
+    return 0;
 }
+
+void cShooter::setManualEnabled(bool state)
+{
+    m_manualEnabled = state;
+}
+
+bool cShooter::isManualEnabled()
+{
+    return m_manualEnabled;
+}
+
