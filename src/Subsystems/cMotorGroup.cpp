@@ -69,3 +69,21 @@ std::vector<iMotor*> cMotorGroup::GetMotorList()
 {
     return m_motorList;
 }
+
+CANSpeedController::ControlMode cMotorGroup::getControlMode() {
+	return m_motorList[0]->getControlMode();
+}
+
+void cMotorGroup::setControlMode(CANSpeedController::ControlMode mode) {
+	for (std::size_t i = 0; i < m_motorList.size(); i++) {
+		m_motorList[i]->setControlMode(mode);
+	}
+}
+
+double cMotorGroup::getPosition() {
+	for(std::size_t i = 0; i < m_motorList.size(); i++) {
+		if(m_motorList[i]->hasEncoder()) {
+			return m_motorList[i]->getPosition();
+		}
+	}
+}

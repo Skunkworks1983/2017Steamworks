@@ -11,14 +11,14 @@
 class priority_mutex;
 
 enum ELogLevel {
-	Debug,
-	Info,
-	Warning,
-	Error,
-	Record
+	LogDebug,
+	LogInfo,
+	LogWarning,
+	LogError,
+	LogRecord
 };
 
-const std::string ELogLevelStrings[5] = {"Debug", "Info", "Warning", "Error", "Record"};
+const std::string ELogLevelStrings[5] = {"LogDebug", "LogInfo", "LogWarning", "LogError", "LogRecord"};
 
 struct LogMessage {
 	ELogLevel level;

@@ -6,6 +6,7 @@
 #include <OI.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Commands/Turret/cPointToBoiler.h"
+#include "Commands/DriveBase/cDriveStraight.h"
 #include <errno.h>
 #include "RobotMap.h"
 
@@ -39,9 +40,8 @@ private:
 	void AutonomousInit()
 	{
 		std::cout << "whoa whoa whoa 0" << std::endl;
-	    cPointToBoiler* pointing = new cPointToBoiler();
-	    std::cout << "whoa man got here" << std::endl;
-	    Scheduler::GetInstance()->AddCommand(pointing);
+	    cDriveStraight* driveStraight = new cDriveStraight(6.5);
+	    Scheduler::GetInstance()->AddCommand(driveStraight);
         LOG_INFO("AutonomousInit called");
 	}
 

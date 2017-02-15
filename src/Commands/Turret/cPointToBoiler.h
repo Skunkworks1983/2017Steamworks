@@ -6,6 +6,7 @@
 #include "../../Subsystems/cPidUDP.h"
 #include "../../Stubsystems/cPIDOutputContainer.h"
 #include <PIDController.h>
+#include <CANSpeedController.h>
 
 class cPointToBoiler : public CommandBase {
 public:
@@ -24,6 +25,8 @@ private:
 	float m_d;
 
 	cPIDOutputContainer* m_pidCont;
+
+	CANSpeedController::ControlMode m_start;
 };
 
 #endif  // cPointToBoiler_H
