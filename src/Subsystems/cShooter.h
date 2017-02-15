@@ -12,7 +12,7 @@ private:
     cMotor* m_motor1;
     cMotor* m_motor2;
 
-    bool m_manualEnabled;
+    bool m_manualEnabled = false;
 
 public:
     cShooter();
