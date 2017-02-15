@@ -13,8 +13,7 @@
 #include "Subsystems/cReversingMotorGroup.h"
 #include <PIDController.h>
 
-cDriveBase::cDriveBase() :
-        Subsystem("cDriveBase")
+cDriveBase::cDriveBase()
 {
     m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM);
     m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM);
@@ -43,10 +42,6 @@ cDriveBase::cDriveBase() :
 
     std::vector<bool> reversed;
     reversed.push_back(false);
-    reversed.push_back(false);
-    reversed.push_back(false);
-    reversed.push_back(true);
-    reversed.push_back(true);
     reversed.push_back(true);
 
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
@@ -111,7 +106,7 @@ cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
     return m_motorGroupGyro;
 }
 
-cGyro* cDriveBase::getGyro()
+iGyro* cDriveBase::getGyro()
 {
     return m_gyro;
 }

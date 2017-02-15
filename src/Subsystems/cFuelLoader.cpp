@@ -8,8 +8,7 @@
 #include <Subsystems/cFuelLoader.h>
 #include <RobotMap.h>
 
-cFuelLoader::cFuelLoader() :
-        Subsystem("cFuelLoader")
+cFuelLoader::cFuelLoader()
 {
     // TODO Auto-generated constructor stub
     m_motor1 = new cMotor(FUELLOADER_MOTOR1_PORT, BaneBots775);

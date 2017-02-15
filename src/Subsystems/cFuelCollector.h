@@ -11,19 +11,9 @@
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
 #include "cMotor.h"
+#include  "Subsystems/iFuelCollector.h"
 
-/*
-  _ _   _                         _          _
- (_) | ( )                       | |        | |
-  _| |_|/ ___    __ _ _ __   __ _| | ___  __| |
- | | __| / __|  / _` | '_ \ / _` | |/ _ \/ _` |
- | | |_  \__ \ | (_| | | | | (_| | |  __/ (_| |
- |_|\__| |___/  \__,_|_| |_|\__, |_|\___|\__,_|
-                             __/ |
-                            |___/
- */
-
-class cFuelCollector: public frc::Subsystem
+class cFuelCollector: public iFuelCollector
 {
 private:
     cMotor* m_hopperMotor;

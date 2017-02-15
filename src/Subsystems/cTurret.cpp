@@ -2,8 +2,7 @@
 #include "cMotor.h"
 #include <RobotMap.h>
 
-cTurret::cTurret() :
-        Subsystem("cTurret")
+cTurret::cTurret()
 {
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
 }
