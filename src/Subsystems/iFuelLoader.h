@@ -12,6 +12,7 @@
 class iFuelLoader: public Subsystem
 {
 public:
+    iFuelLoader() : Subsystem("FuelLoader"){};
     virtual void setSpeed(float speed) = 0;
 };
 

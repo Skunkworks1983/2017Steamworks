@@ -9,12 +9,13 @@
 #define SRC_SUBSYSTEMS_IGEARCOLLECTOR_H_
 #include <Commands/Subsystem.h>
 
-class iGearCollector: public Subsystem
+class iGearCollector : public Subsystem
 {
 public:
+    iGearCollector() : Subsystem("GearCollector"){};
     virtual void setFlapState(bool isOpen) = 0;
     virtual void setServoAngle(float angle) = 0;
-    virtual void getServoAngle() = 0;
+    virtual float getServoAngle() = 0;
 };
 
 

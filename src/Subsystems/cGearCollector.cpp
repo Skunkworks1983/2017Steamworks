@@ -1,8 +1,7 @@
 #include "cGearCollector.h"
 #include <RobotMap.h>
 
-cGearCollector::cGearCollector() :
-        Subsystem("cGearCollector")
+cGearCollector::cGearCollector()
 {
     m_servo1 = new Servo(GEARCOLLECTOR_SERVO1_PORT);
 }

@@ -2,8 +2,7 @@
 #include "cMotor.h"
 #include <RobotMap.h>
 
-cClimber::cClimber() :
-        Subsystem("cClimber")
+cClimber::cClimber()
 {
     m_motor1 = new cMotor(CLIMBER_MOTOR1_PORT, BaneBots775);
     m_motor2 = new cMotor(CLIMBER_MOTOR2_PORT, BaneBots775);

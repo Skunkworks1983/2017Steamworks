@@ -12,8 +12,9 @@
 class iShooter: public Subsystem
 {
 public:
+    iShooter() : Subsystem("Shooter"){};
     virtual void setSpeed(float speed) = 0;
-    virtual void getSpeed() = 0;
+    virtual double getSpeed() = 0;
 };
 
 

@@ -19,7 +19,7 @@ private:
     float m_targetAngle;
     PIDController *m_pidController;
     cReversingMotorGroup *m_motorGroupGyro;
-    cGyro *m_realNiceGyro;
+    iGyro *m_realNiceGyro;
 
 public:
     cTurnDegree(float targetAngle);

@@ -12,7 +12,7 @@
 class iGyro: public PIDSource
 {
 public:
-    virtual void PIDGet() = 0;
+    virtual double PIDGet() = 0;
 };
 
 

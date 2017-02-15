@@ -22,7 +22,7 @@ void cSpinUpShooter::Initialize()
 
 void cSpinUpShooter::Execute()
 {
-	cShooter* shooter = CommandBase::s_shooter;
+	iShooter* shooter = CommandBase::s_shooter;
 	double speed = shooter->getSpeed();
 	if(speed < SHOOTER_TARGET_SPEED)
 	{

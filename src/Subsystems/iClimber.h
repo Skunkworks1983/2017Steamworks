@@ -12,8 +12,8 @@
 class iClimber: public Subsystem
 {
 public:
-virtual void InitDefaultCommand() = 0;
-virtual void setSpeed(float speed) = 0;
+    iClimber() : Subsystem("Shooter"){};
+    virtual void setSpeed(float speed) = 0;
 
 };
 

@@ -25,16 +25,16 @@ public:
     CommandBase(const std::string &name);
     CommandBase();
     static void init();
-    static cDriveBase *s_drivebase;
+    static iDriveBase *s_drivebase;
     static OI *s_oi;
     static cMessenger *s_boilerMessenger;
     static cMessenger* s_liftMessenger;
-    static cClimber * s_climber;
-    static cGearCollector* s_gearCollector;
-    static cFuelCollector* s_fuelCollector;
-    static cFuelLoader* s_fuelLoader;
-    static cShooter* s_shooter;
-    static cTurret* s_turret;
+    static iClimber * s_climber;
+    static iGearCollector* s_gearCollector;
+    static iFuelCollector* s_fuelCollector;
+    static iFuelLoader* s_fuelLoader;
+    static iShooter* s_shooter;
+    static iTurret* s_turret;
 };
 
 #endif

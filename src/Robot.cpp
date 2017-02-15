@@ -65,4 +65,8 @@ private:
 };
 
 START_ROBOT_CLASS(Robot)
-
+//if you comment this macro out
+//you should probably change that
+//when you build
+//i mean i'm not an expert
+//but its some pretty solid advice

@@ -11,9 +11,8 @@
 #include <Subsystems/cMotor.h>
 #include <vector>
 #include "iMotor.h"
-#include "Subsystems/iMotorGroup.h"
 
-class cMotorGroup: public iMotorGroup
+class cMotorGroup: public iMotor
 {
 private:
     std::vector<iMotor*> m_motorList;
