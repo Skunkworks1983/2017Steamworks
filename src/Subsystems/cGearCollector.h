@@ -5,8 +5,9 @@
 #include <Commands/Subsystem.h>
 #include <OI.h>
 #include "cMotor.h"
+#include "Subsystems/iGearCollector.h"
 
-class cGearCollector: public Subsystem
+class cGearCollector: public iGearCollector
 {
 private:
     Servo* m_servo1;

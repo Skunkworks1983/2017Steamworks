@@ -18,7 +18,6 @@ AutoBase::AutoBase()
 
 }
 
-
 AutoBase::~AutoBase()
 {
 

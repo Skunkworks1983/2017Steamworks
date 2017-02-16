@@ -15,22 +15,23 @@
 #include "Subsystems/cReversingMotorGroup.h"
 #include "Subsystems/cGyro.h"
 #include <PIDController.h>
+#include "Subsystems/iDriveBase.h"
 
-class cDriveBase: public Subsystem
+class cDriveBase: public iDriveBase
 {
 private:
     cMotorGroup* m_motorGroupLeft;
     cMotorGroup* m_motorGroupRight;
     cMotorGroup* m_motorGroupAll;
     cReversingMotorGroup* m_motorGroupGyro;
-    cMotor* m_leftMotor1;
-    cMotor* m_leftMotor2;
-    cMotor* m_leftMotor3;
-    cMotor* m_rightMotor1;
-    cMotor* m_rightMotor2;
-    cMotor* m_rightMotor3;
+    iMotor* m_leftMotor1;
+    iMotor* m_leftMotor2;
+    iMotor* m_leftMotor3;
+    iMotor* m_rightMotor1;
+    iMotor* m_rightMotor2;
+    iMotor* m_rightMotor3;
 
-    cGyro* m_gyro;
+    iGyro* m_gyro;
 
 	I2C* colorSensor;
     int BitShift(uint8_t *colorReadout);
@@ -49,7 +50,7 @@ public:
     cMotorGroup* getMotorGroupAll();
 
     cReversingMotorGroup* getMotorGroupGyro();
-    cGyro* getGyro();
+    iGyro* getGyro();
     bool CanSeeTape();
 
 

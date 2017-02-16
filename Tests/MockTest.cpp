@@ -4,7 +4,7 @@
  *  Created on: Feb 7, 2017
  *      Author: Thomas
  */
-/*
+
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -34,5 +34,4 @@ TEST(MockTest, mockDetectsCall)
 	testFunction(&interface);
 }
 
-*/
 

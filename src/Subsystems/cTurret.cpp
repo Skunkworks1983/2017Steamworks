@@ -3,8 +3,7 @@
 #include <RobotMap.h>
 #include <Commands/Turret/cRotateTurret.h>
 
-cTurret::cTurret() :
-        Subsystem("cTurret")
+cTurret::cTurret()
 {
     //m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
     m_servoYaw = new Servo(8);
