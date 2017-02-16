@@ -16,6 +16,8 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
+const int DEBUG = 1;
+
 const char* const ROBOT_NAME = "tim scoot";
 const char* const LOGFILE_NAME = "/U/robotLog";
 
@@ -110,6 +112,7 @@ const float TURNANGLE_TARGET_ANGLE = 71;
 const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 //AUTONOMOUS THINGS
+
 //COLOR SENSOR
 //datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
 #define COLOR_SENSOR_I2C_SLAVE_ADR 0x29
@@ -118,36 +121,29 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 #define COLOR_SENSOR_B_HIGH_REG 0x1B
 #define COLOR_SENSOR_BYTE_LENGTH 2
 #define I2C_CHANNEL 1234
-#define FLOOR_TAPE_R_LOW 1234//these are found experimentally, unfortunately.
-#define FLOOR_TAPE_R_HIGH 1234 //and they will vary
-#define FLOOR_TAPE_G_LOW 1234//ibid
-#define FLOOR_TAPE_G_HIGH 1234//hebids
-#define FLOOR_TAPE_B_LOW 1234//shebids
-#define FLOOR_TAPE_B_HIGH 1234//webid
+#define FLOOR_TAPE_R_LOW 1234//these are found experimentally, unfortunately. TODO
+#define FLOOR_TAPE_R_HIGH 1234 //and they will vary TODO
+#define FLOOR_TAPE_G_LOW 1234//TODO
+#define FLOOR_TAPE_G_HIGH 1234//TODO
+#define FLOOR_TAPE_B_LOW 1234//TODO
+#define FLOOR_TAPE_B_HIGH 1234//TODO
+
 //SONAR
-#define R_SONAR_I2C_CHANNEL 0x1234
-#define L_SONAR_I2C_CHANNEL 0x1234
+//this definitely has a datasheet somewhere
+#define R_SONAR_I2C_CHANNEL 0x1234 //TODO
+#define L_SONAR_I2C_CHANNEL 0x1234 //TODO
 #define SONAR_BYTE_LENGTH 1
-#define SONAR_AN_REG 0x1234 //Pin 3. I think this will be the same on both?
+#define SONAR_AN_REG 0x1234 //Pin 3. I think this will be the same on both? TODO
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
-/*  the commented out values below are so because they pertain to the path if the robot is outside of the arms, an unlikely scenario.
-#define ARM_ANGLE = ((70*3.14)/180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
-#define float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
-#define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
-#define anglePerpindicularGoalPivotPoint ((70*3.14)/180) //marcador de posicion
-#define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
-#define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
- */
 
-#define angleDistanceSensedDistanceSensorCenterOfRotation (150*3.14/180) //rads
-#define angleLeftDistanceSensorCenterOfRotationRightDistanceSensor (80*3.14/180) //rads
-#define DISTANCE_FROM_DISTANCE_SENSORS_TO_CENTER_OF_ROTATION 1234
-#define angleWallTapePivotPoint ((100 * 3.14)/180) //can you guess what im going to say here?
-#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT 1.5 // ibid.
-#define angleGoalPivotPointTape ((45 * 3.14)/180) // surrogate for a real value
-#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 1234 //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
+#define DISTANCE_BETWEEN_SONAR (22/12) //inches to feet TODO-I asked Davin and he said that the two front facing ones were the width of the drivebase apart, plus 2 inch. Is this right? Idk.
+#define angleWallTapePivotPoint 1.1576 //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
+#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT (10.5/12) //inches to feet
+#define angleGoalPivotPointTape .4131 //rads (23.67 degrees)
+#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 2 //feet. This is to give some safe space to turn
 
+//END AUTONOMOUS THINGS
 
 #define LOG_DEBUG(...) {\
             char buf[1024];\

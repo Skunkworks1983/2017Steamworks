@@ -18,7 +18,7 @@ cSimpleDriveForward::cSimpleDriveForward(float distance, bool stopAtLine)
     double i = SIMPLEDRIVEFORWARD_PID_I;
     double d = SIMPLEDRIVEFORWARD_PID_D;
 
-    m_driveToLine = stopAtLine;
+    m_stopAtLine = stopAtLine;
     motorGroupAll = CommandBase::s_drivebase->getMotorGroupAll();
     this->m_pidController = new PIDController(p, i, d, motorGroupAll, motorGroupAll);
     this->m_distance = (distance / DRIVEBASE_FOOT_PER_TICK);
@@ -32,7 +32,7 @@ void cSimpleDriveForward::Initialize()
 
 void cSimpleDriveForward::Execute()
 {
-	if (m_driveToLine = true) {
+	if (m_stopAtLine == true) {
 		if (CommandBase::s_drivebase->CanSeeTape() == true) {
 			End();
 		}

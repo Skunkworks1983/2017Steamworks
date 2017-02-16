@@ -16,6 +16,7 @@
 #include "Subsystems/cReversingMotorGroup.h"
 #include "Subsystems/cGyro.h"
 #include <PIDController.h>
+#include <RobotMap.h>
 
 class cDriveBase: public Subsystem
 {

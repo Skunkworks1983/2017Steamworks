@@ -13,13 +13,13 @@
 class AutoBase
 {
 private:
-	 CommandGroup* m_placeGear;
-	 CommandGroup* m_driveToLine;
-
+	CommandGroup* m_placeGear;
+	CommandGroup* m_driveToLine;
+	static double s_angleTapeRobotPivotPoint;
+	static double s_distanceToPivotPoint;
+	static double s_angleRobotPivotPointGoal;
 	public:
-		static double s_angleTapeRobotPivotPoint;
-		static double s_distanceToPivotPoint;
-		static double s_angleRobotPivotPointGoal;
+
 
 		static bool s_reachedLine;
 	    AutoBase();

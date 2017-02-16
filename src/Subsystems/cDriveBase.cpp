@@ -5,7 +5,7 @@
  *      Author: paella
  */
 
-#include <RobotMap.h>
+
 #include "cMotor.h"
 #include <Subsystems/cDriveBase.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
@@ -134,16 +134,16 @@ int cDriveBase::BitShift(uint8_t *colorReadout) {
 
 double cDriveBase::GetLeftDistance() {
 	m_lSonar = new AnalogInput(L_SONAR_I2C_CHANNEL);
-	double leftDistanceInches = m_lSonar->GetVoltage();
-	leftDistanceInches = (leftDistanceInches * .0098 / 5);
-	return leftDistanceInches;
+	double leftDistanceFeet = m_lSonar->GetVoltage();
+	leftDistanceFeet = ((leftDistanceFeet * .0098 / 5) * 12); //the ratio between volts and inches, converted to feet.
+	return leftDistanceFeet;
 }
 
 double cDriveBase::GetRightDistance() {
 	m_rSonar = new AnalogInput(L_SONAR_I2C_CHANNEL);
-	double rightDistanceInches = m_lSonar->GetVoltage();
-	rightDistanceInches = (rightDistanceInches * .0098 / 5);
-	return rightDistanceInches;
+	double rightDistanceFeet = m_lSonar->GetVoltage();
+	rightDistanceFeet = ((rightDistanceFeet * .0098 / 5) * 12);
+	return rightDistanceFeet;
 
 }
 
@@ -156,4 +156,3 @@ cGyro* cDriveBase::getGyro()
 {
     return m_gyro;
 }
-
