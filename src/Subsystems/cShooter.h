@@ -13,6 +13,8 @@ private:
     cMotor* m_motor1;
     cMotor* m_motor2;
 
+    bool m_manualEnabled = false;
+
 public:
     cShooter();
     ~cShooter();
@@ -20,6 +22,9 @@ public:
 
     void setSpeed(float speed);
     double getSpeed();
+
+    void setManualEnabled(bool state);
+    bool isManualEnabled();
 };
 
 #endif

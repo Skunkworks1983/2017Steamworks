@@ -11,10 +11,16 @@
 
 class iShooter: public Subsystem
 {
+private:
+    bool m_manualEnabled = false;
+
 public:
     iShooter() : Subsystem("Shooter"){};
     virtual void setSpeed(float speed) = 0;
     virtual double getSpeed() = 0;
+
+    virtual void setManualEnabled(bool state) = 0;
+    virtual bool isManualEnabled() = 0;
 };
 
 
