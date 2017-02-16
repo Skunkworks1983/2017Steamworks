@@ -20,8 +20,8 @@ public:
     virtual void setOrientation(float heading) = 0;
     virtual void rotate(float degrees) = 0;
 
-    void setManualEnabled(bool state);
-    bool isManualEnabled();
+    virtual void setManualEnabled(bool state) = 0;
+    virtual bool isManualEnabled() = 0;
 };
 
 

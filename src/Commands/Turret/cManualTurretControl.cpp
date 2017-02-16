@@ -11,7 +11,7 @@
 
 cManualTurretControl::cManualTurretControl()
 {
-    //CommandBase::s_turret->setManualEnabled(true);
+    CommandBase::s_turret->setManualEnabled(true);
 }
 
 void cManualTurretControl::Initialize()
@@ -21,7 +21,7 @@ void cManualTurretControl::Initialize()
 
 void cManualTurretControl::Execute()
 {
-    //CommandBase::s_turret->setSpeed(CommandBase::s_oi->getTurretSlider() * MANUAL_TURRET_CONTROL_SCALAR);
+    CommandBase::s_turret->setSpeed(CommandBase::s_oi->getTurretSlider() * MANUAL_TURRET_CONTROL_SCALAR);
 }
 
 bool cManualTurretControl::IsFinished()
@@ -31,7 +31,7 @@ bool cManualTurretControl::IsFinished()
 
 void cManualTurretControl::End()
 {
-    //CommandBase::s_turret->setManualEnabled(false);
+    CommandBase::s_turret->setManualEnabled(false);
 }
 
 void cManualTurretControl::Interrupted()
