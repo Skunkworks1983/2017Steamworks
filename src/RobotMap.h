@@ -33,7 +33,6 @@ const int BOILER_PI_ID = 1;
 
 const int GEAR_PI_ID = 0;
 
-
 const int MSG_LEN = 1024;
 
 const int DRIVEBASE_LEFT_DIRECTION = -1;
@@ -130,11 +129,32 @@ const int COLOR_SENSOR_B_HIGH_REG = 0x1B;
 const unsigned int COLOR_SENSOR_BYTE_LENGTH = 2;
 const int I2C_CHANNEL = 1234;
 const int FLOOR_TAPE_R = 1234; //these are found experimentally, unfortunately.
-const int FLOOR_TAPE_G = 1234;//ibid
+const int FLOOR_TAPE_G = 1234; //ibid
 const int FLOOR_TAPE_B = 1234; //hebids
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
-const float ARM_ANGLE = ((70*3.14)/180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
+
+// positions start from the top of the field moving down
+
+/*
+ * boiler           boiler
+ *
+ * red________________blue
+ *   |1               |
+ *   |      1 /       |
+ *   |2    2 |        |
+ *   |      3 \       |
+ *   |3_______________|
+ */
+
+// starting position
+enum eAutoStart {
+    POS_1,
+    POS_2,
+    POS_3
+};
+
+const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
 const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
 /* the commented out values below are so because they pertain to the path if the robot is outside of the arms, an unlikely scenario.
  #define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
@@ -142,9 +162,9 @@ const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (
  #define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
  #define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
  */
-const float angleWallTapePivotPoint = ((100 * 3.14)/180); //can you guess what im going to say here?
+const float angleWallTapePivotPoint = ((100 * 3.14) / 180); //can you guess what im going to say here?
 const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = 1.5; // ibid.
-const float angleGoalPivotPointTape = ((45 * 3.14)/180); // surrogate for a real value
+const float angleGoalPivotPointTape = ((45 * 3.14) / 180); // surrogate for a real value
 const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 1234; //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
 
 #define LOG_DEBUG(...) {\
