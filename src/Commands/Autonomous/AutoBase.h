@@ -9,7 +9,7 @@
 #define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #include <Commands/CommandGroup.h>
 
-class AutoBase : CommandGroup
+class AutoBase: CommandGroup
 {
 private:
 
