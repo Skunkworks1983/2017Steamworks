@@ -10,89 +10,36 @@
 #include "RobotMap.h"
 
 
-cShootPID::cShootPID(double leftSpeed, double rightSpeed, float timeout) :
-		leftSpeed(leftSpeed), rightSpeed(rightSpeed), timeout(timeout)
+cShootPID::cShootPID(double speed, float timeout) :
+		speed(speed), timeout(timeout)
 {
 
 }
 
 void cShootPID::Initialize()
 {
-	s_shooter->getLeft()->EnablePID();
-	s_shooter->getRight()->EnablePID();
+	s_shooter->EnablePID();
 
-	s_shooter->getLeft()->setPID(p, i, d);
-	s_shooter->getRight()->setPID(p, i, d);
-
-	left_setpoint = fmax(5.0, s_shooter->getLeft()->PIDGet());
-	right_setpoint = fmax(5.0, s_shooter->getRight()->PIDGet());
-
-	s_shooter->getRight()->setSetpoint(right_setpoint);
-	s_shooter->getLeft()->setSetpoint(left_setpoint);
-
-	leftRamped = false;
-	rightRamped = false;
+	s_shooter->setSetpoint(current_setpoint);
 
 	if (timeout != 0)
 	{
 		SetTimeout(timeout);
 	}
 }
+//
 
 void cShootPID::Execute()
 {
-	if (!s_shooter->getLeft()->isPIDEnabled()) {
-		s_shooter->getLeft()->EnablePID();
+	if (!s_shooter->isPIDEnabled()) {
+		s_shooter->EnablePID();
 	}
 
-	if (!s_shooter->getRight()->isPIDEnabled()) {
-		s_shooter->getRight()->EnablePID();
-	}
-
-	if (left_setpoint < leftSpeed) {
-		left_setpoint += 2;
+	if (current_setpoint < speed) {
+		current_setpoint += RAMPING_CONSTANT;
 	} else {
-		left_setpoint = leftSpeed;
-		s_shooter->getLeft()->setSetpoint(left_setpoint);
-		leftRamped = true;
-	}
-
-	if (right_setpoint < rightSpeed) {
-		right_setpoint += 2;
-	} else {
-		right_setpoint = rightSpeed;
-		s_shooter->getRight()->setSetpoint(right_setpoint);
-		rightRamped = true;
-	}
-
-	if(leftRamped && rightRamped)
-	{
-		/* .                                                .
-.             `/oyyyyso+:.                       .
-.           -ohdmmmmdmmmhyo.                     .
-.         -ohddmdddddddddhyh+                    .
-.        :hddmmmddmdddddddhyho                   .
-.        smmmmmmdmmmmmddddhyy+                   .
-.       `sdmmmmmmmmmmmhosddhhs                   .
-.       `+-sdmmmmmdds/--.sdddy                   .
-.        /-//+osso/------+ddd+--                 .
-.       `/:::::::::::----:ods//+sydh:`           .
-.        .:++/:::::/oo+/-..s/:/ymmdsyy+.         .
-.         `/oyho/+sysoo+:-.o+/+mmhhddhhhs+-      .
-.          -////:-:::::::--so/hddmmmmdhyyyys/-`  .
-.          .::+/:--:++//:::++hdddmdhhhdddhyyssyyo/
-.           ./o+/////+o+///odddddhmmmmdddddddhyshd
-.            ./oo+////:///smmmdddmmmmmddddddddhhsh
-.             `:////::::/ymdddddmmmmmdddddddddhhhs
-.              `:::--::/hdydddhmmmmmmddddddddddhhd
-.               `-::::smdosyhymdmmmmmddddddddddhhd
-.                     smd/sysdmdmdmmmddddddddddhhd
-.                     -msyysymmhdddmmddddddddddhdy
-.                     `h+s++mmmddddmmddddddddddhsh
-. `````               `so+/sdmmddddmmdddddddddyydm
-/:----`               `/o+/yshmmhhdmmddddddddddddm
-/-...`                 .s++yhhysyhdmdddddddddddddm
-		 *  */
+		current_setpoint = speed;
+		s_shooter->setSetpoint(current_setpoint);
 	}
 
 }
@@ -104,10 +51,8 @@ bool cShootPID::IsFinished()
 
 void cShootPID::End()
 {
-	s_shooter->getLeft()->DisablePID();
-	s_shooter->getRight()->DisablePID();
-	s_shooter->getRight()->ResetPID();
-	s_shooter->getLeft()->ResetPID();
+	s_shooter->DisablePID();
+	s_shooter->ResetPID();
 }
 
 void cShootPID::Interrupted()

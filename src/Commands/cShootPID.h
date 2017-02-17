@@ -16,18 +16,11 @@ class cShooter;
 
 class cShootPID: public CommandBase {
 private:
-	double p = SHOOTER_P;
-	double i = SHOOTER_I;
-	double d = SHOOTER_D;
-	double leftSpeed;
-	double rightSpeed;
-	float left_setpoint = 5;
-	float right_setpoint = 5;
+	double speed;
+	float current_setpoint = 1.0;
 	float timeout;
-	bool leftRamped;
-	bool rightRamped;
 public:
-	cShootPID(double leftSpeed, double rightSpeed, float timeout = 0.0);
+	cShootPID(double speed, float timeout = 0.0);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

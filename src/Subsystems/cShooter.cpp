@@ -1,24 +1,21 @@
 #include "cShooter.h"
 #include <RobotMap.h>
 
-cShooter::cShooter(ShooterSide side) :
-        Subsystem("cShooter"), side(side)
+cShooter::cShooter() :
+        Subsystem("cShooter")
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT);
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT);
 
-	switch (side) {
-		case LEFT:
-		talon = new CANTalon(SHOOTER_MOTOR1_PORT);
-		talon->SetSensorDirection(true);
-		break;
-		case RIGHT:
-		talon = new CANTalon(SHOOTER_MOTOR2_PORT);
-		break;
-	}
+
+	talon = new CANTalon(SHOOTER_MOTOR1_PORT);
+	talon->SetSensorDirection(true);
+	talonSlave = new CANTalon(SHOOTER_MOTOR2_PORT);
+	talonSlave->SetControlMode(CANTalon::ControlMode::kFollower);
+	talonSlave->Set(SHOOTER_MOTOR1_PORT);
 	talon->SetControlMode(CANTalon::ControlMode::kSpeed);
 	talon->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
-	talon->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
+	talon->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute); //i don't actually know this yet
 	talon->SetClosedLoopOutputDirection(true);
 }
 
@@ -42,16 +39,6 @@ void cShooter::setSpeed(float speed)
 double cShooter::getSpeed()
 {
 	return 0;
-}
-
-cShooter *cShooter::getLeft()
-{
-	return left;
-}
-
-cShooter *cShooter::getRight()
-{
-	return right;
 }
 
 double cShooter::PIDGet()
