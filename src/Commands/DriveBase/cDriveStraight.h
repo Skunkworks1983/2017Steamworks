@@ -1,3 +1,8 @@
+/* cDriveStraight
+ * Drives straight with the gyro, taking in a number of feet of forward movement.
+ * Use in combination with a cTurnAngle to make the dank autos happen
+ */
+
 #ifndef cDriveStraight_H
 #define cDriveStraight_H
 
@@ -15,12 +20,12 @@ ____...-`  \ /``'-..
      `. `. ,`  /    \_.'.`.,,:
       |`._`-.__\_.-``.-'  `._
       `.,,`-`....-.`~`.'`. c `.
-                 HD`-. `,`. ._ )
+                   `-. `,`. ._ )
                       ```  `--`
 */
 class cDriveStraight : public CommandBase, public PIDOutput {
 private:
-	int m_rotations;
+	int m_endTicks;
 	double m_beginningYaw;
 
 	PIDController* m_controller;
@@ -29,12 +34,13 @@ private:
 	float m_i;
 	float m_d;
 
-	float m_curRevolutions;
-	float m_revolutionOffset;
+	float m_curTicks;
 
 	float m_speed;
+
+	bool m_isDisabled;
 public:
-	cDriveStraight(float distance, float speed=0.5); //In feet
+	cDriveStraight(float distance, float speed=0.25); //In feet
 	void Initialize();
 	void Execute();
 	bool IsFinished();

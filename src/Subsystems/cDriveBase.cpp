@@ -17,10 +17,10 @@ cDriveBase::cDriveBase() :
         Subsystem("cDriveBase")
 {
     m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM);
-    m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM);
+    m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM, true);
     m_leftMotor3 = new cMotor(DRIVEBASE_LEFTMOTOR_3_PORT, CIM);
 
-    m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT, CIM);
+    m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT, CIM, true);
     m_rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT, CIM);
     m_rightMotor3 = new cMotor(DRIVEBASE_RIGHTMOTOR_3_PORT, CIM);
 
@@ -52,6 +52,8 @@ cDriveBase::cDriveBase() :
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
     m_motorGroupAll = new cMotorGroup(allMotors);
 
+    m_gyro = new cGyro();
+
 }
 cDriveBase::~cDriveBase()
 {
@@ -67,7 +69,7 @@ void cDriveBase::setBrakeMode(bool brake)
 
 void cDriveBase::InitDefaultCommand()
 {
-    SetDefaultCommand(new cRunTankDrive());
+    //SetDefaultCommand(new cRunTankDrive());
 }
 
 void cDriveBase::resetEncoder()

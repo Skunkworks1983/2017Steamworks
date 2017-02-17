@@ -14,9 +14,9 @@
 class cGyro: public PIDSource
 {
 private:
-    AHRS *m_ahrs;
     const int AHRS_CYCLE_TIMEOUT = 500;
     bool m_dead;
+    AHRS* m_ahrs;
 public:
     cGyro();
     virtual ~cGyro();

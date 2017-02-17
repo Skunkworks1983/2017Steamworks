@@ -166,7 +166,7 @@ const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 1234; //listen, i'm not an exper
             Logger::getLogger()->log(buf, Record);}
 
 const float WHEEL_CIRCUMFERENCE = (4*M_PI)/12; //Feet
-const int TICKS_PER_CIRC = 1;
+const int TICKS_PER_REVOLUTION = 4020;
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:

@@ -1,24 +1,27 @@
 #include "cDriveStraight.h"
 
 cDriveStraight::cDriveStraight(float distance, float speed) {
-	m_rotations = distance/WHEEL_CIRCUMFERENCE;
+	Requires(s_drivebase);
+	m_endTicks = (distance/WHEEL_CIRCUMFERENCE) * TICKS_PER_REVOLUTION;
 	m_beginningYaw = 0;
-	m_curRevolutions = 0;
-	m_p = 1;
+	m_curTicks = 0;
+	m_p = 0.05;
 	m_i = 0;
 	m_d = 0;
 
 	m_controller = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getGyro(), this);
 
-	m_controller->SetOutputRange(-1, 1);
-
 	m_speed = speed;
-	m_revolutionOffset = distance/WHEEL_CIRCUMFERENCE;
+
+	m_isDisabled = true;
 }
 
 void cDriveStraight::Initialize() {
+	m_isDisabled = false;
 	m_beginningYaw = CommandBase::s_drivebase->getGyro()->getAngle();
-	m_curRevolutions = CommandBase::s_drivebase->getMotorGroupLeft()->getPosition();
+	m_controller->SetSetpoint(m_beginningYaw);
+	m_curTicks = CommandBase::s_drivebase->getMotorGroupLeft()->getPosition();
+	m_controller->Enable();
 }
 
 void cDriveStraight::Execute() {
@@ -26,21 +29,29 @@ void cDriveStraight::Execute() {
 }
 
 bool cDriveStraight::IsFinished() {
-	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curRevolutions + m_revolutionOffset);
+	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curTicks + m_endTicks);
 }
 
 void cDriveStraight::End() {
-
+	m_isDisabled = true;
+	m_controller->Disable();
+	CommandBase::s_drivebase->setLeftSpeed(0);
+	CommandBase::s_drivebase->setRightSpeed(0);
 }
 
 void cDriveStraight::Interrupted() {
-
+	m_isDisabled = true;
+	m_controller->Disable();
+	CommandBase::s_drivebase->setLeftSpeed(0);
+	CommandBase::s_drivebase->setRightSpeed(0);
 }
 
 void cDriveStraight::PIDWrite(double output) {
-    float leftSpeed = m_speed + output;
-	float rightSpeed = m_speed - output;
+	if(!m_isDisabled) {
+		float leftSpeed = m_speed - output;
+		float rightSpeed = m_speed + output;
 
-	CommandBase::s_drivebase->setLeftSpeed(leftSpeed);
-	CommandBase::s_drivebase->setRightSpeed(rightSpeed);
+		CommandBase::s_drivebase->setLeftSpeed(leftSpeed);
+		CommandBase::s_drivebase->setRightSpeed(rightSpeed);
+	}
 }
