@@ -7,6 +7,7 @@
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Commands/Turret/cPointToBoiler.h"
 #include "Commands/DriveBase/cDriveStraight.h"
+#include "Commands/cRunOneMotor.h"
 #include <errno.h>
 #include "RobotMap.h"
 
@@ -16,14 +17,15 @@ private:
 
 	//Put commands out here for declaration
 	cDriveStraight* driveStraight;
+	cRunOneMotor* runMotor;
 
     void RobotInit()
     {
         LOG_INFO("RobotInit called");
 
-        CommandBase::s_drivebase = new cDriveBase();
+        //CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_oi = new OI();
-        CommandBase::s_climber = new cClimber();
+        /*CommandBase::s_climber = new cClimber();
         CommandBase::s_turret = new cTurret();
         CommandBase::s_gearCollector = new cGearCollector();
         CommandBase::s_fuelCollector = new cFuelCollector();
@@ -34,12 +36,16 @@ private:
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
         CommandBase::s_drivebase->getGyro()->initGyro();
-        //CommandBase::s_drivebase->getGyro()->zeroYaw();
+        //CommandBase::s_drivebase->getGyro()->zeroYaw();*/
 
         //Put construction of commands here
         std::cout << "Before" << std::endl;
-        driveStraight = new cDriveStraight(6);
+        //driveStraight = new cDriveStraight(6);
         std::cout << "After" << std::endl;
+
+        runMotor = new cRunOneMotor();
+
+
 
         CameraServer::GetInstance()->StartAutomaticCapture();
     }
@@ -70,7 +76,8 @@ private:
     void TeleopInit()
     {
         LOG_INFO("TeleopInit called");
-        Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
+        //Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
+        Scheduler::GetInstance()->AddCommand(runMotor);
     }
 
     void TeleopPeriodic()

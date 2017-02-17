@@ -39,6 +39,10 @@ const int MSG_LEN = 1024;
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
 
+//LEFT: R and F are switched
+//RIGHT:
+
+//11 climber: backwards is forwards
 const int DRIVEBASE_LEFTMOTOR_1_PORT = 12;
 const int DRIVEBASE_LEFTMOTOR_2_PORT = 14;
 const int DRIVEBASE_LEFTMOTOR_3_PORT = 14;
