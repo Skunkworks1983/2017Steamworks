@@ -61,10 +61,9 @@ private:
 
     }
 
-	void AutonomousInit()
-	{
-		CommandBase::s_drivebase->setBrakeMode(false);
-	    Scheduler::GetInstance()->AddCommand(driveStraight);
+    void AutonomousInit()
+    {
+        Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
 	}
 
@@ -75,6 +74,7 @@ private:
 
     void TeleopInit()
     {
+        Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("TeleopInit called");
         //Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
         Scheduler::GetInstance()->AddCommand(runMotor);

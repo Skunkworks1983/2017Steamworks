@@ -27,7 +27,6 @@ void cRotateTurret::Initialize()
 
 void cRotateTurret::Execute()
 {
-    /*
     // only control the turret when manual control is disabled
     if(!CommandBase::s_turret->isManualEnabled())
     {
@@ -37,17 +36,18 @@ void cRotateTurret::Execute()
         // turn the turret towards the boiler using our vision system
         if(data->isFound())
         {
+             /*
              float yaw_current = CommandBase::s_turret->m_servoYaw->GetAngle();
              float yaw_final = yaw_current + (data->getX() > 0 ? -1 : 1);
 
              CommandBase::s_turret->m_servoYaw->SetAngle(yaw_final);
 
-                bool m_manualEnabled = false;
+             bool m_manualEnabled = false;
              float pitch_current = CommandBase::s_turret->m_servoPitch->GetAngle();
              float pitch_final = pitch_current + (data->getY() > 0 ? -1 : 1);
 
              CommandBase::s_turret->m_servoPitch->SetAngle(pitch_final);
-
+             */
         }
         // turn the turret towards where we think the boiler is, using our gyro
         else
@@ -55,7 +55,6 @@ void cRotateTurret::Execute()
             //CommandBase::s_turret->setOrientation(CommandBase::s_turret->m_isRedAlliance ? -45 : 45);
         }
     }
-    */
 }
 
 bool cRotateTurret::IsFinished()
