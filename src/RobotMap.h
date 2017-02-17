@@ -138,10 +138,9 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 //SONAR
 //this definitely has a datasheet somewhere
-#define R_SONAR_I2C_CHANNEL 0x1234 //TODO
-#define L_SONAR_I2C_CHANNEL 0x1234 //TODO
-#define SONAR_BYTE_LENGTH 1
-#define SONAR_AN_REG 0x1234 //Pin 3. I think this will be the same on both? TODO
+#define R_SONAR_PORT 0 //TODO
+#define L_SONAR_PORT 1 //TODO
+#define SONAR_AN_REG 0x1234 //Pin 3. I think this will be the same on both? Do I need this? TODO
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 

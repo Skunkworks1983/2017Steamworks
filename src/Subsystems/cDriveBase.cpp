@@ -128,14 +128,14 @@ int cDriveBase::BitShift(uint8_t *colorReadout) {
 }
 
 double cDriveBase::GetLeftDistance() {
-	m_lSonar = new AnalogInput(L_SONAR_I2C_CHANNEL);
+	m_lSonar = new AnalogInput(L_SONAR_PORT);
 	double leftDistanceFeet = m_lSonar->GetVoltage();
 	leftDistanceFeet = ((leftDistanceFeet * .0098 / 5) * 12); //the ratio between volts and inches, converted to feet.
 	return leftDistanceFeet;
 }
 
 double cDriveBase::GetRightDistance() {
-	m_rSonar = new AnalogInput(L_SONAR_I2C_CHANNEL);
+	m_rSonar = new AnalogInput(R_SONAR_PORT);
 	double rightDistanceFeet = m_lSonar->GetVoltage();
 	rightDistanceFeet = ((rightDistanceFeet * .0098 / 5) * 12);
 	return rightDistanceFeet;
