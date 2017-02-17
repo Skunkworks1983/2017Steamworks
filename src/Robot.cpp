@@ -7,7 +7,7 @@
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Commands/Turret/cPointToBoiler.h"
 #include "Commands/DriveBase/cDriveStraight.h"
-#include "Commands/cRunOneMotor.h"
+#include "Commands/Debugging/cRunOneMotor.h"
 #include <errno.h>
 #include "RobotMap.h"
 

@@ -1,8 +1,8 @@
 #ifndef cRunOneMotor_H
 #define cRunOneMotor_H
 
-#include "../CommandBase.h"
-#include "../Subsystems/cMotor.h"
+#include "../../CommandBase.h"
+#include "../../Subsystems/cMotor.h"
 
 class cRunOneMotor : public CommandBase {
 private:
