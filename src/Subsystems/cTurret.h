@@ -5,16 +5,26 @@
 #include <Commands/Subsystem.h>
 #include <OI.h>
 #include "cMotor.h"
+#include "Subsystems/iTurret.h"
 
-class cTurret : public Subsystem
+class cTurret : public iTurret
 {
 private:
+    PIDController *controller;
     cMotor* m_motor1;
 
+    bool m_manualEnabled = false;
+
 public:
+    Servo* m_servoYaw;
+    Servo* m_servoPitch;
+
     cTurret();
     ~cTurret();
     void InitDefaultCommand();
+
+    void setManualEnabled(bool state);
+    bool isManualEnabled();
 
     void setSpeed(float speed);
     void setOrientation(float heading);

@@ -5,10 +5,12 @@
  *      Author: s-4036956
  */
 
+
 #ifndef SRC_SUBSYSTEMS_CGYRO_H_
 #define SRC_SUBSYSTEMS_CGYRO_H_
 #include <PIDController.h>
 #include <AHRS.h>
+#include "Subsystems/iGyro.h"
 
 class cGyro: public PIDSource
 {

@@ -10,7 +10,7 @@
 cCenterTape::cCenterTape() {
 	double preparation;
 	double trouble;
-	preparation = trouble;
+	preparation = 2 * trouble;
 	std::string teamRocket1 = "jesse";
 	std::string teamRocket2 = "james";
 	std::string teamRocket3 = "meowth, that's right";

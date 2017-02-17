@@ -16,25 +16,23 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
-const int DEBUG = 1;
-
 const char* const ROBOT_NAME = "tim scoot";
 const char* const LOGFILE_NAME = "/U/robotLog";
 
-enum FuelCollectorPosition {
-    UP = 90,
-    DOWN = 0
+enum FuelCollectorPosition
+{
+    UP = 90, DOWN = 0
 };
 
-const char* const BOILER_PI_IP = "10.19.83.237";
-const char* const BOILER_PI_PORT = "5802";
+#define BOILER_PI_IP "10.19.83.6"
+#define BOILER_PI_PORT "5802"
 
-const int BOILER_PI_ID = 0;
+const int BOILER_PI_ID = 1;
 
-const char* const GEAR_PI_IP = "10.19.83.217";
-const char* const GEAR_PI_PORT = "5800";
+#define GEAR_PI_IP "10.19.83.7"
+#define GEAR_PI_PORT "5800"
 
-const int GEAR_PI_ID = 1;
+const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 
@@ -60,8 +58,14 @@ const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
 const int OI_JOYSTICK_SHOOTHIGH = 5;
 const int OI_JOYSTICK_CLIMBROPE = 6;
 const int OI_JOYSTICK_SPINUPSHOOTER = 7;
-const int OI_JOYSTICK_ROTATETURRETLEFT = 8;
-const int OI_JOYSTICK_ROTATETURRETRIGHT = 9;
+const int OI_JOYSTICK_TURRET_CONTROL = 10000;
+const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
+
+const int MANUAL_TURRET_CONTROL_SCALAR = 0.5;
+const int OI_TURRET_SLIDER_RANGE = 100;
+
+const int MANUAL_SHOOTER_CONTROL_SCALAR = 1;
+const int OI_SHOOTER_SLIDER_RANGE = 100;
 
 const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 
@@ -88,6 +92,10 @@ const int FUELLOADER_MOTOR1_PORT = 10000;
 const int FUELLOADER_COMMAND_TIME_ON = 5;
 
 const int TURRET_MOTOR1_PORT = 10000;
+
+const int TURRET_MOTOR1_P = 1;
+const int TURRET_MOTOR1_I = 0;
+const int TURRET_MOTOR1_D = 0;
 
 const int SHOOTER_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR2_PORT = 10000;
@@ -143,7 +151,29 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 #define angleGoalPivotPointTape .4131 //rads (23.67 degrees)
 #define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 2 //feet. This is to give some safe space to turn
 
-//END AUTONOMOUS THINGS
+// positions start from the top of the field moving down
+
+/*
+ * boiler           boiler
+ *
+ * red________________blue
+ *   |1               |
+ *   |      1 /       |
+ *   |2    2 |        |
+ *   |      3 \       |
+ *   |3_______________|
+ */
+
+// starting position
+enum eAutoStart {
+    POS_1,
+    POS_2,
+    POS_3
+};
+
+const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
+const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
+
 
 #define LOG_DEBUG(...) {\
             char buf[1024];\

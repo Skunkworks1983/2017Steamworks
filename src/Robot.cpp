@@ -15,12 +15,17 @@ private:
     {
         LOG_INFO("RobotInit called");
 
-        CommandBase::s_drivebase = new cDriveBase();
-        CommandBase::s_oi = new OI();
-        CommandBase::s_climber = new cClimber();
+        //CommandBase::s_drivebase = new cDriveBase();
+        //CommandBase::s_oi = new OI();
+        //CommandBase::s_climber = new cClimber();
+        CommandBase::s_turret = new cTurret();
+        //CommandBase::s_gearCollector = new cGearCollector();
+        //CommandBase::s_fuelCollector = new cFuelCollector();
+        //CommandBase::s_fuelLoader = new cFuelLoader();
+        CommandBase::s_shooter = new cShooter();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
-        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+        //CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
     }
 
     void DisabledInit()
@@ -50,11 +55,6 @@ private:
 
     void TeleopPeriodic()
     {
-        cBoilerData* dat = CommandBase::s_boilerMessenger->receiveBoilerData();
-
-        if(dat->getX() != -1 && dat->getY() != -1)
-            std::cout << dat->getX() << ", " << dat->getY() << std::endl;
-
         Scheduler::GetInstance()->Run();
     }
 
@@ -65,4 +65,8 @@ private:
 };
 
 START_ROBOT_CLASS(Robot)
-
+//if you comment this macro out
+//you should probably change that
+//when you build
+//i mean i'm not an expert
+//but its some pretty solid advice
