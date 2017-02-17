@@ -2,15 +2,16 @@
 
 cDriveStraight::cDriveStraight(float distance, float speed) {
 	Requires(s_drivebase);
+	std::cout << "Begin cDriveStraight construct" << std::endl;
 	m_endTicks = (distance/WHEEL_CIRCUMFERENCE) * TICKS_PER_REVOLUTION;
 	m_beginningYaw = 0;
 	m_curTicks = 0;
 	m_p = 0.05;
 	m_i = 0;
 	m_d = 0;
-
+	std::cout << "Before pid controller" << std::endl;
 	m_controller = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getGyro(), this);
-
+	std::cout << "After pid" << std::endl;
 	m_speed = speed;
 
 	m_isDisabled = true;
