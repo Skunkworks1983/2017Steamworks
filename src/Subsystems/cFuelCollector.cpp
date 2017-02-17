@@ -8,8 +8,7 @@
 #include <Subsystems/cFuelCollector.h>
 #include <RobotMap.h>
 
-cFuelCollector::cFuelCollector() :
-        Subsystem("cFuelCollector")
+cFuelCollector::cFuelCollector()
 {
     m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT, BaneBots775);
     m_collectorFlapServo = new Servo(FUELCOLLECTOR_MOTOR2_PORT);

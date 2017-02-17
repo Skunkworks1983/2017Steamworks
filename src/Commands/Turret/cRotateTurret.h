@@ -13,9 +13,9 @@
 class cRotateTurret: public frc::Command
 {
 private:
-    float m_speed;
+
 public:
-    cRotateTurret(float speed, float timeout = 0);
+    cRotateTurret(float timeout = 0);
     virtual ~cRotateTurret();
 
     void Initialize();

@@ -1,8 +1,7 @@
 #include "cShooter.h"
 #include <RobotMap.h>
 
-cShooter::cShooter() :
-        Subsystem("cShooter")
+cShooter::cShooter()
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775);
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
@@ -27,5 +26,16 @@ void cShooter::setSpeed(float speed)
 
 double cShooter::getSpeed()
 {
-	return 0;
+    return 0;
 }
+
+void cShooter::setManualEnabled(bool state)
+{
+    m_manualEnabled = state;
+}
+
+bool cShooter::isManualEnabled()
+{
+    return m_manualEnabled;
+}
+

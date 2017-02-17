@@ -10,8 +10,9 @@
 
 #include <Commands/Subsystem.h>
 #include "cMotor.h"
+#include "Subsystems/iFuelLoader.h"
 
-class cFuelLoader: public frc::Subsystem
+class cFuelLoader: public iFuelLoader
 {
 private:
     cMotor* m_motor1;

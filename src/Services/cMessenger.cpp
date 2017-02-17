@@ -17,8 +17,8 @@
 cMessenger::cMessenger(const char *server, const char *port)
 {
     // Initialize the last known variables
-    m_lastBoilerData = new cBoilerData(0, 0);
-    m_lastLiftData = new cLiftData(0);
+    m_lastBoilerData = new cBoilerData(0, 0, false);
+    m_lastLiftData = new cLiftData(0, false);
 
     // bind to the udp socket
     if((m_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
@@ -92,11 +92,18 @@ cBoilerData* cMessenger::receiveBoilerData()
 {
     std::string message = receiveMessage();
 
-    if(message[0] != 0) {
-        if(message[0] == std::to_string(BOILER_PI_ID)[0]) {
+    if(message[0] != 0)
+    {
+        if(message[0] == std::to_string(BOILER_PI_ID)[0])
+        {
             float x, y;
+            bool found;
 
             // erase the id portion of the message, to remove the first space delimiter
+            message.erase(0, 2);
+
+            // find whether or not we can see the target
+            found = message[0] == '1';
             message.erase(0, 2);
 
             // cut the first portion of characters from the first space to the second space
@@ -110,29 +117,36 @@ cBoilerData* cMessenger::receiveBoilerData()
 
             // check if the member lastboilerdata exists. if it does, then we delete
             // it as to not cause any leaks & set it to null
-            if(m_lastBoilerData != NULL) {
+            if(m_lastBoilerData != NULL)
+            {
                 delete m_lastBoilerData;
                 m_lastBoilerData = NULL;
             }
 
             // edit the new member variable
-            m_lastBoilerData = new cBoilerData(x, y);
+            m_lastBoilerData = new cBoilerData(x, y, found);
         }
     }
 
     return m_lastBoilerData;
 }
 
-
 cLiftData* cMessenger::receiveLiftData()
 {
     std::string message = receiveMessage();
 
-    if(message[0] != 0) {
-        if(message[0] == std::to_string(GEAR_PI_ID)[0]) {
+    if(message[0] != 0)
+    {
+        if(message[0] == std::to_string(GEAR_PI_ID)[0])
+        {
             float x;
+            bool found;
 
-            // erase the id portion of the message, to remove the first space delimiter
+            // erase the id portion of the message, to remove the id and first space delimiter
+            message.erase(0, 2);
+
+            // find whether or not we can see the target
+            found = message[0] == '1';
             message.erase(0, 2);
 
             // cut the first portion of characters from the first space to the second space
@@ -140,13 +154,14 @@ cLiftData* cMessenger::receiveLiftData()
 
             // check if the member lastliftdata exists. if it does, then we delete
             // it as to not cause any leaks & set it to null
-            if(m_lastLiftData != NULL) {
+            if(m_lastLiftData != NULL)
+            {
                 delete m_lastLiftData;
                 m_lastLiftData = NULL;
             }
 
             // edit the new member variable
-            m_lastLiftData = new cLiftData(x);
+            m_lastLiftData = new cLiftData(x, found);
         }
     }
 

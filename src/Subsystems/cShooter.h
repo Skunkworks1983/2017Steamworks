@@ -5,12 +5,15 @@
 #include <Commands/Subsystem.h>
 #include <OI.h>
 #include "cMotor.h"
+#include "Subsystems/iShooter.h"
 
-class cShooter : public Subsystem
+class cShooter : public iShooter
 {
 private:
     cMotor* m_motor1;
     cMotor* m_motor2;
+
+    bool m_manualEnabled = false;
 
 public:
     cShooter();
@@ -19,6 +22,9 @@ public:
 
     void setSpeed(float speed);
     double getSpeed();
+
+    void setManualEnabled(bool state);
+    bool isManualEnabled();
 };
 
 #endif
