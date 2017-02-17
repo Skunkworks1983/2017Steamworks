@@ -9,9 +9,8 @@ cDriveStraight::cDriveStraight(float distance, float speed) {
 	m_p = 0.05;
 	m_i = 0;
 	m_d = 0;
-	std::cout << "Before pid controller" << std::endl;
+
 	m_controller = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getGyro(), this);
-	std::cout << "After pid" << std::endl;
 	m_speed = speed;
 
 	m_isDisabled = true;
