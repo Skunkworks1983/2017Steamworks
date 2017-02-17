@@ -8,10 +8,15 @@
 #include "cTurnDegree.h"
 #include "cSimpleDriveForward.h"
 #include <RobotMap.h>
+#include <Commands/Shooter/cSpinUpShooter.h>
+#include <Commands/FuelLoader/cRunFuelLoader.h>
+#include <Commands/Turret/cRotateTurret.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
 double AutoBase::s_angleRobotPivotPointGoal = 0;
+
+eStartingPosition startPosition = POS_1;
 
 AutoBase::AutoBase()
 {
@@ -22,6 +27,17 @@ AutoBase* configureAutonomous()
 {
     AutoBase* commands = new AutoBase();
 
+    // shooter & turret control code
+    if(USE_SHOOTER && USE_TURRET)
+    {
+        // spin up the shooter to prepare to shoot balls
+        commands->AddParallel(new cSpinUpShooter());
+
+        // start vision code to find the boiler
+        commands->AddParallel(new cRotateTurret(30));
+    }
+
+    // commands for moving to the lifts
     switch(startPosition)
     {
     case POS_1:
@@ -37,6 +53,10 @@ AutoBase* configureAutonomous()
         break;
     }
 
+    // load balls into the shooter
+    commands->AddSequential(new cRunFuelLoader(1, 30));
+
+    // return the commands
     return commands;
 }
 

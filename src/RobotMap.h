@@ -125,9 +125,13 @@ enum eStartingPosition
     POS_1, POS_2, POS_3
 };
 
-eStartingPosition startPosition = POS_1;
+const bool USE_SHOOTER = true;
+const bool USE_TURRET = true;
+const bool USE_COLOR_SENSOR = true;
+const bool USE_SONAR_SENSOR = true;
+const bool USE_CAMERA = true;
 
-const int AUTO_MOVE_FORWARD_FEET = 1;
+const int AUTO_MOVE_FORWARD_FEET = 3;
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //COLOR SENSOR
@@ -156,12 +160,6 @@ const int FLOOR_TAPE_B = 1234; //hebids
  *   |      3 \       |
  *   |3_______________|
  */
-
-// starting position
-enum eAutoStart
-{
-    POS_1, POS_2, POS_3
-};
 
 const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
 const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)

@@ -1,10 +1,11 @@
 #include "../AutoBase.h"
+#include <RobotMap.h>
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/Autonomous/cTurnDegree.h>
 
 AutoBase* AutoBase::goLift2()
 {
-    AutoBase* goLift2 = new AutoBase();
+    AutoBase* commands = new AutoBase();
 
-    return goLift2;
+    return commands;
 }
