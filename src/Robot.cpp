@@ -15,13 +15,13 @@ private:
     {
         LOG_INFO("RobotInit called");
 
-        //CommandBase::s_drivebase = new cDriveBase();
+        CommandBase::s_drivebase = new cDriveBase();
         //CommandBase::s_oi = new OI();
         //CommandBase::s_climber = new cClimber();
         CommandBase::s_turret = new cTurret();
         //CommandBase::s_gearCollector = new cGearCollector();
         //CommandBase::s_fuelCollector = new cFuelCollector();
-        //CommandBase::s_fuelLoader = new cFuelLoader();
+        CommandBase::s_fuelLoader = new cFuelLoader();
         CommandBase::s_shooter = new cShooter();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
@@ -40,6 +40,7 @@ private:
 
     void AutonomousInit()
     {
+        Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
     }
 
@@ -50,6 +51,7 @@ private:
 
     void TeleopInit()
     {
+        Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("TeleopInit called");
     }
 
