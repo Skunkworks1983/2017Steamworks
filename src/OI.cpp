@@ -1,5 +1,5 @@
 #include "OI.h"
-#include "RobotMap.h"
+#include <RobotMap.h>
 #include <Commands/GearMechanism/cAcquireGear.h>
 #include <Commands/Climber/cClimbRope.h>
 #include <Commands/GearMechanism/cDepositGear.h>
@@ -20,7 +20,7 @@ OI::OI()
     m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
 
-    m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
+    /*m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
     m_acquireBall = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREBALL_BUTTON);
     m_assignTargetBoiler = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGNTARGETBOILER);
     m_assignTargetGoal = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGNTARGETGOAL);
@@ -40,7 +40,7 @@ OI::OI()
 
     m_enableTurretControl->WhileHeld(new cManualTurretControl());
 
-    m_enableShooterControl->WhileHeld(new cManualShooterControl());
+    m_enableShooterControl->WhileHeld(new cManualShooterControl());*/
 
     //m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
 }
