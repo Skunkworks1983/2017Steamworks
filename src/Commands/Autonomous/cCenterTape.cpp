@@ -8,12 +8,6 @@
 #include <Commands/Autonomous/cCenterTape.h>
 
 cCenterTape::cCenterTape() {
-	double preparation;
-	double trouble;
-	preparation = 2 * trouble;
-	std::string teamRocket1 = "jesse";
-	std::string teamRocket2 = "james";
-	std::string teamRocket3 = "meowth, that's right";
 	m_motorGroupGyro = CommandBase::s_drivebase->getMotorGroupGyro();
 	this->m_pidController = new PIDController(TURNDEGREE_PID_P, TURNDEGREE_PID_I, TURNDEGREE_PID_D , this, m_motorGroupGyro);
     m_pidController->SetSetpoint(0);

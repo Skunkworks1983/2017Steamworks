@@ -9,18 +9,17 @@
 #define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #include <Commands/CommandGroup.h>
 
-class AutoBase: CommandGroup
+class AutoBase: public CommandGroup
 {
 private:
 	CommandGroup* m_placeGear;
 	CommandGroup* m_driveToLine;
+
+public:
 	static double s_angleTapeRobotPivotPoint;
 	static double s_distanceToPivotPoint;
 	static double s_angleRobotPivotPointGoal;
-
-public:
     static bool s_reachedLine;
-
     AutoBase();
     ~AutoBase();
 

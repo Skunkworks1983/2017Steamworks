@@ -4,6 +4,7 @@
  *  Created on: Feb 2, 2017
  *      Author: Mike
  */
+#include "AutoBase.h"
 #include "cGearPath.h"
 #include "cSimpleDriveForward.h"
 #include "Subsystems/cDriveBase.h"
@@ -31,30 +32,19 @@ void cGearPath::Initialize() {
 		longerDistance = rightDistance;
 		shorterDistance = leftDistance;
 	}
-	/* Unit test. Right distance is 5, left distance is 10. Distance between the sensors is 2. Angle to the wall should be 2.76 rad (159.2 deg) TODO
-	longerDistance = 10;
-	shorterDistance = 5;
-	*/
-
 	double distanceshortSensorLongDistance = sqrt(longerDistance * longerDistance + DISTANCE_BETWEEN_SONAR * DISTANCE_BETWEEN_SONAR);
 	double angleLongDistanceShortSensorLongSensor = asin(longerDistance/distanceshortSensorLongDistance);
 	double angleShortDistanceShortSensorLongSensor = (3.14/2 - angleLongDistanceShortSensorLongSensor);
 	double distanceBetweenSensedDistances = sqrt(shorterDistance * shorterDistance + distanceshortSensorLongDistance * distanceshortSensorLongDistance - 2 * shorterDistance * distanceshortSensorLongDistance * cos(angleShortDistanceShortSensorLongSensor));
 	angleRobotTapeWall = acos((-distanceshortSensorLongDistance * distanceshortSensorLongDistance + distanceBetweenSensedDistances * distanceBetweenSensedDistances + shorterDistance * shorterDistance)/(2 * distanceBetweenSensedDistances * shorterDistance));
 
-	/* resume unit test
-		if (angleRobotTapeWall == 2.79) {
-			std::cout << "Finding the angle to the wall works." << std::endl;
-		}
-		end unit test */
-
 	double distanceToTape = (leftDistance + rightDistance)/2;
+
 	//this part figures out the angle the robot must turn followed by the distance it must drive followed by the angle it must turn.
 
 	double anglePivotPointTapeRobot = (3.14 - angleWallTapePivotPoint -	 angleRobotTapeWall);
 
-	AutoBase::s_distanceToPivotPoint = sqrt(distanceToTape*distanceToTape + DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT
-	- 2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT * cos(anglePivotPointTapeRobot));
+	AutoBase::s_distanceToPivotPoint = sqrt(distanceToTape*distanceToTape + DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT - 2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT * cos(anglePivotPointTapeRobot));
 	// law of cosines. a^2 = b^2 + c^2 - 2*b*c*cos(A)
 
 	AutoBase::s_angleTapeRobotPivotPoint = acos((-DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT + AutoBase::s_distanceToPivotPoint * AutoBase::s_distanceToPivotPoint + distanceToTape * distanceToTape) / (2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT));

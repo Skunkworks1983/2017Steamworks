@@ -1,6 +1,8 @@
 #include "AutoBase.h"
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/Autonomous/cTurnDegree.h>
+#include <Commands/Autonomous/cCenterTape.h>
+#include <Commands/Autonomous/cGearPath.h>
 
 AutoBase* AutoBase::placeGear()
 {

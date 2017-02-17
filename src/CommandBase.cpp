@@ -3,6 +3,7 @@
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
+#include "Subsystems/iDriveBase.h"
 
 iDriveBase* CommandBase::s_drivebase = NULL;
 iClimber* CommandBase::s_climber = NULL;

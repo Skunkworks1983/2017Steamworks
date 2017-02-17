@@ -10,6 +10,9 @@
 #include "cGearPath.h"
 #include <RobotMap.h>
 
+double AutoBase::s_angleTapeRobotPivotPoint = 0;
+double AutoBase::s_distanceToPivotPoint = 0;
+double AutoBase::s_angleRobotPivotPointGoal = 0;
 
 AutoBase::AutoBase() {
 

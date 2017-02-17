@@ -16,11 +16,8 @@
 #include "Subsystems/cReversingMotorGroup.h"
 #include "Subsystems/cGyro.h"
 #include <PIDController.h>
-<<<<<<< HEAD
 #include <RobotMap.h>
-=======
 #include "Subsystems/iDriveBase.h"
->>>>>>> refs/remotes/origin/master
 
 class cDriveBase: public iDriveBase
 {
@@ -36,17 +33,12 @@ private:
     iMotor* m_rightMotor2;
     iMotor* m_rightMotor3;
 
-<<<<<<< HEAD
+
 	I2C* m_colorSensor;
 	AnalogInput* m_rSonar;
 	AnalogInput* m_lSonar;
     int BitShift(uint8_t *colorReadout);
-
-    cGyro* m_gyro;
-=======
     iGyro* m_gyro;
->>>>>>> refs/remotes/origin/master
-
 
 public:
     cDriveBase();
@@ -64,13 +56,8 @@ public:
     double GetLeftDistance();
     double GetRightDistance();
     cReversingMotorGroup* getMotorGroupGyro();
-<<<<<<< HEAD
-    cGyro* getGyro();
-
-=======
     iGyro* getGyro();
-    bool CanSeeTape();
->>>>>>> refs/remotes/origin/master
+
 
 
 };
