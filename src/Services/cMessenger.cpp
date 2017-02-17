@@ -39,6 +39,11 @@ cMessenger::cMessenger(const char *server, const char *port)
     inet_pton(AF_INET, server, &(m_remaddr.sin_addr));
     m_remaddr.sin_port = htons(std::stoi(port));
 
+    int bufLen = 100;
+    if(setsockopt(m_sock, SOL_SOCKET, SO_RCVBUF, &bufLen, sizeof(int)) == -1) {
+    	std::cout << "Sock opt err" << "\n";
+    }
+
     // bind to the socket
     if(bind(m_sock, (struct sockaddr *) &m_myaddr, sizeof(m_myaddr)) < 0)
     {
@@ -79,6 +84,7 @@ std::string cMessenger::receiveMessage()
     }
 
     std::string message_converted(message_buffer);
+
     return message_converted;
 }
 

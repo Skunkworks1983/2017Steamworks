@@ -3,6 +3,7 @@
 
 #include "WPILib.h"
 #include <Services/cLogger.h>
+#include <math.h>
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -38,11 +39,11 @@ const int MSG_LEN = 1024;
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
 
-const int DRIVEBASE_LEFTMOTOR_1_PORT = 0;
-const int DRIVEBASE_LEFTMOTOR_2_PORT = 1;
-const int DRIVEBASE_LEFTMOTOR_3_PORT = 2;
+const int DRIVEBASE_LEFTMOTOR_1_PORT = 12;
+const int DRIVEBASE_LEFTMOTOR_2_PORT = 14;
+const int DRIVEBASE_LEFTMOTOR_3_PORT = 14;
 const int DRIVEBASE_RIGHTMOTOR_1_PORT = 15;
-const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14;
+const int DRIVEBASE_RIGHTMOTOR_2_PORT = 13;
 const int DRIVEBASE_RIGHTMOTOR_3_PORT = 13;
 
 const int OI_JOYSTICK_LEFT_PORT = 1;
@@ -111,6 +112,8 @@ const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
 
+#include <Services/cLogger.h>
+
 const float BANEBOTS775_STALLING_CURRENT = 130;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
 const float CIM_STALLING_CURRENT = 133;
@@ -170,27 +173,30 @@ const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 1234; //listen, i'm not an exper
 #define LOG_DEBUG(...) {\
             char buf[1024];\
             sprintf(buf, __VA_ARGS__);\
-            Logger::getLogger()->log(buf, Debug);}
+            Logger::getLogger()->log(buf, LogDebug);}
 
 #define LOG_INFO(...) {\
             char buf[1024];\
             sprintf(buf, __VA_ARGS__);\
-            Logger::getLogger()->log(buf, Info);}
+            Logger::getLogger()->log(buf, LogInfo);}
 
 #define LOG_WARNING(...) {\
             char buf[1024];\
             sprintf(buf, __VA_ARGS__);\
-            Logger::getLogger()->log(buf, Warning);}
+            Logger::getLogger()->log(buf, LogWarning);}
 
 #define LOG_ERROR(...) {\
             char buf[1024];\
             sprintf(buf, __VA_ARGS__);\
-            Logger::getLogger()->log(buf, Error);}
+            Logger::getLogger()->log(buf, LogError);}
 
 #define LOG_RECORD(...) {\
             char buf[1024];\
             sprintf(buf, __VA_ARGS__);\
             Logger::getLogger()->log(buf, Record);}
+
+const float WHEEL_CIRCUMFERENCE = (4*M_PI)/12; //Feet
+const int TICKS_PER_REVOLUTION = 4020;
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:

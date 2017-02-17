@@ -5,12 +5,18 @@
 #include "Subsystems/cClimber.h"
 #include <OI.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
+#include "Commands/Turret/cPointToBoiler.h"
+#include "Commands/DriveBase/cDriveStraight.h"
 #include <errno.h>
 #include "RobotMap.h"
 
 class Robot: public IterativeRobot
 {
 private:
+
+	//Put commands out here for declaration
+	cDriveStraight* driveStraight;
+
     void RobotInit()
     {
         LOG_INFO("RobotInit called");
@@ -25,11 +31,20 @@ private:
         CommandBase::s_shooter = new cShooter();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
-        //CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+
+        CommandBase::s_drivebase->getGyro()->initGyro();
+        CommandBase::s_drivebase->getGyro()->zeroYaw();
+
+        //Put construction of commands here
+        driveStraight = new cDriveStraight(6);
+
+        CameraServer::GetInstance()->StartAutomaticCapture();
     }
 
     void DisabledInit()
     {
+    	Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("DisabledInit called");
     }
 
@@ -38,10 +53,12 @@ private:
 
     }
 
-    void AutonomousInit()
-    {
+	void AutonomousInit()
+	{
+		CommandBase::s_drivebase->setBrakeMode(false);
+	    Scheduler::GetInstance()->AddCommand(driveStraight);
         LOG_INFO("AutonomousInit called");
-    }
+	}
 
     void AutonomousPeriodic()
     {
@@ -51,6 +68,7 @@ private:
     void TeleopInit()
     {
         LOG_INFO("TeleopInit called");
+        Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
     }
 
     void TeleopPeriodic()
