@@ -120,6 +120,16 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 //AUTONOMOUS THINGS
 
+enum eStartingPosition
+{
+    POS_1, POS_2, POS_3
+};
+
+eStartingPosition startPosition = POS_1;
+
+const int AUTO_MOVE_FORWARD_FEET = 1;
+const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
+
 //COLOR SENSOR
 //datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
 const int COLOR_SENSOR_I2C_SLAVE_ADR = 0x29;
@@ -148,10 +158,9 @@ const int FLOOR_TAPE_B = 1234; //hebids
  */
 
 // starting position
-enum eAutoStart {
-    POS_1,
-    POS_2,
-    POS_3
+enum eAutoStart
+{
+    POS_1, POS_2, POS_3
 };
 
 const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
