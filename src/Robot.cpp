@@ -5,8 +5,12 @@
 #include "Subsystems/cClimber.h"
 #include <OI.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
+#include "Commands/GearMechanism/cAcquireGear.h"
 #include <errno.h>
 #include "RobotMap.h"
+
+int a = 0;
+
 
 class Robot: public IterativeRobot
 {
@@ -15,16 +19,16 @@ private:
     {
         LOG_INFO("RobotInit called");
 
-        CommandBase::s_drivebase = new cDriveBase();
+        //CommandBase::s_drivebase = new cDriveBase();
         //CommandBase::s_oi = new OI();
         //CommandBase::s_climber = new cClimber();
-        CommandBase::s_turret = new cTurret();
-        //CommandBase::s_gearCollector = new cGearCollector();
+        //CommandBase::s_turret = new cTurret();
+        CommandBase::s_gearCollector = new cGearCollector();
         //CommandBase::s_fuelCollector = new cFuelCollector();
-        CommandBase::s_fuelLoader = new cFuelLoader();
-        CommandBase::s_shooter = new cShooter();
+        //CommandBase::s_fuelLoader = new cFuelLoader();
+        //CommandBase::s_shooter = new cShooter();
 
-        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        //CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         //CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
     }
 
@@ -42,6 +46,8 @@ private:
     {
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
+
+        Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
     }
 
     void AutonomousPeriodic()
@@ -65,7 +71,7 @@ private:
         LiveWindow::GetInstance()->Run();
     }
 };
-
+//ayy lmao
 START_ROBOT_CLASS(Robot)
 //if you comment this macro out
 //you should probably change that

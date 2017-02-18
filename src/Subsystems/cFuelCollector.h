@@ -17,14 +17,17 @@ class cFuelCollector: public iFuelCollector
 {
 private:
     cMotor* m_hopperMotor;
-    Servo* m_collectorFlapServo;
+    Servo* m_flapServo;
 
 public:
     cFuelCollector();
     virtual ~cFuelCollector();
 
-    void setCollectorFlapAngle(float angle);
+    void setFlapAngle(float angle);
     void setHopperDrumSpeed(float speed);
+
+    float getFlapAngle();
+    float getHopperDrumSpeed();
 };
 
 #endif /* SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_ */

@@ -16,6 +16,7 @@ enum MotorType
 {
     BaneBots775, NeveRest40, CIM
 };
+
 class cMotor: public iMotor
 {
 private:
