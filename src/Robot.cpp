@@ -3,6 +3,7 @@
 #include "CommandBase.h"
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
+#include "Subsystems/cColorSensor.h"
 #include <OI.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Commands/Turret/cPointToBoiler.h"
@@ -18,6 +19,7 @@ private:
 	//Put commands out here for declaration
 	cDriveStraight* driveStraight;
 	cRunOneMotor* runMotor;
+	cColorSensor* colorSensor;
 
     void RobotInit()
     {
@@ -37,6 +39,8 @@ private:
 
         CommandBase::s_drivebase->getGyro()->initGyro();
         //CommandBase::s_drivebase->getGyro()->zeroYaw();*/
+
+        colorSensor = new cColorSensor();
 
         //Put construction of commands here
         std::cout << "Before" << std::endl;
@@ -69,6 +73,7 @@ private:
 
     void AutonomousPeriodic()
     {
+    	colorSensor->get();
         Scheduler::GetInstance()->Run();
     }
 
