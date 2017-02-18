@@ -181,6 +181,8 @@ const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = 1.5; // ibid.
 const float angleGoalPivotPointTape = ((45 * 3.14) / 180); // surrogate for a real value
 const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 1234; //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
 
+const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
+
 #define LOG_DEBUG(...) {\
             char buf[1024];\
             sprintf(buf, __VA_ARGS__);\

@@ -1,6 +1,7 @@
 #include "cTurnAngle.h"
 
 cTurnAngle::cTurnAngle(float angle) {
+	Requires(CommandBase::s_drivebase);
 	m_finalAngle = angle; //Angle to get to
 	m_startingAngle = 0; //Set in Initialize
 
@@ -29,7 +30,7 @@ void cTurnAngle::Execute() {
 }
 
 bool cTurnAngle::IsFinished() {
-	return abs(CommandBase::s_drivebase->getGyro()->getAngle() - m_finalAngle) < 0.5;
+	return abs(CommandBase::s_drivebase->getGyro()->getAngle() - m_finalAngle) < ANGLE_OK_ERROR;
 }
 
 void cTurnAngle::End() {
@@ -41,11 +42,7 @@ void cTurnAngle::End() {
 }
 
 void cTurnAngle::Interrupted() {
-	m_isDisabled = true;
-	CommandBase::s_drivebase->setLeftSpeed(0);
-	CommandBase::s_drivebase->setRightSpeed(0);
-
-	m_controller->Disable();
+	End();
 }
 
 void cTurnAngle::PIDWrite(double output) {
