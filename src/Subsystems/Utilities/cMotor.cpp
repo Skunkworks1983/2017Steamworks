@@ -65,9 +65,8 @@ void cMotor::PIDWrite(double output)
 }
 double cMotor::PIDGet()
 {
-    return m_motor.GetEncPosition();
-    //we need to change this, not right
-    //return sensor output for pid
+    return m_motor.PIDGet();
+    //should be fixed now
 }
 
 void cMotor::setEnabled(bool enabled)
@@ -85,4 +84,16 @@ void cMotor::setEnabled(bool enabled)
 bool cMotor::hasEncoder()
 {
     return m_hasEncoder;
+}
+
+CANSpeedController::ControlMode cMotor::getControlMode() {
+	return m_motor.GetControlMode();
+}
+
+void cMotor::setControlMode(CANSpeedController::ControlMode mode) {
+	m_motor.SetControlMode(mode);
+}
+
+double cMotor::getPosition() {
+	return m_motor.GetPosition();
 }

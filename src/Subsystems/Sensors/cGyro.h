@@ -12,14 +12,20 @@
 #include <AHRS.h>
 #include <Subsystems/Interfaces/iGyro.h>
 
-class cGyro: public PIDSource
+class cGyro: public iGyro
 {
 private:
-    AHRS *m_ahrs;
+    const int AHRS_CYCLE_TIMEOUT = 500;
+    bool m_dead;
+    AHRS* m_ahrs;
 public:
     cGyro();
     virtual ~cGyro();
     virtual double PIDGet();
+    void initGyro();
+    bool isDead();
+    void zeroYaw();
+    double getAngle();
 };
 
 #endif /* SRC_SUBSYSTEMS_CGYRO_H_ */

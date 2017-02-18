@@ -1,7 +1,6 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "CommandBase.h"
-#include <OI.h>
 #include <errno.h>
 #include "RobotMap.h"
 
@@ -16,9 +15,19 @@
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
 
+#include <Commands/DriveBase/cDriveStraight.h>
+#include <Commands/Debugging/cRunOneMotor.h>
+#include <Subsystems/Sensors/cColorSensor.h>
+
 class Robot: public IterativeRobot
 {
 private:
+
+	//Put commands out here for declaration
+	cDriveStraight* driveStraight;
+	cRunOneMotor* runMotor;
+	cColorSensor* colorSensor;
+
     void RobotInit()
     {
         LOG_INFO("RobotInit called");
@@ -38,6 +47,7 @@ private:
 
     void DisabledInit()
     {
+    	Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("DisabledInit called");
     }
 
@@ -52,7 +62,7 @@ private:
         LOG_INFO("AutonomousInit called");
 
         Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
-    }
+	}
 
     void AutonomousPeriodic()
     {

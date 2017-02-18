@@ -37,14 +37,17 @@ private:
     int BitShift(uint8_t *colorReadout);
 
 public:
-    cDriveBase();
-    ~cDriveBase();
-    void InitDefaultCommand();
-    void resetEncoder();
-    void setLeftSpeed(double speed);
-    void setRightSpeed(double speed);
-    void setBrakeMode(bool brake); //stop dat boi
-    void setEnabled(bool enabled);
+	cDriveBase();
+	~cDriveBase();
+
+	void InitDefaultCommand();
+	void resetEncoder();
+
+	void setLeftSpeed(double speed);
+	void setRightSpeed(double speed);
+
+	void setBrakeMode(bool brake);
+	void setEnabled(bool enabled);
     cMotorGroup* getMotorGroupLeft();
     cMotorGroup* getMotorGroupRight();
     cMotorGroup* getMotorGroupAll();

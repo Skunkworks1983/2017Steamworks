@@ -8,6 +8,7 @@
 #ifndef SRC_SUBSYSTEMS_CMOTOR_H_
 #define SRC_SUBSYSTEMS_CMOTOR_H_
 #include <CANTalon.h>
+#include <CANSpeedController.h>
 #include <PIDSource.h>
 #include <PIDOutput.h>
 #include <Subsystems/Interfaces/iMotor.h>
@@ -20,7 +21,8 @@ enum MotorType
 class cMotor: public iMotor
 {
 private:
-    CANTalon m_motor;bool m_hasEncoder;
+    CANTalon m_motor;
+    bool m_hasEncoder;
     MotorType m_motorType;
 public:
     cMotor(int port, MotorType motorType, bool hasEncoder = false);
@@ -29,7 +31,12 @@ public:
     void setOutput(float output);
     void PIDWrite(double output) override;
     double PIDGet() override;
-    void setEnabled(bool enabled);bool hasEncoder();
+    void setEnabled(bool enabled);
+    bool hasEncoder();
 
+    CANSpeedController::ControlMode getControlMode();
+    void setControlMode(CANSpeedController::ControlMode mode);
+
+    double getPosition();
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */
