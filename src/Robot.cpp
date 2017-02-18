@@ -1,16 +1,20 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "CommandBase.h"
-#include "Subsystems/cDriveBase.h"
-#include "Subsystems/cClimber.h"
 #include <OI.h>
-#include "Commands/DriveBase/cRunTankDrive.h"
-#include "Commands/GearMechanism/cAcquireGear.h"
 #include <errno.h>
 #include "RobotMap.h"
 
-int a = 0;
+#include "Subsystems/cDriveBase.h"
+#include "Subsystems/cClimber.h"
+#include "Subsystems/cGearCollector.h"
+#include "Subsystems/cFuelCollector.h"
+#include "Subsystems/cFuelLoader.h"
+#include "Subsystems/cShooter.h"
+#include "Subsystems/cTurret.h"
 
+#include "Commands/GearMechanism/cAcquireGear.h"
+#include "Commands/DriveBase/cRunTankDrive.h"
 
 class Robot: public IterativeRobot
 {

@@ -4,8 +4,8 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include <OI.h>
-#include "cMotor.h"
-#include "Subsystems/iClimber.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iClimber.h>
 
 class cClimber : public iClimber
 {

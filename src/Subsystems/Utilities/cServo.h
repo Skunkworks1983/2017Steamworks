@@ -8,7 +8,8 @@
 #ifndef SRC_SUBSYSTEMS_COMPONENTS_CSERVO_H_
 #define SRC_SUBSYSTEMS_COMPONENTS_CSERVO_H_
 
-#include <Subsystems/Components/iServo.h>
+#include <Subsystems/Interfaces/iServo.h>
+#include "WPILib.h"
 
 class cServo : public iServo
 {

@@ -5,7 +5,7 @@
  *      Author: Nathan
  */
 
-#include <Subsystems/Components/cServo.h>
+#include <Subsystems/Utilities/cServo.h>
 
 cServo::cServo(int port)
 {

@@ -4,9 +4,9 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include <OI.h>
-#include "cMotor.h"
-#include <Subsystems/Components/cServo.h>
-#include "Subsystems/iGearCollector.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Utilities/cServo.h>
+#include <Subsystems/Interfaces/iGearCollector.h>
 
 class cGearCollector: public iGearCollector
 {

@@ -10,8 +10,8 @@
 
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
-#include "cMotor.h"
-#include  "Subsystems/iFuelCollector.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iFuelCollector.h>
 
 class cFuelCollector: public iFuelCollector
 {

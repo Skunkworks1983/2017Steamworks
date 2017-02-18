@@ -10,7 +10,7 @@
 #include <Subsystems/cDriveBase.h>
 #include <RobotMap.h>
 #include <PIDController.h>
-#include <Subsystems/cGyro.h>
+#include <Subsystems/Sensors/cGyro.h>
 
 
 cTurnDegree::cTurnDegree(float targetAngle)

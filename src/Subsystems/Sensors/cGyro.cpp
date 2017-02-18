@@ -6,7 +6,7 @@
  */
 
 #include <I2C.h>
-#include <Subsystems/cGyro.h>
+#include <Subsystems/Sensors/cGyro.h>
 
 cGyro::cGyro()
 {

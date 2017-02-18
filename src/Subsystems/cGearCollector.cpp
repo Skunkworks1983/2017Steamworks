@@ -1,6 +1,6 @@
 #include "cGearCollector.h"
 #include <RobotMap.h>
-#include <Subsystems/Components/cServo.h>
+#include <Subsystems/Utilities/cServo.h>
 #include <Commands/GearMechanism/cAcquireGear.h>
 
 cGearCollector::cGearCollector()

@@ -8,9 +8,9 @@
 #ifndef SRC_SUBSYSTEMS_CMOTORGROUP_H_
 #define SRC_SUBSYSTEMS_CMOTORGROUP_H_
 
-#include <Subsystems/cMotor.h>
+#include <Subsystems/Utilities/cMotor.h>
 #include <vector>
-#include "iMotor.h"
+#include <Subsystems/Interfaces/iMotor.h>
 
 class cMotorGroup: public iMotor
 {

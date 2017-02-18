@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Subsystems/cMotor.h>
+#include <Subsystems/Utilities/cMotor.h>
 #include <CANTalon.h>
 #include <RobotMap.h>
 

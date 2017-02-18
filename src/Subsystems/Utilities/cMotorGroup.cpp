@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Subsystems/cMotorGroup.h>
+#include <Subsystems/Utilities/cMotorGroup.h>
 
 cMotorGroup::cMotorGroup(std::vector<iMotor*> motorList):m_motorList(motorList)
 {
