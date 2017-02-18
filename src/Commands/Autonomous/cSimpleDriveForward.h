@@ -10,9 +10,9 @@
 
 #include <Commands/Command.h>
 #include <Subsystems/cDriveBase.h>
-#include <Subsystems/cMotor.h>
+#include <Subsystems/Utilities/cMotor.h>
 #include <PIDController.h>
-#include "Subsystems/cMotorGroup.h"
+#include <Subsystems/Utilities/cMotorGroup.h>
 
 class cSimpleDriveForward: public frc::Command
 {

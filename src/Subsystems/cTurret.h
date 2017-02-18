@@ -4,8 +4,8 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include <OI.h>
-#include "cMotor.h"
-#include "Subsystems/iTurret.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iTurret.h>
 
 class cTurret : public iTurret
 {

@@ -13,9 +13,9 @@ class iGearCollector : public Subsystem
 {
 public:
     iGearCollector() : Subsystem("GearCollector"){};
-    virtual void setFlapState(bool isOpen) = 0;
+
+    virtual void setFlapState(bool open) = 0;
     virtual void setServoAngle(float angle) = 0;
-    virtual float getServoAngle() = 0;
 };
 
 
