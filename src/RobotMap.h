@@ -39,11 +39,11 @@ const int MSG_LEN = 1024;
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
 
-const int DRIVEBASE_LEFTMOTOR_1_PORT = 0;
-const int DRIVEBASE_LEFTMOTOR_2_PORT = 1;
-const int DRIVEBASE_LEFTMOTOR_3_PORT = 2;
+const int DRIVEBASE_LEFTMOTOR_1_PORT = 12;
+const int DRIVEBASE_LEFTMOTOR_2_PORT = 14;
+const int DRIVEBASE_LEFTMOTOR_3_PORT = 14;
 const int DRIVEBASE_RIGHTMOTOR_1_PORT = 15;
-const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14;
+const int DRIVEBASE_RIGHTMOTOR_2_PORT = 13;
 const int DRIVEBASE_RIGHTMOTOR_3_PORT = 13;
 
 const int OI_JOYSTICK_LEFT_PORT = 1;
@@ -137,10 +137,11 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 #define FLOOR_TAPE_B_HIGH 1234//TODO
 
 //SONAR
-//this definitely has a datasheet somewhere
+//datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
 #define R_SONAR_PORT 0 //TODO
 #define L_SONAR_PORT 1 //TODO
 #define SONAR_AN_REG 0x1234 //Pin 3. I think this will be the same on both? Do I need this? TODO
+#define RATIO_OUTPUT_TO_FEET .11
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 

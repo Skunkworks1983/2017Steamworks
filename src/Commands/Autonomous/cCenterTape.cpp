@@ -6,36 +6,44 @@
  */
 
 #include <Commands/Autonomous/cCenterTape.h>
+#include <math.h>
 
 cCenterTape::cCenterTape() {
 	m_motorGroupGyro = CommandBase::s_drivebase->getMotorGroupGyro();
-	this->m_pidController = new PIDController(TURNDEGREE_PID_P, TURNDEGREE_PID_I, TURNDEGREE_PID_D , this, m_motorGroupGyro);
+	this->m_pidController = new PIDController(TURNDEGREE_PID_P, TURNDEGREE_PID_I, TURNDEGREE_PID_D , this, this);
     m_pidController->SetSetpoint(0);
-
+    m_data = CommandBase::s_liftMessenger->receiveLiftData();
 }
 
 cCenterTape::~cCenterTape() {
 	// TODO Auto-generated destructor stub
 }
 
-	void cCenterTape::Initialize() {
+void cCenterTape::Initialize() {
     m_pidController->Enable();
-    m_pidController->SetAbsoluteTolerance(TURNANGLE_ABSTOLERANCE_ANGLE);
+}
+void cCenterTape::Execute() {
 
-	}
-	void cCenterTape::Execute() {
+}
+bool cCenterTape::IsFinished() {
 
-	}
-	bool cCenterTape::IsFinished() {
+	return abs(m_data->getX() < .05);
+}
+void cCenterTape::End() {
+	m_pidController->Disable();
+}
+void cCenterTape::Interrupted() {
 
+}
+double cCenterTape::PIDGet() {
+	return m_data->getX();
+}
+void cCenterTape::PIDWrite(double output) {
+	if (m_data->getX() < 1) {
+		CommandBase::s_drivebase->setLeftSpeed(-1*output);    //May need to switch the positive and negative
+		CommandBase::s_drivebase->setRightSpeed(output);//Totally not copied and pasted from Eli's code
+	} else {
+		CommandBase::s_drivebase->setLeftSpeed(output);    //May need to switch the positive and negative
+		CommandBase::s_drivebase->setRightSpeed(-1*output);//Totally not copied and pasted from Eli's code
 	}
-	void cCenterTape::End() {
-
-	}
-	void cCenterTape::Interrupted() {
-
-	}
-	double cCenterTape::PIDGet() {
-		cLiftData* data = CommandBase::s_liftMessenger->receiveLiftData();
-		return data->getX();
-	}
+}

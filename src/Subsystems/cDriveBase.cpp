@@ -46,6 +46,9 @@ cDriveBase::cDriveBase()
 
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
     m_motorGroupAll = new cMotorGroup(allMotors);
+	m_rSonar = new AnalogInput(R_SONAR_PORT);
+	m_lSonar = new AnalogInput(L_SONAR_PORT);
+
 
 }
 cDriveBase::~cDriveBase()
@@ -128,18 +131,11 @@ int cDriveBase::BitShift(uint8_t *colorReadout) {
 }
 
 double cDriveBase::GetLeftDistance() {
-	m_lSonar = new AnalogInput(L_SONAR_PORT);
-	double leftDistanceFeet = m_lSonar->GetVoltage();
-	leftDistanceFeet = ((leftDistanceFeet * .0098 / 5) * 12); //the ratio between volts and inches, converted to feet.
-	return leftDistanceFeet;
+	return GetSonarDistance(true);
 }
 
 double cDriveBase::GetRightDistance() {
-	m_rSonar = new AnalogInput(R_SONAR_PORT);
-	double rightDistanceFeet = m_lSonar->GetVoltage();
-	rightDistanceFeet = ((rightDistanceFeet * .0098 / 5) * 12);
-	return rightDistanceFeet;
-
+	return GetSonarDistance(false);
 }
 
 cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
@@ -150,4 +146,24 @@ cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
 iGyro* cDriveBase::getGyro()
 {
     return m_gyro;
+}
+
+double cDriveBase::GetSonarDistance(bool left) {
+	AnalogInput* eitherSonar;
+	double distanceFeet;
+	if (left) {
+		eitherSonar = m_lSonar;
+	} else {
+		eitherSonar = m_rSonar;
+	}
+	int i;
+	double totalDistance = 0;
+	for (i = 0; i < 1000; i++) { //is this okay? if it takes too long, make it 100 or 50
+		distanceFeet = eitherSonar->GetVoltage();
+		distanceFeet = (distanceFeet / RATIO_OUTPUT_TO_FEET);
+		totalDistance = totalDistance + distanceFeet;
+	}
+	distanceFeet = totalDistance/1000; //need to change this number too
+	return distanceFeet;
+
 }

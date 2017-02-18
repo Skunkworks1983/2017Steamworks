@@ -14,7 +14,7 @@
 #include <CommandBase.h>
 #include <Services/cMessage.h>
 
-class cCenterTape : public frc::Command, PIDSource
+class cCenterTape : public frc::Command, PIDSource, PIDOutput
 {
 private:
 	PIDController *m_pidController;
@@ -28,7 +28,9 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
-	double PIDGet() override;
+	double PIDGet();
+	void PIDWrite(double output);
+    cLiftData* m_data;
 
 };
 

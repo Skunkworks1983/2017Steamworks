@@ -55,6 +55,7 @@ public:
     bool CanSeeTape();
     double GetLeftDistance();
     double GetRightDistance();
+    double GetSonarDistance(bool left);
     cReversingMotorGroup* getMotorGroupGyro();
     iGyro* getGyro();
 
