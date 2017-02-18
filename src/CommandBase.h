@@ -26,7 +26,7 @@ public:
     CommandBase();
     static void init();
     static iDriveBase *s_drivebase;
-    static OI *s_oi;
+    static iOI *s_oi;
     static cMessenger *s_boilerMessenger;
     static cMessenger* s_liftMessenger;
     static iClimber * s_climber;

@@ -10,6 +10,7 @@
 #include <Commands/FuelCollector/cRunFuelFlap.h>
 #include <Commands/FuelLoader/cRunFuelLoader.h>
 #include <Commands/FuelCollector/cRunHopperIntake.h>
+#include <Commands/DriveBase/cSwitchBackFront.h>
 
 OI::OI()
 {
@@ -40,6 +41,9 @@ OI::OI()
     m_rotateTurretRight->WhenPressed(new cRotateTurret(CROTATETURRET_RIGHT_SPEED));
 
     m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
+
+    m_togglereversal->WhenPressed(new cSwitchBackFront());
+
 }
 
 float OI::getLeftStickY()

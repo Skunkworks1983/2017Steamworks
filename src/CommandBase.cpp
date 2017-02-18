@@ -6,7 +6,7 @@
 
 iDriveBase* CommandBase::s_drivebase = NULL;
 iClimber* CommandBase::s_climber = NULL;
-OI* CommandBase::s_oi = NULL;
+iOI* CommandBase::s_oi = NULL;
 cMessenger* CommandBase::s_boilerMessenger = NULL;
 cMessenger* CommandBase::s_liftMessenger = NULL;
 iGearCollector* CommandBase::s_gearCollector = NULL;

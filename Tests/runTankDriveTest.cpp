@@ -6,7 +6,9 @@
 #include <Subsystems/iGyro.h>
 #include <CommandBase.h>
 #include <Commands/DriveBase/cRunTankDrive.h>
+#include <Tests/MockOI.h>
 using ::testing::AtLeast;
+using ::testing::Return;
 
 class MockDriveBase : public iDriveBase
 {
@@ -34,15 +36,19 @@ TEST(RunTankDriveTests, InitializeCallsSetEnabled){
     cRunTankDrive Command;
     Command.Initialize();
 }
-/*
+//whoody who whatcha gonna doo
 TEST(RunTankDriveTests, ExecuteCallsSetSpeed){
     MockDriveBase iDriveBase;
-    EXPECT_CALL(iDriveBase, setLeftSpeed(.5))//magic number for now
+    MockOI mOI;
+    EXPECT_CALL(mOI, getLeftStickY()).WillOnce(Return(.5));
+    EXPECT_CALL(iDriveBase, setLeftSpeed(.25))
     .Times(AtLeast(1));
 
-    EXPECT_CALL(iDriveBase, setRightSpeed(.5))
+    EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(.5));
+    EXPECT_CALL(iDriveBase, setRightSpeed(.25))
     .Times(AtLeast(1));
 
     CommandBase::s_drivebase = &iDriveBase;
+    cRunTankDrive Command;
+    Command.Execute();
 }
-*/

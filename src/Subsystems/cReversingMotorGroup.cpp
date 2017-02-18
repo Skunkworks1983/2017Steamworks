@@ -37,3 +37,21 @@ void cReversingMotorGroup::PIDWrite(double output)
 {
     setOutput(output);
 }
+
+void cReversingMotorGroup::ToggleReversal()
+{
+    for(std::size_t i = 0; i < cMotorGroup::GetMotorList().size(); i++)
+    {
+        if (m_motorReverse[i] == true)
+        {
+            m_motorReverse[i] = false;
+        }
+        else
+        {
+            m_motorReverse[i] = true;
+        }
+
+    }
+    //m_motorReverse = !m_motorReverse;
+
+}
