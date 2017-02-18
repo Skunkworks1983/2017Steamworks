@@ -7,29 +7,38 @@
 
 #include <Services/cMessage.h>
 
-cBoilerData::cBoilerData(float x, float y) : m_x(x), m_y(y) {
+cBoilerData::cBoilerData(float x, float y, bool isFound) :
+        m_x(x), m_y(y), m_isFound(isFound)
+{
 
 }
 
-
-float cBoilerData::getX() {
+float cBoilerData::getX()
+{
     return m_x;
 }
 
-
-float cBoilerData::getY() {
+float cBoilerData::getY()
+{
     return m_y;
 }
 
-
-
-cLiftData::cLiftData(float x) : m_x(x) {
-
+bool cBoilerData::isFound() {
+    return m_isFound;
 }
 
 
-float cLiftData::getX() {
+cLiftData::cLiftData(float x, bool isFound) :
+        m_x(x), m_isFound(isFound)
+{
+
+}
+
+float cLiftData::getX()
+{
     return m_x;
 }
 
-
+bool cLiftData::isFound() {
+    return m_isFound;
+}

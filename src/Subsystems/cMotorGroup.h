@@ -8,6 +8,7 @@
 #ifndef SRC_SUBSYSTEMS_CMOTORGROUP_H_
 #define SRC_SUBSYSTEMS_CMOTORGROUP_H_
 
+#include <CANSpeedController.h>
 #include <Subsystems/cMotor.h>
 #include <vector>
 #include "iMotor.h"
@@ -26,6 +27,11 @@ public:
     void setEnabled(bool enabled) override;
     bool hasEncoder();
     std::vector<iMotor*> GetMotorList();
+
+    CANSpeedController::ControlMode getControlMode();
+    void setControlMode(CANSpeedController::ControlMode mode);
+
+    double getPosition();
 };
 
 #endif /* SRC_SUBSYSTEMS_CMOTORGROUP_H_ */

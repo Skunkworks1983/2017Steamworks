@@ -10,12 +10,21 @@
 class cTurret : public iTurret
 {
 private:
+    PIDController *controller;
     cMotor* m_motor1;
 
+    bool m_manualEnabled = false;
+
 public:
+    Servo* m_servoYaw;
+    Servo* m_servoPitch;
+
     cTurret();
     ~cTurret();
     void InitDefaultCommand();
+
+    void setManualEnabled(bool state);
+    bool isManualEnabled();
 
     void setSpeed(float speed);
     void setOrientation(float heading);

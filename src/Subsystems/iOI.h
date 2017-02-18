@@ -15,6 +15,9 @@ class iOI
 public:
     virtual float getLeftStickY() = 0;
     virtual float getRightStickY() = 0;
+
+    virtual float getTurretSlider() = 0;
+    virtual float getShooterSlider() = 0;
 };
 
 
