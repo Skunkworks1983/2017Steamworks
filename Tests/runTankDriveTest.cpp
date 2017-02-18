@@ -1,9 +1,9 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <Subsystems/iDriveBase.h>
-#include <Subsystems/cMotorGroup.h>
-#include <Subsystems/cReversingMotorGroup.h>
-#include <Subsystems/iGyro.h>
+#include <Subsystems/Interfaces/iDriveBase.h>
+#include <Subsystems/Utilities/cMotorGroup.h>
+#include <Subsystems/Utilities/cReversingMotorGroup.h>
+#include <Subsystems/Sensors/iGyro.h>
 #include <CommandBase.h>
 #include <Commands/DriveBase/cRunTankDrive.h>
 #include <Tests/MockOI.h>

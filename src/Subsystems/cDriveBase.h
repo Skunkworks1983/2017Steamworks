@@ -9,13 +9,13 @@
 #define SRC_SUBSYSTEMS_CDRIVEBASE_H_
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
-#include "cMotor.h"
+#include "Utilities/cMotor.h"
 #include <OI.h>
-#include "Subsystems/cMotorGroup.h"
-#include "Subsystems/cReversingMotorGroup.h"
-#include "Subsystems/cGyro.h"
+#include "Subsystems/Utilities/cMotorGroup.h"
+#include "Subsystems/Utilities//cReversingMotorGroup.h"
+#include "Subsystems/Sensors/cGyro.h"
 #include <PIDController.h>
-#include "Subsystems/iDriveBase.h"
+#include "Subsystems/Interfaces/iDriveBase.h"
 
 class cDriveBase: public iDriveBase
 {

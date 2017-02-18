@@ -11,12 +11,13 @@
 #include <CANSpeedController.h>
 #include <PIDSource.h>
 #include <PIDOutput.h>
-#include "Subsystems/iMotor.h"
+#include <Subsystems/Interfaces/iMotor.h>
 
 enum MotorType
 {
     BaneBots775, NeveRest40, CIM
 };
+
 class cMotor: public iMotor
 {
 private:

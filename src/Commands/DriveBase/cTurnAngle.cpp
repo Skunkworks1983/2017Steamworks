@@ -1,4 +1,5 @@
 #include "cTurnAngle.h"
+#include <RobotMap.h>
 
 cTurnAngle::cTurnAngle(float angle) {
 	Requires(CommandBase::s_drivebase);

@@ -10,8 +10,7 @@
 #define SRC_SUBSYSTEMS_CGYRO_H_
 #include <PIDController.h>
 #include <AHRS.h>
-#include <RobotMap.h>
-#include "Subsystems/iGyro.h"
+#include <Subsystems/Interfaces/iGyro.h>
 
 class cGyro: public iGyro
 {

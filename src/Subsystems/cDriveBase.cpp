@@ -6,11 +6,11 @@
  */
 
 #include <RobotMap.h>
-#include "cMotor.h"
+#include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/cDriveBase.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
-#include "Subsystems/cMotorGroup.h"
-#include "Subsystems/cReversingMotorGroup.h"
+#include <Subsystems/Utilities/cMotorGroup.h>
+#include <Subsystems/Utilities/cReversingMotorGroup.h>
 #include <PIDController.h>
 
 cDriveBase::cDriveBase()

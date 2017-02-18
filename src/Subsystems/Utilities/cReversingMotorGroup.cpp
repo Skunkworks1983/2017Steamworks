@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Subsystems/cReversingMotorGroup.h>
+#include <Subsystems/Utilities/cReversingMotorGroup.h>
 
 cReversingMotorGroup::cReversingMotorGroup(std::vector<bool> motorReverse, std::vector<iMotor*> motorList) :
         cMotorGroup(motorList), m_motorReverse(motorReverse)
