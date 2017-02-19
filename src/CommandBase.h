@@ -1,18 +1,18 @@
 #ifndef COMMAND_BASE_H
 #define COMMAND_BASE_H
 
-#include <Services/cMessenger.h>
 #include <string>
 #include "Commands/Command.h"
 #include "OI.h"
 #include "WPILib.h"
-#include "Subsystems/Interfaces/iDriveBase.h"
-#include "Subsystems/Interfaces/iClimber.h"
-#include "Subsystems/Interfaces/iGearCollector.h"
-#include "Subsystems/Interfaces/iFuelCollector.h"
-#include "Subsystems/Interfaces/iFuelLoader.h"
-#include "Subsystems/Interfaces/iShooter.h"
-#include "Subsystems/Interfaces/iTurret.h"
+#include <Subsystems/Interfaces/iDriveBase.h>
+#include <Subsystems/Interfaces/iClimber.h>
+#include <Subsystems/Interfaces/iGearCollector.h>
+#include <Subsystems/Interfaces/iFuelCollector.h>
+#include <Subsystems/Interfaces/iFuelLoader.h>
+#include <Subsystems/Interfaces/iShooter.h>
+#include <Subsystems/Interfaces/iTurret.h>
+#include <Services/Interfaces/iMessenger.h>
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -27,8 +27,8 @@ public:
     static void init();
     static iDriveBase *s_drivebase;
     static iOI *s_oi;
-    static cMessenger *s_boilerMessenger;
-    static cMessenger* s_liftMessenger;
+    static iMessenger* s_boilerMessenger;
+    static iMessenger* s_liftMessenger;
     static iClimber * s_climber;
     static iGearCollector* s_gearCollector;
     static iFuelCollector* s_fuelCollector;
