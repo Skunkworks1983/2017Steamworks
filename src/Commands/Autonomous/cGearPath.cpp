@@ -18,6 +18,7 @@ cGearPath::~cGearPath() {
 }
 
 void cGearPath::Initialize() {
+	//useful and oft used equations: law of cosines
 	//a^2 = b^2 + c^2 - 2*b*c*cos(A)
 	//cos(A) = ((- a * a + b * b + c * c) / 2 * b * c)
 	double leftDistance = CommandBase::s_drivebase->GetLeftDistance();

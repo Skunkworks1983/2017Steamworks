@@ -32,16 +32,17 @@ void cSimpleDriveForward::Initialize()
 
 void cSimpleDriveForward::Execute()
 {
-	if (m_stopAtLine == true) {
-		if (CommandBase::s_drivebase->CanSeeTape() == true) {
-			End();
-		}
-	}
+
 }
 
 bool cSimpleDriveForward::IsFinished()
 {
     return m_pidController->OnTarget(); //TODO ensure is set up
+    if (m_stopAtLine == true) {
+    	if (CommandBase::s_drivebase->CanSeeTape() == true) {
+    		End();
+    	}
+    }
 }
 
 void cSimpleDriveForward::End()
