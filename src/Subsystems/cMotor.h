@@ -23,5 +23,23 @@ public:
     void PIDWrite(double output) override;
     double PIDGet() override;
     void setEnabled(bool enabled);
+
+    //shooter stuff
+    double GetSpeed() const;
+    void SetSetpoint(double value);
+    double GetSetpoint() const;
+    virtual void SetPID(double p, double i, double d, double f);
+    void Set(double value);
+    virtual void setControlMode(bool speed);
+    void reverseSensorDirection();
+    void reverseOutput();
+    void setFeedbackDevice();
+    bool isEnabled() const;
+    virtual int getClosedLoopError() const;
+    void Reset();
+    void Disable();
+    void Enable();
+    virtual CANSpeedController::ControlMode getControlMode() const;
+
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */

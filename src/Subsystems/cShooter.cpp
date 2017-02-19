@@ -1,22 +1,21 @@
 #include "cShooter.h"
 #include <RobotMap.h>
+#include "cMotor.h"
 
-cShooter::cShooter() :
+cShooter::cShooter(bool speed, bool brake) :
         Subsystem("cShooter")
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT);
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT);
 
-
-	talon = new CANTalon(SHOOTER_MOTOR1_PORT);
-	talon->SetSensorDirection(true);
-	talonSlave = new CANTalon(SHOOTER_MOTOR2_PORT);
-	talonSlave->SetControlMode(CANTalon::ControlMode::kFollower);
-	talonSlave->Set(SHOOTER_MOTOR1_PORT);
-	talon->SetControlMode(CANTalon::ControlMode::kSpeed);
-	talon->ConfigNeutralMode(CANTalon::NeutralMode::kNeutralMode_Coast);
-	talon->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute); //i don't actually know this yet
-	talon->SetClosedLoopOutputDirection(true);
+	m_motor1->reverseSensorDirection();
+	m_motor2->setControlMode(!speed);
+	m_motor2->Set(SHOOTER_MOTOR1_PORT);
+	m_motor1->setControlMode(speed);
+	m_motor1->setBrakeMode(!brake);
+	m_motor2->setBrakeMode(!brake);
+	m_motor1->setFeedbackDevice();
+	m_motor1->reverseOutput();
 }
 
 cShooter::~cShooter()
@@ -43,61 +42,49 @@ double cShooter::getSpeed()
 
 double cShooter::PIDGet()
 {
-	return talon->GetSpeed();
+	return m_motor1->GetSpeed();
 }
 
 bool cShooter::isPIDEnabled()
 {
-	return talon->IsEnabled();
+	return m_motor1->isEnabled();
 }
 
 double cShooter::getError()
 {
-	return talon->GetClosedLoopError();
+	return m_motor1->getClosedLoopError();
 }
 
-void cShooter::EnablePID()
+void cShooter::EnablePID(bool speed)
 {
-	if (talon->GetControlMode() != CANTalon::ControlMode::kSpeed) {
-		talon->SetControlMode(CANTalon::ControlMode::kSpeed);
+	if(m_motor1->getControlMode() != CANTalon::ControlMode::kSpeed) {
+		m_motor1->setControlMode(speed);
 	}
-	talon->Enable();
-	talon->EnableControl();
+	m_motor1->Enable();
 }
 
 void cShooter::DisablePID()
 {
-	talon->ClearStickyFaults();
-	talon->SetControlMode(CANTalon::ControlMode::kPercentVbus);
-	talon->Set(0.0);
-	talon->SetControlMode(CANTalon::ControlMode::kSpeed);
-	talon->SetSetpoint(0.0);
-	talon->Set(0.0);
-	talon->Disable();
-	talon->Reset();
+	m_motor1->Disable();
 }
 
 void cShooter::ResetPID()
 {
-	talon->Reset();
+	m_motor1->Reset();
 }
 
 void cShooter::setSetpoint(float setpoint)
 {
-	if (setpoint != this->setpoint) {
-		this->setpoint = setpoint;
-	}
-	setpoint = (setpoint * SHOOTER_ENCODER_TICKS_PER_REV) / 10;
-	talon->Set(setpoint);
-	talon->SetSetpoint(setpoint);
+	m_motor1->Set(setpoint);
+	m_motor1->SetSetpoint(setpoint);
 }
 
 double cShooter::getSetpoint()
 {
-	return talon->GetSetpoint();
+	return m_motor1->GetSetpoint();
 }
 
-void cShooter::setPID(double p, double i, double d)
+void cShooter::setPID(double p, double i, double d, double f)
 {
-	talon->SetPID(p, i, d);
+	m_motor1->SetPID(p, i, d, f);
 }

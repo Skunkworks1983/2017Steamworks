@@ -9,7 +9,7 @@
 class cShooter : public Subsystem
 {
 public:
-    cShooter();
+    cShooter(bool speed, bool brake);
     ~cShooter();
     void InitDefaultCommand();
 
@@ -17,12 +17,12 @@ public:
     double getSpeed();
 
     void DisablePID();
-	void EnablePID();
+	void EnablePID(bool speed);
 	void ResetPID();
 	bool isPIDEnabled();
 	void setSetpoint(float setpoint);
 	double PIDGet();
-	void setPID(double p, double i, double d);
+	void setPID(double p, double i, double d, double f);
 	double getSetpoint();
 	double getError();
 
@@ -30,8 +30,6 @@ private:
     cMotor* m_motor1;
     cMotor* m_motor2;
 
-    CANTalon *talon = NULL;
-    CANTalon *talonSlave = NULL;
     float setpoint = 0.0;
 };
 

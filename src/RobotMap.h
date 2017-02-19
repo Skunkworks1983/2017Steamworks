@@ -60,7 +60,6 @@ const double SHOOTER_P = 1;
 const double SHOOTER_I = 0;
 const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
-const int SHOOTER_ENCODER_TICKS_PER_REV = 800; //placeholder
 const int RAMPING_CONSTANT = 2;
 
 

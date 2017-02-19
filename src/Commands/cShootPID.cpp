@@ -18,7 +18,7 @@ cShootPID::cShootPID(double speed, float timeout) :
 
 void cShootPID::Initialize()
 {
-	s_shooter->EnablePID();
+	s_shooter->EnablePID(speed);
 
 	s_shooter->setSetpoint(current_setpoint);
 
@@ -32,7 +32,7 @@ void cShootPID::Initialize()
 void cShootPID::Execute()
 {
 	if (!s_shooter->isPIDEnabled()) {
-		s_shooter->EnablePID();
+		s_shooter->EnablePID(speed);
 	}
 
 	if (current_setpoint < speed) {
