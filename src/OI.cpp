@@ -65,3 +65,17 @@ float OI::getShooterSlider()
     return (m_buttons->GetX() - (OI_SHOOTER_SLIDER_RANGE / 2)) *
             (1 / OI_SHOOTER_SLIDER_RANGE);
 }
+
+bool OI::getLeft4Pressed() {
+	if(m_leftStick->GetButton(Joystick::kTriggerButton)) {
+		std::cout << "4" << std::endl;
+	}
+	return m_leftStick->GetButton(Joystick::kTriggerButton);
+}
+
+bool OI::getLeft5Pressed() {
+	if(m_rightStick->GetButton(Joystick::kTriggerButton)) {
+		std::cout << "5" << std::endl;
+	}
+	return m_rightStick->GetButton(Joystick::kTriggerButton);
+}

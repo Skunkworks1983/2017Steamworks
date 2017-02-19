@@ -31,6 +31,9 @@ public:
     float getRightStickY();
     float getTurretSlider();
     float getShooterSlider();
+
+    bool getLeft4Pressed();
+    bool getLeft5Pressed();
 };
 
 #endif

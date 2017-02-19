@@ -40,7 +40,7 @@ private:
         CommandBase::s_drivebase->getGyro()->initGyro();
         //CommandBase::s_drivebase->getGyro()->zeroYaw();*/
 
-        colorSensor = new cColorSensor();
+        //colorSensor = new cColorSensor();
 
         //Put construction of commands here
         std::cout << "Before" << std::endl;
@@ -73,7 +73,6 @@ private:
 
     void AutonomousPeriodic()
     {
-    	colorSensor->get();
         Scheduler::GetInstance()->Run();
     }
 
