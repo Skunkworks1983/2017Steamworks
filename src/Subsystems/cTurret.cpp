@@ -16,7 +16,7 @@ cTurret::~cTurret()
 
 void cTurret::InitDefaultCommand()
 {
-    SetDefaultCommand(new cRotateTurret());
+
 }
 
 void cTurret::setSpeed(float speed)

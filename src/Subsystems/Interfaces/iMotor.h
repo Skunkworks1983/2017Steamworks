@@ -12,7 +12,7 @@
 #include <PIDOutput.h>
 #include <CANSpeedController.h>
 
-class iMotor: public PIDSource, public PIDOutput
+class iMotor: public frc::PIDSource, public frc::PIDOutput
 {
 public:
     virtual void setBrakeMode(bool brake) = 0;

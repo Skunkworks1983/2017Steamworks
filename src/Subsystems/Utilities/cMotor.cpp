@@ -10,8 +10,8 @@
 #include <CANTalon.h>
 #include <RobotMap.h>
 
-cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder, frc::CANSpeedController::ControlMode pidType) :
-        m_motor(port), m_pidType(pidType) //this is ok
+cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder) :
+        m_motor(port), m_motorType(motorType) //this is ok
 {
     m_hasEncoder = hasEncoder;
 }
@@ -31,8 +31,8 @@ void cMotor::setBrakeMode(bool brake)
     {
         m_motor.ConfigNeutralMode(frc::CANSpeedController::kNeutralMode_Coast);
     }
-
 }
+
 void cMotor::setOutput(float output)
 {
     switch(m_motorType)
@@ -61,10 +61,12 @@ void cMotor::setOutput(float output)
     }
     m_motor.Set(output);
 }
+
 void cMotor::PIDWrite(double output)
 {
     setOutput(output);
 }
+
 double cMotor::PIDGet()
 {
     return m_motor.PIDGet();
@@ -86,6 +88,7 @@ void cMotor::setEnabled(bool enabled)
     }
 
 }
+
 bool cMotor::hasEncoder()
 {
     return m_hasEncoder;
