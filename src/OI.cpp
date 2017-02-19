@@ -10,6 +10,7 @@
 #include <Commands/FuelCollector/cRunFuelFlap.h>
 #include <Commands/FuelLoader/cRunFuelLoader.h>
 #include <Commands/FuelCollector/cRunHopperIntake.h>
+#include <Commands/DriveBase/cSwitchBackFront.h>
 #include <Commands/Turret/cManualTurretControl.h>
 #include <Commands/Shooter/cManualShooterControl.h>
 
@@ -40,9 +41,15 @@ OI::OI()
 
     m_enableTurretControl->WhileHeld(new cManualTurretControl());
 
+
+    m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
+
+    m_togglereversal->WhenPressed(new cSwitchBackFront());
+
     m_enableShooterControl->WhileHeld(new cManualShooterControl());*/
 
     //m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
+
 }
 
 float OI::getLeftStickY()

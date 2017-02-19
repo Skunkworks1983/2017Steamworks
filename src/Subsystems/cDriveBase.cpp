@@ -49,6 +49,8 @@ cDriveBase::cDriveBase()
 
     m_gyro = new cGyro();
 
+    m_IsReversed = false;
+
 }
 cDriveBase::~cDriveBase()
 {
@@ -139,4 +141,14 @@ int cDriveBase::BitShift(uint8_t *colorReadout)
     shiftee = shiftee | colorReadout[1];
     return shiftee;
 
+}
+
+bool cDriveBase::getIsReversed()
+{
+    return m_IsReversed;
+}
+
+void cDriveBase::setIsReversed(bool isreversed)
+{
+    m_IsReversed = isreversed;
 }

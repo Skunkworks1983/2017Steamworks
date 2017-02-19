@@ -21,6 +21,7 @@ public:
 
     void setOutput(float output) override;
     void PIDWrite(double output) override;
+
 };
 
 #endif /* SRC_SUBSYSTEMS_CREVERSINGMOTORGROUP_H_ */

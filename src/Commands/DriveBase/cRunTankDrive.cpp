@@ -18,9 +18,17 @@ void cRunTankDrive::Execute()
 {
     float leftSpeed;
     float rightSpeed;
-
-    leftSpeed = CommandBase::s_oi->getLeftStickY();
-    rightSpeed = CommandBase::s_oi->getRightStickY();
+    if(CommandBase::s_drivebase->getIsReversed() == false)
+    {
+        leftSpeed = CommandBase::s_oi->getLeftStickY();
+        rightSpeed = CommandBase::s_oi->getRightStickY();
+    }
+    else
+    {
+        leftSpeed = CommandBase::s_oi->getRightStickY() * -1;
+        rightSpeed = CommandBase::s_oi->getLeftStickY() * -1;
+        //
+    }
 
     if(leftSpeed < .05 && leftSpeed > -.05)
     {
