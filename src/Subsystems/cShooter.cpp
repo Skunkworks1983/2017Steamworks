@@ -3,8 +3,7 @@
 #include "Utilities/cMotor.h"
 
 
-cShooter::cShooter(bool speed, bool brake) :
-        Subsystem("cShooter")
+cShooter::cShooter(bool speed, bool brake)
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775);
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
