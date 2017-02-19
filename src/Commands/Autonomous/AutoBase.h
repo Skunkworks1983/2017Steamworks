@@ -24,17 +24,25 @@
 #ifndef SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #include <Commands/CommandGroup.h>
+#include <RobotMap.h>
 
-class AutoBase: public CommandGroup
+// TODO: idk where to put this so it's going here for now
+// i know these shouldn't be constants, but it won't build
+// without them being that way. todo: fix
+const eAlliance alliance = Red;
+const eStartingPosition startPosition = POS_1;
+
+class AutoBase: public frc::CommandGroup
 {
 private:
+    CommandGroup* m_placeGear;
+    CommandGroup* m_driveToLine;
 
 public:
     static double s_angleTapeRobotPivotPoint;
     static double s_distanceToPivotPoint;
     static double s_angleRobotPivotPointGoal;
     static bool s_reachedLine;
-
     AutoBase();
     ~AutoBase();
 

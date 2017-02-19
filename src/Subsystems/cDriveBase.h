@@ -11,6 +11,9 @@
 #include <Commands/Subsystem.h>
 #include "Utilities/cMotor.h"
 #include <OI.h>
+#include <I2C.h>
+#include <AnalogInput.h>
+#include <RobotMap.h>
 #include "Subsystems/Utilities/cMotorGroup.h"
 #include "Subsystems/Utilities//cReversingMotorGroup.h"
 #include "Subsystems/Sensors/cGyro.h"
@@ -31,10 +34,12 @@ private:
     iMotor* m_rightMotor2;
     iMotor* m_rightMotor3;
 
-    iGyro* m_gyro;
 
-	I2C* colorSensor;
+	I2C* m_colorSensor;
+	AnalogInput* m_rSonar;
+	AnalogInput* m_lSonar;
     int BitShift(uint8_t *colorReadout);
+    iGyro* m_gyro;
 
     bool m_IsReversed;
 
@@ -53,10 +58,12 @@ public:
     cMotorGroup* getMotorGroupLeft();
     cMotorGroup* getMotorGroupRight();
     cMotorGroup* getMotorGroupAll();
-
+    bool CanSeeTape();
+    double GetLeftDistance();
+    double GetRightDistance();
+    double GetSonarDistance(bool left);
     cReversingMotorGroup* getMotorGroupGyro();
     iGyro* getGyro();
-    bool CanSeeTape();
     bool getIsReversed();
     void setIsReversed(bool isreversed);
 

@@ -9,6 +9,7 @@
 #include <RobotMap.h>
 #include <CommandBase.h>
 #include <Services/cMessage.h>
+#include <Commands/Autonomous/Autobase.h>
 
 cRotateTurret::cRotateTurret(float timeout)
 {
@@ -50,7 +51,7 @@ void cRotateTurret::Execute()
         // turn the turret towards where we think the boiler is, using our gyro
         else
         {
-            CommandBase::s_turret->setOrientation(isRedAlliance ? TURRET_SEARCH_HEADING : -TURRET_SEARCH_HEADING);
+            CommandBase::s_turret->setOrientation(alliance ? TURRET_SEARCH_HEADING : -TURRET_SEARCH_HEADING);
         }
     }
 }

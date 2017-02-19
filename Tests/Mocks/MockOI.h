@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include <Subsystems/iOI.h>
+#include <Subsystems/Interfaces/iOI.h>
 #include <CommandBase.h>
 using ::testing::AtLeast;
 
