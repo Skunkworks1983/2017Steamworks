@@ -1,3 +1,10 @@
+/*
+ * this file is the header for the
+ * mock shooter. we use this for
+ * unit testing & receiving values that
+ * are fake
+ */
+
 #ifndef SRC_SUBSYSTEMS_MOCKSHOOTER_H
 #define SRC_SUBSYSTEMS_MOCKSHOOTER_H
 

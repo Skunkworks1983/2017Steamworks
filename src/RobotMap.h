@@ -105,6 +105,9 @@ const int TURRET_MOTOR1_P = 1;
 const int TURRET_MOTOR1_I = 0;
 const int TURRET_MOTOR1_D = 0;
 
+const int TURRET_GEAR1_TEETH = 10;
+const int TURRET_GEAR2_TEETH = 200;
+
 const int SHOOTER_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR2_PORT = 10000;
 const double SHOOTER_TARGET_SPEED = 1; //rps

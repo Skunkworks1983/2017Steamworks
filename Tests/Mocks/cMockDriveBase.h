@@ -1,3 +1,10 @@
+/*
+ * this file is the header for the
+ * mock drive base. we use this for
+ * unit testing & receiving values that
+ * are fake
+ */
+
 #ifndef SRC_SUBSYSTEMS_MOCKDRIVEBASE_H
 #define SRC_SUBSYSTEMS_MOCKDRIVEBASE_H
 

@@ -6,28 +6,30 @@
  */
 
 #include <Subsystems/Utilities/cMotor.h>
+#include <CANSpeedController.h>
 #include <CANTalon.h>
 #include <RobotMap.h>
 
-cMotor::cMotor(int port, MotorType motorType, bool hasEncoder) :
-        m_motor(port) //this is ok
+cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder, frc::CANSpeedController::ControlMode pidType) :
+        m_motor(port), m_pidType(pidType) //this is ok
 {
     m_hasEncoder = hasEncoder;
 }
+
 cMotor::~cMotor()
 {
 
 }
-void cMotor::setBrakeMode(bool brake)
 
+void cMotor::setBrakeMode(bool brake)
 {
     if(brake == true)
     {
-        m_motor.ConfigNeutralMode(CANSpeedController::kNeutralMode_Brake);
+        m_motor.ConfigNeutralMode(frc::CANSpeedController::kNeutralMode_Brake);
     }
     else
     {
-        m_motor.ConfigNeutralMode(CANSpeedController::kNeutralMode_Coast);
+        m_motor.ConfigNeutralMode(frc::CANSpeedController::kNeutralMode_Coast);
     }
 
 }
@@ -67,6 +69,8 @@ double cMotor::PIDGet()
 {
     return m_motor.PIDGet();
     //should be fixed now
+    //chumbawumba
+    //giv mi secs -tucker
 }
 
 void cMotor::setEnabled(bool enabled)
@@ -75,6 +79,7 @@ void cMotor::setEnabled(bool enabled)
     {
         m_motor.Enable();
     }
+
     if(!m_motor.IsEnabled() && enabled)
     {
         m_motor.Disable();
@@ -86,14 +91,17 @@ bool cMotor::hasEncoder()
     return m_hasEncoder;
 }
 
-CANSpeedController::ControlMode cMotor::getControlMode() {
-	return m_motor.GetControlMode();
+frc::CANSpeedController::ControlMode cMotor::getControlMode()
+{
+    return m_motor.GetControlMode();
 }
 
-void cMotor::setControlMode(CANSpeedController::ControlMode mode) {
-	m_motor.SetControlMode(mode);
+void cMotor::setControlMode(frc::CANSpeedController::ControlMode mode)
+{
+    m_motor.SetControlMode(mode);
 }
 
-double cMotor::getPosition() {
-	return m_motor.GetPosition();
+double cMotor::getPosition()
+{
+    return m_motor.GetPosition();
 }

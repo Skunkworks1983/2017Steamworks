@@ -1,8 +1,9 @@
 /*
- * iOI.h
- *
- *  Created on: Feb 16, 2017
- *      Author: s-4036956
+ * this class is the interface
+ * for the oi. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
  */
 
 #ifndef SRC_SUBSYSTEMS_IOI_H_

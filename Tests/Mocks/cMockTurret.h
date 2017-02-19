@@ -1,3 +1,10 @@
+/*
+ * this file is the header for the
+ * mock turret. we use this for
+ * unit testing & receiving values that
+ * are fake
+ */
+
 #ifndef SRC_SUBSYSTEMS_MOCKTURRET_H
 #define SRC_SUBSYSTEMS_MOCKTURRET_H
 

@@ -1,3 +1,11 @@
+/*
+ * this class is the interface
+ * for the servo. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
+ */
+
 #ifndef ISERVO_H
 #define ISERVO_H
 

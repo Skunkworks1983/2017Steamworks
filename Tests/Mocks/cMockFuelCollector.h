@@ -1,3 +1,10 @@
+/*
+ * this file is the header for the
+ * mock fuel collector. we use this for
+ * unit testing & receiving values that
+ * are fake
+ */
+
 #ifndef SRC_SUBSYSTEMS_MOCKFUELCOLLECTOR_H
 #define SRC_SUBSYSTEMS_MOCKFUELCOLLECTOR_H
 
