@@ -1,7 +1,7 @@
 #pragma once
 
 #include <PIDSource.h>
-class cMessenger;
+#include <Services/cMessenger.h>
 
 class cPidUDP : public frc::PIDSource
 {
@@ -10,5 +10,5 @@ public:
 	double PIDGet();
 	void SetPIDSourceType(frc::PIDSourceType);
 private:
-	cMessenger* messenger;
+	iMessenger* messenger;
 };

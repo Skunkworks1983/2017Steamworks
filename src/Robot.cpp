@@ -11,6 +11,7 @@
 #include "Subsystems/cFuelLoader.h"
 #include "Subsystems/cShooter.h"
 #include "Subsystems/cTurret.h"
+#include <Services/cMessenger.h>
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
@@ -41,8 +42,8 @@ private:
         //CommandBase::s_fuelLoader = new cFuelLoader();
         //CommandBase::s_shooter = new cShooter();
 
-        //CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
-        //CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
     }
 
     void DisabledInit()
@@ -67,6 +68,9 @@ private:
     void AutonomousPeriodic()
     {
         Scheduler::GetInstance()->Run();
+
+        CommandBase::s_boilerMessenger->sendMessage("auto");
+        CommandBase::s_liftMessenger->sendMessage("auto");
     }
 
     void TeleopInit()
@@ -78,6 +82,9 @@ private:
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
+
+        CommandBase::s_boilerMessenger->sendMessage("tele");
+        CommandBase::s_liftMessenger->sendMessage("tele");
     }
 
     void TestPeriodic()

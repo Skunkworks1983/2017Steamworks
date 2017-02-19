@@ -28,8 +28,8 @@ public:
     bool hasEncoder();
     std::vector<iMotor*> GetMotorList();
 
-    CANSpeedController::ControlMode getControlMode();
-    void setControlMode(CANSpeedController::ControlMode mode);
+    frc::CANSpeedController::ControlMode getControlMode();
+    void setControlMode(frc::CANSpeedController::ControlMode mode);
 
     double getPosition();
 };

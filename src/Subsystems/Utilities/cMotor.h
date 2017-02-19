@@ -13,9 +13,9 @@
 #include <PIDOutput.h>
 #include <Subsystems/Interfaces/iMotor.h>
 
-enum MotorType
+enum eMotorType
 {
-    BaneBots775, NeveRest40, CIM
+    BaneBots775,/*ayylmao*/ NeveRest40, CIM
 };
 
 class cMotor: public iMotor
@@ -23,20 +23,39 @@ class cMotor: public iMotor
 private:
     CANTalon m_motor;
     bool m_hasEncoder;
-    MotorType m_motorType;
+    eMotorType m_motorType;
+    frc::CANSpeedController::ControlMode m_pidType;
 public:
-    cMotor(int port, MotorType motorType, bool hasEncoder = false);
+    cMotor(int port, eMotorType motorType, bool hasEncoder = false, frc::CANSpeedController::ControlMode pidType =
+            frc::CANSpeedController::kPosition);
     virtual ~cMotor();
     void setBrakeMode(bool brake);
     void setOutput(float output);
     void PIDWrite(double output) override;
     double PIDGet() override;
     void setEnabled(bool enabled);
+
+    //shooter stuff
+    double GetSpeed() const;
+    void SetSetpoint(double value);
+    double GetSetpoint() const;
+    virtual void SetPID(double p, double i, double d, double f);
+    void Set(double value);
+    void reverseSensorDirection();
+    void reverseOutput();
+    void setFeedbackDevice();
+    bool isEnabled() const;
+    virtual int getClosedLoopError() const;
+    void Reset();
+    void Disable();
+    void Enable();
+
     bool hasEncoder();
 
-    CANSpeedController::ControlMode getControlMode();
-    void setControlMode(CANSpeedController::ControlMode mode);
+    frc::CANSpeedController::ControlMode getControlMode();
+    void setControlMode(frc::CANSpeedController::ControlMode mode);
 
     double getPosition();
+
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */

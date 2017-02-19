@@ -2,22 +2,15 @@
 #include <Subsystems/Utilities/cMotor.h>
 #include <RobotMap.h>
 #include <Commands/Turret/cRotateTurret.h>
+#include <WPILib.h>
 
 cTurret::cTurret()
 {
-    //m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
-    m_servoYaw = new Servo(8);
-    m_servoPitch = new Servo(9);
-
-    m_servoYaw->SetAngle(85);
-    m_servoPitch->SetAngle(85);
+    m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
 }
 
 cTurret::~cTurret()
 {
-    m_servoYaw->SetAngle(85);
-    m_servoPitch->SetAngle(85);
-
     delete m_motor1;
 }
 
@@ -33,7 +26,8 @@ void cTurret::setSpeed(float speed)
 
 void cTurret::setOrientation(float heading)
 {
-
+    double desired = (heading / 360);
+    desired *= (TURRET_GEAR1_TEETH / TURRET_GEAR2_TEETH);
 }
 
 void cTurret::rotate(float degrees)

@@ -1,8 +1,8 @@
 /*
- * cServo.h
- *
- *  Created on: Feb 17, 2017
- *      Author: Nathan
+ * this class is the wrapper
+ * for the wpilib servos. we only
+ * have four methods, two of which
+ * are for the pidcontrollers.
  */
 
 #ifndef SRC_SUBSYSTEMS_COMPONENTS_CSERVO_H_

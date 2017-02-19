@@ -1,10 +1,3 @@
-/*
- * cServo.cpp
- *
- *  Created on: Feb 17, 2017
- *      Author: Nathan
- */
-
 #include <Subsystems/Utilities/cServo.h>
 
 cServo::cServo(int port)
