@@ -1,8 +1,9 @@
 #ifndef OI_H
 #define OI_H
+#include <Subsystems/iOI.h>
 
 #include "WPILib.h"
-class OI
+class OI: public iOI
 {
 private:
 
@@ -19,12 +20,19 @@ private:
     JoystickButton *m_shootHigh;
     JoystickButton *m_climbRope;
     JoystickButton *m_spinUpShooter;
+    JoystickButton *m_loadBall;
+    JoystickButton *m_fuelLoader;
+    JoystickButton *m_togglereversal;
+    JoystickButton *m_enableTurretControl;
+    JoystickButton *m_enableShooterControl;
 
 public:
     OI();
     ~OI();
     float getLeftStickY();
     float getRightStickY();
+    float getTurretSlider();
+    float getShooterSlider();
 };
 
 #endif

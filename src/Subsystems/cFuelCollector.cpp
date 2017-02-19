@@ -1,23 +1,31 @@
-#include "cFuelCollector.h"
+/*
+ * cFuelCollector.cpp
+ *
+ *  Created on: Feb 4, 2017
+ *      Author: Nathan
+ */
+
+#include <Subsystems/cFuelCollector.h>
 #include <RobotMap.h>
 
-cFuelCollector::cFuelCollector() :
-        Subsystem("cFuelCollector")
+cFuelCollector::cFuelCollector()
 {
-    m_motor1 = new cMotor(FUELCOLLECTOR_MOTOR1_PORT);
+    m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT, BaneBots775);
+}
+
+void cFuelCollector::setFlapAngle(float angle)
+{
+
+}
+
+void cFuelCollector::setHopperDrumSpeed(float speed)
+{
+    m_hopperMotor->setOutput(speed);
 }
 
 cFuelCollector::~cFuelCollector()
 {
-    delete m_motor1;
+    // TODO Auto-generated destructor stub
+    delete m_hopperMotor;
 }
 
-void cFuelCollector::InitDefaultCommand()
-{
-
-}
-
-void cFuelCollector::setSpeed(float speed)
-{
-    m_motor1->setOutput(speed);
-}

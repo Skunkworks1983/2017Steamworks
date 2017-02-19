@@ -1,21 +1,23 @@
 #include "cShooter.h"
 #include <RobotMap.h>
-#include "cMotor.h"
+#include "Utilities/cMotor.h"
+
 
 cShooter::cShooter(bool speed, bool brake) :
         Subsystem("cShooter")
 {
-    m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT);
-    m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT);
+    m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775);
+    m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
 
 	m_motor1->reverseSensorDirection();
-	m_motor2->setControlMode(!speed);
+	m_motor2->setControlMode(CANSpeedController::kFollower);
 	m_motor2->Set(SHOOTER_MOTOR1_PORT);
-	m_motor1->setControlMode(speed);
+	m_motor1->setControlMode(CANSpeedController::kSpeed);
 	m_motor1->setBrakeMode(!brake);
 	m_motor2->setBrakeMode(!brake);
 	m_motor1->setFeedbackDevice();
 	m_motor1->reverseOutput();
+
 }
 
 cShooter::~cShooter()
@@ -37,7 +39,7 @@ void cShooter::setSpeed(float speed)
 
 double cShooter::getSpeed()
 {
-	return 0;
+    return 0;
 }
 
 double cShooter::PIDGet()
@@ -55,10 +57,10 @@ double cShooter::getError()
 	return m_motor1->getClosedLoopError();
 }
 
-void cShooter::EnablePID(bool speed)
+void cShooter::EnablePID()
 {
 	if(m_motor1->getControlMode() != CANTalon::ControlMode::kSpeed) {
-		m_motor1->setControlMode(speed);
+		m_motor1->setControlMode(CANSpeedController::kSpeed);
 	}
 	m_motor1->Enable();
 }
@@ -88,3 +90,14 @@ void cShooter::setPID(double p, double i, double d, double f)
 {
 	m_motor1->SetPID(p, i, d, f);
 }
+
+void cShooter::setManualEnabled(bool state)
+{
+    m_manualEnabled = state;
+}
+
+bool cShooter::isManualEnabled()
+{
+    return m_manualEnabled;
+}
+

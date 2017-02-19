@@ -6,10 +6,13 @@
 #include "Commands/Command.h"
 #include "OI.h"
 #include "WPILib.h"
-#include "Subsystems/cDriveBase.h"
-#include "Subsystems/cClimber.h"
-#include "Subsystems/cGearCollector.h"
-#include "Subsystems/cShooter.h"
+#include "Subsystems/Interfaces/iDriveBase.h"
+#include "Subsystems/Interfaces/iClimber.h"
+#include "Subsystems/Interfaces/iGearCollector.h"
+#include "Subsystems/Interfaces/iFuelCollector.h"
+#include "Subsystems/Interfaces/iFuelLoader.h"
+#include "Subsystems/Interfaces/iShooter.h"
+#include "Subsystems/Interfaces/iTurret.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -19,15 +22,19 @@
 class CommandBase: public Command
 {
 public:
-	CommandBase(const std::string &name);
-	CommandBase();
-	static void init();
-	static cDriveBase *s_drivebase;
-	static OI *s_oi;
-	static cMessenger *s_messenger;
-	static cClimber * s_climber;
-	static cGearCollector* s_gearCollector;
-	static cShooter* s_shooter;
-	};
+    CommandBase(const std::string &name);
+    CommandBase();
+    static void init();
+    static iDriveBase *s_drivebase;
+    static iOI *s_oi;
+    static cMessenger *s_boilerMessenger;
+    static cMessenger* s_liftMessenger;
+    static iClimber * s_climber;
+    static iGearCollector* s_gearCollector;
+    static iFuelCollector* s_fuelCollector;
+    static iFuelLoader* s_fuelLoader;
+    static iShooter* s_shooter;
+    static iTurret* s_turret;
+};
 
 #endif

@@ -16,53 +16,60 @@
 // Creates a new messenger instance
 cMessenger::cMessenger(const char *server, const char *port)
 {
-    m_isPostMatch = false;
+    // Initialize the last known variables
+    m_lastBoilerData = new cBoilerData(0, 0, false);
+    m_lastLiftData = new cLiftData(0, false);
 
-    struct addrinfo hints;
-    int addrinfo_stat;
-
-    // Create the out variable for the connection settings
-    memset((char*) &hints, 0, sizeof(hints));
-    hints.ai_socktype = SOCK_DGRAM;
-    hints.ai_family = AF_INET;
-    hints.ai_flags = AI_NUMERICSERV;
-    hints.ai_protocol = 0;
-
-    // Attempt to get the address information of the system we're connecting to
-    // for later, and save the settings in hints & info
-    if((addrinfo_stat = getaddrinfo(RPI_IP, RPI_PORT, &hints, &m_info)) != 0)
+    // bind to the udp socket
+    if((m_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
-        std::cout << "couldn't get address info, error: " << errno << "\n";
+        std::cout << "failed to create socket, errno " << errno << "\n";
         return;
     }
 
-    // Attempt to create the socket
-    if((m_sock = socket(m_info->ai_family, m_info->ai_socktype, m_info->ai_protocol)) == -1)
+    // create the configuration for our own host port
+    memset((char *) &m_myaddr, 0, sizeof(m_myaddr));
+    m_myaddr.sin_family = AF_INET;
+    m_myaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    m_myaddr.sin_port = htons(std::stoi(port));
+
+    // settings for remote address
+    memset((char *) &m_remaddr, 0, sizeof(m_remaddr));
+    m_remaddr.sin_family = AF_INET;
+    inet_pton(AF_INET, server, &(m_remaddr.sin_addr));
+    m_remaddr.sin_port = htons(std::stoi(port));
+
+    int bufLen = 100;
+    if(setsockopt(m_sock, SOL_SOCKET, SO_RCVBUF, &bufLen, sizeof(int)) == -1) {
+    	std::cout << "Sock opt err" << "\n";
+    }
+
+    // bind to the socket
+    if(bind(m_sock, (struct sockaddr *) &m_myaddr, sizeof(m_myaddr)) < 0)
     {
-        std::cout << "couldn't create socket, error: " << errno << "\n";
+        std::cout << "failed to bind to socket, errno " << errno << "\n";
         return;
     }
 }
 
 cMessenger::~cMessenger()
 {
-    freeaddrinfo(m_info);
+    delete m_lastBoilerData;
+    delete m_lastLiftData;
 }
 
 // Sends a string through the socket
-void cMessenger::SendMessage(cMessage* message)
+void cMessenger::sendMessage(std::string message)
 {
-    std::string toSend = message->PackToSend();
-
     // Send a message to the socket using the connection settings obtained earlier
-    if(sendto(m_sock, toSend.c_str(), toSend.size() + 1, 0, m_info->ai_addr, m_info->ai_addrlen) == -1)
+    if(sendto(m_sock, message.c_str(), message.length() + 1, 0, (struct sockaddr*) &m_remaddr, sizeof(m_remaddr)) == -1)
     {
         std::cout << "sendto failed, error: " << errno << "\n";
     }
 }
 
 // Remember to delete return value
-cMessage* cMessenger::ReceiveMessage()
+std::string cMessenger::receiveMessage()
 {
     char message_buffer[MSG_LEN];
     memset(message_buffer, 0, MSG_LEN);
@@ -72,10 +79,92 @@ cMessage* cMessenger::ReceiveMessage()
         if(errno != EAGAIN && errno != EWOULDBLOCK)
         {
             std::cout << "recvfrom failed, error: " << errno << "\n";
-            return new cMessage("message failed");
+            return "message failed";
         }
     }
 
     std::string message_converted(message_buffer);
-    return new cMessage(message_converted);
+
+    return message_converted;
+}
+
+cBoilerData* cMessenger::receiveBoilerData()
+{
+    std::string message = receiveMessage();
+
+    if(message[0] != 0)
+    {
+        if(message[0] == std::to_string(BOILER_PI_ID)[0])
+        {
+            float x, y;
+            bool found;
+
+            // erase the id portion of the message, to remove the first space delimiter
+            message.erase(0, 2);
+
+            // find whether or not we can see the target
+            found = message[0] == '1';
+            message.erase(0, 2);
+
+            // cut the first portion of characters from the first space to the second space
+            x = atof(message.substr(0, message.find(" ")).c_str());
+
+            // erase the x portion of the message
+            message.erase(0, message.find(" ") + 1);
+
+            // get the y pos
+            y = atof(message.substr(0, message.length() + 1).c_str());
+
+            // check if the member lastboilerdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastBoilerData != NULL)
+            {
+                delete m_lastBoilerData;
+                m_lastBoilerData = NULL;
+            }
+
+            // edit the new member variable
+            m_lastBoilerData = new cBoilerData(x, y, found);
+        }
+    }
+
+    return m_lastBoilerData;
+}
+
+cLiftData* cMessenger::receiveLiftData()
+{
+    std::string message = receiveMessage();
+
+    if(message[0] != 0)
+    {
+        if(message[0] == std::to_string(GEAR_PI_ID)[0])
+        {
+            float x;
+            bool found;
+
+            // erase the id portion of the message, to remove the id and first space delimiter
+            message.erase(0, 2);
+
+            // find whether or not we can see the target
+            found = message[0] == '1';
+            message.erase(0, 2);
+
+            // cut the first portion of characters from the first space to the second space
+            x = atof(message.substr(0, message.find(" ")).c_str());
+
+            // check if the member lastliftdata exists. if it does, then we delete
+            // it as to not cause any leaks & set it to null
+            if(m_lastLiftData != NULL)
+            {
+                delete m_lastLiftData;
+                m_lastLiftData = NULL;
+            }
+
+            // edit the new member variable
+            m_lastLiftData = new cLiftData(x, found);
+        }
+    }
+
+    // return the last known position of the boiler if there is none on screen
+    return m_lastLiftData;
 }

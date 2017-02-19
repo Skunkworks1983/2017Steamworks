@@ -1,22 +1,33 @@
-#ifndef SRC_SUBSYSTEM_FUELCOLLECTOR_H
-#define SRC_SUBSYSTEM_FUELCOLLECTOR_H
+/*
+ * cFuelCollector.h
+ *
+ *  Created on: Feb 4, 2017
+ *      Author: Nathan
+ */
 
-#include "WPILib.h"
+#ifndef SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_
+#define SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_
+
 #include <Commands/Subsystem.h>
-#include <OI.h>
-#include "cMotor.h"
+#include "WPILib.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iFuelCollector.h>
 
-class cFuelCollector : public Subsystem
+class cFuelCollector: public iFuelCollector
 {
 private:
-    cMotor* m_motor1;
+    cMotor* m_hopperMotor;
+    Servo* m_flapServo;
 
 public:
     cFuelCollector();
-    ~cFuelCollector();
-    void InitDefaultCommand();
+    virtual ~cFuelCollector();
 
-    void setSpeed(float speed);
+    void setFlapAngle(float angle);
+    void setHopperDrumSpeed(float speed);
+
+    float getFlapAngle();
+    float getHopperDrumSpeed();
 };
 
-#endif
+#endif /* SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_ */

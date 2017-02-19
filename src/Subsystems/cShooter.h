@@ -4,10 +4,21 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include <OI.h>
-#include "cMotor.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iShooter.h>
 
-class cShooter : public Subsystem
+class cShooter : public iShooter
 {
+private:
+    cMotor* m_motor1;
+    cMotor* m_motor2;
+
+    float setpoint = 0.0;
+
+    void setManualEnabled(bool state);
+    bool isManualEnabled();
+    bool m_manualEnabled = false;
+
 public:
     cShooter(bool speed, bool brake);
     ~cShooter();
@@ -17,7 +28,7 @@ public:
     double getSpeed();
 
     void DisablePID();
-	void EnablePID(bool speed);
+	void EnablePID();
 	void ResetPID();
 	bool isPIDEnabled();
 	void setSetpoint(float setpoint);
@@ -26,11 +37,6 @@ public:
 	double getSetpoint();
 	double getError();
 
-private:
-    cMotor* m_motor1;
-    cMotor* m_motor2;
-
-    float setpoint = 0.0;
 };
 
 #endif

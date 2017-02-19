@@ -3,16 +3,36 @@
 
 #include <string>
 
-class cMessage
+// this class holds information for the boiler data.
+// we have two members: x & y which are the coordinates of
+// boiler on screen, where -1 is the left side of the screen,
+// 1 is the right side, and 0 is straight down the center.
+class cBoilerData
 {
 private:
-    std::string message;
-public:
-    cMessage(std::string message);
-    ~cMessage();
+    bool m_isFound;
+    float m_x, m_y;
 
-    std::string PackToSend();
-    std::string GetMessage();
+public:
+    cBoilerData(float x, float y, bool isFound);
+
+    float getX();
+    float getY();
+    bool isFound();
+};
+
+// same as boilerdata, except we only include an x value
+class cLiftData
+{
+private:
+    bool m_isFound;
+    float m_x;
+
+public:
+    cLiftData(float x, bool isFound);
+
+    float getX();
+    bool isFound();
 };
 
 #endif

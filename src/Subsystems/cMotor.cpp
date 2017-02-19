@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Subsystems/cMotor.h>
+#include <cMotor.h>
 #include <CANTalon.h>
 #include <RobotMap.h>
 
@@ -86,18 +86,6 @@ void cMotor::Set(double value)
 	m_motor.Set(value);
 }
 
-void cMotor::setControlMode(bool speed)
-{
-	if(speed == true)
-	{
-		m_motor.SetControlMode(CANTalon::ControlMode::kSpeed);
-	}
-	else
-	{
-		m_motor.SetControlMode(CANTalon::ControlMode::kFollower);
-	}
-}
-
 void cMotor::reverseSensorDirection()
 {
 	m_motor.SetSensorDirection(true);
@@ -110,7 +98,7 @@ void cMotor::reverseOutput()
 
 void cMotor::setFeedbackDevice()
 {
-	m_motor.SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder);
+	m_motor.SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder); //need to ask someone about this
 }
 
 bool cMotor::isEnabled() const
@@ -144,9 +132,4 @@ void cMotor::Disable()
 void cMotor::Reset()
 {
 	m_motor.Reset();
-}
-
- cMotor::getControlMode() const
-{
-	m_motor.GetControlMode();
 }
