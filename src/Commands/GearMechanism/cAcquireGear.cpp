@@ -32,8 +32,6 @@ bool cAcquireGear::IsFinished()
 
 void cAcquireGear::End()
 {
-    std::cout << "awidawdoin\n";
-
     CommandBase::s_gearCollector->setFlapState(false);
 }
 

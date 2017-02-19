@@ -1,8 +1,9 @@
 /*
- * iShooter.h
- *
- *  Created on: Feb 12, 2017
- *      Author: s-4036956
+ * this class is the interface
+ * for the shooter. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
  */
 
 #ifndef SRC_SUBSYSTEMS_ISHOOTER_H_

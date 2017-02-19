@@ -26,7 +26,7 @@ private:
 
 	cPIDOutputContainer* m_pidCont;
 
-	CANSpeedController::ControlMode m_start;
+	frc::CANSpeedController::ControlMode m_start;
 };
 
 #endif  // cPointToBoiler_H
