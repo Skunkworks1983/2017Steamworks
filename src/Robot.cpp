@@ -93,7 +93,7 @@ private:
     }
 };
 //ayy lmao
-//START_ROBOT_CLASS(Robot)
+START_ROBOT_CLASS(Robot)
 //if you comment this macro out
 //you should probably change that
 //when you build
