@@ -1,5 +1,5 @@
 #include <gmock/gmock.h>
-#include <Subsystems/Interfaces/iShooter.h>
+#include <Subsystems/iShooter.h>
 
 class MockShooter : public iShooter
 {
