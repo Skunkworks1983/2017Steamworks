@@ -5,12 +5,13 @@
  *      Author: paella
  */
 
+
 #include <RobotMap.h>
-#include "cMotor.h"
+#include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/cDriveBase.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
-#include "Subsystems/cMotorGroup.h"
-#include "Subsystems/cReversingMotorGroup.h"
+#include <Subsystems/Utilities/cMotorGroup.h>
+#include <Subsystems/Utilities/cReversingMotorGroup.h>
 #include <PIDController.h>
 
 cDriveBase::cDriveBase()
@@ -46,8 +47,13 @@ cDriveBase::cDriveBase()
 
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
     m_motorGroupAll = new cMotorGroup(allMotors);
+	m_rSonar = new AnalogInput(R_SONAR_PORT);
+	m_lSonar = new AnalogInput(L_SONAR_PORT);
+
 
     m_gyro = new cGyro();
+
+    m_IsReversed = false;
 
 }
 cDriveBase::~cDriveBase()
@@ -103,6 +109,40 @@ cMotorGroup* cDriveBase::getMotorGroupAll()
     return m_motorGroupAll;
 }
 
+
+bool cDriveBase::CanSeeTape() {
+	m_colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
+	uint8_t bufferR[COLOR_SENSOR_BYTE_LENGTH];
+	uint8_t bufferG[COLOR_SENSOR_BYTE_LENGTH];
+	uint8_t bufferB[COLOR_SENSOR_BYTE_LENGTH];
+	m_colorSensor->Read(COLOR_SENSOR_R_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferR);
+	m_colorSensor->Read(COLOR_SENSOR_G_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferG);
+	m_colorSensor->Read(COLOR_SENSOR_B_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferB);
+	if (BitShift(bufferR) > FLOOR_TAPE_R_LOW && BitShift(bufferR) < FLOOR_TAPE_R_HIGH) {
+		if (BitShift(bufferG) > FLOOR_TAPE_G_LOW && BitShift(bufferR) < FLOOR_TAPE_G_HIGH) {
+			if (BitShift(bufferB) > FLOOR_TAPE_B_LOW && BitShift(bufferR) < FLOOR_TAPE_B_HIGH) {
+				return true;
+			}
+		}
+	} else {
+		return false;
+	}
+
+}
+int cDriveBase::BitShift(uint8_t *colorReadout) {
+	int shiftee = colorReadout[0] << 8;
+	shiftee = shiftee | colorReadout[1];
+	return shiftee;
+}
+
+double cDriveBase::GetLeftDistance() {
+	return GetSonarDistance(true);
+}
+
+double cDriveBase::GetRightDistance() {
+	return GetSonarDistance(false);
+}
+
 cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
 {
     return m_motorGroupGyro;
@@ -112,31 +152,33 @@ iGyro* cDriveBase::getGyro()
 {
     return m_gyro;
 }
-bool cDriveBase::CanSeeTape()
-{
-    colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
-    uint8_t bufferR[COLOR_SENSOR_BYTE_LENGTH];
-    uint8_t bufferG[COLOR_SENSOR_BYTE_LENGTH];
-    uint8_t bufferB[COLOR_SENSOR_BYTE_LENGTH];
-    colorSensor->Read(COLOR_SENSOR_R_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferR);
-    colorSensor->Read(COLOR_SENSOR_G_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferG);
-    colorSensor->Read(COLOR_SENSOR_B_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferB);
-    if(BitShift(bufferR) == FLOOR_TAPE_R)
-    {
-        if(BitShift(bufferG) == FLOOR_TAPE_G)
-        {
-            if(BitShift(bufferB) == FLOOR_TAPE_B)
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-int cDriveBase::BitShift(uint8_t *colorReadout)
-{
-    int shiftee = colorReadout[0] << 8;
-    shiftee = shiftee | colorReadout[1];
-    return shiftee;
 
+double cDriveBase::GetSonarDistance(bool left) {
+	AnalogInput* eitherSonar;
+	double distanceFeet;
+	if (left) {
+		eitherSonar = m_lSonar;
+	} else {
+		eitherSonar = m_rSonar;
+	}
+	int i;
+	double totalDistance = 0;
+	for (i = 0; i < 1000; i++) { //is this okay? if it takes too long, make it 100 or 50
+		distanceFeet = eitherSonar->GetVoltage();
+		distanceFeet = (distanceFeet / RATIO_OUTPUT_TO_FEET);
+		totalDistance = totalDistance + distanceFeet;
+	}
+	distanceFeet = totalDistance/1000; //need to change this number too
+	return distanceFeet;
+
+}
+
+bool cDriveBase::getIsReversed()
+{
+    return m_IsReversed;
+}
+
+void cDriveBase::setIsReversed(bool isreversed)
+{
+    m_IsReversed = isreversed;
 }

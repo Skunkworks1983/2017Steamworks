@@ -10,21 +10,24 @@
 
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
-#include "cMotor.h"
-#include  "Subsystems/iFuelCollector.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iFuelCollector.h>
 
 class cFuelCollector: public iFuelCollector
 {
 private:
     cMotor* m_hopperMotor;
-    Servo* m_collectorFlapServo;
+    Servo* m_flapServo;
 
 public:
     cFuelCollector();
     virtual ~cFuelCollector();
 
-    void setCollectorFlapAngle(float angle);
+    void setFlapAngle(float angle);
     void setHopperDrumSpeed(float speed);
+
+    float getFlapAngle();
+    float getHopperDrumSpeed();
 };
 
 #endif /* SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_ */

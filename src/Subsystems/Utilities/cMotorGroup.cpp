@@ -5,7 +5,7 @@
  *      Author: s-4036956
  */
 
-#include <Subsystems/cMotorGroup.h>
+#include <Subsystems/Utilities/cMotorGroup.h>
 
 cMotorGroup::cMotorGroup(std::vector<iMotor*> motorList):m_motorList(motorList)
 {
@@ -70,11 +70,11 @@ std::vector<iMotor*> cMotorGroup::GetMotorList()
     return m_motorList;
 }
 
-CANSpeedController::ControlMode cMotorGroup::getControlMode() {
+frc::CANSpeedController::ControlMode cMotorGroup::getControlMode() {
 	return m_motorList[0]->getControlMode();
 }
 
-void cMotorGroup::setControlMode(CANSpeedController::ControlMode mode) {
+void cMotorGroup::setControlMode(frc::CANSpeedController::ControlMode mode) {
 	for (std::size_t i = 0; i < m_motorList.size(); i++) {
 		m_motorList[i]->setControlMode(mode);
 	}

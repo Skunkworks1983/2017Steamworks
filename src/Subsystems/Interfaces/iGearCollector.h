@@ -1,8 +1,9 @@
 /*
- * iGearCollector.h
- *
- *  Created on: Feb 12, 2017
- *      Author: s-4036956
+ * this class is the interface
+ * for the gear collector. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
  */
 
 #ifndef SRC_SUBSYSTEMS_IGEARCOLLECTOR_H_
@@ -13,9 +14,9 @@ class iGearCollector : public Subsystem
 {
 public:
     iGearCollector() : Subsystem("GearCollector"){};
-    virtual void setFlapState(bool isOpen) = 0;
+
+    virtual void setFlapState(bool open) = 0;
     virtual void setServoAngle(float angle) = 0;
-    virtual float getServoAngle() = 0;
 };
 
 

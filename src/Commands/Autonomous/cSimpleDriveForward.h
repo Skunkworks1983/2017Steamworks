@@ -10,9 +10,9 @@
 
 #include <Commands/Command.h>
 #include <Subsystems/cDriveBase.h>
-#include <Subsystems/cMotor.h>
+#include <Subsystems/Utilities/cMotor.h>
 #include <PIDController.h>
-#include "Subsystems/cMotorGroup.h"
+#include <Subsystems/Utilities/cMotorGroup.h>
 
 class cSimpleDriveForward: public frc::Command
 {
@@ -20,7 +20,7 @@ private:
     PIDController *m_pidController;
     cMotorGroup* motorGroupAll;
     float m_distance;
-    bool m_driveToLine;
+    bool m_stopAtLine;
 public:
     cSimpleDriveForward(float distance, bool stopAtLine = false);
     ~cSimpleDriveForward();

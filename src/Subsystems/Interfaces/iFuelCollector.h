@@ -1,8 +1,9 @@
 /*
- * iFuelCollector.h
- *
- *  Created on: Feb 12, 2017
- *      Author: s-4036956
+ * this class is the interface
+ * for the fuel collector. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
  */
 
 #ifndef SRC_SUBSYSTEMS_IFUELCOLLECTOR_H_
@@ -13,7 +14,7 @@ class iFuelCollector: public Subsystem
 {
 public:
     iFuelCollector() : Subsystem("FuelCollector"){};
-    virtual void setCollectorFlapAngle(float angle) = 0;
+    virtual void setFlapAngle(float angle) = 0;
     virtual void setHopperDrumSpeed(float speed) = 0;
 };
 

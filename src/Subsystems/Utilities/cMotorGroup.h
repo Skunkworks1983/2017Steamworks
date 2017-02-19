@@ -8,10 +8,10 @@
 #ifndef SRC_SUBSYSTEMS_CMOTORGROUP_H_
 #define SRC_SUBSYSTEMS_CMOTORGROUP_H_
 
+#include <Subsystems/Interfaces/iMotor.h>
+#include <Subsystems/Utilities/cMotor.h>
 #include <CANSpeedController.h>
-#include <Subsystems/cMotor.h>
 #include <vector>
-#include "iMotor.h"
 
 class cMotorGroup: public iMotor
 {
@@ -28,8 +28,8 @@ public:
     bool hasEncoder();
     std::vector<iMotor*> GetMotorList();
 
-    CANSpeedController::ControlMode getControlMode();
-    void setControlMode(CANSpeedController::ControlMode mode);
+    frc::CANSpeedController::ControlMode getControlMode();
+    void setControlMode(frc::CANSpeedController::ControlMode mode);
 
     double getPosition();
 };

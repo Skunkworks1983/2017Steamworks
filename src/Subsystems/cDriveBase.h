@@ -9,13 +9,16 @@
 #define SRC_SUBSYSTEMS_CDRIVEBASE_H_
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
-#include "cMotor.h"
+#include "Utilities/cMotor.h"
 #include <OI.h>
-#include "Subsystems/cMotorGroup.h"
-#include "Subsystems/cReversingMotorGroup.h"
-#include "Subsystems/cGyro.h"
+#include <I2C.h>
+#include <AnalogInput.h>
+#include <RobotMap.h>
+#include "Subsystems/Utilities/cMotorGroup.h"
+#include "Subsystems/Utilities//cReversingMotorGroup.h"
+#include "Subsystems/Sensors/cGyro.h"
 #include <PIDController.h>
-#include "Subsystems/iDriveBase.h"
+#include "Subsystems/Interfaces/iDriveBase.h"
 
 class cDriveBase: public iDriveBase
 {
@@ -31,10 +34,14 @@ private:
     iMotor* m_rightMotor2;
     iMotor* m_rightMotor3;
 
+
+	I2C* m_colorSensor;
+	AnalogInput* m_rSonar;
+	AnalogInput* m_lSonar;
+    int BitShift(uint8_t *colorReadout);
     iGyro* m_gyro;
 
-	I2C* colorSensor;
-    int BitShift(uint8_t *colorReadout);
+    bool m_IsReversed;
 
 public:
 	cDriveBase();
@@ -51,11 +58,14 @@ public:
     cMotorGroup* getMotorGroupLeft();
     cMotorGroup* getMotorGroupRight();
     cMotorGroup* getMotorGroupAll();
-
+    bool CanSeeTape();
+    double GetLeftDistance();
+    double GetRightDistance();
+    double GetSonarDistance(bool left);
     cReversingMotorGroup* getMotorGroupGyro();
     iGyro* getGyro();
-    bool CanSeeTape();
-
+    bool getIsReversed();
+    void setIsReversed(bool isreversed);
 
 };
 

@@ -4,13 +4,13 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include <OI.h>
-#include "cMotor.h"
-#include "Subsystems/iTurret.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iTurret.h>
 
 class cTurret : public iTurret
 {
 private:
-    PIDController *controller;
+    PIDController *m_controller;
     cMotor* m_motor1;
 
     bool m_manualEnabled = false;

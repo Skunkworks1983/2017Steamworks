@@ -16,6 +16,7 @@
 // following variables to use with your drivetrain subsystem.
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
+
 const char* const ROBOT_NAME = "tim scoot";
 const char* const LOGFILE_NAME = "/U/robotLog";
 
@@ -38,6 +39,7 @@ const int MSG_LEN = 1024;
 
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
+
 
 //LEFT: R and F are switched
 //RIGHT:
@@ -62,6 +64,10 @@ const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
 const int OI_JOYSTICK_SHOOTHIGH = 5;
 const int OI_JOYSTICK_CLIMBROPE = 6;
 const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+
+const int OI_JOYSTICK_ROTATETURRETLEFT = 8;
+const int OI_JOYSTICK_ROTATETURRETRIGHT = 9;
+const int OI_JOYSTICK_SWITCHBACKFRONT = 10;
 const int OI_JOYSTICK_TURRET_CONTROL = 10000;
 const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
 
@@ -81,8 +87,8 @@ const float TURNDEGREE_PID_P = 1;
 const float TURNDEGREE_PID_I = 1;
 const float TURNDEGREE_PID_D = 1;
 
-const int CLIMBER_MOTOR1_PORT = 10000;
-const int CLIMBER_MOTOR2_PORT = 10000;
+const int CLIMBER_MOTOR1_PORT = 10;
+const int CLIMBER_MOTOR2_PORT = 11;
 
 const float CLIMBER_MOTOR_DIRECTION = 1;
 
@@ -101,14 +107,26 @@ const int TURRET_MOTOR1_P = 1;
 const int TURRET_MOTOR1_I = 0;
 const int TURRET_MOTOR1_D = 0;
 
+const int TURRET_GEAR1_TEETH = 10;
+const int TURRET_GEAR2_TEETH = 200;
+
 const int SHOOTER_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR2_PORT = 10000;
 const double SHOOTER_TARGET_SPEED = 1; //rps
+const double SHOOTER_P = 1;
+const double SHOOTER_I = 0;
+const double SHOOTER_D = 0;
+const double SHOOTER_F = 0;
+const int RAMPING_CONSTANT = 2;
 
-const int GEARCOLLECTOR_SERVO1_PORT = 10000;
+const int GEARCOLLECTOR_SERVO1_PORT = 0;
+const int GEARCOLLECTOR_SERVO2_PORT = 1;
 
-const int GEARCOLLECTOR_OPEN_ANGLE = 170;
-const int GEARCOLLECTOR_CLOSE_ANGLE = 0;
+const int GEARCOLLECTOR_SERVO_MIN = 0;
+const int GEARCOLLECTOR_SERVO_MAX = 170;
+
+const int GEARCOLLECTOR_OPEN_ANGLE = 170; // ANGLE OF THE SERVOS! NOT FLAP!
+const int GEARCOLLECTOR_CLOSE_ANGLE = 85; //0.5 * (GEARCOLLECTOR_SERVO_MIN + GEARCOLLECTOR_SERVO_MAX);
 
 const float ROPECLIMB_COMMAND_TIME_ON = 30;
 const float ROPECLIMB_COMMAND_TIME_OFF = 1;
@@ -124,6 +142,10 @@ const float CIM_STALLING_CURRENT = 133;
 
 const float TURNANGLE_TARGET_ANGLE = 71;
 const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
+
+// RASPBERRY PI CAMERA STUFF
+
+const int BOILER_PI_CAMERA_FOV = 53.5;
 
 //AUTONOMOUS THINGS
 
@@ -143,17 +165,32 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //COLOR SENSOR
 //datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
-const int COLOR_SENSOR_I2C_SLAVE_ADR = 0x29;
-const int COLOR_SENSOR_R_HIGH_REG = 0x17; //apparently the high value of each registry is the accurate one.
-const int COLOR_SENSOR_G_HIGH_REG = 0x19;
-const int COLOR_SENSOR_B_HIGH_REG = 0x1B;
-const unsigned int COLOR_SENSOR_BYTE_LENGTH = 2;
-const int I2C_CHANNEL = 1234;
-const int FLOOR_TAPE_R = 1234; //these are found experimentally, unfortunately.
-const int FLOOR_TAPE_G = 1234; //ibid
-const int FLOOR_TAPE_B = 1234; //hebids
+#define COLOR_SENSOR_I2C_SLAVE_ADR 0x29
+#define COLOR_SENSOR_R_HIGH_REG 0x17 //apparently the high value of each registry is the accurate one.
+#define COLOR_SENSOR_G_HIGH_REG 0x19
+#define COLOR_SENSOR_B_HIGH_REG 0x1B
+#define COLOR_SENSOR_BYTE_LENGTH 2
+#define I2C_CHANNEL 1234
+#define FLOOR_TAPE_R_LOW 1234//these are found experimentally, unfortunately. TODO
+#define FLOOR_TAPE_R_HIGH 1234 //and they will vary TODO
+#define FLOOR_TAPE_G_LOW 1234//TODO
+#define FLOOR_TAPE_G_HIGH 1234//TODO
+#define FLOOR_TAPE_B_LOW 1234//TODO
+#define FLOOR_TAPE_B_HIGH 1234//TODO
+
+//SONAR
+//datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
+#define R_SONAR_PORT 0
+#define L_SONAR_PORT 1
+#define RATIO_OUTPUT_TO_FEET .11
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
+
+#define DISTANCE_BETWEEN_SONAR (21/12) //inches to feet
+#define angleWallTapePivotPoint 1.1576 //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
+#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT (10.5/12) //inches to feet
+#define angleGoalPivotPointTape .4131 //rads (23.67 degrees)
+#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 2 //feet. This is to give some safe space to turn
 
 // positions start from the top of the field moving down
 
@@ -170,16 +207,7 @@ const int FLOOR_TAPE_B = 1234; //hebids
 
 const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
 const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
-/* the commented out values below are so because they pertain to the path if the robot is outside of the arms, an unlikely scenario.
- #define anglePerpindicularGoalRecoveryPoint ((70*3.14)/180) // same! radians
- #define anglePerpindicularGoalPivotPoint ((70*3.14)/180) //marcador de posicion
- #define DISTANCE_FROM_REC_POINT_TO_PIVOT_POINT 10 //same! feet
- #define anglePivotPointRecoveryPointGoal ((30*3.14)/180) //placeholder radians
- */
-const float angleWallTapePivotPoint = ((100 * 3.14) / 180); //can you guess what im going to say here?
-const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = 1.5; // ibid.
-const float angleGoalPivotPointTape = ((45 * 3.14) / 180); // surrogate for a real value
-const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 1234; //listen, i'm not an expert, but I'm almost certain that the distance from the pivot point to the goal will not be 1234 feet
+
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
 
@@ -209,7 +237,7 @@ const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle tha
             Logger::getLogger()->log(buf, Record);}
 
 const float WHEEL_CIRCUMFERENCE = (4*M_PI)/12; //Feet
-const int TICKS_PER_REVOLUTION = 4020;
+const int TICKS_PER_REVOLUTION = 4020; //vive la revolucion
 
 // If you are using multiple modules, make sure to define both the port
 // number and the module. For example you with a rangefinder:

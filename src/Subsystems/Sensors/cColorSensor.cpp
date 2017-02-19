@@ -1,5 +1,5 @@
 #include "cColorSensor.h"
-#include "../RobotMap.h"
+#include <RobotMap.h>
 
 cColorSensor::cColorSensor() {
 	colorSensor = new I2C(I2C::kOnboard, DEVICE_ADDR);

@@ -11,12 +11,11 @@
 cFuelCollector::cFuelCollector()
 {
     m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT, BaneBots775);
-    m_collectorFlapServo = new Servo(FUELCOLLECTOR_MOTOR2_PORT);
 }
 
-void cFuelCollector::setCollectorFlapAngle(float angle)
+void cFuelCollector::setFlapAngle(float angle)
 {
-    m_collectorFlapServo->SetAngle(angle);
+
 }
 
 void cFuelCollector::setHopperDrumSpeed(float speed)
@@ -28,6 +27,5 @@ cFuelCollector::~cFuelCollector()
 {
     // TODO Auto-generated destructor stub
     delete m_hopperMotor;
-    delete m_collectorFlapServo;
 }
 

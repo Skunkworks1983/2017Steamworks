@@ -1,5 +1,5 @@
 #include "cClimber.h"
-#include "cMotor.h"
+#include <Subsystems/Utilities/cMotor.h>
 #include <RobotMap.h>
 
 cClimber::cClimber()

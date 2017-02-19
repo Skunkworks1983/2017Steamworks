@@ -1,10 +1,32 @@
 #include <gmock/gmock.h>
-#include <Subsystems/iTurret.h>
+#include <gtest/gtest.h>
+#include <CommandBase.h>
 
-class MockTurret : public iTurret
-{
-public:
-    MOCK_METHOD1(setSpeed, void(float speed));
-    MOCK_METHOD1(setOrientation, void (float heading));
-    MOCK_METHOD1(rotate, void(float degrees));
-};
+#include <Services/cMessage.h>
+
+#include <Tests/Mocks/cMockTurret.h>
+#include <Tests/Mocks/cMockMessenger.h>
+
+#include <Commands/Turret/cRotateTurret.h>
+
+using ::testing::Return;
+using ::testing::AtLeast;
+
+TEST(RotateTurretTests, ExecuteCallsSetSpeed){
+    cMockTurret turret;
+    cMockMessenger messenger;
+
+    cBoilerData* data = new cBoilerData(1, 0, true);
+
+    EXPECT_CALL(messenger, receiveBoilerData())
+    .WillOnce(Return(data));
+
+    EXPECT_CALL(turret, setOrientation(50/2))
+    .Times(AtLeast(1));
+
+    CommandBase::s_turret = &turret;
+    CommandBase::s_boilerMessenger = &messenger;
+
+    cRotateTurret Command;
+    Command.Execute();
+}
