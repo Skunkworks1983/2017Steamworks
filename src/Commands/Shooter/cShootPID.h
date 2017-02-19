@@ -19,6 +19,12 @@ private:
 	double speed;
 	float current_setpoint = 1.0;
 	float timeout;
+
+	double p = SHOOTER_P;
+	double i = SHOOTER_I;
+	double d = SHOOTER_D;
+	double f = SHOOTER_F;
+
 public:
 	cShootPID(double speed, float timeout = 0.0);
 	void Initialize();
