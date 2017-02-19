@@ -9,6 +9,7 @@
 #ifndef SRC_SUBSYSTEMS_IFUELCOLLECTOR_H_
 #define SRC_SUBSYSTEMS_IFUELCOLLECTOR_H_
 #include <Commands/Subsystem.h>
+#include "Subsystems/Utilities/cMotor.h"
 
 class iFuelCollector: public Subsystem
 {
@@ -16,6 +17,7 @@ public:
     iFuelCollector() : Subsystem("FuelCollector"){};
     virtual void setFlapAngle(float angle) = 0;
     virtual void setHopperDrumSpeed(float speed) = 0;
+    virtual cMotor* getCollectorMotor() = 0;
 };
 
 

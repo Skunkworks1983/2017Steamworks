@@ -17,6 +17,8 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
+#define SENSOR_DEBUG_MODE true
+
 const char* const ROBOT_NAME = "tim scoot";
 const char* const LOGFILE_NAME = "/U/robotLog";
 
@@ -166,7 +168,8 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 //COLOR SENSOR
 //datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
 #define COLOR_SENSOR_I2C_SLAVE_ADR 0x29
-#define COLOR_SENSOR_R_HIGH_REG 0x17 //apparently the high value of each registry is the accurate one.
+#define COLOR_SENSOR_C_HIGH_REG 0x15//apparently the high value of each registry is the accurate one.
+#define COLOR_SENSOR_R_HIGH_REG 0x17
 #define COLOR_SENSOR_G_HIGH_REG 0x19
 #define COLOR_SENSOR_B_HIGH_REG 0x1B
 #define COLOR_SENSOR_BYTE_LENGTH 2
@@ -180,9 +183,11 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //SONAR
 //datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
+//you know what's annoying? eclipse literally does not allow you to save files that have emoji in them
+//insert hammer and sickle emoji here
 #define R_SONAR_PORT 0
 #define L_SONAR_PORT 1
-#define RATIO_OUTPUT_TO_FEET .11
+#define RATIO_OUTPUT_TO_FEET .11 //this is kinda sketchy; i want better/more data
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 

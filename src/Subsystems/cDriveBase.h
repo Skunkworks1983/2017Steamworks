@@ -11,6 +11,7 @@
 #include <Commands/Subsystem.h>
 #include "Utilities/cMotor.h"
 #include <OI.h>
+#include <I2C.h>
 #include <AnalogInput.h>
 #include <RobotMap.h>
 #include "Subsystems/Utilities/cMotorGroup.h"
@@ -65,6 +66,10 @@ public:
     iGyro* getGyro();
     bool getIsReversed();
     void setIsReversed(bool isreversed);
+    double GetRValue();
+    double GetGValue();
+    double GetBValue();
+    double GetCValue();
 
 };
 

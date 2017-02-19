@@ -45,11 +45,12 @@ cDriveBase::cDriveBase()
     reversed.push_back(false);
     reversed.push_back(true);
 
+	m_colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
+
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
     m_motorGroupAll = new cMotorGroup(allMotors);
 	m_rSonar = new AnalogInput(R_SONAR_PORT);
 	m_lSonar = new AnalogInput(L_SONAR_PORT);
-
 
     m_gyro = new cGyro();
 
@@ -111,7 +112,6 @@ cMotorGroup* cDriveBase::getMotorGroupAll()
 
 
 bool cDriveBase::CanSeeTape() {
-	m_colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
 	uint8_t bufferR[COLOR_SENSOR_BYTE_LENGTH];
 	uint8_t bufferG[COLOR_SENSOR_BYTE_LENGTH];
 	uint8_t bufferB[COLOR_SENSOR_BYTE_LENGTH];
@@ -129,6 +129,28 @@ bool cDriveBase::CanSeeTape() {
 	}
 
 }
+
+double cDriveBase::GetRValue() {
+	uint8_t bufferR[COLOR_SENSOR_BYTE_LENGTH];
+	m_colorSensor->Read(COLOR_SENSOR_R_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferR);
+	return BitShift(bufferR);
+}
+double cDriveBase::GetGValue() {
+	uint8_t bufferG[COLOR_SENSOR_BYTE_LENGTH];
+	m_colorSensor->Read(COLOR_SENSOR_G_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferG);
+	return BitShift(bufferG);
+}
+double cDriveBase::GetBValue() {
+	uint8_t bufferB[COLOR_SENSOR_BYTE_LENGTH];
+	m_colorSensor->Read(COLOR_SENSOR_B_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferB);
+	return BitShift(bufferB);
+}
+double cDriveBase::GetCValue() {
+	uint8_t bufferC[COLOR_SENSOR_BYTE_LENGTH];
+	m_colorSensor->Read(COLOR_SENSOR_C_HIGH_REG, COLOR_SENSOR_BYTE_LENGTH, bufferC);
+	return BitShift(bufferC);
+}
+
 int cDriveBase::BitShift(uint8_t *colorReadout) {
 	int shiftee = colorReadout[0] << 8;
 	shiftee = shiftee | colorReadout[1];
