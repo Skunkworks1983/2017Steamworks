@@ -20,6 +20,8 @@ void cShootPID::Initialize()
 {
 	s_shooter->EnablePID();
 
+	s_shooter->setPID(p, i, d, f);
+
 	s_shooter->setSetpoint(current_setpoint);
 
 	if (timeout != 0)
