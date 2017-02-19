@@ -16,7 +16,7 @@ cCenterTape::cCenterTape() {
 }
 
 cCenterTape::~cCenterTape() {
-	// TODO Auto-generated destructor stub
+	delete m_pidController;
 }
 
 void cCenterTape::Initialize() {
@@ -33,7 +33,7 @@ void cCenterTape::End() {
 	m_pidController->Disable();
 }
 void cCenterTape::Interrupted() {
-
+	m_pidController->Disable();
 }
 double cCenterTape::PIDGet() {
 	return m_data->getX();

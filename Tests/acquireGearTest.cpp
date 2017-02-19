@@ -1,7 +1,5 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <Subsystems/Interfaces/iGearCollector.h>
-#include <Commands/GearMechanism/cAcquireGear.h>
 #include <CommandBase.h>
 
 #include <Tests/Mocks/cMockGearCollector.h>

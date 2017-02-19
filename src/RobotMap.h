@@ -191,7 +191,7 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 
-#define DISTANCE_BETWEEN_SONAR (22/12) //inches to feet TODO-I asked Davin and he said that the two front facing ones were the width of the drivebase apart, plus 2 inch. Is this right?
+#define DISTANCE_BETWEEN_SONAR (21/12) //inches to feet
 #define angleWallTapePivotPoint 1.1576 //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
 #define DISTANCE_FROM_TAPE_TO_PIVOT_POINT (10.5/12) //inches to feet
 #define angleGoalPivotPointTape .4131 //rads (23.67 degrees)
