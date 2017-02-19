@@ -1,8 +1,8 @@
 /*
- * acquireGear.h
- *
- *  Created on: Jan 25, 2017
- *      Author: s-4036956
+ * this command opens
+ * the gear collector for
+ * a certain period of time, <timeout>
+ * from the constructor.
  */
 
 #ifndef SRC_COMMANDS_CACQUIREGEAR_H_

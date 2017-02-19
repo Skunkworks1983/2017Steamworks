@@ -7,8 +7,9 @@
 #include <string>
 
 #include <Services/cMessage.h>
+#include <Services/Interfaces/iMessenger.h>
 
-class cMessenger
+class cMessenger : public iMessenger
 {
 private:
     int m_sock;

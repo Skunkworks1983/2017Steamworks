@@ -6,36 +6,28 @@
 #include <Subsystems/Interfaces/iGyro.h>
 #include <CommandBase.h>
 #include <Commands/DriveBase/cRunTankDrive.h>
-#include <Tests/MockOI.h>
+
+#include <Tests/Mocks/MockOI.h>
+#include <Tests/Mocks/cMockDriveBase.h>
+
+
 using ::testing::AtLeast;
 using ::testing::Return;
 
-class MockDriveBase : public iDriveBase
-{
-public:
-    MOCK_METHOD0(resetEncoder, void());
-    MOCK_METHOD1(setLeftSpeed, void(double speed));
-    MOCK_METHOD1(setRightSpeed, void(double speed));
-    MOCK_METHOD1(setBrakeMode, void(bool brake));
-    MOCK_METHOD1(setEnabled, void (bool enabled));
-    MOCK_METHOD0(getMotorGroupLeft, cMotorGroup*());
-    MOCK_METHOD0(getMotorGroupRight, cMotorGroup*());
-    MOCK_METHOD0(getMotorGroupAll, cMotorGroup*());
-    MOCK_METHOD0(getMotorGroupGyro, cReversingMotorGroup*());
-    MOCK_METHOD0(getGyro, iGyro*());
-    MOCK_METHOD0(CanSeeTape, bool());
-
-};
+using ::testing::AtLeast;
 
 TEST(RunTankDriveTests, InitializeCallsSetEnabled){
-    MockDriveBase iDriveBase;
+    /*
+     * cMockDriveBase iDriveBase;
     EXPECT_CALL(iDriveBase, setEnabled(true))
     .Times(AtLeast(1));
 
     CommandBase::s_drivebase = &iDriveBase;
     cRunTankDrive Command;
     Command.Initialize();
+    */
 }
+
 //whoody who whatcha gonna doo
 TEST(RunTankDriveTests, ExecuteCallsSetSpeed){
     MockDriveBase drivebase;
