@@ -10,10 +10,11 @@
 #include <CANTalon.h>
 #include <RobotMap.h>
 
-cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder) :
+cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder, frc::CANSpeedController::ControlMode controlMode) :
         m_motor(port), m_motorType(motorType) //this is ok
 {
     m_hasEncoder = hasEncoder;
+    m_motor.SetControlMode(controlMode);
 }
 
 cMotor::~cMotor()
@@ -70,9 +71,6 @@ void cMotor::PIDWrite(double output)
 double cMotor::PIDGet()
 {
     return m_motor.PIDGet();
-    //should be fixed now
-    //chumbawumba
-    //giv mi secs -tucker
 }
 
 void cMotor::setEnabled(bool enabled)
@@ -104,7 +102,22 @@ void cMotor::setControlMode(frc::CANSpeedController::ControlMode mode)
     m_motor.SetControlMode(mode);
 }
 
+void cMotor::setSetpoint(double value)
+{
+    m_motor.SetSetpoint(value);
+}
+
 double cMotor::getPosition()
 {
     return m_motor.GetPosition();
+}
+
+void cMotor::configForwardLimit(double position)
+{
+    m_motor.ConfigForwardLimit(position);
+}
+
+void cMotor::configReverseLimit(double position)
+{
+    m_motor.ConfigReverseLimit(position);
 }

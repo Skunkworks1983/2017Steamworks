@@ -36,18 +36,21 @@ void cRotateTurret::Execute()
         // turn the turret towards the boiler using our vision system
         if(data->isFound())
         {
-            float angle = data->getX() * (53.5/2); // the angular pos of boiler on screen
-            float current;
+            // get the current angle of the boiler relative to the turret
+            float angle = data->getX() * (BOILER_PI_CAMERA_FOV / 2);
+            float current = CommandBase::s_turret->getHeading();
 
-            float target = current + angle;
+            float desired = CLAMP(current + angle, -TURRET_SWEEP_RANGE / 2, TURRET_SWEEP_RANGE / 2);
 
-            CommandBase::s_turret->setOrientation(target);
+            // TODO: motion tracking, idk what to call it
+            // target leading? whatever
 
+            CommandBase::s_turret->setOrientation(desired);
         }
         // turn the turret towards where we think the boiler is, using our gyro
         else
         {
-            //CommandBase::s_turret->setOrientation(CommandBase::s_turret->m_isRedAlliance ? -45 : 45);
+            CommandBase::s_turret->setOrientation(isRedAlliance ? TURRET_SEARCH_HEADING : -TURRET_SEARCH_HEADING);
         }
     }
 }

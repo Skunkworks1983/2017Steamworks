@@ -5,6 +5,9 @@
 #include <Services/cLogger.h>
 #include <math.h>
 
+// TODO: idk where to put this so it's going here for now
+const bool isRedAlliance = false;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -100,6 +103,12 @@ const int FUELLOADER_MOTOR1_PORT = 10000;
 const int FUELLOADER_COMMAND_TIME_ON = 5;
 
 const int TURRET_MOTOR1_PORT = 10000;
+const int TURRET_MOTOR1_GEARING = 40;
+const int TURRET_MOTOR1_TICKS_PER_ROT = 360;
+
+const int TURRET_SEARCH_HEADING = -45; // for red
+
+const int TURRET_SWEEP_RANGE = 180; // angle
 
 const int TURRET_MOTOR1_P = 1;
 const int TURRET_MOTOR1_I = 0;
@@ -126,8 +135,6 @@ const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
-
-#include <Services/cLogger.h>
 
 const float BANEBOTS775_STALLING_CURRENT = 130;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
@@ -198,6 +205,60 @@ const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 1234; //listen, i'm not an exper
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
 
+/*
+ * this function keeps a value within range,
+ * given value, minimum, and maximum. if the
+ * value is above maximum, the value will be
+ * the maximum.
+ */
+
+inline float CLAMP(float value, float minimum, float maximum)
+{
+    return std::min(maximum, std::max(minimum, value) );
+}
+
+/*
+ * this function takes in a desired angle for the
+ * entire turret. give this function an angle you
+ * want the turret to face (-90 to 90), and it will
+ * give you the number of rotations the turret motor needs
+ * to turn.
+ */
+
+inline float TURRET_ANGLE_TO_ROTS(float angle)
+{
+    float final = (angle / 360) * TURRET_MOTOR1_TICKS_PER_ROT;
+    final *= TURRET_MOTOR1_GEARING;
+    final *= TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH;
+    return final;
+}
+
+/*
+ * this function takes in a number of rotations of the
+ * turret motor, and gives back the change in angle of
+ * the entire turret.
+ */
+inline float TURRET_ROTS_TO_ANGLE(float rots)
+{
+    float final = rots;
+    final /= TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH;
+    final /= TURRET_MOTOR1_GEARING;
+    final /= TURRET_MOTOR1_TICKS_PER_ROT;
+    final *= 360;
+    return final;
+}
+
+/*
+ #define TURRET_ROTS_TO_ANGLE(rots) {\
+            float final = (rots / TURRET_MOTOR1_TICKS_PER_ROT);\
+            final *= (TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH);\
+            return final;}
+
+ #define TURRET_ANGLE_TO_ROTS(rots) {\
+            float final = 0;\
+            return final;}
+ */
+
 #define LOG_DEBUG(...) {\
             char buf[1024];\
             sprintf(buf, __VA_ARGS__);\
@@ -223,7 +284,7 @@ const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle tha
             sprintf(buf, __VA_ARGS__);\
             Logger::getLogger()->log(buf, Record);}
 
-const float WHEEL_CIRCUMFERENCE = (4*M_PI)/12; //Feet
+const float WHEEL_CIRCUMFERENCE = (4 * M_PI) / 12; //Feet
 const int TICKS_PER_REVOLUTION = 4020;
 
 // If you are using multiple modules, make sure to define both the port

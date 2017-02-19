@@ -15,17 +15,17 @@
 
 enum eMotorType
 {
-    BaneBots775,/*ayylmao*/ NeveRest40, CIM
+    BaneBots775,/*ayylmao*/NeveRest40, CIM
 };
 
 class cMotor: public iMotor
 {
 private:
-    CANTalon m_motor;
-    bool m_hasEncoder;
+    CANTalon m_motor;bool m_hasEncoder;
     eMotorType m_motorType;
 public:
-    cMotor(int port, eMotorType motorType, bool hasEncoder = false);
+    cMotor(int port, eMotorType motorType, bool hasEncoder = false, frc::CANSpeedController::ControlMode controlMode =
+            frc::CANSpeedController::ControlMode::kPercentVbus);
     virtual ~cMotor();
     void setBrakeMode(bool brake);
     void setOutput(float output);
@@ -38,6 +38,11 @@ public:
 
     frc::CANSpeedController::ControlMode getControlMode();
     void setControlMode(frc::CANSpeedController::ControlMode mode);
+
+    void configForwardLimit(double position);
+    void configReverseLimit(double position);
+
+    void setSetpoint(double value);
 
     double getPosition();
 };
