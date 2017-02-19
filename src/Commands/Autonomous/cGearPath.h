@@ -9,14 +9,19 @@
 #define SRC_COMMANDS_AUTONOMOUS_CGEARPATH_H_
 #include <RobotMap.h>
 #include "AutoBase.h"
-class cGearPath {
+#include "CommandBase.h"
+class cGearPath : public frc::Command
+{
 private:
 
 public:
 	cGearPath();
 	~cGearPath();
-	static void FindGearPath();
-	void ExecuteGearPath();
+	void Initialize();
+	void Execute();
+	bool IsFinished();
+	void End();
+	void Interrupted();
 };
 
 

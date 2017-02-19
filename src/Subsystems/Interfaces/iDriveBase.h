@@ -28,8 +28,11 @@ public:
     virtual cReversingMotorGroup* getMotorGroupGyro() = 0;
     virtual iGyro* getGyro() = 0;
     virtual bool CanSeeTape() = 0;
+    virtual double GetLeftDistance() = 0;
+    virtual double GetRightDistance() = 0;
     virtual bool getIsReversed() = 0;
     virtual void setIsReversed(bool isreversed) = 0;
+
 };
 
 #endif /* SRC_SUBSYSTEMS_IDRIVEBASE_H_ */
