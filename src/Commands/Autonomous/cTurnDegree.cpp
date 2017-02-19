@@ -8,7 +8,8 @@
 #include <Commands/Autonomous/cTurnDegree.h>
 #include <CommandBase.h>
 #include <RobotMap.h>
-#include <Subsystems/cGyro.h>
+#include <PIDController.h>
+#include <Subsystems/Sensors/cGyro.h>
 
 
 cTurnDegree::cTurnDegree(float targetAngle)

@@ -11,7 +11,8 @@ class cBoilerData
 {
 private:
     bool m_isFound;
-    float m_x, m_y;
+    float m_x;
+    float m_y;
 
 public:
     cBoilerData(float x, float y, bool isFound);

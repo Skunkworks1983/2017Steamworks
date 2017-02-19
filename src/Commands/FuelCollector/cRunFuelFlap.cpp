@@ -23,7 +23,7 @@ void cRunFuelFlap::Initialize()
 
 void cRunFuelFlap::Execute()
 {
-    CommandBase::s_fuelCollector->setCollectorFlapAngle(m_position);
+    CommandBase::s_fuelCollector->setFlapAngle(m_position);
 }
 
 bool cRunFuelFlap::IsFinished()

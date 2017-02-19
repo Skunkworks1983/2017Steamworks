@@ -6,11 +6,12 @@
  */
 
 
-#include "cMotor.h"
+#include <RobotMap.h>
+#include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/cDriveBase.h>
 #include "Commands/DriveBase/cRunTankDrive.h"
-#include "Subsystems/cMotorGroup.h"
-#include "Subsystems/cReversingMotorGroup.h"
+#include <Subsystems/Utilities/cMotorGroup.h>
+#include <Subsystems/Utilities/cReversingMotorGroup.h>
 #include <PIDController.h>
 
 cDriveBase::cDriveBase()
@@ -51,6 +52,8 @@ cDriveBase::cDriveBase()
 
 
     m_gyro = new cGyro();
+
+    m_IsReversed = false;
 
 }
 cDriveBase::~cDriveBase()
@@ -168,4 +171,14 @@ double cDriveBase::GetSonarDistance(bool left) {
 	distanceFeet = totalDistance/1000; //need to change this number too
 	return distanceFeet;
 
+}
+
+bool cDriveBase::getIsReversed()
+{
+    return m_IsReversed;
+}
+
+void cDriveBase::setIsReversed(bool isreversed)
+{
+    m_IsReversed = isreversed;
 }

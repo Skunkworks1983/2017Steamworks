@@ -6,13 +6,13 @@
 #include "Commands/Command.h"
 #include "OI.h"
 #include "WPILib.h"
-#include "Subsystems/cDriveBase.h"
-#include "Subsystems/cClimber.h"
-#include "Subsystems/cGearCollector.h"
-#include "Subsystems/cFuelCollector.h"
-#include "Subsystems/cFuelLoader.h"
-#include "Subsystems/cShooter.h"
-#include "Subsystems/cTurret.h"
+#include "Subsystems/Interfaces/iDriveBase.h"
+#include "Subsystems/Interfaces/iClimber.h"
+#include "Subsystems/Interfaces/iGearCollector.h"
+#include "Subsystems/Interfaces/iFuelCollector.h"
+#include "Subsystems/Interfaces/iFuelLoader.h"
+#include "Subsystems/Interfaces/iShooter.h"
+#include "Subsystems/Interfaces/iTurret.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -26,7 +26,7 @@ public:
     CommandBase();
     static void init();
     static iDriveBase *s_drivebase;
-    static OI *s_oi;
+    static iOI *s_oi;
     static cMessenger *s_boilerMessenger;
     static cMessenger* s_liftMessenger;
     static iClimber * s_climber;

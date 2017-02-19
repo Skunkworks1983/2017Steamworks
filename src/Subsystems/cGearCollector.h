@@ -4,23 +4,23 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include <OI.h>
-#include "cMotor.h"
-#include "Subsystems/iGearCollector.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Utilities/cServo.h>
+#include <Subsystems/Interfaces/iGearCollector.h>
 
 class cGearCollector: public iGearCollector
 {
 private:
-    Servo* m_servo1;
+    iServo* m_servo1;
+    iServo* m_servo2;
 
 public:
     cGearCollector();
     ~cGearCollector();
     void InitDefaultCommand();
 
-    void setFlapState(bool isOpen);
-
+    void setFlapState(bool open);
     void setServoAngle(float angle);
-    float getServoAngle();
 };
 
 #endif

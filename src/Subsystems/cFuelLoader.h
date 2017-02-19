@@ -9,8 +9,8 @@
 #define SRC_SUBSYSTEMS_CFUELLOADER_H_
 
 #include <Commands/Subsystem.h>
-#include "cMotor.h"
-#include "Subsystems/iFuelLoader.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iFuelLoader.h>
 
 class cFuelLoader: public iFuelLoader
 {

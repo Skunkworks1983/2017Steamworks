@@ -25,7 +25,7 @@
 #define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #include <Commands/CommandGroup.h>
 
-class AutoBase: public CommandGroup
+class AutoBase: public frc::CommandGroup
 {
 private:
 	CommandGroup* m_placeGear;

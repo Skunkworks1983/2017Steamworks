@@ -8,9 +8,9 @@
 #ifndef SRC_SUBSYSTEMS_IDRIVEBASE_H_
 #define SRC_SUBSYSTEMS_IDRIVEBASE_H_
 #include <Commands/Subsystem.h>
-#include <Subsystems/cMotorGroup.h>
-#include <Subsystems/cReversingMotorGroup.h>
-#include <Subsystems/iGyro.h>
+#include <Subsystems/Utilities/cMotorGroup.h>
+#include <Subsystems/Utilities/cReversingMotorGroup.h>
+#include <Subsystems/Interfaces/iGyro.h>
 
 class iDriveBase: public Subsystem
 {
@@ -29,6 +29,9 @@ public:
     virtual bool CanSeeTape() = 0;
     virtual double GetLeftDistance() = 0;
     virtual double GetRightDistance() = 0;
+    virtual bool getIsReversed() = 0;
+    virtual void setIsReversed(bool isreversed) = 0;
+
 };
 
 #endif /* SRC_SUBSYSTEMS_IDRIVEBASE_H_ */

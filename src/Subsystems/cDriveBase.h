@@ -9,15 +9,15 @@
 #define SRC_SUBSYSTEMS_CDRIVEBASE_H_
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
-#include "cMotor.h"
+#include "Utilities/cMotor.h"
 #include <OI.h>
-#include "Subsystems/cMotorGroup.h"
 #include <AnalogInput.h>
-#include "Subsystems/cReversingMotorGroup.h"
-#include "Subsystems/cGyro.h"
-#include <PIDController.h>
 #include <RobotMap.h>
-#include "Subsystems/iDriveBase.h"
+#include "Subsystems/Utilities/cMotorGroup.h"
+#include "Subsystems/Utilities//cReversingMotorGroup.h"
+#include "Subsystems/Sensors/cGyro.h"
+#include <PIDController.h>
+#include "Subsystems/Interfaces/iDriveBase.h"
 
 class cDriveBase: public iDriveBase
 {
@@ -40,6 +40,8 @@ private:
     int BitShift(uint8_t *colorReadout);
     iGyro* m_gyro;
 
+    bool m_IsReversed;
+
 public:
 	cDriveBase();
 	~cDriveBase();
@@ -61,8 +63,8 @@ public:
     double GetSonarDistance(bool left);
     cReversingMotorGroup* getMotorGroupGyro();
     iGyro* getGyro();
-
-
+    bool getIsReversed();
+    void setIsReversed(bool isreversed);
 
 };
 

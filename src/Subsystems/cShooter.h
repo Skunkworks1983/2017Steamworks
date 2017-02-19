@@ -4,8 +4,8 @@
 #include "WPILib.h"
 #include <Commands/Subsystem.h>
 #include <OI.h>
-#include "cMotor.h"
-#include "Subsystems/iShooter.h"
+#include <Subsystems/Utilities/cMotor.h>
+#include <Subsystems/Interfaces/iShooter.h>
 
 class cShooter : public iShooter
 {
