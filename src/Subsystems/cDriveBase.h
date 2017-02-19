@@ -36,6 +36,8 @@ private:
 	I2C* colorSensor;
     int BitShift(uint8_t *colorReadout);
 
+    bool m_IsReversed;
+
 public:
 	cDriveBase();
 	~cDriveBase();
@@ -55,7 +57,8 @@ public:
     cReversingMotorGroup* getMotorGroupGyro();
     iGyro* getGyro();
     bool CanSeeTape();
-
+    bool getIsReversed();
+    void setIsReversed(bool isreversed);
 
 };
 

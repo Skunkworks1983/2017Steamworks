@@ -6,7 +6,6 @@
  */
 
 #include <Commands/DriveBase/cSwitchBackFront.h>
-#include <Subsystems/cReversingMotorGroup.h>
 #include <CommandBase.h>
 
 cSwitchBackFront::cSwitchBackFront()
@@ -24,7 +23,7 @@ cSwitchBackFront::~cSwitchBackFront()
 
 void cSwitchBackFront::Initialize()
 {
-    CommandBase::s_drivebase->getMotorGroupGyro()->ToggleReversal();
+    CommandBase::s_drivebase->setIsReversed(!CommandBase::s_drivebase->getIsReversed());
 }
 
 void cSwitchBackFront::Execute()
@@ -34,7 +33,7 @@ void cSwitchBackFront::Execute()
 
 bool cSwitchBackFront::IsFinished()
 {
-    return false;
+    return true;
 }
 
 void cSwitchBackFront::End()

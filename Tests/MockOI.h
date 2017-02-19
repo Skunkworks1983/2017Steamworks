@@ -9,4 +9,6 @@ class MockOI : public iOI
 public:
     MOCK_METHOD0(getLeftStickY, float());
     MOCK_METHOD0(getRightStickY, float());
+    MOCK_METHOD0(getShooterSlider, float());
+    MOCK_METHOD0(getTurretSlider, float());
 };
