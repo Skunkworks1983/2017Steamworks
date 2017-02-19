@@ -10,7 +10,7 @@
 using ::testing::AtLeast;
 using ::testing::Return;
 
-class MockDriveBase : public iDriveBase
+class MockDriveBase: public iDriveBase
 {
 public:
     MOCK_METHOD0(resetEncoder, void());
@@ -24,31 +24,87 @@ public:
     MOCK_METHOD0(getMotorGroupGyro, cReversingMotorGroup*());
     MOCK_METHOD0(getGyro, iGyro*());
     MOCK_METHOD0(CanSeeTape, bool());
+    MOCK_METHOD0(getIsReversed, bool());
+    MOCK_METHOD1(setIsReversed, void(bool isreversed));
 
 };
 
-TEST(RunTankDriveTests, InitializeCallsSetEnabled){
-    MockDriveBase iDriveBase;
-    EXPECT_CALL(iDriveBase, setEnabled(true))
-    .Times(AtLeast(1));
+TEST(RunTankDriveTests, InitializeCallsSetEnabled)
+{
+    MockDriveBase driveBase;
+    EXPECT_CALL(driveBase, setEnabled(true)).Times(AtLeast(1));
 
-    CommandBase::s_drivebase = &iDriveBase;
+    CommandBase::s_drivebase = &driveBase;
     cRunTankDrive Command;
     Command.Initialize();
 }
 //whoody who whatcha gonna doo
-TEST(RunTankDriveTests, ExecuteCallsSetSpeed){
+TEST(RunTankDriveTests, ExecuteCallsSetSpeed)
+{
+    //tests that cRunTankDrive sets speed correctly
     MockDriveBase drivebase;
     MockOI mOI;
+    EXPECT_CALL(drivebase, getIsReversed()).WillOnce(Return(false));
     EXPECT_CALL(mOI, getLeftStickY()).WillOnce(Return(.5));
-    EXPECT_CALL(drivebase, setLeftSpeed(.25))
-    .Times(AtLeast(1));
+    EXPECT_CALL(drivebase, setLeftSpeed(.25)).Times(AtLeast(1));
 
     EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(.5));
-    EXPECT_CALL(drivebase, setRightSpeed(.25))
-    .Times(AtLeast(1));
+    EXPECT_CALL(drivebase, setRightSpeed(.25)).Times(AtLeast(1));
 
     CommandBase::s_drivebase = &drivebase;
     cRunTankDrive Command;
     Command.Execute();
 }
+TEST(RunTankDriveTests, ExecuteHasDeadzone)
+{
+    //tests that cRunTankDrive has a working deadzone
+    MockDriveBase drivebase;
+    MockOI mOI;
+    EXPECT_CALL(drivebase, getIsReversed()).WillOnce(Return(false));
+    EXPECT_CALL(mOI, getLeftStickY()).WillOnce(Return(.04));
+    EXPECT_CALL(drivebase, setLeftSpeed(0)).Times(AtLeast(1));
+
+    EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(.04));
+    EXPECT_CALL(drivebase, setRightSpeed(0)).Times(AtLeast(1));
+
+    CommandBase::s_drivebase = &drivebase;
+    cRunTankDrive Command;
+    Command.Execute();
+}
+
+TEST(RunTankDriveTests, ExecuteCallsSetSpeedNegative)
+{
+    //tests that cRunTankDrive can set a negative value
+    MockDriveBase drivebase;
+    MockOI mOI;
+    EXPECT_CALL(drivebase, getIsReversed()).WillOnce(Return(false));
+    EXPECT_CALL(mOI, getLeftStickY()).WillOnce(Return(-.5));
+    EXPECT_CALL(drivebase, setLeftSpeed(-.25)).Times(AtLeast(1));
+
+    EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(-.5));
+    EXPECT_CALL(drivebase, setRightSpeed(-.25)).Times(AtLeast(1));
+
+    CommandBase::s_drivebase = &drivebase;
+    cRunTankDrive Command;
+    Command.Execute();
+}
+
+TEST(RunTankDriveTests, ExecuteReverses)
+{
+    //tests that cRunTankDrive handles reversing the robot
+    MockDriveBase drivebase;
+    MockOI mOI;
+    EXPECT_CALL(drivebase, getIsReversed()).WillOnce(Return(true));
+
+
+    EXPECT_CALL(mOI, getLeftStickY()).WillOnce(Return(1));
+    EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(.5));
+    EXPECT_CALL(drivebase, setRightSpeed(-1)).Times(AtLeast(1));
+    EXPECT_CALL(drivebase, setLeftSpeed(-.25)).Times(AtLeast(1));
+
+
+    CommandBase::s_drivebase = &drivebase;
+    cRunTankDrive Command;
+    Command.Execute();
+}
+

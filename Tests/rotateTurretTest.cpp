@@ -15,7 +15,7 @@ public:
     MOCK_METHOD0(isManualEnabled, bool());
 
 };
-
+/*
 TEST(RotateTurretTests, ExecuteCallsSetSpeed){
     MockTurret turret;
     EXPECT_CALL(turret, setSpeed(.5)) //magic number
@@ -25,3 +25,4 @@ TEST(RotateTurretTests, ExecuteCallsSetSpeed){
     cRotateTurret Command;
     Command.Execute();
 }
+*/

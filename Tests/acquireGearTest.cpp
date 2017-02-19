@@ -1,6 +1,6 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <Subsystems/iGearCollector.h>
+#include <Subsystems/Interfaces/iGearCollector.h>
 #include <Commands/GearMechanism/cAcquireGear.h>
 #include <CommandBase.h>
 using ::testing::AtLeast;
@@ -13,12 +13,12 @@ public:
     MOCK_METHOD0(getServoAngle, float());
 };
 //whoody who whatcha gonna doo
-TEST(AcquireGearTests, ExecuteCallsSetFlapState){
+TEST(AcquireGearTests, InitializeCallsSetFlapState){
     MockGearCollector gearCollector;
     EXPECT_CALL(gearCollector, setFlapState(true))//magic value
     .Times(AtLeast(1));
 
     CommandBase::s_gearCollector = &gearCollector;
     cAcquireGear Command(true);
-    Command.Execute();
+    Command.Initialize();
 }
