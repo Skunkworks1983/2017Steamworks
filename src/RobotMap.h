@@ -17,7 +17,7 @@
 //const int LEFTMOTOR = 1;
 //const int RIGHTMOTOR = 2;
 
-#define SENSOR_DEBUG_MODE true
+#define SENSOR_DEBUG_MODE false
 
 const char* const ROBOT_NAME = "tim scoot";
 const char* const LOGFILE_NAME = "/U/robotLog";
