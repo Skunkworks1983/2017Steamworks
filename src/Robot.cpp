@@ -114,7 +114,7 @@ private:
     	dashboard->PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
     }
 };
-//START_ROBOT_CLASS(Robot)
+START_ROBOT_CLASS(Robot)
 //if you comment this macro out
 //you should probably change that
 //when you build
