@@ -6,7 +6,7 @@
 
 cTurret::cTurret()
 {
-    m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
+    m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40, true);
 }
 
 cTurret::~cTurret()
@@ -43,4 +43,8 @@ void cTurret::setManualEnabled(bool state)
 bool cTurret::isManualEnabled()
 {
     return m_manualEnabled;
+}
+
+cMotor* cTurret::getTurretMotor() {
+return m_motor1;
 }

@@ -29,6 +29,9 @@ public:
     void setSpeed(float speed);
     void setOrientation(float heading);
     void rotate(float degrees);
+
+    cMotor* getTurretMotor();
+
 };
 
 #endif

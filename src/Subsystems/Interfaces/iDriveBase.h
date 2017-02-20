@@ -32,6 +32,10 @@ public:
     virtual double GetRightDistance() = 0;
     virtual bool getIsReversed() = 0;
     virtual void setIsReversed(bool isreversed) = 0;
+    virtual double GetRValue() = 0;
+    virtual double GetGValue() = 0;
+    virtual double GetBValue() = 0;
+    virtual double GetCValue() = 0;
 
 };
 
