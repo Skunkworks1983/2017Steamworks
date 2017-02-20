@@ -41,7 +41,7 @@ void cRotateTurret::Execute()
             float angle = data->getX() * (BOILER_PI_CAMERA_FOV / 2);
             float current = CommandBase::s_turret->getHeading();
 
-            float desired = CLAMP(current + angle, -TURRET_SWEEP_RANGE / 2, TURRET_SWEEP_RANGE / 2);
+            float desired = clamp(current + angle, -TURRET_SWEEP_RANGE / 2, TURRET_SWEEP_RANGE / 2);
 
             // TODO: motion tracking, idk what to call it
             // target leading? whatever

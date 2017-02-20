@@ -8,8 +8,8 @@ cTurret::cTurret()
 {
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
     m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
-    m_motor1->configForwardLimit((double) TURRET_ANGLE_TO_ROTS(-90));
-    m_motor1->configReverseLimit((double) TURRET_ANGLE_TO_ROTS(90));
+    m_motor1->configForwardLimit((double) turret_angle_to_rots(-90));
+    m_motor1->configReverseLimit((double) turret_angle_to_rots(90));
 }
 
 cTurret::~cTurret()
@@ -29,21 +29,21 @@ void cTurret::setSpeed(float speed)
 
 void cTurret::setOrientation(float heading)
 {
-    float desired = TURRET_ANGLE_TO_ROTS(heading);
+    float desired = turret_angle_to_rots(heading);
     m_motor1->setSetpoint(desired);
 }
 
 void cTurret::rotate(float degrees)
 {
-    float current = TURRET_ROTS_TO_ANGLE(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
-    float desired = TURRET_ANGLE_TO_ROTS(current + degrees);
+    float current = turret_rots_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    float desired = turret_angle_to_rots(current + degrees);
 
     m_motor1->setSetpoint(desired);
 }
 
 float cTurret::getHeading()
 {
-    return TURRET_ROTS_TO_ANGLE(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    return turret_rots_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
 }
 
 void cTurret::setManualEnabled(bool state)

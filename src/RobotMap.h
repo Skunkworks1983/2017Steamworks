@@ -5,39 +5,29 @@
 #include <Services/cLogger.h>
 #include <math.h>
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
+#define ROBOT_NAME "tim scoot"
+#define LOGFILE_NAME "/U/robotLog"
 
-// For example to map the left and right motors, you could define the
-// following variables to use with your drivetrain subsystem.
-//const int LEFTMOTOR = 1;
-//const int RIGHTMOTOR = 2;
-const char* const ROBOT_NAME = "tim scoot";
-const char* const LOGFILE_NAME = "/U/robotLog";
+// // MESSENGER // //
 
-enum FuelCollectorPosition
-{
-    UP = 90, DOWN = 0
-};
-
-#define BOILER_PI_IP "10.19.83.6"
+#define BOILER_PI_IP "10.19.83.7"
 #define BOILER_PI_PORT "5802"
 
 const int BOILER_PI_ID = 1;
 
-#define GEAR_PI_IP "10.19.83.7"
+#define GEAR_PI_IP "10.19.83.6"
 #define GEAR_PI_PORT "5800"
 
 const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 
+// // DRIVEBASE // //
+
 const int DRIVEBASE_LEFT_DIRECTION = -1;
 const int DRIVEBASE_RIGHT_DIRECTION = 1;
+
+const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 
 //LEFT: R and F are switched
 //RIGHT:
@@ -46,9 +36,23 @@ const int DRIVEBASE_RIGHT_DIRECTION = 1;
 const int DRIVEBASE_LEFTMOTOR_1_PORT = 12;
 const int DRIVEBASE_LEFTMOTOR_2_PORT = 14;
 const int DRIVEBASE_LEFTMOTOR_3_PORT = 14;
+
 const int DRIVEBASE_RIGHTMOTOR_1_PORT = 15;
 const int DRIVEBASE_RIGHTMOTOR_2_PORT = 13;
 const int DRIVEBASE_RIGHTMOTOR_3_PORT = 13;
+
+const float SIMPLEDRIVEFORWARD_PID_P = 1;
+const float SIMPLEDRIVEFORWARD_PID_I = 1;
+const float SIMPLEDRIVEFORWARD_PID_D = 1;
+
+const float TURNDEGREE_PID_P = 1;
+const float TURNDEGREE_PID_I = 1;
+const float TURNDEGREE_PID_D = 1;
+
+const float TURNANGLE_TARGET_ANGLE = 71;
+const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
+
+// // OI // //
 
 const int OI_JOYSTICK_LEFT_PORT = 1;
 const int OI_JOYSTICK_RIGHT_PORT = 0;
@@ -62,9 +66,9 @@ const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
 const int OI_JOYSTICK_SHOOTHIGH = 5;
 const int OI_JOYSTICK_CLIMBROPE = 6;
 const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+const int OI_JOYSTICK_INDEXER_BUTTON = 4;
+const int OI_JOYSTICK_CONVEYOR_BUTTON = 5;
 
-const int OI_JOYSTICK_ROTATETURRETLEFT = 8;
-const int OI_JOYSTICK_ROTATETURRETRIGHT = 9;
 const int OI_JOYSTICK_SWITCHBACKFRONT = 10;
 const int OI_JOYSTICK_TURRET_CONTROL = 10000;
 const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
@@ -75,29 +79,39 @@ const int OI_TURRET_SLIDER_RANGE = 100;
 const int MANUAL_SHOOTER_CONTROL_SCALAR = 1;
 const int OI_SHOOTER_SLIDER_RANGE = 100;
 
-const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
-
-const float SIMPLEDRIVEFORWARD_PID_P = 1;
-const float SIMPLEDRIVEFORWARD_PID_I = 1;
-const float SIMPLEDRIVEFORWARD_PID_D = 1;
-
-const float TURNDEGREE_PID_P = 1;
-const float TURNDEGREE_PID_I = 1;
-const float TURNDEGREE_PID_D = 1;
+// // CLIMBER // //
 
 const int CLIMBER_MOTOR1_PORT = 10;
 const int CLIMBER_MOTOR2_PORT = 11;
 
 const float CLIMBER_MOTOR_DIRECTION = 1;
 
+const float ROPECLIMB_COMMAND_TIME_ON = 30;
+const float ROPECLIMB_COMMAND_TIME_OFF = 1;
+
+// // FUEL COLLECTOR // //
+
+enum FuelCollectorPosition
+{
+    UP = 90, DOWN = 0
+};
+
 const int FUELCOLLECTOR_MOTOR1_PORT = 10000;
 const int FUELCOLLECTOR_MOTOR2_PORT = 10000;
 
-const int FUELCOLLECTOR_COMMAND_TIME_ON = 5;
+const int FUELCOLLECTOR_GEAR_RATIO = (44 / 22) * (9 / 1) * (5 / 1);
 
-const int FUELLOADER_MOTOR1_PORT = 10000;
+// // FUEL INDEXER // //
 
-const int FUELLOADER_COMMAND_TIME_ON = 5;
+const int FUELINDEXER_MOTOR1_PORT = 4;
+const float FUELINDEXER_MOTOR1_SPEED = 0.5;
+
+// // FUEL CONVEYOR // //
+
+const int FUELCONVEYOR_MOTOR1_PORT = 6;
+const float FUELCONVEYOR_MOTOR1_SPEED = 0.5;
+
+// // TURRET // //
 
 const int TURRET_MOTOR1_PORT = 10000;
 const int TURRET_MOTOR1_GEARING = 40;
@@ -114,14 +128,24 @@ const int TURRET_MOTOR1_D = 0;
 const int TURRET_GEAR1_TEETH = 10;
 const int TURRET_GEAR2_TEETH = 200;
 
+const float CROTATETURRET_LEFT_SPEED = .5;
+const float CROTATETURRET_RIGHT_SPEED = -.5;
+
+// // SHOOTER // //
+
 const int SHOOTER_MOTOR1_PORT = 10000;
 const int SHOOTER_MOTOR2_PORT = 10000;
+
 const double SHOOTER_TARGET_SPEED = 1; //rps
+
 const double SHOOTER_P = 1;
 const double SHOOTER_I = 0;
 const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
+
 const int RAMPING_CONSTANT = 2;
+
+// // GEAR COLLECTOR // //
 
 const int GEARCOLLECTOR_SERVO1_PORT = 0;
 const int GEARCOLLECTOR_SERVO2_PORT = 1;
@@ -132,24 +156,15 @@ const int GEARCOLLECTOR_SERVO_MAX = 170;
 const int GEARCOLLECTOR_OPEN_ANGLE = 170; // ANGLE OF THE SERVOS! NOT FLAP!
 const int GEARCOLLECTOR_CLOSE_ANGLE = 85; //0.5 * (GEARCOLLECTOR_SERVO_MIN + GEARCOLLECTOR_SERVO_MAX);
 
-const float ROPECLIMB_COMMAND_TIME_ON = 30;
-const float ROPECLIMB_COMMAND_TIME_OFF = 1;
-
-const float CROTATETURRET_LEFT_SPEED = .5;
-const float CROTATETURRET_RIGHT_SPEED = -.5;
-
 const float BANEBOTS775_STALLING_CURRENT = 130;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
 const float CIM_STALLING_CURRENT = 133;
 
-const float TURNANGLE_TARGET_ANGLE = 71;
-const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
-
-// RASPBERRY PI CAMERA STUFF
+// // RASPBERRY PI // //
 
 const int BOILER_PI_CAMERA_FOV = 53.5;
 
-//AUTONOMOUS THINGS
+// // // // // AUTO // // // // //
 
 enum eAlliance
 {
@@ -217,6 +232,8 @@ const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
 
+// // // // // UTILITIES // // // // //
+
 /*
  * this function keeps a value within range,
  * given value, minimum, and maximum. if the
@@ -224,9 +241,20 @@ const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle tha
  * the maximum.
  */
 
-inline float CLAMP(float value, float minimum, float maximum)
+inline float clamp(float value, float minimum, float maximum)
 {
     return std::min(maximum, std::max(minimum, value));
+}
+
+/*
+ * this function takes in a desired angle for the
+ * fuel collector flap in front.
+ */
+
+inline float fuel_flap_angle_to_rots(float angle)
+{
+    float final = (angle / 360) * FUELCOLLECTOR_GEAR_RATIO;
+    return final;
 }
 
 /*
@@ -237,7 +265,7 @@ inline float CLAMP(float value, float minimum, float maximum)
  * to turn.
  */
 
-inline float TURRET_ANGLE_TO_ROTS(float angle)
+inline float turret_angle_to_rots(float angle)
 {
     float final = (angle / 360) * TURRET_MOTOR1_TICKS_PER_ROT;
     final *= TURRET_MOTOR1_GEARING;
@@ -250,7 +278,8 @@ inline float TURRET_ANGLE_TO_ROTS(float angle)
  * turret motor, and gives back the change in angle of
  * the entire turret.
  */
-inline float TURRET_ROTS_TO_ANGLE(float rots)
+
+inline float turret_rots_to_angle(float rots)
 {
     float final = rots;
     final /= TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH;
@@ -259,17 +288,6 @@ inline float TURRET_ROTS_TO_ANGLE(float rots)
     final *= 360;
     return final;
 }
-
-/*
- #define TURRET_ROTS_TO_ANGLE(rots) {\
-            float final = (rots / TURRET_MOTOR1_TICKS_PER_ROT);\
-            final *= (TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH);\
-            return final;}
-
- #define TURRET_ANGLE_TO_ROTS(rots) {\
-            float final = 0;\
-            return final;}
- */
 
 #define LOG_DEBUG(...) {\
             char buf[1024];\
@@ -298,10 +316,5 @@ inline float TURRET_ROTS_TO_ANGLE(float rots)
 
 const float WHEEL_CIRCUMFERENCE = (4 * M_PI) / 12; //Feet
 const int TICKS_PER_REVOLUTION = 4020;
-
-// If you are using multiple modules, make sure to define both the port
-// number and the module. For example you with a rangefinder:
-//const int RANGE_FINDER_PORT = 1;
-//const int RANGE_FINDER_MODULE = 1;
 
 #endif

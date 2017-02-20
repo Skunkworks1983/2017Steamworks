@@ -8,7 +8,6 @@
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
 #include "Subsystems/cFuelCollector.h"
-#include "Subsystems/cFuelLoader.h"
 #include "Subsystems/cShooter.h"
 #include "Subsystems/cTurret.h"
 #include <Services/cMessenger.h>
@@ -18,6 +17,8 @@
 
 #include <Commands/DriveBase/cDriveStraight.h>
 #include <Commands/Debugging/cRunOneMotor.h>
+#include <Subsystems/cFuelIndexer.h>
+#include <Subsystems/cFuelConveyor.h>
 #include <Subsystems/Sensors/cColorSensor.h>
 
 class Robot: public IterativeRobot
@@ -34,12 +35,13 @@ private:
         LOG_INFO("RobotInit called");
 
         //CommandBase::s_drivebase = new cDriveBase();
-        //CommandBase::s_oi = new OI();
+        CommandBase::s_oi = new OI();
         //CommandBase::s_climber = new cClimber();
         //CommandBase::s_turret = new cTurret();
-        CommandBase::s_gearCollector = new cGearCollector();
+        //CommandBase::s_gearCollector = new cGearCollector();
         //CommandBase::s_fuelCollector = new cFuelCollector();
-        //CommandBase::s_fuelLoader = new cFuelLoader();
+        CommandBase::s_fuelIndexer = new cFuelIndexer();
+        CommandBase::s_fuelConveyor = new cFuelConveyor();
         //CommandBase::s_shooter = new cShooter();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
@@ -62,7 +64,7 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
 
-        Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
+        //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
 
     void AutonomousPeriodic()

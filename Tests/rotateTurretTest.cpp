@@ -12,16 +12,16 @@
 using ::testing::Return;
 using ::testing::AtLeast;
 
-TEST(RotateTurretTests, ExecuteCallsSetSpeed){
+TEST(RotateTurretTests, RotateTurretClampTest){
     cMockTurret turret;
     cMockMessenger messenger;
 
-    cBoilerData* data = new cBoilerData(1, 0, true);
+    cBoilerData* data = new cBoilerData(10, 0, true);
 
     EXPECT_CALL(messenger, receiveBoilerData())
     .WillOnce(Return(data));
 
-    EXPECT_CALL(turret, setOrientation(50/2))
+    EXPECT_CALL(turret, setOrientation(BOILER_PI_CAMERA_FOV / 2))
     .Times(AtLeast(1));
 
     CommandBase::s_turret = &turret;
