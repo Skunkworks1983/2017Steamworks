@@ -80,6 +80,12 @@ void cMotorGroup::setControlMode(frc::CANSpeedController::ControlMode mode) {
 	}
 }
 
+void cMotorGroup::setSetpoint(double value) {
+    for(std::size_t i = 0; i < m_motorList.size(); i++) {
+        m_motorList[i]->setSetpoint(value);
+    }
+}
+
 double cMotorGroup::getPosition() {
 	for(std::size_t i = 0; i < m_motorList.size(); i++) {
 		if(m_motorList[i]->hasEncoder()) {

@@ -84,7 +84,6 @@ std::string cMessenger::receiveMessage()
     }
 
     std::string message_converted(message_buffer);
-
     return message_converted;
 }
 

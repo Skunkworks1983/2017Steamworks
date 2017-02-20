@@ -8,9 +8,10 @@
 #include <Commands/Shooter/cAcquireBall.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/FuelCollector/cRunFuelFlap.h>
-#include <Commands/FuelLoader/cRunFuelLoader.h>
 #include <Commands/FuelCollector/cRunHopperIntake.h>
 #include <Commands/DriveBase/cSwitchBackFront.h>
+#include <Commands/FuelIndexer/cRunFuelIndexer.h>
+#include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Turret/cManualTurretControl.h>
 #include <Commands/Shooter/cManualShooterControl.h>
 
@@ -20,6 +21,13 @@ OI::OI()
 
     m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
+
+    m_loadBall = new JoystickButton(m_buttons, OI_JOYSTICK_INDEXER_BUTTON);
+    m_runConveyor = new JoystickButton(m_buttons, OI_JOYSTICK_CONVEYOR_BUTTON);
+
+
+    m_loadBall->WhileHeld(new cRunFuelIndexer());
+    m_runConveyor->WhileHeld(new cRunFuelConveyor());
 
     /*
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
@@ -43,13 +51,13 @@ OI::OI()
     m_enableTurretControl->WhileHeld(new cManualTurretControl());
 
 
-    m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
+    m_FuelIndexer->WhenPressed(new cRunFuelIndexer(1, FuelIndexer_COMMAND_TIME_ON));
 
     m_togglereversal->WhenPressed(new cSwitchBackFront());
 
     m_enableShooterControl->WhileHeld(new cManualShooterControl());*/
 
-    //m_fuelLoader->WhenPressed(new cRunFuelLoader(1, FUELLOADER_COMMAND_TIME_ON));
+    //m_FuelIndexer->WhenPressed(new cRunFuelIndexer(1, FuelIndexer_COMMAND_TIME_ON));
 
 }
 

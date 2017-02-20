@@ -20,6 +20,7 @@ public:
     MOCK_METHOD1(rotate, void(float degrees));
     MOCK_METHOD1(setManualEnabled, void(bool state));
     MOCK_METHOD0(isManualEnabled, bool());
+    MOCK_METHOD0(getTurretMotor, cMotor*());
 };
 
 #endif

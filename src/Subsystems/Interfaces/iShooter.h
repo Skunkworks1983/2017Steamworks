@@ -9,6 +9,7 @@
 #ifndef SRC_SUBSYSTEMS_ISHOOTER_H_
 #define SRC_SUBSYSTEMS_ISHOOTER_H_
 #include <Commands/Subsystem.h>
+#include "Subsystems/Utilities/cMotor.h"
 
 class iShooter: public Subsystem
 {
@@ -32,6 +33,7 @@ public:
 	virtual void setPID(double p, double i, double d, double f) = 0;
 	virtual double getSetpoint() = 0;
 	virtual double getError() = 0;
+	virtual cMotor* getShooterMotor() = 0;
 
 };
 
