@@ -10,7 +10,7 @@
 class cTurret : public iTurret
 {
 private:
-    PIDController *controller;
+    PIDController *m_controller;
     cMotor* m_motor1;
 
     bool m_manualEnabled = false;
@@ -29,6 +29,9 @@ public:
     void setSpeed(float speed);
     void setOrientation(float heading);
     void rotate(float degrees);
+
+    cMotor* getTurretMotor();
+
 };
 
 #endif

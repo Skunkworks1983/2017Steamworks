@@ -12,6 +12,8 @@
 #include "WPILib.h"
 #include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/Interfaces/iFuelCollector.h>
+#include "Subsystems/Utilities/cMotor.h"
+
 
 class cFuelCollector: public iFuelCollector
 {
@@ -28,6 +30,8 @@ public:
 
     float getFlapAngle();
     float getHopperDrumSpeed();
+
+    cMotor* getCollectorMotor();
 };
 
 #endif /* SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_ */

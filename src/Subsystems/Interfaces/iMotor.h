@@ -1,8 +1,9 @@
 /*
- * iMotor.h
- *
- *  Created on: Feb 4, 2017
- *      Author: paella
+ * this class is the interface
+ * for the motor. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
  */
 
 #ifndef SRC_SUBSYSTEMS_IMOTOR_H_
@@ -21,8 +22,8 @@ public:
     virtual void setEnabled(bool enabled) = 0;
     virtual bool hasEncoder() = 0;
 
-    virtual CANSpeedController::ControlMode getControlMode() = 0;
-    virtual void setControlMode(CANSpeedController::ControlMode mode) = 0;
+    virtual frc::CANSpeedController::ControlMode getControlMode() = 0;
+    virtual void setControlMode(frc::CANSpeedController::ControlMode mode) = 0;
 
     virtual double getPosition() = 0;
 };

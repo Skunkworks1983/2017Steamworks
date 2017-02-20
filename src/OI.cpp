@@ -21,7 +21,8 @@ OI::OI()
     m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
 
-    /*m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
+    /*
+    m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
     m_acquireBall = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREBALL_BUTTON);
     m_assignTargetBoiler = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGNTARGETBOILER);
     m_assignTargetGoal = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGNTARGETGOAL);

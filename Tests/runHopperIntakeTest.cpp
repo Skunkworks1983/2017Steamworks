@@ -1,9 +1,4 @@
 #include <gmock/gmock.h>
 #include <Subsystems/Interfaces/iFuelCollector.h>
-
-class MockFuelCollector : public iFuelCollector
-{
-public:
-    MOCK_METHOD1(setCollectorFlapAngle, void(float angle));
-    MOCK_METHOD1(setHopperDrumSpeed, void(float speed));
-};
+#include <gtest/gtest.h>
+#include <Tests/Mocks/cMockFuelCollector.h>

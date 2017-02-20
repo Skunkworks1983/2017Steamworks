@@ -10,7 +10,7 @@
 
 cFuelCollector::cFuelCollector()
 {
-    m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT, BaneBots775);
+    m_hopperMotor = new cMotor(FUELCOLLECTOR_MOTOR1_PORT, BaneBots775, true);
 }
 
 void cFuelCollector::setFlapAngle(float angle)
@@ -29,3 +29,6 @@ cFuelCollector::~cFuelCollector()
     delete m_hopperMotor;
 }
 
+cMotor* cFuelCollector::getCollectorMotor() {
+	return m_hopperMotor;
+}

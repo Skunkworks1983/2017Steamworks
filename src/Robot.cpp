@@ -4,6 +4,8 @@
 #include <errno.h>
 #include "RobotMap.h"
 
+#include <SmartDashboard/SmartDashboard.h>
+
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
@@ -11,6 +13,7 @@
 #include "Subsystems/cFuelLoader.h"
 #include "Subsystems/cShooter.h"
 #include "Subsystems/cTurret.h"
+#include <Services/cMessenger.h>
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
@@ -27,6 +30,7 @@ private:
 	cDriveStraight* driveStraight;
 	cRunOneMotor* runMotor;
 	cColorSensor* colorSensor;
+	SmartDashboard* dashboard;
 
     void RobotInit()
     {
@@ -41,8 +45,9 @@ private:
         //CommandBase::s_fuelLoader = new cFuelLoader();
         //CommandBase::s_shooter = new cShooter();
 
-        //CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
-        //CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+        dashboard = new SmartDashboard;
     }
 
     void DisabledInit()
@@ -67,22 +72,46 @@ private:
     void AutonomousPeriodic()
     {
         Scheduler::GetInstance()->Run();
+
+        CommandBase::s_boilerMessenger->sendMessage("auto");
+        CommandBase::s_liftMessenger->sendMessage("auto");
     }
 
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("TeleopInit called");
+
     }
 
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
+
+        CommandBase::s_boilerMessenger->sendMessage("tele");
+        CommandBase::s_liftMessenger->sendMessage("tele");
+
     }
 
     void TestPeriodic()
     {
         LiveWindow::GetInstance()->Run();
+    	dashboard->PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
+    	dashboard->PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
+
+    	dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
+    	dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
+    	dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
+    	dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());
+
+    	dashboard->PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
+
+    	dashboard->PutNumber("Drivebase: left encoder", CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
+    	dashboard->PutNumber("Drivebase: right encoder", CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
+
+    	dashboard->PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
+    	dashboard->PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
+    	dashboard->PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
     }
 };
 //START_ROBOT_CLASS(Robot)
@@ -91,3 +120,5 @@ private:
 //when you build
 //i mean i'm not an expert
 //but its some pretty solid advice
+
+//as an expert, i agree with this not-quite-expert-but-still-pretty-good analysis

@@ -1,8 +1,9 @@
 /*
- * iTurret.h
- *
- *  Created on: Feb 12, 2017
- *      Author: s-4036956
+ * this class is the interface
+ * for the turret. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
  */
 
 #ifndef SRC_SUBSYSTEMS_ITURRET_H_
@@ -22,6 +23,7 @@ public:
 
     virtual void setManualEnabled(bool state) = 0;
     virtual bool isManualEnabled() = 0;
+    virtual cMotor* getTurretMotor() = 0;
 };
 
 

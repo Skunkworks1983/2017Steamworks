@@ -6,9 +6,14 @@
 #include <Subsystems/Interfaces/iGyro.h>
 #include <CommandBase.h>
 #include <Commands/DriveBase/cRunTankDrive.h>
-#include <Tests/MockOI.h>
+
+#include <Tests/Mocks/MockOI.h>
+#include <Tests/Mocks/cMockDriveBase.h>
+
+
 using ::testing::AtLeast;
 using ::testing::Return;
+
 
 class MockDriveBase: public iDriveBase
 {
@@ -24,8 +29,15 @@ public:
     MOCK_METHOD0(getMotorGroupGyro, cReversingMotorGroup*());
     MOCK_METHOD0(getGyro, iGyro*());
     MOCK_METHOD0(CanSeeTape, bool());
+    MOCK_METHOD0(GetLeftDistance, double());
+    MOCK_METHOD0(GetRightDistance, double());
     MOCK_METHOD0(getIsReversed, bool());
     MOCK_METHOD1(setIsReversed, void(bool isreversed));
+    MOCK_METHOD0(GetRValue, double());
+    MOCK_METHOD0(GetGValue, double());
+    MOCK_METHOD0(GetBValue, double());
+    MOCK_METHOD0(GetCValue, double());
+
 
 };
 
@@ -37,11 +49,12 @@ TEST(RunTankDriveTests, InitializeCallsSetEnabled)
     CommandBase::s_drivebase = &driveBase;
     cRunTankDrive Command;
     Command.Initialize();
+
 }
+
 //whoody who whatcha gonna doo
-TEST(RunTankDriveTests, ExecuteCallsSetSpeed)
-{
-    //tests that cRunTankDrive sets speed correctly
+
+TEST(RunTankDriveTests, ExecuteCallsSetSpeed){
     MockDriveBase drivebase;
     MockOI mOI;
     EXPECT_CALL(drivebase, getIsReversed()).WillOnce(Return(false));

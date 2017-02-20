@@ -1,8 +1,9 @@
 /*
- * iDriveBase.h
- *
- *  Created on: Feb 12, 2017
- *      Author: s-4036956
+ * this class is the interface
+ * for the drive base. it's an
+ * abstract class because it doesn't
+ * do anything and serves as a placeholder
+ * for the real deal during unit testing.
  */
 
 #ifndef SRC_SUBSYSTEMS_IDRIVEBASE_H_
@@ -27,8 +28,15 @@ public:
     virtual cReversingMotorGroup* getMotorGroupGyro() = 0;
     virtual iGyro* getGyro() = 0;
     virtual bool CanSeeTape() = 0;
+    virtual double GetLeftDistance() = 0;
+    virtual double GetRightDistance() = 0;
     virtual bool getIsReversed() = 0;
     virtual void setIsReversed(bool isreversed) = 0;
+    virtual double GetRValue() = 0;
+    virtual double GetGValue() = 0;
+    virtual double GetBValue() = 0;
+    virtual double GetCValue() = 0;
+
 };
 
 #endif /* SRC_SUBSYSTEMS_IDRIVEBASE_H_ */
