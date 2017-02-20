@@ -51,6 +51,7 @@ TEST(RunTankDriveTests, ExecuteCallsSetSpeed)
     EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(.5));
     EXPECT_CALL(drivebase, setRightSpeed(.25)).Times(AtLeast(1));
 
+    CommandBase::s_oi = &mOI;
     CommandBase::s_drivebase = &drivebase;
     cRunTankDrive Command;
     Command.Execute();
@@ -67,6 +68,7 @@ TEST(RunTankDriveTests, ExecuteHasDeadzone)
     EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(.04));
     EXPECT_CALL(drivebase, setRightSpeed(0)).Times(AtLeast(1));
 
+    CommandBase::s_oi = &mOI;
     CommandBase::s_drivebase = &drivebase;
     cRunTankDrive Command;
     Command.Execute();
@@ -84,6 +86,7 @@ TEST(RunTankDriveTests, ExecuteCallsSetSpeedNegative)
     EXPECT_CALL(mOI, getRightStickY()).WillOnce(Return(-.5));
     EXPECT_CALL(drivebase, setRightSpeed(-.25)).Times(AtLeast(1));
 
+    CommandBase::s_oi = &mOI;
     CommandBase::s_drivebase = &drivebase;
     cRunTankDrive Command;
     Command.Execute();
@@ -102,7 +105,7 @@ TEST(RunTankDriveTests, ExecuteReverses)
     EXPECT_CALL(drivebase, setRightSpeed(-1)).Times(AtLeast(1));
     EXPECT_CALL(drivebase, setLeftSpeed(-.25)).Times(AtLeast(1));
 
-
+    CommandBase::s_oi = &mOI;
     CommandBase::s_drivebase = &drivebase;
     cRunTankDrive Command;
     Command.Execute();
