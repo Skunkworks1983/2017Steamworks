@@ -1,19 +1,20 @@
 /*
- * this file is the header for the
- * mock shooter. we use this for
- * unit testing & receiving values that
- * are fake
+ * shootPIDTest.cpp
+ *
+ *  Created on: Feb 19, 2017
+ *      Author: S-2505674
  */
-
-#ifndef SRC_SUBSYSTEMS_MOCKSHOOTER_H
-#define SRC_SUBSYSTEMS_MOCKSHOOTER_H
-
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <Subsystems/Interfaces/iShooter.h>
+#include <CommandBase.h>
+#include <Commands/Shooter/cShootPID.h>
+#include <Tests/Mocks/cMockShooter.h>
 
-class cMockShooter : public iShooter {
-public:
+using ::testing::AtLeast;
+
+class MockShooter : public iShooter
+{
     MOCK_METHOD1(setSpeed, void(float speed));
     MOCK_METHOD0(getSpeed, double());
 
@@ -29,7 +30,18 @@ public:
     MOCK_METHOD1(setSetpoint, void(float setpoint));
     MOCK_METHOD0(getSetpoint, double());
     MOCK_METHOD0(DisablePID, void());
-
 };
 
-#endif
+TEST(ShootPIDTests, ExecuteCallssetSetpoint)
+{
+	MockShooter shooter;
+
+	EXPECT_CALL(shooter, setSetpoint(1.0))
+	.Times(AtLeast(1));
+
+	CommandBase::s_shooter = &shooter;
+	cShootPID Command;
+	Command.Execute();
+}
+
+
