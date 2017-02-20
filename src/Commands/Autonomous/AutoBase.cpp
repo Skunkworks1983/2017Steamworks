@@ -4,7 +4,7 @@
  *  Created on: Jan 26, 2017
  *      Author: s-4036956
  */
-#include <Commands/FuelIndexer/cRunFuelIndexer.h>
+
 #include "AutoBase.h"
 #include "cTurnDegree.h"
 #include "cSimpleDriveForward.h"
@@ -12,6 +12,7 @@
 #include <RobotMap.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
+#include <Commands/FuelIndexer/cRunFuelIndexer.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
@@ -53,7 +54,7 @@ AutoBase* configureAutonomous()
     }
 
     // load balls into the shooter
-    commands->AddSequential(new cRunFuelIndexer(1, 30));
+    commands->AddSequential(new cRunFuelIndexer());
 
     // return the commands
     return commands;

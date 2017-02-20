@@ -58,3 +58,7 @@ bool cTurret::isManualEnabled()
 {
     return m_manualEnabled;
 }
+
+cMotor* cTurret::getTurretMotor() {
+return m_motor1;
+}

@@ -66,6 +66,10 @@ public:
     iGyro* getGyro();
     bool getIsReversed();
     void setIsReversed(bool isreversed);
+    double GetRValue();
+    double GetGValue();
+    double GetBValue();
+    double GetCValue();
 
 };
 

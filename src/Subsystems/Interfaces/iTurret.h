@@ -25,6 +25,7 @@ public:
 
     virtual void setManualEnabled(bool state) = 0;
     virtual bool isManualEnabled() = 0;
+    virtual cMotor* getTurretMotor() = 0;
 };
 
 
