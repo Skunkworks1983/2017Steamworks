@@ -25,27 +25,26 @@ class Robot: public IterativeRobot
 private:
 
 	//Put commands out here for declaration
-	cDriveStraight* driveStraight;
 	cRunOneMotor* runMotor;
-	cColorSensor* colorSensor;
+	cRunTankDrive* tankDrive;
 
     void RobotInit()
     {
         LOG_INFO("RobotInit called");
 
-        //CommandBase::s_drivebase = new cDriveBase();
-        //CommandBase::s_oi = new OI();
+        CommandBase::s_drivebase = new cDriveBase();
+        CommandBase::s_oi = new OI();
         //CommandBase::s_climber = new cClimber();
         //CommandBase::s_turret = new cTurret();
         CommandBase::s_gearCollector = new cGearCollector();
-        //CommandBase::s_fuelCollector = new cFuelCollector();
+        CommandBase::s_fuelCollector = new cFuelCollector();
         //CommandBase::s_fuelLoader = new cFuelLoader();
         //CommandBase::s_shooter = new cShooter();
 
-        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
-        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+        /*CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);*/
 
-        CommandBase::s_drivebase->getGyro()->initGyro();
+        //CommandBase::s_drivebase->getGyro()->initGyro();
         //CommandBase::s_drivebase->getGyro()->zeroYaw();*/
 
         //colorSensor = new cColorSensor();
@@ -55,9 +54,8 @@ private:
         //driveStraight = new cDriveStraight(6);
         std::cout << "After" << std::endl;
 
+        tankDrive = new cRunTankDrive();
         runMotor = new cRunOneMotor();
-
-
 
         CameraServer::GetInstance()->StartAutomaticCapture();
     }
@@ -78,29 +76,32 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
 
-        Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
+        //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
 
     void AutonomousPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        CommandBase::s_boilerMessenger->sendMessage("auto");
-        CommandBase::s_liftMessenger->sendMessage("auto");
+        /*CommandBase::s_boilerMessenger->sendMessage("auto");
+        CommandBase::s_liftMessenger->sendMessage("auto");*/
     }
 
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
+        //Scheduler::GetInstance()->AddCommand(tankDrive);
+        Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
+        std::cout << "Init" << std::endl;
     }
 
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        CommandBase::s_boilerMessenger->sendMessage("tele");
-        CommandBase::s_liftMessenger->sendMessage("tele");
+        /*CommandBase::s_boilerMessenger->sendMessage("tele");
+        CommandBase::s_liftMessenger->sendMessage("tele");*/
     }
 
     void TestPeriodic()

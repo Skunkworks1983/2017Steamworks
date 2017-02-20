@@ -19,6 +19,11 @@ public:
 
     virtual float getTurretSlider() = 0;
     virtual float getShooterSlider() = 0;
+
+    virtual bool getLeftTriggerPressed() = 0;
+    virtual bool getRightTriggerPressed() = 0;
+
+    virtual bool getLeft2Pressed() = 0;
 };
 
 

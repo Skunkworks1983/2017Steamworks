@@ -3,11 +3,12 @@
 cRunOneMotor::cRunOneMotor() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	m_motor1 = new cMotor(6, BaneBots775);
 	//m_motor2 = new cMotor(10, BaneBots775);
 
 	for(int i=0; i<16; i++) {
-		m_motors.push_back(new cMotor(i, BaneBots775));
+		cMotor* motor = new cMotor(i, BaneBots775, true);
+		motor->setFeedbackDevice();
+		m_motors.push_back(motor);
 	}
 
 	m_index = 0;
@@ -22,7 +23,7 @@ void cRunOneMotor::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void cRunOneMotor::Execute() {
 	if(!m_pressedLastLoop) {
-		if(CommandBase::s_oi->getLeft4Pressed()) {
+		if(CommandBase::s_oi->getLeftTriggerPressed()) {
 			//m_motors[m_index]->
 			if(m_index == 0) {
 				m_index = 15;
@@ -31,7 +32,7 @@ void cRunOneMotor::Execute() {
 			}
 			std::cout << "m_index: " << m_index << std::endl;
 			m_pressedLastLoop = true;
-		} else if(CommandBase::s_oi->getLeft5Pressed()) {
+		} else if(CommandBase::s_oi->getRightTriggerPressed()) {
 			if(m_index == 15) {
 				m_index = 0;
 			} else {
@@ -43,8 +44,10 @@ void cRunOneMotor::Execute() {
 	} else {
 		m_pressedLastLoop = false;
 	}
+	if(CommandBase::s_oi->getLeft2Pressed()) {
+		std::cout << "Pos: \t\t" << m_motors[m_index]->getPosition() << std::endl;
+	}
 	m_motors[m_index]->setOutput(CommandBase::s_oi->getLeftStickY());
-	//m_motor2->setOutput(CommandBase::s_oi->getLeftStickY());
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -34,8 +34,10 @@ public:
     float getTurretSlider();
     float getShooterSlider();
 
-    bool getLeft4Pressed();
-    bool getLeft5Pressed();
+    bool getLeftTriggerPressed();
+    bool getRightTriggerPressed();
+
+    bool getLeft2Pressed();
 };
 
 #endif

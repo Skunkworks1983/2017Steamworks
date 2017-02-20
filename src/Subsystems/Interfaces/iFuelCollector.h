@@ -14,8 +14,8 @@ class iFuelCollector: public Subsystem
 {
 public:
     iFuelCollector() : Subsystem("FuelCollector"){};
-    virtual void setFlapAngle(float angle) = 0;
-    virtual void setHopperDrumSpeed(float speed) = 0;
+    virtual void setFlapSetpoint(double setpoint) = 0;
+    virtual void setCollectorSpeed(double speed) = 0;
 };
 
 
