@@ -30,7 +30,7 @@ TEST(RunTankDriveTests, InitializeCallsSetEnabled){
 
 //whoody who whatcha gonna doo
 TEST(RunTankDriveTests, ExecuteCallsSetSpeed){
-    MockDriveBase drivebase;
+    cMockDriveBase drivebase;
     MockOI mOI;
     EXPECT_CALL(mOI, getLeftStickY()).WillOnce(Return(.5));
     EXPECT_CALL(drivebase, setLeftSpeed(.25))

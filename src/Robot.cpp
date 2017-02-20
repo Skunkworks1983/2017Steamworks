@@ -90,26 +90,28 @@ private:
 
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");
-        if (SENSOR_DEBUG_MODE) {
-        	dashboard->PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
-        	dashboard->PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
-        	dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
-        	dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
-        	dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
-        	dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());
-        	dashboard->PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
-        	dashboard->PutNumber("Drivebase: left encoder", CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
-        	dashboard->PutNumber("Drivebase: right encoder", CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
-        	dashboard->PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
-        	dashboard->PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
-        	dashboard->PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
 
-        }
     }
 
     void TestPeriodic()
     {
         LiveWindow::GetInstance()->Run();
+    	dashboard->PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
+    	dashboard->PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
+
+    	dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
+    	dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
+    	dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
+    	dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());
+
+    	dashboard->PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
+
+    	dashboard->PutNumber("Drivebase: left encoder", CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
+    	dashboard->PutNumber("Drivebase: right encoder", CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
+
+    	dashboard->PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
+    	dashboard->PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
+    	dashboard->PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
     }
 };
 //ayy lmao
