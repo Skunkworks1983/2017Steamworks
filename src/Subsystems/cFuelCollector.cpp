@@ -29,6 +29,7 @@ cFuelCollector::~cFuelCollector()
     delete m_hopperMotor;
 }
 
-cMotor* cFuelCollector::getCollectorMotor() {
-	return m_hopperMotor;
+cMotor* cFuelCollector::getCollectorMotor()
+{
+    return m_hopperMotor;
 }

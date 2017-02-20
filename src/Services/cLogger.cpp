@@ -109,7 +109,7 @@ void *Logger::write(void * d)
                 LogMessage message = logger->pull_message();
                 uint64_t timestamp = (message.time.tv_sec * 1000) + (message.time.tv_usec / 1000);
 
-                logFile << "[" << timestamp << "] " << ROBOT_NAME << " " << ELogLevelStrings[message.level] << " " << message.message
+                logFile << "[" << timestamp << "] " << ((const char*) ROBOT_NAME) << " " << ELogLevelStrings[message.level] << " " << message.message
                         << std::endl; //Write to log file
             }
 

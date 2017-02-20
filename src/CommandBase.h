@@ -9,9 +9,10 @@
 #include <Subsystems/Interfaces/iClimber.h>
 #include <Subsystems/Interfaces/iGearCollector.h>
 #include <Subsystems/Interfaces/iFuelCollector.h>
-#include <Subsystems/Interfaces/iFuelLoader.h>
 #include <Subsystems/Interfaces/iShooter.h>
 #include <Subsystems/Interfaces/iTurret.h>
+#include <Subsystems/Interfaces/iFuelConveyor.h>
+#include <Subsystems/Interfaces/iFuelIndexer.h>
 #include <Services/Interfaces/iMessenger.h>
 
 /**
@@ -32,7 +33,8 @@ public:
     static iClimber * s_climber;
     static iGearCollector* s_gearCollector;
     static iFuelCollector* s_fuelCollector;
-    static iFuelLoader* s_fuelLoader;
+    static iFuelConveyor* s_fuelConveyor;
+    static iFuelIndexer* s_fuelIndexer;
     static iShooter* s_shooter;
     static iTurret* s_turret;
 };

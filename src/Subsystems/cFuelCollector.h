@@ -14,7 +14,6 @@
 #include <Subsystems/Interfaces/iFuelCollector.h>
 #include "Subsystems/Utilities/cMotor.h"
 
-
 class cFuelCollector: public iFuelCollector
 {
 private:
