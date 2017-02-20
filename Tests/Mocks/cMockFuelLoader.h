@@ -5,14 +5,14 @@
  * are fake
  */
 
-#ifndef SRC_SUBSYSTEMS_MOCKFUELLOADER_H
-#define SRC_SUBSYSTEMS_MOCKFUELLOADER_H
+#ifndef SRC_SUBSYSTEMS_MOCKFuelIndexer_H
+#define SRC_SUBSYSTEMS_MOCKFuelIndexer_H
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <Subsystems/Interfaces/iFuelLoader.h>
+#include <Subsystems/Interfaces/iFuelIndexer.h>
 
-class cMockFuelLoader : public iFuelLoader {
+class cMockFuelIndexer : public iFuelIndexer {
 public:
     MOCK_METHOD1(setSpeed, void(float speed));
 };

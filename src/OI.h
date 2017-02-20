@@ -13,6 +13,11 @@ private:
     Joystick *m_leftStick;
     Joystick *m_rightStick;
 
+
+    JoystickButton *m_loadBall;
+    JoystickButton *m_runConveyor;
+
+    /* outdated
     JoystickButton *m_acquireGear;
     JoystickButton *m_acquireBall;
     JoystickButton *m_assignTargetBoiler;
@@ -21,10 +26,11 @@ private:
     JoystickButton *m_climbRope;
     JoystickButton *m_spinUpShooter;
     JoystickButton *m_loadBall;
-    JoystickButton *m_fuelLoader;
+    JoystickButton *m_fuelIndexer;
     JoystickButton *m_togglereversal;
     JoystickButton *m_enableTurretControl;
     JoystickButton *m_enableShooterControl;
+    */
 
 public:
     OI();

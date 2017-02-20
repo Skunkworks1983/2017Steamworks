@@ -21,8 +21,11 @@ public:
     virtual void setOrientation(float heading) = 0;
     virtual void rotate(float degrees) = 0;
 
+    virtual float getHeading() = 0;
+
     virtual void setManualEnabled(bool state) = 0;
     virtual bool isManualEnabled() = 0;
+    virtual cMotor* getTurretMotor() = 0;
 };
 
 

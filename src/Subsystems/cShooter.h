@@ -6,12 +6,14 @@
 #include <OI.h>
 #include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/Interfaces/iShooter.h>
+#include "Subsystems/Utilities/cMotorGroup.h"
 
 class cShooter : public iShooter
 {
 private:
     cMotor* m_motor1;
     cMotor* m_motor2;
+    std::vector<iMotor*> m_shooterMotors;
 
     float setpoint = 0.0;
 
@@ -36,6 +38,7 @@ public:
 	void setPID(double p, double i, double d, double f);
 	double getSetpoint();
 	double getError();
+	cMotor* getShooterMotor();
 
 };
 

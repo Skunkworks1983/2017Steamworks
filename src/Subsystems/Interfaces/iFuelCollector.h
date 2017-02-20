@@ -9,6 +9,7 @@
 #ifndef SRC_SUBSYSTEMS_IFUELCOLLECTOR_H_
 #define SRC_SUBSYSTEMS_IFUELCOLLECTOR_H_
 #include <Commands/Subsystem.h>
+#include "Subsystems/Utilities/cMotor.h"
 
 class iFuelCollector: public Subsystem
 {

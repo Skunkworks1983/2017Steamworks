@@ -1,8 +1,5 @@
 /*
- * cCenterTape.h
- *
- *  Created on: Feb 14, 2017
- *      Author: Mike
+ * This command orients the robot to point at the tape near the lift.
  */
 
 #ifndef SRC_COMMANDS_AUTONOMOUS_CCENTERTAPE_H_

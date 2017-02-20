@@ -12,7 +12,7 @@
 #include <PIDOutput.h>
 #include <CANSpeedController.h>
 
-class iMotor: public PIDSource, public PIDOutput
+class iMotor: public frc::PIDSource, public frc::PIDOutput
 {
 public:
     virtual void setBrakeMode(bool brake) = 0;
@@ -24,6 +24,8 @@ public:
 
     virtual frc::CANSpeedController::ControlMode getControlMode() = 0;
     virtual void setControlMode(frc::CANSpeedController::ControlMode mode) = 0;
+
+    virtual void setSetpoint(double value) = 0;
 
     virtual double getPosition() = 0;
 };

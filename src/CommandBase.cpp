@@ -12,7 +12,8 @@ iMessenger* CommandBase::s_boilerMessenger = NULL;
 iMessenger* CommandBase::s_liftMessenger = NULL;
 iGearCollector* CommandBase::s_gearCollector = NULL;
 iFuelCollector* CommandBase::s_fuelCollector = NULL;
-iFuelLoader* CommandBase::s_fuelLoader = NULL;
+iFuelIndexer* CommandBase::s_fuelIndexer = NULL;
+iFuelConveyor* CommandBase::s_fuelConveyor = NULL;
 iShooter* CommandBase::s_shooter = NULL;
 iTurret* CommandBase::s_turret = NULL;
 

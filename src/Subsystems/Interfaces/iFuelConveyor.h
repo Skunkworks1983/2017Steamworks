@@ -1,21 +1,21 @@
 /*
  * this class is the interface
- * for the climber. it's an
+ * for the fuel conveyor. it's an
  * abstract class because it doesn't
  * do anything and serves as a placeholder
  * for the real deal during unit testing.
  */
 
-#ifndef SRC_SUBSYSTEMS_ICLIMBER_H_
-#define SRC_SUBSYSTEMS_ICLIMBER_H_
+#ifndef SRC_SUBSYSTEMS_IFUELCONVEYOR_H_
+#define SRC_SUBSYSTEMS_IFUELCONVEYOR_H_
 #include <Commands/Subsystem.h>
 
-class iClimber: public Subsystem
+class iFuelConveyor: public Subsystem
 {
 public:
-    iClimber() : Subsystem("Climber"){};
-    virtual void setSpeed(float speed) = 0;
+    iFuelConveyor() : Subsystem("FuelConveyor"){};
 
+    virtual void setSpeed(float speed) = 0;
 };
 
 
