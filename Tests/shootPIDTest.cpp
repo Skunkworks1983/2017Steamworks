@@ -30,6 +30,7 @@ class MockShooter : public iShooter
     MOCK_METHOD1(setSetpoint, void(float setpoint));
     MOCK_METHOD0(getSetpoint, double());
     MOCK_METHOD0(DisablePID, void());
+    MOCK_METHOD0(getShooterMotor, cMotor*());
 };
 
 TEST(ShootPIDTests, ExecuteCallssetSetpoint)
