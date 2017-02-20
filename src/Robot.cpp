@@ -36,7 +36,6 @@ private:
         LOG_INFO("RobotInit called");
 
         CommandBase::s_drivebase = new cDriveBase();
-        CommandBase::s_oi = new OI();
         //CommandBase::s_climber = new cClimber();
         //CommandBase::s_turret = new cTurret();
         CommandBase::s_gearCollector = new cGearCollector();
@@ -44,7 +43,9 @@ private:
         //CommandBase::s_fuelLoader = new cFuelLoader();
         CommandBase::s_fuelIndexer = new cFuelIndexer();
         CommandBase::s_fuelConveyor = new cFuelConveyor();
-        //CommandBase::s_shooter = new cShooter();
+        CommandBase::s_shooter = new cShooter();
+
+        CommandBase::s_oi = new OI();
 
         /*CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);*/
@@ -103,6 +104,8 @@ private:
 
     void TeleopPeriodic()
     {
+    	//std::cout << "slider: \t\t" << CommandBase::s_oi->getSliderPos() << std::endl;
+    	CommandBase::s_oi->getSliderPos();
         Scheduler::GetInstance()->Run();
 
         /*CommandBase::s_boilerMessenger->sendMessage("tele");
@@ -111,6 +114,7 @@ private:
 
     void TestPeriodic()
     {
+    	/*
         LiveWindow::GetInstance()->Run();
     	dashboard->PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
     	dashboard->PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
@@ -128,6 +132,7 @@ private:
     	dashboard->PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
     	dashboard->PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
     	dashboard->PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
+    	*/
     }
 };
 START_ROBOT_CLASS(Robot)

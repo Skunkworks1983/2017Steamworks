@@ -67,7 +67,7 @@ const int OI_JOYSTICK_INDEXER_BUTTON = 4;
 const int OI_JOYSTICK_CONVEYOR_BUTTON = 5;
 
 const int OI_JOYSTICK_SWITCHBACKFRONT = 10;
-const int OI_JOYSTICK_TURRET_CONTROL = 10000;
+const int OI_JOYSTICK_TURRET_CONTROL = 7;
 const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
 
 const int MANUAL_TURRET_CONTROL_SCALAR = 0.5;
@@ -94,12 +94,12 @@ const int FUELCOLLECTOR_MAX_ENC_ANGLE = 330;
 // // FUEL INDEXER // //
 const int FUELLOADER_MOTOR1_PORT = 6;
 
-const int FUELINDEXER_MOTOR1_PORT = 4;
+const int FUELINDEXER_MOTOR1_PORT = 5;
 const float FUELINDEXER_MOTOR1_SPEED = 0.5;
 
 // // FUEL CONVEYOR // //
 
-const int FUELCONVEYOR_MOTOR1_PORT = 6;
+const int FUELCONVEYOR_MOTOR1_PORT = 4;
 const float FUELCONVEYOR_MOTOR1_SPEED = 0.5;
 
 // // TURRET // //
@@ -124,8 +124,8 @@ const float CROTATETURRET_RIGHT_SPEED = -.5;
 
 // // SHOOTER // //
 
-const int SHOOTER_MOTOR1_PORT = 10000;
-const int SHOOTER_MOTOR2_PORT = 10000;
+const int SHOOTER_MOTOR1_PORT = 2;
+const int SHOOTER_MOTOR2_PORT = 3;
 
 const double SHOOTER_TARGET_SPEED = 1; //rps
 
@@ -245,11 +245,12 @@ inline float clamp(float value, float minimum, float maximum)
  * fuel collector flap in front.
  */
 
+/*
 inline float fuel_flap_angle_to_rots(float angle)
 {
     float final = (angle / 360) * FUELCOLLECTOR_GEAR_RATIO;
     return final;
-}
+}*/
 
 /*
  * this function takes in a desired angle for the

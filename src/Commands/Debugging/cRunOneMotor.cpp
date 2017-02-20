@@ -47,7 +47,9 @@ void cRunOneMotor::Execute() {
 	if(CommandBase::s_oi->getLeft2Pressed()) {
 		std::cout << "Pos: \t\t" << m_motors[m_index]->getPosition() << std::endl;
 	}
-	m_motors[m_index]->setOutput(CommandBase::s_oi->getLeftStickY());
+	float joy = CommandBase::s_oi->getLeftStickY();
+	if(joy > -.05 && joy < 0.05) { joy = 0; }
+	m_motors[m_index]->setOutput(joy);
 }
 
 // Make this return true when this Command no longer needs to run execute()

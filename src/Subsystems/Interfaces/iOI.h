@@ -24,6 +24,8 @@ public:
     virtual bool getRightTriggerPressed() = 0;
 
     virtual bool getLeft2Pressed() = 0;
+
+    virtual double getSliderPos() = 0;
 };
 
 

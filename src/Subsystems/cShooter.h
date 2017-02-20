@@ -22,7 +22,7 @@ private:
     bool m_manualEnabled = false;
 
 public:
-    cShooter(bool speed, bool brake);
+    cShooter();
     ~cShooter();
     void InitDefaultCommand();
 
