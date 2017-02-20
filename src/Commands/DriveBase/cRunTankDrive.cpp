@@ -27,16 +27,16 @@ void cRunTankDrive::Execute()
     {
         leftSpeed = CommandBase::s_oi->getRightStickY() * -1;
         rightSpeed = CommandBase::s_oi->getLeftStickY() * -1;
-        //
+        //reverses robot -> switches joystick control and robot front/back
     }
 
-    if(leftSpeed < .05 && leftSpeed > -.05)
+    if(leftSpeed < .05 && leftSpeed > -.05) //creates deadzone
     {
         CommandBase::s_drivebase->setLeftSpeed(0);
     }
     else if(leftSpeed < 0)
     {
-        CommandBase::s_drivebase->setLeftSpeed((leftSpeed * leftSpeed) * -1);
+        CommandBase::s_drivebase->setLeftSpeed((leftSpeed * leftSpeed) * -1); //scalling
     }
     else
     {
