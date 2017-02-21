@@ -7,16 +7,13 @@ cShooter::cShooter()
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775, true); //one of these needs an encoder. Which? god only knows
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
-    std::cout << "foo1\n";
 
 	//m_motor1->reverseSensorDirection();
 	m_motor2->setControlMode(CANSpeedController::kFollower);
 	m_motor2->Set(SHOOTER_MOTOR1_PORT);
-	std::cout << "foo2\n";
 	m_motor1->setControlMode(CANSpeedController::kSpeed);
 	m_motor1->setBrakeMode(false);
 	m_motor2->setBrakeMode(false);
-	std::cout << "foo3\n";
 	m_motor1->setFeedbackDevice();
 
 }
@@ -40,7 +37,7 @@ void cShooter::setSpeed(float speed)
 
 double cShooter::getSpeed()
 {
-    return 0;
+    return 0; //wat
 }
 
 double cShooter::PIDGet()

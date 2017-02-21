@@ -7,19 +7,21 @@
 cTurret::cTurret()
 {
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
-    m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
-    m_motor1->configForwardLimit((double) turret_angle_to_rots(-90));
-    m_motor1->configReverseLimit((double) turret_angle_to_rots(90));
+    //m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
+    /*m_motor1->configForwardLimit((double) turret_angle_to_rots(-90));
+    m_motor1->configReverseLimit((double) turret_angle_to_rots(90));*/
+
+    m_p = -1./2500;
+    m_i = 0;
+    m_d = 0;
+
+    m_controller = new PIDController(m_p, m_i, m_d, m_motor1, m_motor1);
+    m_controller->SetOutputRange(-1, 1); //it should never run this fast
 }
 
 cTurret::~cTurret()
 {
     delete m_motor1;
-}
-
-void cTurret::InitDefaultCommand()
-{
-
 }
 
 void cTurret::setSpeed(float speed)
@@ -61,4 +63,16 @@ bool cTurret::isManualEnabled()
 
 cMotor* cTurret::getTurretMotor() {
 return m_motor1;
+}
+
+void cTurret::setSetpoint(int ticks) {
+	m_controller->SetSetpoint(ticks);
+}
+
+void cTurret::setEnabled(bool enabled) {
+	if(enabled) {
+		m_controller->Enable();
+	} else {
+		m_controller->Disable();
+	}
 }

@@ -28,7 +28,7 @@ class Robot: public IterativeRobot
 private:
 
 	//Put commands out here for declaration
-	cRunOneMotor* runMotor;
+	//cRunOneMotor* runMotor;
 	cRunTankDrive* tankDrive;
 
     void RobotInit()
@@ -37,7 +37,7 @@ private:
 
         CommandBase::s_drivebase = new cDriveBase();
         //CommandBase::s_climber = new cClimber();
-        //CommandBase::s_turret = new cTurret();
+        CommandBase::s_turret = new cTurret();
         CommandBase::s_gearCollector = new cGearCollector();
         CommandBase::s_fuelCollector = new cFuelCollector();
         //CommandBase::s_fuelLoader = new cFuelLoader();
@@ -61,9 +61,9 @@ private:
         std::cout << "After" << std::endl;
 
         tankDrive = new cRunTankDrive();
-        runMotor = new cRunOneMotor();
+        //runMotor = new cRunOneMotor();
 
-        CameraServer::GetInstance()->StartAutomaticCapture();
+        //CameraServer::GetInstance()->StartAutomaticCapture();
     }
 
     void DisabledInit()
@@ -96,8 +96,8 @@ private:
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
-        //Scheduler::GetInstance()->AddCommand(tankDrive);
-        Scheduler::GetInstance()->AddCommand(runMotor);
+        Scheduler::GetInstance()->AddCommand(tankDrive);
+        //Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
         std::cout << "Init" << std::endl;
     }
@@ -105,7 +105,7 @@ private:
     void TeleopPeriodic()
     {
     	//std::cout << "slider: \t\t" << CommandBase::s_oi->getSliderPos() << std::endl;
-    	CommandBase::s_oi->getSliderPos();
+    	//CommandBase::s_oi->getSliderPos();
         Scheduler::GetInstance()->Run();
 
         /*CommandBase::s_boilerMessenger->sendMessage("tele");

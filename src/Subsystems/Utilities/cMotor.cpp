@@ -66,11 +66,12 @@ void cMotor::setOutput(float output)
 void cMotor::PIDWrite(double output)
 {
     setOutput(output);
+	std::cout << "PIDWrite output: \t\t" << output << std::endl;
 }
 
 double cMotor::PIDGet()
 {
-    return m_motor.PIDGet();
+    return m_motor.GetPosition();
 }
 
 void cMotor::setEnabled(bool enabled)

@@ -26,6 +26,7 @@ public:
     virtual bool getLeft2Pressed() = 0;
 
     virtual double getSliderPos() = 0;
+    virtual double getRotPos() = 0;
 };
 
 

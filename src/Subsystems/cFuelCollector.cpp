@@ -13,16 +13,13 @@ cFuelCollector::cFuelCollector()
     m_collectorMotor = new cMotor(FUELCOLLECTOR_COLLECTOR_PORT, BaneBots775);
     m_angleMotor = new cMotor(FUELCOLLECTOR_ANGLE_PORT, BaneBots775, true);
 
-    m_p = 1/310;
+    m_p = -1./620;
     m_i = 0;
     m_d = 0;
 
     m_controller = new PIDController(m_p, m_i, m_d, m_angleMotor, m_angleMotor);
 
     m_controller->SetOutputRange(-1, 1);
-    m_controller->SetSetpoint(FUELCOLLECTOR_MIN_ENC_ANGLE);
-
-    m_controller->Enable();
 }
 
 void cFuelCollector::setCollectorSpeed(double speed) {
@@ -36,7 +33,19 @@ void cFuelCollector::setFlapSetpoint(double setpoint)
 
 cFuelCollector::~cFuelCollector()
 {
-    // TODO Auto-generated destructor stub
     delete m_collectorMotor;
     delete m_angleMotor;
 }
+
+double cFuelCollector::getError() {
+	return m_controller->GetError();
+}
+
+void cFuelCollector::setEnabled(bool enabled) {
+	if(enabled) {
+		m_controller->Enable();
+	} else {
+		m_controller->Disable();
+	}
+}
+

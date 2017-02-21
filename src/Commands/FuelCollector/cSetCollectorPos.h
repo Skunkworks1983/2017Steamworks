@@ -2,14 +2,11 @@
 #define cSetCollectorUp_H
 
 #include <CommandBase.h>
-#include <PIDController.h>
+#include <RobotMap.h>
 
-class cSetCollectorUp : public CommandBase {
-private:
-	PIDController* m_controller;
-	bool m_up;
+class cSetCollectorPos : public CommandBase {
 public:
-	cSetCollectorUp(bool up); //if not up then down
+	cSetCollectorPos(); //if not up then down
 	void Initialize();
 	void Execute();
 	bool IsFinished();

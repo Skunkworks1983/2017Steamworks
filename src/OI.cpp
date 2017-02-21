@@ -8,6 +8,7 @@
 #include <Commands/Shooter/cAcquireBall.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/FuelCollector/cRunFuelCollector.h>
+#include <Commands/FuelCollector/cSetCollectorPos.h>
 #include <Commands/DriveBase/cSwitchBackFront.h>
 #include <Commands/FuelIndexer/cRunFuelIndexer.h>
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
@@ -21,11 +22,15 @@ OI::OI()
     m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
 
-    m_loadBall = new JoystickButton(m_buttons, OI_JOYSTICK_INDEXER_BUTTON);
-    m_runConveyor = new JoystickButton(m_buttons, OI_JOYSTICK_CONVEYOR_BUTTON);
+    //m_loadBall = new JoystickButton(m_buttons, OI_JOYSTICK_INDEXER_BUTTON);
+    m_runConveyor = new JoystickButton(m_buttons, 10); //this does both now
 
-    m_loadBall->WhileHeld(new cRunFuelIndexer());
+    m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
+
+    //m_loadBall->WhileHeld(new cRunFuelIndexer());
     m_runConveyor->WhileHeld(new cRunFuelConveyor());
+
+    m_collectorPos->WhileHeld(new cSetCollectorPos());
 
 
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
@@ -97,8 +102,14 @@ bool OI::getLeft2Pressed() {
 }
 
 double OI::getSliderPos() {
-	double x = 10*m_buttons->GetX();
-	if(x + 10 <= 0) { return 0; }
+	double x = m_buttons->GetX();
+	x = pow(x, 10);
+	x /= .618726;
+	x = 1 - x;
 	std::cout << x << std::endl;
-	return log10(x + 10);
+	return x;
+}
+
+double OI::getRotPos() {
+	return m_buttons->GetY();
 }

@@ -33,6 +33,10 @@ public:
     void setCollectorSpeed(double speed);
 
     double getFlapSetpoint();
+
+    double getError();
+
+    void setEnabled(bool enabled);
 };
 
 #endif /* SRC_SUBSYSTEMS_CFUELCOLLECTOR_H_ */
