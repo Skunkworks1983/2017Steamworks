@@ -3,19 +3,18 @@
 #include "Utilities/cMotor.h"
 
 
-cShooter::cShooter(bool speed, bool brake)
+cShooter::cShooter()
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775, true); //one of these needs an encoder. Which? god only knows
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
 
-	m_motor1->reverseSensorDirection();
+	//m_motor1->reverseSensorDirection();
 	m_motor2->setControlMode(CANSpeedController::kFollower);
 	m_motor2->Set(SHOOTER_MOTOR1_PORT);
 	m_motor1->setControlMode(CANSpeedController::kSpeed);
-	m_motor1->setBrakeMode(!brake);
-	m_motor2->setBrakeMode(!brake);
+	m_motor1->setBrakeMode(false);
+	m_motor2->setBrakeMode(false);
 	m_motor1->setFeedbackDevice();
-	m_motor1->reverseOutput();
 
 }
 
@@ -33,12 +32,12 @@ void cShooter::InitDefaultCommand()
 void cShooter::setSpeed(float speed)
 {
     m_motor1->setOutput(speed);
-    m_motor2->setOutput(speed);
+    m_motor2->setOutput(-1*speed);
 }
 
 double cShooter::getSpeed()
 {
-    return 0;
+    return m_motor1->GetSpeed(); //wat
 }
 
 double cShooter::PIDGet()
@@ -92,6 +91,13 @@ void cShooter::setPID(double p, double i, double d, double f)
 
 void cShooter::setManualEnabled(bool state)
 {
+	if(state) {
+		m_motor1->setControlMode(CANSpeedController::kPercentVbus);
+		m_motor2->setControlMode(CANSpeedController::kPercentVbus);
+	} else {
+		m_motor1->setControlMode(CANSpeedController::kSpeed);
+		m_motor2->setControlMode(CANSpeedController::kFollower);
+	}
     m_manualEnabled = state;
 }
 

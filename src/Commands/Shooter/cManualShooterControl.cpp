@@ -11,18 +11,20 @@
 
 cManualShooterControl::cManualShooterControl()
 {
-    // TODO Auto-generated constructor stub
-    CommandBase::s_shooter->setManualEnabled(true);
 }
 
 void cManualShooterControl::Initialize()
 {
+	CommandBase::s_shooter->setManualEnabled(true);
+	CommandBase::s_turret->setManualEnabled(true);
 
+	CommandBase::s_turret->setEnabled(true);
 }
 
 void cManualShooterControl::Execute()
 {
-    CommandBase::s_shooter->setSpeed(CommandBase::s_oi->getShooterSlider() * MANUAL_SHOOTER_CONTROL_SCALAR);
+    CommandBase::s_shooter->setSpeed(CommandBase::s_oi->getSliderPos() * MANUAL_SHOOTER_CONTROL_SCALAR);
+    CommandBase::s_turret->setSetpoint(2500*CommandBase::s_oi->getRotPos());
 }
 
 bool cManualShooterControl::IsFinished()
@@ -33,6 +35,7 @@ bool cManualShooterControl::IsFinished()
 void cManualShooterControl::End()
 {
     CommandBase::s_shooter->setManualEnabled(false);
+    CommandBase::s_turret->setManualEnabled(false);
 }
 
 void cManualShooterControl::Interrupted()
@@ -42,6 +45,5 @@ void cManualShooterControl::Interrupted()
 
 cManualShooterControl::~cManualShooterControl()
 {
-    // TODO Auto-generated destructor stub
 }
 

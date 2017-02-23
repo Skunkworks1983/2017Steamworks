@@ -22,10 +22,8 @@ const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 
-// // DRIVEBASE // //
-
-const int DRIVEBASE_LEFT_DIRECTION = -1;
-const int DRIVEBASE_RIGHT_DIRECTION = 1;
+const int DRIVEBASE_LEFT_DIRECTION = 1;
+const int DRIVEBASE_RIGHT_DIRECTION = -1;
 
 const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 
@@ -33,13 +31,12 @@ const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 //RIGHT:
 
 //11 climber: backwards is forwards
-const int DRIVEBASE_LEFTMOTOR_1_PORT = 12;
-const int DRIVEBASE_LEFTMOTOR_2_PORT = 14;
-const int DRIVEBASE_LEFTMOTOR_3_PORT = 14;
-
-const int DRIVEBASE_RIGHTMOTOR_1_PORT = 15;
-const int DRIVEBASE_RIGHTMOTOR_2_PORT = 13;
-const int DRIVEBASE_RIGHTMOTOR_3_PORT = 13;
+const int DRIVEBASE_LEFTMOTOR_1_PORT = 0; //Rear
+const int DRIVEBASE_LEFTMOTOR_2_PORT = 1; //Middle
+const int DRIVEBASE_LEFTMOTOR_3_PORT = 12;//Front
+const int DRIVEBASE_RIGHTMOTOR_1_PORT = 13;//Read
+const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14;//Middle
+const int DRIVEBASE_RIGHTMOTOR_3_PORT = 15;//Front
 
 const float SIMPLEDRIVEFORWARD_PID_P = 1;
 const float SIMPLEDRIVEFORWARD_PID_I = 1;
@@ -59,18 +56,20 @@ const int OI_JOYSTICK_RIGHT_PORT = 0;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
-const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 1;
-const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 2;
-const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3;
-const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
-const int OI_JOYSTICK_SHOOTHIGH = 5;
-const int OI_JOYSTICK_CLIMBROPE = 6;
-const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
+const int OI_JOYSTICK_COLLECTORPOS = 2;
+const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 3;
+//const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3; not yet used
 const int OI_JOYSTICK_INDEXER_BUTTON = 4;
+//const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;   not yet used
+//const int OI_JOYSTICK_SHOOTHIGH = 5;          not yet used
 const int OI_JOYSTICK_CONVEYOR_BUTTON = 5;
+const int OI_JOYSTICK_CLIMBROPE = 6;
+const int OI_JOYSTICK_TURRET_CONTROL = 7;
+const int OI_JOYSTICK_SPINUPSHOOTER = 8;
+const int OI_JOYSTICK_LOADBALL = 10;
 
 const int OI_JOYSTICK_SWITCHBACKFRONT = 10;
-const int OI_JOYSTICK_TURRET_CONTROL = 10000;
 const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
 
 const int MANUAL_TURRET_CONTROL_SCALAR = 0.5;
@@ -88,32 +87,26 @@ const float CLIMBER_MOTOR_DIRECTION = 1;
 
 const float ROPECLIMB_COMMAND_TIME_ON = 30;
 const float ROPECLIMB_COMMAND_TIME_OFF = 1;
+const int FUELCOLLECTOR_COLLECTOR_PORT = 6;
+const int FUELCOLLECTOR_ANGLE_PORT = 8;
 
-// // FUEL COLLECTOR // //
-
-enum FuelCollectorPosition
-{
-    UP = 90, DOWN = 0
-};
-
-const int FUELCOLLECTOR_MOTOR1_PORT = 10000;
-const int FUELCOLLECTOR_MOTOR2_PORT = 10000;
-
-const int FUELCOLLECTOR_GEAR_RATIO = (44 / 22) * (9 / 1) * (5 / 1);
+const int FUELCOLLECTOR_MIN_ENC_ANGLE = 10;
+const int FUELCOLLECTOR_MAX_ENC_ANGLE = 247;
 
 // // FUEL INDEXER // //
+const int FUELLOADER_MOTOR1_PORT = 6;
 
-const int FUELINDEXER_MOTOR1_PORT = 4;
-const float FUELINDEXER_MOTOR1_SPEED = 0.5;
+const int FUELINDEXER_MOTOR1_PORT = 5;
+const float FUELINDEXER_MOTOR1_SPEED = 1;
 
 // // FUEL CONVEYOR // //
 
-const int FUELCONVEYOR_MOTOR1_PORT = 6;
-const float FUELCONVEYOR_MOTOR1_SPEED = 0.5;
+const int FUELCONVEYOR_MOTOR1_PORT = 4;
+const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 // // TURRET // //
 
-const int TURRET_MOTOR1_PORT = 10000;
+const int TURRET_MOTOR1_PORT = 7;
 const int TURRET_MOTOR1_GEARING = 40;
 const int TURRET_MOTOR1_TICKS_PER_ROT = 360;
 
@@ -128,15 +121,18 @@ const int TURRET_MOTOR1_D = 0;
 const int TURRET_GEAR1_TEETH = 10;
 const int TURRET_GEAR2_TEETH = 200;
 
+const int TURRET_MIN_ENC = -2500;
+const int TURRET_MAX_ENC = 2500;
+
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
 
 // // SHOOTER // //
 
-const int SHOOTER_MOTOR1_PORT = 10000;
-const int SHOOTER_MOTOR2_PORT = 10000;
+const int SHOOTER_MOTOR1_PORT = 2;
+const int SHOOTER_MOTOR2_PORT = 3;
 
-const double SHOOTER_TARGET_SPEED = 1; //rps
+const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
 const double SHOOTER_P = 1;
 const double SHOOTER_I = 0;
@@ -254,11 +250,12 @@ inline float clamp(float value, float minimum, float maximum)
  * fuel collector flap in front.
  */
 
+/*
 inline float fuel_flap_angle_to_rots(float angle)
 {
     float final = (angle / 360) * FUELCOLLECTOR_GEAR_RATIO;
     return final;
-}
+}*/
 
 /*
  * this function takes in a desired angle for the

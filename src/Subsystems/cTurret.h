@@ -13,15 +13,18 @@ private:
     PIDController *m_controller;
     cMotor* m_motor1;
 
+    float m_p;
+    float m_i;
+    float m_d;
+
     bool m_manualEnabled = false;
 
 public:
-    Servo* m_servoYaw;
-    Servo* m_servoPitch;
+    /*Servo* m_servoYaw;
+    Servo* m_servoPitch;*/
 
     cTurret();
     ~cTurret();
-    void InitDefaultCommand();
 
     void setManualEnabled(bool state);
     bool isManualEnabled();
@@ -34,6 +37,8 @@ public:
 
     cMotor* getTurretMotor();
 
+    void setSetpoint(int ticks);
+    void setEnabled(bool enabled);
 };
 
 #endif

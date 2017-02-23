@@ -70,7 +70,7 @@ void cMotor::PIDWrite(double output)
 
 double cMotor::PIDGet()
 {
-    return m_motor.PIDGet();
+    return m_motor.GetPosition();
 }
 
 void cMotor::setEnabled(bool enabled)

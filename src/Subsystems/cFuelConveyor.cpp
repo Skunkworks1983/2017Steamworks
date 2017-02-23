@@ -15,7 +15,7 @@ cFuelConveyor::cFuelConveyor()
 
 void cFuelConveyor::setSpeed(float speed)
 {
-    m_motor1->setOutput(speed);
+    m_motor1->setOutput(-1*speed);
 }
 
 cFuelConveyor::~cFuelConveyor()
