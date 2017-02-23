@@ -96,8 +96,8 @@ private:
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
-        //Scheduler::GetInstance()->AddCommand(tankDrive);
-        Scheduler::GetInstance()->AddCommand(runMotor);
+        Scheduler::GetInstance()->AddCommand(tankDrive);
+        //Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
         std::cout << "Init" << std::endl;
     }

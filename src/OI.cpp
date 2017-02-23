@@ -14,7 +14,6 @@
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Turret/cManualTurretControl.h>
 #include <Commands/Shooter/cManualShooterControl.h>
-//#include <Commands/Shooter/cTurtles>
 OI::OI()
 {
     m_buttons = new Joystick(OI_JOYSTICK_OPERATOR_PORT);
@@ -79,7 +78,6 @@ float OI::getRightStickY()
 {
     return m_rightStick->GetY();
 }
-//ayy lmao
 float OI::getTurretSlider()
 {
     return (m_buttons->GetY() - (OI_TURRET_SLIDER_RANGE / 2)) *
