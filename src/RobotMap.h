@@ -211,14 +211,14 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 // positions start from the top of the field moving down
 
 /*
- * boiler           boiler
- *
  * red________________blue
  *   |1               |
  *   |      1 /       |
  *   |2    2 |        |
  *   |      3 \       |
  *   |3_______________|
+ *
+ *   boiler         boiler
  */
 
 const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
@@ -238,17 +238,6 @@ const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle tha
 inline float clamp(float value, float minimum, float maximum)
 {
     return std::min(maximum, std::max(minimum, value));
-}
-
-/*
- * this function takes in a desired angle for the
- * fuel collector flap in front.
- */
-
-inline float fuel_flap_angle_to_rots(float angle)
-{
-    float final = (angle / 360) * FUELCOLLECTOR_GEAR_RATIO;
-    return final;
 }
 
 /*
