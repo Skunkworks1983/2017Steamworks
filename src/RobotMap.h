@@ -63,7 +63,7 @@ const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
 const int OI_JOYSTICK_COLLECTORPOS = 2;
 const int OI_JOYSTICK_SHOOTHIGH = 5;
 const int OI_JOYSTICK_CLIMBROPE = 6;
-const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+const int OI_JOYSTICK_SPINUPSHOOTER = 8;
 const int OI_JOYSTICK_INDEXER_BUTTON = 4;
 const int OI_JOYSTICK_CONVEYOR_BUTTON = 5;
 const int OI_JOYSTICK_LOADBALL = 10;
@@ -102,7 +102,7 @@ const float FUELINDEXER_MOTOR1_SPEED = 1;
 // // FUEL CONVEYOR // //
 
 const int FUELCONVEYOR_MOTOR1_PORT = 4;
-const float FUELCONVEYOR_MOTOR1_SPEED = 0.5;
+const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 // // TURRET // //
 
@@ -132,7 +132,7 @@ const float CROTATETURRET_RIGHT_SPEED = -.5;
 const int SHOOTER_MOTOR1_PORT = 2;
 const int SHOOTER_MOTOR2_PORT = 3;
 
-const double SHOOTER_TARGET_SPEED = 1; //rps
+const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
 const double SHOOTER_P = 1;
 const double SHOOTER_I = 0;

@@ -28,6 +28,7 @@ private:
     JoystickButton *m_acquireGear;
     JoystickButton *m_acquireBall;
     JoystickButton *m_enableManualShooting;
+    JoystickButton *m_spinUpShooter;
     /*JoystickButton *m_assignTargetBoiler;
     JoystickButton *m_assignTargetGoal;
     JoystickButton *m_shootHigh;

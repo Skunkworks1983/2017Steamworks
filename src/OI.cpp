@@ -22,12 +22,12 @@ OI::OI()
     m_leftStick = new Joystick(OI_JOYSTICK_LEFT_PORT);
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
 
-    //m_loadBall = new JoystickButton(m_buttons, OI_JOYSTICK_INDEXER_BUTTON);
+    m_loadBall = new JoystickButton(m_buttons, OI_JOYSTICK_INDEXER_BUTTON);
     m_runConveyor = new JoystickButton(m_buttons, 10); //this does both now
 
     m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
 
-    //m_loadBall->WhileHeld(new cRunFuelIndexer());
+    m_loadBall->WhileHeld(new cRunFuelIndexer());
     m_runConveyor->WhileHeld(new cRunFuelConveyor());
 
     m_collectorPos->WhileHeld(new cSetCollectorPos());
@@ -43,6 +43,9 @@ OI::OI()
     */
     m_enableManualShooting = new JoystickButton(m_buttons, OI_JOYSTICK_TURRET_CONTROL);
     m_enableManualShooting->WhileHeld(new cManualShooterControl());
+
+    m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
+    m_spinUpShooter->WhileHeld(new cSpinUpShooter());
 
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
 

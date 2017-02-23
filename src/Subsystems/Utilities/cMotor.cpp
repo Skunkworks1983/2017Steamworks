@@ -66,7 +66,6 @@ void cMotor::setOutput(float output)
 void cMotor::PIDWrite(double output)
 {
     setOutput(output);
-	std::cout << "PIDWrite output: \t\t" << output << std::endl;
 }
 
 double cMotor::PIDGet()

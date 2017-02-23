@@ -37,7 +37,7 @@ void cShooter::setSpeed(float speed)
 
 double cShooter::getSpeed()
 {
-    return 0; //wat
+    return m_motor1->GetSpeed(); //wat
 }
 
 double cShooter::PIDGet()

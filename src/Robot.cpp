@@ -28,7 +28,7 @@ class Robot: public IterativeRobot
 private:
 
 	//Put commands out here for declaration
-	//cRunOneMotor* runMotor;
+	cRunOneMotor* runMotor;
 	cRunTankDrive* tankDrive;
 
     void RobotInit()
@@ -61,7 +61,7 @@ private:
         std::cout << "After" << std::endl;
 
         tankDrive = new cRunTankDrive();
-        //runMotor = new cRunOneMotor();
+        runMotor = new cRunOneMotor();
 
         //CameraServer::GetInstance()->StartAutomaticCapture();
     }
@@ -96,43 +96,43 @@ private:
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
-        Scheduler::GetInstance()->AddCommand(tankDrive);
-        //Scheduler::GetInstance()->AddCommand(runMotor);
+        //Scheduler::GetInstance()->AddCommand(tankDrive);
+        Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
         std::cout << "Init" << std::endl;
     }
 
     void TeleopPeriodic()
     {
-    	//std::cout << "slider: \t\t" << CommandBase::s_oi->getSliderPos() << std::endl;
-    	//CommandBase::s_oi->getSliderPos();
         Scheduler::GetInstance()->Run();
 
-        /*CommandBase::s_boilerMessenger->sendMessage("tele");
-        CommandBase::s_liftMessenger->sendMessage("tele");*/
+        //CommandBase::s_boilerMessenger->sendMessage("tele");
+        //CommandBase::s_liftMessenger->sendMessage("tele");
     }
 
     void TestPeriodic()
     {
-    	/*
+    	/* NOTE
+    	 * Running the robot in Test mode will also allow access in SmartDashboard to all of the CANTalons.
+    	 * We may want to move this to another portion and have a debug switch in RobotMap.h
+    	 */
         LiveWindow::GetInstance()->Run();
-    	dashboard->PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
-    	dashboard->PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
+		SmartDashboard::PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
+        SmartDashboard::PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
 
-    	dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
+    	/*dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
     	dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
     	dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
-    	dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());
+    	dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());*/
 
-    	dashboard->PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
+    	//dashboard->PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
 
-    	dashboard->PutNumber("Drivebase: left encoder", CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
-    	dashboard->PutNumber("Drivebase: right encoder", CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
+        SmartDashboard::PutNumber("Drivebase: left encoder", CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
+        SmartDashboard::PutNumber("Drivebase: right encoder", CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
 
-    	dashboard->PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
-    	dashboard->PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
-    	dashboard->PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
-    	*/
+        SmartDashboard::PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
+        //SmartDashboard::PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
+        SmartDashboard::PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
     }
 };
 START_ROBOT_CLASS(Robot)

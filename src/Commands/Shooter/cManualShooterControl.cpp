@@ -26,6 +26,8 @@ void cManualShooterControl::Execute()
 {
     CommandBase::s_shooter->setSpeed(CommandBase::s_oi->getSliderPos() * MANUAL_SHOOTER_CONTROL_SCALAR);
     CommandBase::s_turret->setSetpoint(2500*CommandBase::s_oi->getRotPos());
+
+    std::cout << "Flywheel Speed: " << CommandBase::s_shooter->getSpeed() << std::endl;
 }
 
 bool cManualShooterControl::IsFinished()

@@ -17,14 +17,14 @@ cSpinUpShooter::cSpinUpShooter()
 }
 void cSpinUpShooter::Initialize()
 {
-
+	CommandBase::s_shooter->setManualEnabled(true);
 }
 
 void cSpinUpShooter::Execute()
 {
 	iShooter* shooter = CommandBase::s_shooter;
 	double speed = shooter->getSpeed();
-	if(speed < SHOOTER_TARGET_SPEED)
+	if(speed > SHOOTER_TARGET_SPEED) //It's all negative...
 	{
 		shooter->setSpeed(1);
 	}
@@ -32,6 +32,7 @@ void cSpinUpShooter::Execute()
 	{
 		shooter->setSpeed(0);
 	}
+	std::cout << CommandBase::s_shooter->getSpeed() << std::endl;
 }
 
 bool cSpinUpShooter::IsFinished()
