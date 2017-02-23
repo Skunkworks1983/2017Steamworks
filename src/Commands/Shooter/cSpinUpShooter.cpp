@@ -1,6 +1,6 @@
 /*
  * spinUpShooter.cpp
- *
+ * Currently bang bang control
  *  Created on: Jan 25, 2017
  *      Author: s-4036956
  */
@@ -12,8 +12,6 @@
 
 cSpinUpShooter::cSpinUpShooter()
 {
-    // TODO Auto-generated constructor stub
-    
 }
 void cSpinUpShooter::Initialize()
 {
@@ -52,6 +50,5 @@ void cSpinUpShooter::Interrupted()
 
 cSpinUpShooter::~cSpinUpShooter()
 {
-    // TODO Auto-generated destructor stub
 }
 
