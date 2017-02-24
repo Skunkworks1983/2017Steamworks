@@ -29,6 +29,10 @@ void cSetSetpointManually::Initialize()
 
 void cSetSetpointManually::Execute()
 {
+	if (!CommandBase::s_shooter->isPIDEnabled()) {
+		CommandBase::s_shooter->EnablePID();
+	}
+
 	CommandBase::s_shooter->setSetpoint(CommandBase::s_oi->getShooterSlider()*MANUAL_SHOOTER_CONTROL_SCALAR);
 }
 
