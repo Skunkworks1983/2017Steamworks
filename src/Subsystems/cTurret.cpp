@@ -17,11 +17,6 @@ cTurret::~cTurret()
     delete m_motor1;
 }
 
-void cTurret::InitDefaultCommand()
-{
-
-}
-
 void cTurret::setSpeed(float speed)
 {
     m_motor1->setOutput(speed);
@@ -59,6 +54,27 @@ bool cTurret::isManualEnabled()
     return m_manualEnabled;
 }
 
-cMotor* cTurret::getTurretMotor() {
-return m_motor1;
+cMotor* cTurret::getTurretMotor()
+{
+    return m_motor1;
+}
+
+void cTurret::setSetpoint(int ticks)
+{
+    m_motor1->setSetpoint(ticks);
+}
+
+double cTurret::PIDGet()
+{
+    return m_motor1->PIDGet();
+}
+
+double cTurret::getSetpoint()
+{
+    return m_motor1->GetSetpoint();
+}
+
+void cTurret::setEnabled(bool enabled)
+{
+
 }

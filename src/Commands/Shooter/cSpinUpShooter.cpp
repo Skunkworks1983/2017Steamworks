@@ -1,6 +1,6 @@
 /*
  * spinUpShooter.cpp
- *
+ * Currently bang bang control
  *  Created on: Jan 25, 2017
  *      Author: s-4036956
  */
@@ -12,19 +12,17 @@
 
 cSpinUpShooter::cSpinUpShooter()
 {
-    // TODO Auto-generated constructor stub
-    
 }
 void cSpinUpShooter::Initialize()
 {
-
+	CommandBase::s_shooter->setManualEnabled(true);
 }
 
 void cSpinUpShooter::Execute()
 {
 	iShooter* shooter = CommandBase::s_shooter;
 	double speed = shooter->getSpeed();
-	if(speed < SHOOTER_TARGET_SPEED)
+	if(speed > SHOOTER_TARGET_SPEED) //It's all negative...
 	{
 		shooter->setSpeed(1);
 	}
@@ -32,6 +30,7 @@ void cSpinUpShooter::Execute()
 	{
 		shooter->setSpeed(0);
 	}
+	std::cout << CommandBase::s_shooter->getSpeed() << std::endl;
 }
 
 bool cSpinUpShooter::IsFinished()
@@ -51,6 +50,5 @@ void cSpinUpShooter::Interrupted()
 
 cSpinUpShooter::~cSpinUpShooter()
 {
-    // TODO Auto-generated destructor stub
 }
 

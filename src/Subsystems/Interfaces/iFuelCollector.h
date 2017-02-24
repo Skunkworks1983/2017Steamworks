@@ -17,6 +17,10 @@ public:
     iFuelCollector() : Subsystem("FuelCollector"){};
     virtual void setFlapSetpoint(double setpoint) = 0;
     virtual void setCollectorSpeed(double speed) = 0;
+
+    virtual double getError() = 0;
+
+    virtual void setEnabled(bool enabled) = 0;
 };
 
 

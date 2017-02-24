@@ -59,18 +59,20 @@ const int OI_JOYSTICK_RIGHT_PORT = 0;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
-const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 3;
 const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
-const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3;
-const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
-const int OI_JOYSTICK_SHOOTHIGH = 5;
-const int OI_JOYSTICK_CLIMBROPE = 6;
-const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+const int OI_JOYSTICK_COLLECTORPOS = 2;
+const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 3;
+//const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3; not yet used
 const int OI_JOYSTICK_INDEXER_BUTTON = 4;
+//const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;   not yet used
+//const int OI_JOYSTICK_SHOOTHIGH = 5;          not yet used
 const int OI_JOYSTICK_CONVEYOR_BUTTON = 5;
+const int OI_JOYSTICK_CLIMBROPE = 6;
+const int OI_JOYSTICK_TURRET_CONTROL = 7;
+const int OI_JOYSTICK_SPINUPSHOOTER = 8;
+const int OI_JOYSTICK_LOADBALL = 10;
 
 const int OI_JOYSTICK_SWITCHBACKFRONT = 10;
-const int OI_JOYSTICK_TURRET_CONTROL = 7;
 const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
 
 const int MANUAL_TURRET_CONTROL_SCALAR = 0.5;
@@ -92,22 +94,22 @@ const int FUELCOLLECTOR_COLLECTOR_PORT = 6;
 const int FUELCOLLECTOR_ANGLE_PORT = 8;
 
 const int FUELCOLLECTOR_MIN_ENC_ANGLE = 10;
-const int FUELCOLLECTOR_MAX_ENC_ANGLE = 330;
+const int FUELCOLLECTOR_MAX_ENC_ANGLE = 247;
 
 // // FUEL INDEXER // //
 const int FUELLOADER_MOTOR1_PORT = 6;
 
 const int FUELINDEXER_MOTOR1_PORT = 5;
-const float FUELINDEXER_MOTOR1_SPEED = 0.5;
+const float FUELINDEXER_MOTOR1_SPEED = 1;
 
 // // FUEL CONVEYOR // //
 
 const int FUELCONVEYOR_MOTOR1_PORT = 4;
-const float FUELCONVEYOR_MOTOR1_SPEED = 0.5;
+const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 // // TURRET // //
 
-const int TURRET_MOTOR1_PORT = 10000;
+const int TURRET_MOTOR1_PORT = 7;
 const int TURRET_MOTOR1_GEARING = 40;
 const int TURRET_MOTOR1_TICKS_PER_ROT = 280;
 
@@ -122,6 +124,9 @@ const int TURRET_MOTOR1_D = 0;
 const int TURRET_GEAR1_TEETH = 10; // small sprocket
 const int TURRET_GEAR2_TEETH = 200; // large lazy susan
 
+const int TURRET_MIN_ENC = -2500;
+const int TURRET_MAX_ENC = 2500;
+
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
 
@@ -132,7 +137,7 @@ const float TURRET_ANGLE_TOLERANCE = 0.05; // percent of setpoint
 const int SHOOTER_MOTOR1_PORT = 2;
 const int SHOOTER_MOTOR2_PORT = 3;
 
-const double SHOOTER_TARGET_SPEED = 1; //rps
+const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
 const double SHOOTER_P = 1;
 const double SHOOTER_I = 0;
