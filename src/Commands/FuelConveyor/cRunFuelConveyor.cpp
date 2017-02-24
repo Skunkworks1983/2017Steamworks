@@ -31,6 +31,7 @@ bool cRunFuelConveyor::IsFinished()
 
 void cRunFuelConveyor::End()
 {
+	CommandBase::s_fuelConveyor->setSpeed(0);
     LOG_INFO("ending cRunFuelConveyor");
 }
 

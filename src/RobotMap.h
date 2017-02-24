@@ -22,6 +22,9 @@ const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 
+const float MESSENGER_TIMEOUT_SECS = 1;
+
+
 const int DRIVEBASE_LEFT_DIRECTION = 1;
 const int DRIVEBASE_RIGHT_DIRECTION = -1;
 
@@ -67,7 +70,7 @@ const int OI_JOYSTICK_INDEXER_BUTTON = 4;
 const int OI_JOYSTICK_CONVEYOR_BUTTON = 5;
 
 const int OI_JOYSTICK_SWITCHBACKFRONT = 10;
-const int OI_JOYSTICK_TURRET_CONTROL = 10000;
+const int OI_JOYSTICK_TURRET_CONTROL = 7;
 const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
 
 const int MANUAL_TURRET_CONTROL_SCALAR = 0.5;
@@ -94,19 +97,19 @@ const int FUELCOLLECTOR_MAX_ENC_ANGLE = 330;
 // // FUEL INDEXER // //
 const int FUELLOADER_MOTOR1_PORT = 6;
 
-const int FUELINDEXER_MOTOR1_PORT = 4;
+const int FUELINDEXER_MOTOR1_PORT = 5;
 const float FUELINDEXER_MOTOR1_SPEED = 0.5;
 
 // // FUEL CONVEYOR // //
 
-const int FUELCONVEYOR_MOTOR1_PORT = 6;
+const int FUELCONVEYOR_MOTOR1_PORT = 4;
 const float FUELCONVEYOR_MOTOR1_SPEED = 0.5;
 
 // // TURRET // //
 
 const int TURRET_MOTOR1_PORT = 10000;
 const int TURRET_MOTOR1_GEARING = 40;
-const int TURRET_MOTOR1_TICKS_PER_ROT = 360;
+const int TURRET_MOTOR1_TICKS_PER_ROT = 280;
 
 const int TURRET_SEARCH_HEADING = -45; // for red
 
@@ -116,16 +119,18 @@ const int TURRET_MOTOR1_P = 1;
 const int TURRET_MOTOR1_I = 0;
 const int TURRET_MOTOR1_D = 0;
 
-const int TURRET_GEAR1_TEETH = 10;
-const int TURRET_GEAR2_TEETH = 200;
+const int TURRET_GEAR1_TEETH = 10; // small sprocket
+const int TURRET_GEAR2_TEETH = 200; // large lazy susan
 
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
 
+const float TURRET_ANGLE_TOLERANCE = 0.05; // percent of setpoint
+
 // // SHOOTER // //
 
-const int SHOOTER_MOTOR1_PORT = 10000;
-const int SHOOTER_MOTOR2_PORT = 10000;
+const int SHOOTER_MOTOR1_PORT = 2;
+const int SHOOTER_MOTOR2_PORT = 3;
 
 const double SHOOTER_TARGET_SPEED = 1; //rps
 
@@ -135,6 +140,8 @@ const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
 
 const int RAMPING_CONSTANT = 2;
+
+const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
 
 // // GEAR COLLECTOR // //
 
@@ -248,7 +255,7 @@ inline float clamp(float value, float minimum, float maximum)
  * to turn.
  */
 
-inline float turret_angle_to_rots(float angle)
+inline float turret_angle_to_ticks(float angle)
 {
     float final = (angle / 360) * TURRET_MOTOR1_TICKS_PER_ROT;
     final *= TURRET_MOTOR1_GEARING;
@@ -262,7 +269,7 @@ inline float turret_angle_to_rots(float angle)
  * the entire turret.
  */
 
-inline float turret_rots_to_angle(float rots)
+inline float turret_ticks_to_angle(float rots)
 {
     float final = rots;
     final /= TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH;

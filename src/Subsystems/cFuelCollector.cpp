@@ -13,7 +13,7 @@ cFuelCollector::cFuelCollector()
     m_collectorMotor = new cMotor(FUELCOLLECTOR_COLLECTOR_PORT, BaneBots775);
     m_angleMotor = new cMotor(FUELCOLLECTOR_ANGLE_PORT, BaneBots775, true);
 
-    m_p = 0;
+    m_p = 1/310;
     m_i = 0;
     m_d = 0;
 

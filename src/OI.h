@@ -3,6 +3,8 @@
 #include <Subsystems/Interfaces/iOI.h>
 
 #include "WPILib.h"
+#include <math.h>
+
 class OI: public iOI
 {
 private:
@@ -17,10 +19,11 @@ private:
     JoystickButton *m_loadBall;
     JoystickButton *m_runConveyor;
 
-    /* outdated
+    // outdated
     JoystickButton *m_acquireGear;
     JoystickButton *m_acquireBall;
-    JoystickButton *m_assignTargetBoiler;
+    JoystickButton *m_enableManualShooting;
+    /*JoystickButton *m_assignTargetBoiler;
     JoystickButton *m_assignTargetGoal;
     JoystickButton *m_shootHigh;
     JoystickButton *m_climbRope;
@@ -44,6 +47,8 @@ public:
     bool getRightTriggerPressed();
 
     bool getLeft2Pressed();
+
+    double getSliderPos();
 };
 
 #endif
