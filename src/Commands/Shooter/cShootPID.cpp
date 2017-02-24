@@ -37,8 +37,8 @@ void cShootPID::Execute()
 		s_shooter->EnablePID();
 	}
 
-	if (current_setpoint < speed) {
-		current_setpoint += RAMPING_CONSTANT;
+	if (current_setpoint > speed) {
+		current_setpoint -= RAMPING_CONSTANT;
 	} else {
 		current_setpoint = speed;
 		s_shooter->setSetpoint(current_setpoint);

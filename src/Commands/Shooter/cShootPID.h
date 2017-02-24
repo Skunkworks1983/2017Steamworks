@@ -16,8 +16,8 @@ class cShooter;
 
 class cShootPID: public CommandBase {
 private:
-	double speed;
-	float current_setpoint = 1.0;
+	double speed = -150;
+	float current_setpoint = 0.0;
 	float timeout;
 
 	double p = SHOOTER_P;
