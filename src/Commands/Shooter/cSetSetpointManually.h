@@ -11,6 +11,8 @@
 #include <Commands/Command.h>
 #include "RobotMap.h"
 
+//Allows driver to manually set shooter setpoints using the slider on the OI
+
 class cSetSetpointManually : public frc::Command
 {
 public:
