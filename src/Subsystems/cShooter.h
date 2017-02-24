@@ -7,6 +7,7 @@
 #include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/Interfaces/iShooter.h>
 #include "Subsystems/Utilities/cMotorGroup.h"
+#include "RobotMap.h"
 
 class cShooter : public iShooter
 {
@@ -22,7 +23,7 @@ private:
     bool m_manualEnabled = false;
 
 public:
-    cShooter(bool speed, bool brake);
+    cShooter(bool brake);
     ~cShooter();
     void InitDefaultCommand();
 

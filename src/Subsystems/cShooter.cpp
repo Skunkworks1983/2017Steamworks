@@ -3,7 +3,7 @@
 #include "Utilities/cMotor.h"
 
 
-cShooter::cShooter(bool speed, bool brake)
+cShooter::cShooter(bool brake)
 {
     m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775, true); //one of these needs an encoder. Which? god only knows
     m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
