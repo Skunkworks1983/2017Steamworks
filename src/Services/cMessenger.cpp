@@ -1,5 +1,7 @@
 #include <Services/cMessenger.h>
 #include <Services/cLogger.h>
+#include <CommandBase.h>
+#include <Subsystems/cTurret.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>

@@ -11,6 +11,7 @@ class cBoilerData
 {
 private:
     bool m_isFound;
+    bool m_isFresh;
     float m_x;
     float m_y;
 
@@ -20,6 +21,8 @@ public:
     float getX();
     float getY();
     bool isFound();
+    bool isFresh(); //freshhhhhh :>
+    void setFresh(bool state);
 };
 
 // same as boilerdata, except we only include an x value
@@ -27,6 +30,7 @@ class cLiftData
 {
 private:
     bool m_isFound;
+    bool m_isFresh;
     float m_x;
 
 public:
@@ -34,6 +38,8 @@ public:
 
     float getX();
     bool isFound();
+    bool isFresh();
+    void setFresh(bool state);
 };
 
 #endif

@@ -62,7 +62,7 @@ private:
         tankDrive = new cRunTankDrive();
         runMotor = new cRunOneMotor();
 
-        //CameraServer::GetInstance()->StartAutomaticCapture();
+        CameraServer::GetInstance()->StartAutomaticCapture();
     }
 
     void DisabledInit()

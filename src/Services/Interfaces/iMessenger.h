@@ -23,6 +23,8 @@ public:
     static void* update(void* m);
 
     virtual bool isNotTimedOut() = 0;
+
+    virtual float getLastTurretHeading() = 0;
 };
 
 #endif
