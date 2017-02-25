@@ -130,6 +130,7 @@ const int TURRET_MAX_ENC = 2500;
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
 
+const float TURRET_SETPOINT_RANGE = 2500; // middle to far side (doesn't matter which)
 const float TURRET_ANGLE_TOLERANCE = 0.05; // percent of setpoint
 
 // // SHOOTER // //
