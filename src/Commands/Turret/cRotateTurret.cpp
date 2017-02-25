@@ -35,7 +35,7 @@ void cRotateTurret::Execute()
         cBoilerData* data = CommandBase::s_boilerMessenger->receiveBoilerData();
 
         // turn the turret towards the boiler using our vision system
-        if(data->isFound() && CommandBase::s_boilerMessenger->isConnected())
+        if(data->isFound() && CommandBase::s_boilerMessenger->isNotTimedOut())
         {
             // get the current angle of the boiler relative to the turret
             float angle = data->getX() * (BOILER_PI_CAMERA_FOV / 2);

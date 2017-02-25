@@ -10,6 +10,8 @@ cTurret::cTurret()
     m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
     m_motor1->configForwardLimit((double) turret_angle_to_ticks(-90));
     m_motor1->configReverseLimit((double) turret_angle_to_ticks(90));
+
+    m_motor1->setEnabled(false);
 }
 
 cTurret::~cTurret()
@@ -76,5 +78,5 @@ double cTurret::getSetpoint()
 
 void cTurret::setEnabled(bool enabled)
 {
-
+    m_motor1->setEnabled(enabled);
 }

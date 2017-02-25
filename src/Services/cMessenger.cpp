@@ -16,7 +16,11 @@ cMessenger::cMessenger(const char *server, const char *port)
     m_threadMutex = new priority_mutex();
     m_thread = (pthread_t) NULL;
 
-    if(int status = pthread_create(&m_thread, NULL, this->update, this))
+    // this is where it gets a little spooky
+    // create a new thread for the messenger, and
+    // give it a reference to 'this' so that it knows
+    // which messenger it is. also give it update as a routine to run.
+    if(pthread_create(&m_thread, NULL, this->update, this))
     {
         LOG_INFO("failed to create messenger thread")
     }
@@ -111,7 +115,10 @@ cLiftData* cMessenger::receiveLiftData()
 }
 
 // get whether or not we have timed out
-bool cMessenger::isConnected()
+// we have timed out if the do not receive
+// a message in a certain amount of seconds, as
+// declared in robotmap.
+bool cMessenger::isNotTimedOut()
 {
     return (((float) (clock() - m_clock)) / CLOCKS_PER_SEC) < MESSENGER_TIMEOUT_SECS;
 }
@@ -153,13 +160,33 @@ void* cMessenger::update(void* m)
                 message.erase(0, 2);
 
                 // cut the first portion of characters from the first space to the second space
-                x = atof(message.substr(0, message.find(" ")).c_str());
+                // also check if there is an x value, by looking for a number
+                // with a space directly after it
+                if(message.find(" ") != std::string::npos)
+                {
+                    x = atof(message.substr(0, message.find(" ")).c_str());
+                }
+                else
+                {
+                    LOG_INFO("received incomplete message (x value)");
+                    x = messenger->m_lastBoilerData->getX();;
+                }
 
                 // erase the x portion of the message
                 message.erase(0, message.find(" ") + 1);
 
-                // get the y pos
-                y = atof(message.substr(0, message.length() + 1).c_str());
+                // get the y pos, check if there is a y value
+                // we do this by checking if the string is empty, aka
+                // there is no y value specified in the string
+                if(message[0] != 0)
+                {
+                    y = atof(message.substr(0, message.length() + 1).c_str());
+                }
+                else
+                {
+                    LOG_INFO("received incomplete message (y value)");
+                    y = messenger->m_lastBoilerData->getY();
+                }
 
                 // check if the member lastboilerdata exists. if it does, then we delete
                 // it as to not cause any leaks & set it to null
@@ -187,7 +214,15 @@ void* cMessenger::update(void* m)
                     message.erase(0, 2);
 
                     // cut the first portion of characters from the first space to the second space
-                    x = atof(message.substr(0, message.find(" ")).c_str());
+                    if(message[0] != 0)
+                    {
+                        x = atof(message.substr(0, message.length() + 1).c_str());
+                    }
+                    else
+                    {
+                        LOG_INFO("received incomplete message (x value)");
+                        x = messenger->m_lastLiftData->getX();
+                    }
 
                     // check if the member lastliftdata exists. if it does, then we delete
                     // it as to not cause any leaks & set it to null

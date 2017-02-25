@@ -26,7 +26,6 @@
 class Robot: public IterativeRobot
 {
 private:
-
 	//Put commands out here for declaration
 	cRunOneMotor* runMotor;
 	cRunTankDrive* tankDrive;
@@ -70,6 +69,9 @@ private:
     {
     	Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("DisabledInit called");
+
+        // disable the turret
+        CommandBase::s_turret->setEnabled(false);
     }
 
     void DisabledPeriodic()
@@ -81,6 +83,9 @@ private:
     {
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
+
+        // enable turret
+        CommandBase::s_turret->setEnabled(true);
 
         //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
@@ -100,6 +105,9 @@ private:
         //Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
         std::cout << "Init" << std::endl;
+
+        // enable turret
+        CommandBase::s_turret->setEnabled(true);
     }
 
     void TeleopPeriodic()

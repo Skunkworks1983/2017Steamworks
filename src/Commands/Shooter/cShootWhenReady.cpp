@@ -26,7 +26,7 @@ void cShootWhenReady::Execute()
 {
     if(!CommandBase::s_turret->isManualEnabled() && !CommandBase::s_shooter->isManualEnabled())
     {
-        // check whether or not we're in the
+        // check whether or the turret is on target and the shooter is up to speed
         bool turretReady = abs(CommandBase::s_turret->PIDGet() - CommandBase::s_turret->getSetpoint())
                 < CommandBase::s_turret->getSetpoint() * (TURRET_ANGLE_TOLERANCE / 2);
 

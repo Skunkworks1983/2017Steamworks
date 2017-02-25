@@ -60,7 +60,7 @@ public:
     cBoilerData* receiveBoilerData();
     cLiftData* receiveLiftData();
 
-    bool isConnected();
+    bool isNotTimedOut();
 };
 
 #endif

@@ -22,7 +22,7 @@ public:
 
     static void* update(void* m);
 
-    virtual bool isConnected() = 0;
+    virtual bool isNotTimedOut() = 0;
 };
 
 #endif
