@@ -22,6 +22,9 @@ const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 
+const float MESSENGER_TIMEOUT_SECS = 1;
+
+
 const int DRIVEBASE_LEFT_DIRECTION = 1;
 const int DRIVEBASE_RIGHT_DIRECTION = -1;
 
@@ -108,7 +111,7 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 const int TURRET_MOTOR1_PORT = 7;
 const int TURRET_MOTOR1_GEARING = 40;
-const int TURRET_MOTOR1_TICKS_PER_ROT = 360;
+const int TURRET_MOTOR1_TICKS_PER_ROT = 280;
 
 const int TURRET_SEARCH_HEADING = -45; // for red
 
@@ -118,14 +121,17 @@ const int TURRET_MOTOR1_P = 1;
 const int TURRET_MOTOR1_I = 0;
 const int TURRET_MOTOR1_D = 0;
 
-const int TURRET_GEAR1_TEETH = 10;
-const int TURRET_GEAR2_TEETH = 200;
+const int TURRET_GEAR1_TEETH = 10; // small sprocket
+const int TURRET_GEAR2_TEETH = 200; // large lazy susan
 
 const int TURRET_MIN_ENC = -2500;
 const int TURRET_MAX_ENC = 2500;
 
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
+
+const float TURRET_SETPOINT_RANGE = 2500; // middle to far side (doesn't matter which)
+const float TURRET_ANGLE_TOLERANCE = 0.05; // percent of setpoint
 
 // // SHOOTER // //
 
@@ -140,6 +146,8 @@ const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
 
 const int RAMPING_CONSTANT = 2;
+
+const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
 
 // // GEAR COLLECTOR // //
 
@@ -216,14 +224,14 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 // positions start from the top of the field moving down
 
 /*
- * boiler           boiler
- *
  * red________________blue
  *   |1               |
  *   |      1 /       |
  *   |2    2 |        |
  *   |      3 \       |
  *   |3_______________|
+ *
+ *   boiler         boiler
  */
 
 const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
@@ -247,25 +255,13 @@ inline float clamp(float value, float minimum, float maximum)
 
 /*
  * this function takes in a desired angle for the
- * fuel collector flap in front.
- */
-
-/*
-inline float fuel_flap_angle_to_rots(float angle)
-{
-    float final = (angle / 360) * FUELCOLLECTOR_GEAR_RATIO;
-    return final;
-}*/
-
-/*
- * this function takes in a desired angle for the
  * entire turret. give this function an angle you
  * want the turret to face (-90 to 90), and it will
  * give you the number of rotations the turret motor needs
  * to turn.
  */
 
-inline float turret_angle_to_rots(float angle)
+inline float turret_angle_to_ticks(float angle)
 {
     float final = (angle / 360) * TURRET_MOTOR1_TICKS_PER_ROT;
     final *= TURRET_MOTOR1_GEARING;
@@ -279,7 +275,7 @@ inline float turret_angle_to_rots(float angle)
  * the entire turret.
  */
 
-inline float turret_rots_to_angle(float rots)
+inline float turret_ticks_to_angle(float rots)
 {
     float final = rots;
     final /= TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH;

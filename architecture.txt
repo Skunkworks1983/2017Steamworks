@@ -1,0 +1,21 @@
+-Subsystems contain relevant hardware classes and provide methods to access their functionality
+-Subsystems act as a mutex for their hardware and should be organized as such (i.e. group hardware in Subsystems by which components must always be used together)
+-Hardware classes are wrapped for ease of debugging/testing
+-MotorGroups exist to allow PIDControllers to output to multiple actuators without tying the update rate to the Command Scheduler--PIDs run in their own threads independent from Command execution
+-Some classes (e.g. Subsystems) have interfaces so they can be mocked with GMock
+-CommandBase has public static pointers to all subsystems which are initialized in Robot::RobotInit(), effectively making them singletons
+-CommandBase is *not* used as a base class to Commands as the name suggests
+-Constructors should not access hardware except to start initialization--no guarantee that hardware interface classes have been initialized until after RobotInit()
+-Command::Initialize() should enable actuators/control loops and check initial sensor states; Command::End() should disable them when necessary
+-Command::Interrupted() should call End() unless something different needs to happen
+-Constants are stored in RobotMap to make things easier to find--may increase compile times
+-User-initiated commands are constructed and registered with buttons in OI::OI
+-OI should be constructed last because it constructs Commands which may be dependent on Subsystems
+-AutoBase creates a CommandGroup for autonomous based on switch inputs
+-Both WPILib and CANTalon PIDs are used
+-Logging writes to a flashdrive (mounts to /U by default) in its own thread; variadic macros in RobotMap make logging work with format specifiers
+-Vision-based control (i.e. turret targeting and drivebase gear delivery) is blended with higher update rate sensors to improve neglect tolerance: latest vision data is used to set setpoints on PIDs with fast input sources
+-Unit tests are linked against gmock_main_arm which has main() defined; main() macro in Robot must be commented out for tests to run
+-Init functions in Robot should remove all Commands from the Scheduler before doing anything else; this Interrupted()s all scheduled Commands and removes them from the Scheduler, but *does not free their memory*
+-Periodic functions in Robot should run the Scheduler
+-Some Talons (e.g. turret, collector rotation) have soft limits based on their encoders configured; if a soft limit is reached, the Talon's LEDs will alternate flashing the color of the direction of the limit

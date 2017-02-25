@@ -7,16 +7,11 @@
 cTurret::cTurret()
 {
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
-    //m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
-    /*m_motor1->configForwardLimit((double) turret_angle_to_rots(-90));
-    m_motor1->configReverseLimit((double) turret_angle_to_rots(90));*/
+    m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
+    m_motor1->configForwardLimit((double) turret_angle_to_ticks(-90));
+    m_motor1->configReverseLimit((double) turret_angle_to_ticks(90));
 
-    m_p = -1./2500;
-    m_i = 0;
-    m_d = 0;
-
-    m_controller = new PIDController(m_p, m_i, m_d, m_motor1, m_motor1);
-    m_controller->SetOutputRange(-1, 1); //it should never run this fast
+    m_motor1->setEnabled(false);
 }
 
 cTurret::~cTurret()
@@ -31,21 +26,21 @@ void cTurret::setSpeed(float speed)
 
 void cTurret::setOrientation(float heading)
 {
-    float desired = turret_angle_to_rots(heading);
+    float desired = turret_angle_to_ticks(heading);
     m_motor1->setSetpoint(desired);
 }
 
 void cTurret::rotate(float degrees)
 {
-    float current = turret_rots_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
-    float desired = turret_angle_to_rots(current + degrees);
+    float current = turret_ticks_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    float desired = turret_angle_to_ticks(current + degrees);
 
     m_motor1->setSetpoint(desired);
 }
 
 float cTurret::getHeading()
 {
-    return turret_rots_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    return turret_ticks_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
 }
 
 void cTurret::setManualEnabled(bool state)
@@ -61,18 +56,27 @@ bool cTurret::isManualEnabled()
     return m_manualEnabled;
 }
 
-cMotor* cTurret::getTurretMotor() {
-return m_motor1;
+cMotor* cTurret::getTurretMotor()
+{
+    return m_motor1;
 }
 
-void cTurret::setSetpoint(int ticks) {
-	m_controller->SetSetpoint(ticks);
+void cTurret::setSetpoint(int ticks)
+{
+    m_motor1->setSetpoint(ticks);
 }
 
-void cTurret::setEnabled(bool enabled) {
-	if(enabled) {
-		m_controller->Enable();
-	} else {
-		m_controller->Disable();
-	}
+double cTurret::PIDGet()
+{
+    return m_motor1->PIDGet();
+}
+
+double cTurret::getSetpoint()
+{
+    return m_motor1->GetSetpoint();
+}
+
+void cTurret::setEnabled(bool enabled)
+{
+    m_motor1->setEnabled(enabled);
 }

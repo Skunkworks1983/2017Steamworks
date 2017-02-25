@@ -14,9 +14,15 @@
 
 class iMessenger {
 public:
+    virtual ~iMessenger() {};
+
     virtual void sendMessage(std::string message) = 0;
     virtual cBoilerData* receiveBoilerData() = 0;
     virtual cLiftData* receiveLiftData() = 0;
+
+    static void* update(void* m);
+
+    virtual bool isNotTimedOut() = 0;
 };
 
 #endif
