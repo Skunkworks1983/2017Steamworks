@@ -124,10 +124,8 @@ bool cDriveBase::CanSeeTape() {
 				return true;
 			}
 		}
-	} else {
-		return false;
 	}
-
+	return false;
 }
 
 double cDriveBase::GetRValue() {
