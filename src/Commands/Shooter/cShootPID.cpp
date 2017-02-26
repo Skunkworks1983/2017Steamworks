@@ -1,5 +1,6 @@
 /*
- * cShootPID.cpp
+
+`1* cShootPID.cpp
  *
  *  Created on: Feb 11, 2017
  *      Author: s-2505674
@@ -8,6 +9,7 @@
 #include "cShootPID.h"
 #include <cmath>
 #include "RobotMap.h"
+#include <SmartDashboard/SmartDashboard.h>
 
 
 cShootPID::cShootPID(double speed, float timeout) :
@@ -43,7 +45,9 @@ void cShootPID::Execute()
 		current_setpoint = speed;
 		s_shooter->setSetpoint(current_setpoint);
 	}
-
+	SmartDashboard::PutNumber("cShootPIDspeed", s_shooter->PIDGet());
+	SmartDashboard::PutNumber("cShootPIDError", s_shooter->getError());
+	SmartDashboard::PutNumber("cShootPIDSetpoint", s_shooter->getSetpoint());
 }
 
 bool cShootPID::IsFinished()
@@ -61,3 +65,6 @@ void cShootPID::Interrupted()
 {
 	End();
 }
+
+//Sleep is good, death is better; but of course, the best thing would to have never been born at all.
+//	-Heinrich Heine
