@@ -67,7 +67,6 @@ AutoBase::~AutoBase()
 
 eStartingPosition AutoBase::getStartingPosition()
 {
-    /*
     // read from the dial
     std::vector<DigitalInput*> inputs;
 
@@ -78,31 +77,31 @@ eStartingPosition AutoBase::getStartingPosition()
     }
 
     // assemble number for starting position
-    eStartingPosition startPos = 0;
+    eStartingPosition startPos = (eStartingPosition) 0;
     int digit = 1;
 
-    for(int i = 0; i < inputs.size(); i++)
+    // no idea why this needs to be unsigned
+    for(unsigned int i = 0; i < inputs.size(); i++)
     {
         if(inputs[i]->Get())
         {
-            startPos = (startPos | digit);
+            startPos = (eStartingPosition) (startPos | digit);
         }
 
         digit = digit << 1;
     }
 
     // return a value
-    return eStartingPosition;
-    */
+    return startPos;
 }
 
 eAlliance getAlliance()
 {
-    /*
     // assemble number for starting position
-    eAlliance startPos = (new DigitalInput(3))->Get();
+    eAlliance alliance = (eAlliance) 0;
+
+    // doesnt do anything yet
 
     // return a value
-    return eAlliance;
-    */
+    return alliance;
 }
