@@ -28,7 +28,7 @@ void cRunFuelConveyor::Execute()
 
 bool cRunFuelConveyor::IsFinished()
 {
-
+    return IsTimedOut();
 }
 
 void cRunFuelConveyor::End()

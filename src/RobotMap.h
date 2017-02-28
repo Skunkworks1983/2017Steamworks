@@ -180,6 +180,10 @@ enum eStartingPosition
     POS_1, POS_2, POS_3
 };
 
+
+const int START_POS_SELECTION_DIGITS = 3;
+const int ALLIANCE_SELECTION_DIGITS = 1;
+
 const bool USE_SHOOTER = true;
 const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;

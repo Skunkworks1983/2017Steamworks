@@ -43,10 +43,17 @@ public:
     static double s_distanceToPivotPoint;
     static double s_angleRobotPivotPointGoal;
     static bool s_reachedLine;
+
     AutoBase();
     ~AutoBase();
 
     AutoBase* configureAutonomous();
+
+    // returns the current auto starting position based on the dial/switch
+    eStartingPosition getStartingPosition();
+
+    // returns the current alliance based on dial/switch
+    eAlliance getAlliance();
 
     AutoBase* goLift1();
     AutoBase* goLift2();
