@@ -29,8 +29,8 @@
 // TODO: idk where to put this so it's going here for now
 // i know these shouldn't be constants, but it won't build
 // without them being that way. todo: fix
-eAlliance alliance = Red;
-eStartingPosition startPosition = POS_1;
+const eAlliance alliance = Red;
+const eStartingPosition startPosition = POS_1;
 
 class AutoBase: public frc::CommandGroup
 {
@@ -43,10 +43,17 @@ public:
     static double s_distanceToPivotPoint;
     static double s_angleRobotPivotPointGoal;
     static bool s_reachedLine;
+
     AutoBase();
     ~AutoBase();
 
     AutoBase* configureAutonomous();
+
+    // returns the current auto starting position based on the dial/switch
+    eStartingPosition getStartingPosition();
+
+    // returns the current alliance based on dial/switch
+    eAlliance getAlliance();
 
     AutoBase* goLift1();
     AutoBase* goLift2();

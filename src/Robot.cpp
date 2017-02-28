@@ -46,8 +46,8 @@ private:
 
         CommandBase::s_oi = new OI();
 
-        /*CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
-        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);*/
+        //CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
         //CommandBase::s_drivebase->getGyro()->initGyro();
         //CommandBase::s_drivebase->getGyro()->zeroYaw();*/

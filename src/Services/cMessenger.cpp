@@ -149,6 +149,8 @@ void* cMessenger::update(void* m)
 
         if(message[0] != 0)
         {
+            std::cout << "test" << std::endl;
+
             if(message[0] == std::to_string(BOILER_PI_ID)[0])
             {
                 float x, y;

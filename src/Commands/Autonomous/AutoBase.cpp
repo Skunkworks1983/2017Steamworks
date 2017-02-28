@@ -20,9 +20,9 @@ double AutoBase::s_angleRobotPivotPointGoal = 0;
 
 AutoBase::AutoBase()
 {
-    m_driveToLine = new CommandGroup;
-    m_driveToLine->AddSequential(new cSimpleDriveForward(100, true));
+
 }
+
 AutoBase* configureAutonomous()
 {
     AutoBase* commands = new AutoBase();
@@ -63,4 +63,46 @@ AutoBase* configureAutonomous()
 AutoBase::~AutoBase()
 {
     delete this;
+}
+
+eStartingPosition AutoBase::getStartingPosition()
+{
+    /*
+    // read from the dial
+    std::vector<DigitalInput*> inputs;
+
+    // get inputs from pins
+    for(int i = 0; i < START_POS_SELECTION_DIGITS; i++)
+    {
+        inputs.push_back(new DigitalInput(i));
+    }
+
+    // assemble number for starting position
+    eStartingPosition startPos = 0;
+    int digit = 1;
+
+    for(int i = 0; i < inputs.size(); i++)
+    {
+        if(inputs[i]->Get())
+        {
+            startPos = (startPos | digit);
+        }
+
+        digit = digit << 1;
+    }
+
+    // return a value
+    return eStartingPosition;
+    */
+}
+
+eAlliance getAlliance()
+{
+    /*
+    // assemble number for starting position
+    eAlliance startPos = (new DigitalInput(3))->Get();
+
+    // return a value
+    return eAlliance;
+    */
 }
