@@ -94,8 +94,8 @@ private:
     {
         Scheduler::GetInstance()->Run();
 
-        /*CommandBase::s_boilerMessenger->sendMessage("auto");
-        CommandBase::s_liftMessenger->sendMessage("auto");*/
+        CommandBase::s_boilerMessenger->sendMessage("auto");
+        CommandBase::s_liftMessenger->sendMessage("auto");
     }
 
     void TeleopInit()
@@ -114,8 +114,8 @@ private:
     {
         Scheduler::GetInstance()->Run();
 
-        //CommandBase::s_boilerMessenger->sendMessage("tele");
-        //CommandBase::s_liftMessenger->sendMessage("tele");
+        CommandBase::s_boilerMessenger->sendMessage("tele");
+        CommandBase::s_liftMessenger->sendMessage("tele");
     }
 
     void TestPeriodic()
@@ -133,7 +133,7 @@ private:
     	dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
     	dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());*/
 
-    	//dashboard->PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
+    	SmartDashboard::PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
 
         SmartDashboard::PutNumber("Drivebase: left encoder", CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
         SmartDashboard::PutNumber("Drivebase: right encoder", CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
