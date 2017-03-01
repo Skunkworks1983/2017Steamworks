@@ -177,7 +177,7 @@ enum eAlliance
 
 enum eStartingPosition
 {
-    POS_1, POS_2, POS_3
+    POS_BOILER, POS_CENTER, POS_RETRIEVAL
 };
 
 const bool USE_SHOOTER = true;
@@ -219,7 +219,17 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 #define angleWallTapePivotPoint 1.1576 //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
 #define DISTANCE_FROM_TAPE_TO_PIVOT_POINT (10.5/12) //inches to feet
 #define angleGoalPivotPointTape .4131 //rads (23.67 degrees)
-#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 2 //feet. This is to give some safe space to turn
+#define DISTANCE_FROM_PEG_TO_PIVOT_POINT 2 //feet. This is to give some safe space to turn
+
+
+#define BOILER_START_FIRST_ANGLE 60 //deg
+#define BOILER_START_DRIVE_DISTANCE 7.7 //feet
+#define RETRIEVAL_START_FIRST_ANGLE 6 //deg
+#define RETRIEVAL_START_SECOND_ANGLE 54 //deg
+#define RETRIEVAL_START_DRIVE_DISTANCE (115/12)
+#define DISTANCE_WALL_TO_BASE_LINE (114/12)) // 114 inches
+#define DISTANCE_BASE_LINE_TO_PEG (34.5/12) // ever so slightly less than 3 feet
+#define angleInfinityBaseLinePeg 60 //we're turning relative to a hexagon. having a good time.
 
 // positions start from the top of the field moving down
 

@@ -30,7 +30,7 @@
 // i know these shouldn't be constants, but it won't build
 // without them being that way. todo: fix
 const eAlliance alliance = Red;
-const eStartingPosition startPosition = POS_1;
+const eStartingPosition startPosition = POS_BOILER;
 
 class AutoBase: public frc::CommandGroup
 {
@@ -41,16 +41,16 @@ private:
 public:
     static double s_angleTapeRobotPivotPoint;
     static double s_distanceToPivotPoint;
-    static double s_angleRobotPivotPointGoal;
+	static double s_angleRobotPivotPointPeg;
     static bool s_reachedLine;
     AutoBase();
     ~AutoBase();
 
     AutoBase* configureAutonomous();
 
-    AutoBase* goLift1();
-    AutoBase* goLift2();
-    AutoBase* goLift3();
+    AutoBase* goLiftBoiler();
+    AutoBase* goLiftRetrieval();
+    AutoBase* goLiftCenter();
 
     AutoBase* placeGear();
 

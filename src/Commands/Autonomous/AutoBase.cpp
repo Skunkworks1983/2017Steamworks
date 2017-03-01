@@ -16,7 +16,7 @@
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
-double AutoBase::s_angleRobotPivotPointGoal = 0;
+double AutoBase::s_angleRobotPivotPointPeg = 0;
 
 AutoBase::AutoBase()
 {
@@ -40,16 +40,14 @@ AutoBase* configureAutonomous()
     // commands for moving to the lifts
     switch(startPosition)
     {
-    case POS_1:
-        commands->AddSequential(commands->goLift1());
-        commands->AddSequential(commands->placeGear());
+    case POS_BOILER:
+        commands->AddSequential(commands->goLiftBoiler());
         break;
-    case POS_2:
-        commands->AddSequential(commands->placeGear());
+    case POS_CENTER:
+        commands->AddSequential(commands->goLiftCenter());
         break;
-    case POS_3:
-        commands->AddSequential(commands->goLift3());
-        commands->AddSequential(commands->placeGear());
+    case POS_RETRIEVAL:
+        commands->AddSequential(commands->goLiftRetrieval());
         break;
     }
 
