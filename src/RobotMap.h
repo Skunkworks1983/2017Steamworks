@@ -227,7 +227,7 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 #define RETRIEVAL_START_FIRST_ANGLE 6 //deg
 #define RETRIEVAL_START_SECOND_ANGLE 54 //deg
 #define RETRIEVAL_START_DRIVE_DISTANCE (115/12)
-#define DISTANCE_WALL_TO_BASE_LINE (114/12)) // 114 inches
+#define DISTANCE_WALL_TO_BASE_LINE (114/12) // 114 inches
 #define DISTANCE_BASE_LINE_TO_PEG (34.5/12) // ever so slightly less than 3 feet
 #define angleInfinityBaseLinePeg 60 //we're turning relative to a hexagon. having a good time.
 
