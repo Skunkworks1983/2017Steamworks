@@ -17,6 +17,9 @@
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
 
+#include <Commands/Autonomous/cSimpleDriveForward.h>
+#include <Commands/DriveBase/cDriveUntilWall.h>
+
 #include <Commands/DriveBase/cDriveStraight.h>
 #include <Commands/Debugging/cRunOneMotor.h>
 #include <Subsystems/cFuelIndexer.h>
@@ -29,6 +32,7 @@ private:
 	//Put commands out here for declaration
 	cRunOneMotor* runMotor;
 	cRunTankDrive* tankDrive;
+	cDriveStraight* driveStraight;
 
     void RobotInit()
     {
@@ -49,8 +53,8 @@ private:
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
-        //CommandBase::s_drivebase->getGyro()->initGyro();
-        //CommandBase::s_drivebase->getGyro()->zeroYaw();*/
+        CommandBase::s_drivebase->getGyro()->initGyro();
+        CommandBase::s_drivebase->getGyro()->zeroYaw();
 
         //colorSensor = new cColorSensor();
 
@@ -61,6 +65,7 @@ private:
 
         tankDrive = new cRunTankDrive();
         runMotor = new cRunOneMotor();
+        driveStraight = new cDriveStraight(7300, 0.35);
 
         //CameraServer::GetInstance()->StartAutomaticCapture();
     }
@@ -72,6 +77,7 @@ private:
 
         // disable the turret
         CommandBase::s_turret->setEnabled(false);
+        CommandBase::s_drivebase->setBrakeMode(false);
     }
 
     void DisabledPeriodic()
@@ -87,6 +93,8 @@ private:
         // enable turret
         CommandBase::s_turret->setEnabled(true);
 
+        Scheduler::GetInstance()->AddCommand(driveStraight);
+
         //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
 
@@ -94,7 +102,7 @@ private:
     {
         Scheduler::GetInstance()->Run();
 
-        CommandBase::s_boilerMessenger->sendMessage("auto");
+        CommandBase::s_boilerMessenger->sendMessage("auto"); //What if it misses the packet?
         CommandBase::s_liftMessenger->sendMessage("auto");
     }
 
@@ -116,6 +124,8 @@ private:
 
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");
+
+        std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
     }
 
     void TestPeriodic()
