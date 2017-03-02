@@ -88,11 +88,8 @@ private:
         CommandBase::s_turret->setEnabled(true);
 
         // auto commands
-
         AutoBase* autoCommands = (new AutoBase())->configureAutonomous();
         Scheduler::GetInstance()->AddCommand(autoCommands);
-
-        //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
 
     void AutonomousPeriodic()

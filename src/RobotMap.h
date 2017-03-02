@@ -171,7 +171,7 @@ const int BOILER_PI_CAMERA_FOV = 53.5;
 
 enum eAlliance
 {
-    Red, Blue
+    Red, Blue, Invalid
 };
 
 enum eStartingPosition
