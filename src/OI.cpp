@@ -41,6 +41,7 @@ OI::OI()
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
 
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
+    m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
 }
 
 float OI::getLeftStickY()
