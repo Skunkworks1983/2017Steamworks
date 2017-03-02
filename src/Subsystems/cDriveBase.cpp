@@ -16,12 +16,12 @@
 
 cDriveBase::cDriveBase()
 {
-    m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM);
-    m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM, true);
+    m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM, true);
+    m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM);
     m_leftMotor3 = new cMotor(DRIVEBASE_LEFTMOTOR_3_PORT, CIM);
 
-    m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT, CIM);
-    m_rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT, CIM, true);
+    m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT, CIM, true);
+    m_rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT, CIM);
     m_rightMotor3 = new cMotor(DRIVEBASE_RIGHTMOTOR_3_PORT, CIM);
 
     std::vector<iMotor*> leftMotors;
@@ -48,9 +48,9 @@ cDriveBase::cDriveBase()
 	m_colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
 
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
-    m_motorGroupAll = new cMotorGroup(allMotors);
-	m_rSonar = new AnalogInput(R_SONAR_PORT);
-	m_lSonar = new AnalogInput(L_SONAR_PORT);
+    m_motorGroupAll = new cReversingMotorGroup(reversed, allMotors);
+	m_rSonar = new cSonar(SONAR_INPUT_LEFT, SONAR_POWER_LEFT);
+	m_lSonar = new cSonar(SONAR_INPUT_RIGHT, SONAR_POWER_RIGHT);
 
     m_gyro = new cGyro();
 
@@ -175,23 +175,11 @@ iGyro* cDriveBase::getGyro()
 }
 
 double cDriveBase::GetSonarDistance(bool left) {
-	AnalogInput* eitherSonar;
-	double distanceFeet;
 	if (left) {
-		eitherSonar = m_lSonar;
-	} else {
-		eitherSonar = m_rSonar;
+		return m_lSonar->getValue();
+	} else { //right
+		return m_rSonar->getValue();
 	}
-	int i;
-	double totalDistance = 0;
-	for (i = 0; i < 1000; i++) { //is this okay? if it takes too long, make it 100 or 50
-		distanceFeet = eitherSonar->GetVoltage();
-		distanceFeet = (distanceFeet / RATIO_OUTPUT_TO_FEET);
-		totalDistance = totalDistance + distanceFeet;
-	}
-	distanceFeet = totalDistance/1000; //need to change this number too
-	return distanceFeet;
-
 }
 
 bool cDriveBase::getIsReversed()

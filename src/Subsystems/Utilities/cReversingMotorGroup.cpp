@@ -10,13 +10,12 @@
 cReversingMotorGroup::cReversingMotorGroup(std::vector<bool> motorReverse, std::vector<iMotor*> motorList) :
         cMotorGroup(motorList), m_motorReverse(motorReverse)
 {
-    // TODO Auto-generated constructor stub
-    
+
 }
 
 cReversingMotorGroup::~cReversingMotorGroup()
 {
-    // TODO Auto-generated destructor stub
+
 }
 
 void cReversingMotorGroup::setOutput(float output)
@@ -33,6 +32,7 @@ void cReversingMotorGroup::setOutput(float output)
         }
     }
 }
+
 void cReversingMotorGroup::PIDWrite(double output)
 {
     setOutput(output);

@@ -41,9 +41,10 @@ const int DRIVEBASE_RIGHTMOTOR_1_PORT = 13;//Read
 const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14;//Middle
 const int DRIVEBASE_RIGHTMOTOR_3_PORT = 15;//Front
 
-const float SIMPLEDRIVEFORWARD_PID_P = 1;
-const float SIMPLEDRIVEFORWARD_PID_I = 1;
-const float SIMPLEDRIVEFORWARD_PID_D = 1;
+const float SIMPLEDRIVEFORWARD_PID_P = 1./3000;
+const float SIMPLEDRIVEFORWARD_PID_I = 0;
+const float SIMPLEDRIVEFORWARD_PID_D = 0;
+const float SIMPLEDRIVEFORWARD_PID_F = 0.1/3000;
 
 const float TURNDEGREE_PID_P = 1;
 const float TURNDEGREE_PID_I = 1;
@@ -148,6 +149,9 @@ const int RAMPING_CONSTANT = 2;
 
 const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
 
+const int AUTO_TOGGLE_POS = 6; //or 7
+const int AUTO_TOGGLE_ALLIANCE = 7; //or 6
+
 // // GEAR COLLECTOR // //
 
 const int GEARCOLLECTOR_SERVO1_PORT = 0;
@@ -212,8 +216,10 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 //datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
 //you know what's annoying? eclipse literally does not allow you to save files that have emoji in them
 //insert hammer and sickle emoji here
-#define R_SONAR_PORT 0
-#define L_SONAR_PORT 1
+const int SONAR_INPUT_RIGHT =  0;
+const int SONAR_INPUT_LEFT = 1;
+const int SONAR_POWER_LEFT = 8;
+const int SONAR_POWER_RIGHT = 9;
 #define RATIO_OUTPUT_TO_FEET .11 //this is kinda sketchy; i want better/more data
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
