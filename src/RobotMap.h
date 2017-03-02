@@ -222,14 +222,14 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 #define DISTANCE_FROM_PEG_TO_PIVOT_POINT 2 //feet. This is to give some safe space to turn
 
 
-#define BOILER_START_FIRST_ANGLE 60 //deg
-#define BOILER_START_DRIVE_DISTANCE 7.7 //feet
-#define RETRIEVAL_START_FIRST_ANGLE 6 //deg
-#define RETRIEVAL_START_SECOND_ANGLE 54 //deg
-#define RETRIEVAL_START_DRIVE_DISTANCE (115/12)
-#define DISTANCE_WALL_TO_BASE_LINE (114/12) // 114 inches
-#define DISTANCE_BASE_LINE_TO_PEG (34.5/12) // ever so slightly less than 3 feet
-#define angleInfinityBaseLinePeg 60 //we're turning relative to a hexagon. having a good time.
+const int BOILER_START_FIRST_ANGLE = 60; //deg
+const int BOILER_START_DRIVE_DISTANCE = 7.7; //feet
+const int RETRIEVAL_START_FIRST_ANGLE = 6; //deg
+const int RETRIEVAL_START_SECOND_ANGLE = 54; //deg
+const int RETRIEVAL_START_DRIVE_DISTANCE = (115/12); //115 inches
+const int DISTANCE_WALL_TO_BASE_LINE = (114/12); // 114 inches
+const int DISTANCE_BASE_LINE_TO_PEG = (34.5/12); // ever so slightly less than 3 feet
+const int angleInfinityBaseLinePeg = 60; //we're turning relative to a hexagon. having a good time.
 
 // positions start from the top of the field moving down
 

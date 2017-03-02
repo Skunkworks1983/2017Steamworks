@@ -22,6 +22,7 @@
 #include <Subsystems/cFuelIndexer.h>
 #include <Subsystems/cFuelConveyor.h>
 #include <Subsystems/Sensors/cColorSensor.h>
+#include <Commands/Autonomous/AutoBase.h>
 
 class Robot: public IterativeRobot
 {
@@ -84,8 +85,11 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
 
+        AutoBase* autoCommand = (new AutoBase())->configureAutonomous();
+
         // enable turret
         CommandBase::s_turret->setEnabled(true);
+        Scheduler::GetInstance()->AddCommand(autoCommand);
 
         //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
