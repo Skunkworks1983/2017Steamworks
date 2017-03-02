@@ -67,7 +67,7 @@ private:
         runMotor = new cRunOneMotor();
         driveStraight = new cDriveStraight(7300, 0.35);
 
-        //CameraServer::GetInstance()->StartAutomaticCapture();
+        CameraServer::GetInstance()->StartAutomaticCapture();
     }
 
     void DisabledInit()

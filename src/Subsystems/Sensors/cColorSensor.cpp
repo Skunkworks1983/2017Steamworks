@@ -6,11 +6,12 @@ cColorSensor::cColorSensor() {
 }
 
 double cColorSensor::get() {
-	std::cout << "Whoop" << std::endl;
-	bool worked;
-	byte buff[TO_READ];
-	unsigned char sendBuffer[] = {1, 2, 3, 4, 5, 6};
+	//std::cout << "Whoop" << std::endl;
+	//bool worked;
+	//byte buff[TO_READ];
+	//unsigned char sendBuffer[] = {1, 2, 3, 4, 5, 6};
 	//colorSensor->WriteBulk(&sendBuffer, 6);
-	worked = colorSensor->ReadOnly(TO_READ, buff);
-	printf("Buff: %x, worked: %d", buff, worked);
+	//worked = colorSensor->ReadOnly(TO_READ, buff);
+	//printf("Buff: %a, worked: %a", buff, worked);
+    return 0;
 }

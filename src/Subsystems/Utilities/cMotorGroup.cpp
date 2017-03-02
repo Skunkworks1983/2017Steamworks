@@ -97,4 +97,6 @@ double cMotorGroup::getPosition() {
 			return m_motorList[i]->getPosition();
 		}
 	}
+
+	return 0;
 }
