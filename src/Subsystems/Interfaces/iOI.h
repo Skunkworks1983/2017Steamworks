@@ -17,9 +17,6 @@ public:
     virtual float getLeftStickY() = 0;
     virtual float getRightStickY() = 0;
 
-    virtual float getTurretSlider() = 0;
-    virtual float getShooterSlider() = 0;
-
     virtual bool getLeftTriggerPressed() = 0;
     virtual bool getRightTriggerPressed() = 0;
 

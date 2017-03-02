@@ -46,8 +46,6 @@ public:
     ~OI();
     float getLeftStickY();
     float getRightStickY();
-    float getTurretSlider();
-    float getShooterSlider();
 
     bool getLeftTriggerPressed();
     bool getRightTriggerPressed();

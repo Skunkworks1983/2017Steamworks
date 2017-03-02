@@ -62,6 +62,7 @@ const int OI_JOYSTICK_OPERATOR_PORT = 2;
 const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
 const int OI_JOYSTICK_COLLECTORPOS = 2;
 const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 3;
+//cont in *turtles*
 //const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3; not yet used
 const int OI_JOYSTICK_INDEXER_BUTTON = 4;
 //const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;   not yet used
@@ -107,13 +108,8 @@ const float FUELINDEXER_MOTOR1_SPEED = 1;
 const int FUELCONVEYOR_MOTOR1_PORT = 4;
 const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
-// // TURRET // //
-
-const int TURRET_MOTOR1_PORT = 7;
-const int TURRET_MOTOR1_GEARING = 40;
-const int TURRET_MOTOR1_TICKS_PER_ROT = 280;
-
-const int TURRET_SEARCH_HEADING = -45; // for red
+// // TURRETLES  //  //
+const int TURRET_MOTOR1_PORT = 0;
 
 const int TURRET_SWEEP_RANGE = 180; // angle
 
@@ -132,6 +128,9 @@ const float CROTATETURRET_RIGHT_SPEED = -.5;
 
 const float TURRET_SETPOINT_RANGE = 2500; // middle to far side (doesn't matter which)
 const float TURRET_ANGLE_TOLERANCE = 0.05; // percent of setpoint
+
+const float TURRET_MOTOR1_TICKS_PER_ROT = 12;
+const float TURRET_MOTOR1_GEARING = 0;
 
 // // SHOOTER // //
 

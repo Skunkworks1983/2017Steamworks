@@ -52,15 +52,6 @@ float OI::getRightStickY()
 {
     return m_rightStick->GetY();
 }
-float OI::getTurretSlider()
-{
-    return (m_buttons->GetY() - (OI_TURRET_SLIDER_RANGE / 2)) * (1 / OI_TURRET_SLIDER_RANGE);
-}
-
-float OI::getShooterSlider()
-{
-    return (m_buttons->GetX() - (OI_SHOOTER_SLIDER_RANGE / 2)) * (1 / OI_SHOOTER_SLIDER_RANGE);
-}
 
 bool OI::getLeftTriggerPressed()
 {

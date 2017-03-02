@@ -35,18 +35,17 @@ private:
         LOG_INFO("RobotInit called");
 
         CommandBase::s_drivebase = new cDriveBase();
-        //CommandBase::s_climber = new cClimber();
+        CommandBase::s_climber = new cClimber();
         CommandBase::s_turret = new cTurret();
         CommandBase::s_gearCollector = new cGearCollector();
         CommandBase::s_fuelCollector = new cFuelCollector();
-        //CommandBase::s_fuelLoader = new cFuelLoader();
         CommandBase::s_fuelIndexer = new cFuelIndexer();
         CommandBase::s_fuelConveyor = new cFuelConveyor();
         CommandBase::s_shooter = new cShooter();
 
         CommandBase::s_oi = new OI();
 
-        //CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
+        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
         //CommandBase::s_drivebase->getGyro()->initGyro();
@@ -113,6 +112,8 @@ private:
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
+
+        std::cout << CommandBase::s_oi->getRotPos() << std::endl;
 
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");

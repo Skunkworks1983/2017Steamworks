@@ -13,6 +13,7 @@
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/FuelIndexer/cRunFuelIndexer.h>
+#include <Commands/Shooter/cShootWhenReady.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
@@ -23,19 +24,9 @@ AutoBase::AutoBase()
 
 }
 
-AutoBase* configureAutonomous()
+AutoBase* AutoBase::configureAutonomous()
 {
     AutoBase* commands = new AutoBase();
-
-    // shooter & turret control code
-    if(USE_SHOOTER && USE_TURRET)
-    {
-        // spin up the shooter to prepare to shoot balls
-        commands->AddParallel(new cSpinUpShooter());
-
-        // start vision code to find the boiler
-        commands->AddParallel(new cRotateTurret(30));
-    }
 
     // commands for moving to the lifts
     switch(startPosition)
@@ -43,18 +34,31 @@ AutoBase* configureAutonomous()
     case POS_1:
         commands->AddSequential(commands->goLift1());
         commands->AddSequential(commands->placeGear());
+
+        if(USE_SHOOTER && USE_TURRET)
+        {
+            commands->AddSequential(new cSpinUpShooter());
+            commands->AddParallel(new cRotateTurret(30));
+            commands->AddParallel(new cShootWhenReady(30));
+        }
+
         break;
     case POS_2:
         commands->AddSequential(commands->placeGear());
+
+        if(USE_SHOOTER && USE_TURRET)
+        {
+            commands->AddSequential(new cSpinUpShooter());
+            commands->AddParallel(new cRotateTurret(30));
+            commands->AddParallel(new cShootWhenReady(30));
+        }
+
         break;
     case POS_3:
         commands->AddSequential(commands->goLift3());
         commands->AddSequential(commands->placeGear());
         break;
     }
-
-    // load balls into the shooter
-    commands->AddSequential(new cRunFuelIndexer());
 
     // return the commands
     return commands;
@@ -95,7 +99,7 @@ eStartingPosition AutoBase::getStartingPosition()
     return startPos;
 }
 
-eAlliance getAlliance()
+eAlliance AutoBase::getAlliance()
 {
     // assemble number for starting position
     eAlliance alliance = (eAlliance) 0;

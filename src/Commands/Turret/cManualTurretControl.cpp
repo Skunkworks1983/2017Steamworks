@@ -21,7 +21,7 @@ void cManualTurretControl::Initialize()
 
 void cManualTurretControl::Execute()
 {
-    CommandBase::s_turret->setSpeed(CommandBase::s_oi->getTurretSlider() * MANUAL_TURRET_CONTROL_SCALAR);
+    CommandBase::s_turret->setSpeed(CommandBase::s_oi->getRotPos() * -0.05);
 }
 
 bool cManualTurretControl::IsFinished()
