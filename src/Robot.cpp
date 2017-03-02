@@ -16,6 +16,7 @@
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
+#include <Commands/Autonomous/AutoBase.h>
 
 #include <Commands/DriveBase/cDriveStraight.h>
 #include <Commands/Debugging/cRunOneMotor.h>
@@ -85,6 +86,11 @@ private:
 
         // enable turret
         CommandBase::s_turret->setEnabled(true);
+
+        // auto commands
+
+        AutoBase* autoCommands = (new AutoBase())->configureAutonomous();
+        Scheduler::GetInstance()->AddCommand(autoCommands);
 
         //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
