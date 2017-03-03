@@ -14,9 +14,9 @@
 
 class cShooter;
 
-class cShootPID: public CommandBase {
+class cShootPID: public frc::Command {
 private:
-	double speed = -150;
+	double speed;
 	float current_setpoint = 0.0;
 	float timeout;
 

@@ -16,12 +16,14 @@
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
+#include "Commands/Shooter/cSetSetpointManually.h"
 
 #include <Commands/DriveBase/cDriveStraight.h>
 #include <Commands/Debugging/cRunOneMotor.h>
 #include <Subsystems/cFuelIndexer.h>
 #include <Subsystems/cFuelConveyor.h>
 #include <Subsystems/Sensors/cColorSensor.h>
+
 
 class Robot: public IterativeRobot
 {
@@ -32,24 +34,26 @@ private:
 	cRunOneMotor* runMotor;
 	cColorSensor* colorSensor;
 	SmartDashboard* dashboard;
+	cSetSetpointManually* runShooter;
 
     void RobotInit()
     {
         LOG_INFO("RobotInit called");
 
-        //CommandBase::s_drivebase = new cDriveBase();
-        CommandBase::s_oi = new OI();
-        //CommandBase::s_climber = new cClimber();
-        //CommandBase::s_turret = new cTurret();
-        //CommandBase::s_gearCollector = new cGearCollector();
-        //CommandBase::s_fuelCollector = new cFuelCollector();
+        CommandBase::s_drivebase = new cDriveBase();
+        CommandBase::s_climber = new cClimber();
+        CommandBase::s_turret = new cTurret();
+        CommandBase::s_gearCollector = new cGearCollector();
+        CommandBase::s_fuelCollector = new cFuelCollector();
         CommandBase::s_fuelIndexer = new cFuelIndexer();
         CommandBase::s_fuelConveyor = new cFuelConveyor();
-        //CommandBase::s_shooter = new cShooter();
+        CommandBase::s_shooter = new cShooter(false);
+        CommandBase::s_oi = new OI();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
         dashboard = new SmartDashboard;
+        runShooter = new cSetSetpointManually();
     }
 
     void DisabledInit()
@@ -83,6 +87,7 @@ private:
     {
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("TeleopInit called");
+        Scheduler::GetInstance()->AddCommand(runShooter);
 
     }
 

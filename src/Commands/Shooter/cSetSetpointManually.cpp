@@ -18,6 +18,7 @@ cSetSetpointManually::cSetSetpointManually(float timeout) : timeout(timeout)
 
 void cSetSetpointManually::Initialize()
 {
+	std::cout << "cSetSetpointManually Initialize";
 	CommandBase::s_shooter->setManualEnabled(true);
 	CommandBase::s_shooter->EnablePID();
 	CommandBase::s_shooter->setPID(p, i, d, f);
@@ -29,6 +30,7 @@ void cSetSetpointManually::Initialize()
 
 void cSetSetpointManually::Execute()
 {
+	std::cout << "cSetSetpointManually Execute";
 	if (!CommandBase::s_shooter->isPIDEnabled()) {
 		CommandBase::s_shooter->EnablePID();
 	}
@@ -36,7 +38,7 @@ void cSetSetpointManually::Execute()
 	CommandBase::s_shooter->setSetpoint(CommandBase::s_oi->getShooterSlider()*MANUAL_SHOOTER_CONTROL_SCALAR);
 }
 
-bool cSetSetpointManually::isFinished()
+bool cSetSetpointManually::IsFinished()
 {
 	return IsTimedOut();
 }
@@ -45,6 +47,7 @@ void cSetSetpointManually::End()
 {
 	CommandBase::s_shooter->setManualEnabled(false);
 	CommandBase::s_shooter->DisablePID();
+	std::cout << "cSetSetpointManually Ended";
 }
 
 void cSetSetpointManually::Interrupted()

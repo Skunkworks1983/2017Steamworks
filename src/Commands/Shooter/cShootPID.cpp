@@ -15,16 +15,17 @@
 cShootPID::cShootPID(double speed, float timeout) :
 		speed(speed), timeout(timeout)
 {
-	Requires(CommandBase::s_shooter);
+
 }
 
 void cShootPID::Initialize()
 {
-	s_shooter->EnablePID();
+	std::cout <<"cShootPID initialize";
+	CommandBase::s_shooter->EnablePID();
 
-	s_shooter->setPID(p, i, d, f);
+	CommandBase::s_shooter->setPID(p, i, d, f);
 
-	s_shooter->setSetpoint(current_setpoint);
+	CommandBase::s_shooter->setSetpoint(current_setpoint);
 
 	if (timeout != 0)
 	{
@@ -35,19 +36,19 @@ void cShootPID::Initialize()
 
 void cShootPID::Execute()
 {
-	if (!s_shooter->isPIDEnabled()) {
-		s_shooter->EnablePID();
+	if (!CommandBase::s_shooter->isPIDEnabled()) {
+		CommandBase::s_shooter->EnablePID();
 	}
 
 	if (current_setpoint > speed) {
 		current_setpoint -= RAMPING_CONSTANT;
 	} else {
 		current_setpoint = speed;
-		s_shooter->setSetpoint(current_setpoint);
+		CommandBase::s_shooter->setSetpoint(current_setpoint);
 	}
-	SmartDashboard::PutNumber("cShootPIDspeed", s_shooter->PIDGet());
-	SmartDashboard::PutNumber("cShootPIDError", s_shooter->getError());
-	SmartDashboard::PutNumber("cShootPIDSetpoint", s_shooter->getSetpoint());
+	SmartDashboard::PutNumber("cShootPIDSpeed", CommandBase::s_shooter->PIDGet());
+	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
+	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
 }
 
 bool cShootPID::IsFinished()
@@ -57,8 +58,9 @@ bool cShootPID::IsFinished()
 
 void cShootPID::End()
 {
-	s_shooter->DisablePID();
-	s_shooter->ResetPID();
+	std::cout << "cShootPID End";
+	CommandBase::s_shooter->DisablePID();
+	CommandBase::s_shooter->ResetPID();
 }
 
 void cShootPID::Interrupted()

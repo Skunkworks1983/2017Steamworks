@@ -20,7 +20,7 @@ public:
 
 	void Initialize();
 	void Execute();
-	bool isFinished();
+	bool IsFinished();
 	void End();
 	void Interrupted();
 

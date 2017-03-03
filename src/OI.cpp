@@ -6,6 +6,7 @@
 #include <Commands/Shooter/cShootHigh.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Shooter/cAcquireBall.h>
+#include <Commands/Shooter/cShootPID.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/FuelCollector/cRunFuelFlap.h>
 #include <Commands/FuelCollector/cRunHopperIntake.h>
@@ -59,6 +60,8 @@ OI::OI()
 
     //m_FuelIndexer->WhenPressed(new cRunFuelIndexer(1, FuelIndexer_COMMAND_TIME_ON));
 
+    m_shootPID = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
+    m_shootPID->WhenPressed(new cShootPID(-150, 35));
 }
 
 float OI::getLeftStickY()
@@ -81,3 +84,4 @@ float OI::getShooterSlider()
     return (m_buttons->GetX() - (OI_SHOOTER_SLIDER_RANGE / 2)) *
             (1 / OI_SHOOTER_SLIDER_RANGE);
 }
+
