@@ -70,11 +70,5 @@ public:
 
     double getPosition();
 
-    void SetFeedbackDevice(CANTalon::FeedbackDevice feedbackdevice);
-
-    void ConfigLimitMode(CANSpeedController::LimitMode mode);
-
-    void setDisableEncoder(bool disabled);
-
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */
