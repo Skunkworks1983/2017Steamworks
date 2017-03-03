@@ -12,17 +12,25 @@
 #include <PIDSource.h>
 #include <PIDOutput.h>
 #include <Subsystems/Interfaces/iMotor.h>
+#include <stdint.h>
 
 enum eMotorType
 {
-    BaneBots775,/*ayylmao*/NeveRest40, CIM
+
+    BaneBots775,NeveRest40, CIM
+
 };
 
 class cMotor: public iMotor
 {
 private:
-    CANTalon m_motor;bool m_hasEncoder;
+
     eMotorType m_motorType;
+    uint64_t m_timeStall;
+    CANTalon m_motor;
+    bool m_hasEncoder;
+    bool m_disabledEncoder;
+
 public:
     cMotor(int port, eMotorType motorType, bool hasEncoder = false, frc::CANSpeedController::ControlMode controlMode =
             frc::CANSpeedController::ControlMode::kPercentVbus);
@@ -61,6 +69,12 @@ public:
     void setSetpoint(double value);
 
     double getPosition();
+
+    void SetFeedbackDevice(CANTalon::FeedbackDevice feedbackdevice);
+
+    void ConfigLimitMode(CANSpeedController::LimitMode mode);
+
+    void setDisableEncoder(bool disabled);
 
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */

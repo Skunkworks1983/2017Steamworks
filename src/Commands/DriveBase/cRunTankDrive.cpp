@@ -30,30 +30,30 @@ void cRunTankDrive::Execute()
         //reverses robot -> switches joystick control and robot front/back
     }
 
-    if(leftSpeed < .05 && leftSpeed > -.05) //creates deadzone
+    if(leftSpeed < .05 && leftSpeed > -.025) //creates deadzone
     {
         CommandBase::s_drivebase->setLeftSpeed(0);
     }
     else if(leftSpeed < 0)
     {
-        CommandBase::s_drivebase->setLeftSpeed((leftSpeed * leftSpeed) * -1); //scalling
+        CommandBase::s_drivebase->setLeftSpeed(pow(-leftSpeed, .85) * -1); //scalling
     }
     else
     {
-        CommandBase::s_drivebase->setLeftSpeed(leftSpeed * leftSpeed);
+        CommandBase::s_drivebase->setLeftSpeed(pow(leftSpeed, .85));
     }
 
-    if(rightSpeed < .05 && rightSpeed > -.05)
+    if(rightSpeed < .05 && rightSpeed > -.025)
     {
         CommandBase::s_drivebase->setRightSpeed(0);
     }
     else if(rightSpeed < 0)
     {
-        CommandBase::s_drivebase->setRightSpeed((rightSpeed * rightSpeed) * -1);
+        CommandBase::s_drivebase->setRightSpeed(pow(-leftSpeed, .85) * -1);
     }
     else
     {
-        CommandBase::s_drivebase->setRightSpeed(rightSpeed * rightSpeed);
+        CommandBase::s_drivebase->setRightSpeed(pow(leftSpeed, .85));
     }
     //std::cout << "Left: " << CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() << "\t\tRight: " << CommandBase::s_drivebase->getMotorGroupRight()->getPosition() << std::endl;
 }
