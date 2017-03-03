@@ -37,7 +37,6 @@ AutoBase* AutoBase::placeGear()
     	m_placeGear->AddSequential(new cSimpleDriveForward(DISTANCE_FROM_PEG_TO_PIVOT_POINT));
     	break;
        }
-    }
 
     return placeGear;
 }
