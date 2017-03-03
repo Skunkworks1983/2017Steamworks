@@ -45,8 +45,6 @@ private:
     priority_mutex* m_threadMutex;
     std::string receiveMessage();
 public:
-    bool m_isPostMatch;
-
     cMessenger(const char* server, const char* port);
     ~cMessenger();
 

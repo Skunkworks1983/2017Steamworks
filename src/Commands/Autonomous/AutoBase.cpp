@@ -20,10 +20,10 @@ double AutoBase::s_angleRobotPivotPointPeg = 0;
 
 AutoBase::AutoBase()
 {
-    m_driveToLine = new CommandGroup;
-    m_driveToLine->AddSequential(new cSimpleDriveForward(100, true));
+
 }
 AutoBase* AutoBase::configureAutonomous()
+
 {
     AutoBase* commands = new AutoBase();
 
@@ -42,12 +42,15 @@ AutoBase* AutoBase::configureAutonomous()
     {
     case POS_BOILER:
         commands->AddSequential(commands->goLiftBoiler());
+        //commands->AddSequential(commands->cPlaceGear());
         break;
     case POS_CENTER:
         commands->AddSequential(commands->goLiftCenter());
+        //commands->AddSequential(commands->cPlaceGear());
         break;
     case POS_RETRIEVAL:
         commands->AddSequential(commands->goLiftRetrieval());
+        //commands->AddSequential(commands->cPlaceGear());
         break;
     }
 
@@ -61,4 +64,45 @@ AutoBase* AutoBase::configureAutonomous()
 AutoBase::~AutoBase()
 {
     delete this;
+}
+
+eStartingPosition AutoBase::getStartingPosition()
+{
+    // read from the dial
+    std::vector<DigitalInput*> inputs;
+
+    // get inputs from pins
+    for(int i = 0; i < START_POS_SELECTION_DIGITS; i++)
+    {
+        inputs.push_back(new DigitalInput(i));
+    }
+
+    // assemble number for starting position
+    eStartingPosition startPos = (eStartingPosition) 0;
+    int digit = 1;
+
+    // no idea why this needs to be unsigned
+    for(unsigned int i = 0; i < inputs.size(); i++)
+    {
+        if(inputs[i]->Get())
+        {
+            startPos = (eStartingPosition) (startPos | digit);
+        }
+
+        digit = digit << 1;
+    }
+
+    // return a value
+    return startPos;
+}
+
+eAlliance getAlliance()
+{
+    // assemble number for starting position
+    eAlliance alliance = (eAlliance) 0;
+
+    // doesnt do anything yet
+
+    // return a value
+    return alliance;
 }

@@ -180,6 +180,10 @@ enum eStartingPosition
     POS_BOILER, POS_CENTER, POS_RETRIEVAL
 };
 
+
+const int START_POS_SELECTION_DIGITS = 3;
+const int ALLIANCE_SELECTION_DIGITS = 1;
+
 const bool USE_SHOOTER = true;
 const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
