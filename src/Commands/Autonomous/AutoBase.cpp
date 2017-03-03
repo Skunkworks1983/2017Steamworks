@@ -30,7 +30,7 @@ AutoBase* AutoBase::configureAutonomous()
     AutoBase* commands = new AutoBase();
 
     // get the current alliance through driver station
-    //alliance = DriverStation::GetInstance().GetAlliance();
+    alliance = DriverStation::GetInstance().GetAlliance();
 
     // commands for moving to the lifts
     switch(startPosition)
