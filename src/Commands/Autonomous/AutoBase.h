@@ -23,12 +23,16 @@
 
 #ifndef SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
 #define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
+
+#pragma once
+
 #include <Commands/CommandGroup.h>
 #include <RobotMap.h>
 
 // TODO: idk where to put this so it's going here for now
 // i know these shouldn't be constants, but it won't build
 // without them being that way. todo: fix
+
 eAlliance alliance = Red;
 eStartingPosition startPosition = POS_1;
 
@@ -49,10 +53,10 @@ public:
 
     AutoBase* configureAutonomous();
 
-    // returns the current auto starting position based on the dial/switch
+// returns the current auto starting position based on the dial/switch
     eStartingPosition getStartingPosition();
 
-    // returns the current alliance based on dial/switch
+// returns the current alliance based on dial/switch
     eAlliance getAlliance();
 
     AutoBase* goLift1();
@@ -62,15 +66,15 @@ public:
     AutoBase* placeGear();
 
 //TODO REQUIRES
-    //gyro code (navx, ahrs?)
-    //gear mechanism
-    //drive train layout
-    //color sensor (maybe)
+//gyro code (navx, ahrs?)
+//gear mechanism
+//drive train layout
+//color sensor (maybe)
 //TODO GOALS
-    //cross baseline
-    //deposit gear
-    //shoot high? (need to ask)
-    //position front of loading zone
+//cross baseline
+//deposit gear
+//shoot high? (need to ask)
+//position front of loading zone
 };
 
 #endif /* SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_ */

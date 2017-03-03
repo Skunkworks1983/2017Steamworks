@@ -106,6 +106,12 @@ private:
 
         CommandBase::s_boilerMessenger->sendMessage("auto"); //What if it misses the packet?
         CommandBase::s_liftMessenger->sendMessage("auto");
+
+        // test
+        DigitalInput* p5 = new DigitalInput(5);
+        DigitalInput* p6 = new DigitalInput(6);
+
+        std::cout << "switch: " << p5->Get() << p6->Get() << std::endl;
     }
 
     void TeleopInit()
