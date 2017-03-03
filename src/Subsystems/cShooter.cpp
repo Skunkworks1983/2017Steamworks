@@ -37,7 +37,7 @@ void cShooter::setSpeed(float speed)
 
 double cShooter::getSpeed()
 {
-    return m_motor1->GetSpeed(); //wat
+    return m_motor1->GetSpeed();
 }
 
 double cShooter::PIDGet()
@@ -60,7 +60,11 @@ void cShooter::EnablePID()
 	if(m_motor1->getControlMode() != CANTalon::ControlMode::kSpeed) {
 		m_motor1->setControlMode(CANSpeedController::kSpeed);
 	}
+
+	m_motor2->setControlMode(CANSpeedController::kFollower);
 	m_motor1->Enable();
+
+	std::cout << "Shooter PID enabled" << std::endl;
 }
 
 void cShooter::DisablePID()

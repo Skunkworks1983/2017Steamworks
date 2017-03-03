@@ -8,6 +8,10 @@
 #define ROBOT_NAME "tim scoot"
 #define LOGFILE_NAME "/U/robotLog"
 
+//|||||||||||||||||||||||||||||||||||||||||||
+#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
+//|||||||||||||||||||||||||||||||||||||||||||
+
 // // MESSENGER // //
 
 #define BOILER_PI_IP "10.19.83.7"
@@ -141,7 +145,7 @@ const int SHOOTER_MOTOR2_PORT = 3;
 
 const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
-const double SHOOTER_P = 1;
+const double SHOOTER_P = 0.05;
 const double SHOOTER_I = 0;
 const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
@@ -188,11 +192,12 @@ enum eStartingPosition
 const int START_POS_SELECTION_DIGITS = 3;
 const int ALLIANCE_SELECTION_DIGITS = 1;
 
-const bool USE_SHOOTER = true;
+const bool USE_SHOOTER = false;
 const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
 const bool USE_SONAR_SENSOR = true;
 const bool USE_CAMERA = true;
+const bool USE_GYRO = true;
 
 const int AUTO_MOVE_FORWARD_FEET = 3;
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1

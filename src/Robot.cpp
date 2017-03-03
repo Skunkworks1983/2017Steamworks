@@ -4,6 +4,8 @@
 #include <errno.h>
 #include "RobotMap.h"
 
+#include <Commands/Autonomous/AutoBase.h>
+
 #include <SmartDashboard/SmartDashboard.h>
 
 #include "Subsystems/cDriveBase.h"
@@ -53,8 +55,8 @@ private:
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
-        CommandBase::s_drivebase->getGyro()->initGyro();
-        CommandBase::s_drivebase->getGyro()->zeroYaw();
+        //CommandBase::s_drivebase->getGyro()->initGyro();
+        //CommandBase::s_drivebase->getGyro()->zeroYaw();
 
         //colorSensor = new cColorSensor();
 
@@ -65,9 +67,9 @@ private:
 
         tankDrive = new cRunTankDrive();
         runMotor = new cRunOneMotor();
-        driveStraight = new cDriveStraight(7300, 0.35);
+        driveStraight = new cDriveStraight(-7250, 0.2);
 
-        CameraServer::GetInstance()->StartAutomaticCapture();
+        //CameraServer::GetInstance()->StartAutomaticCapture();
     }
 
     void DisabledInit()
@@ -93,7 +95,8 @@ private:
         // enable turret
         CommandBase::s_turret->setEnabled(true);
 
-        Scheduler::GetInstance()->AddCommand(driveStraight);
+        //Scheduler::GetInstance()->AddCommand(driveStraight);
+        Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
 
         //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
 	}
@@ -109,7 +112,7 @@ private:
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
-        Scheduler::GetInstance()->AddCommand(tankDrive);
+        //Scheduler::GetInstance()->AddCommand(tankDrive);
         //Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
         std::cout << "Init" << std::endl;
@@ -125,7 +128,7 @@ private:
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");
 
-        std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
+        //std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
     }
 
     void TestPeriodic()

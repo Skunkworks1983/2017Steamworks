@@ -55,7 +55,7 @@ void cRunTankDrive::Execute()
     {
         CommandBase::s_drivebase->setRightSpeed(rightSpeed * rightSpeed);
     }
-    //std::cout << "Left: " << CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() << "\t\tRight: " << CommandBase::s_drivebase->getMotorGroupRight()->getPosition() << std::endl;
+    std::cout << "Left: " << CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() << "\t\tRight: " << CommandBase::s_drivebase->getMotorGroupRight()->getPosition() << std::endl;
 }
 
 bool cRunTankDrive::IsFinished()

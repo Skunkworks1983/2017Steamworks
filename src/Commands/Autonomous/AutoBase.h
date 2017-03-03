@@ -30,7 +30,7 @@
 // i know these shouldn't be constants, but it won't build
 // without them being that way. todo: fix
 const eAlliance alliance = Red;
-const eStartingPosition startPosition = POS_1;
+const eStartingPosition startPosition = POS_2;
 
 class AutoBase: public frc::CommandGroup
 {
@@ -47,7 +47,7 @@ public:
     AutoBase();
     ~AutoBase();
 
-    AutoBase* configureAutonomous();
+    static AutoBase* configureAutonomous();
 
     // returns the current auto starting position based on the dial/switch
     eStartingPosition getStartingPosition();
@@ -57,9 +57,11 @@ public:
 
     AutoBase* goLift1();
     AutoBase* goLift2();
+    AutoBase* deadLift2();
     AutoBase* goLift3();
 
     AutoBase* placeGear();
+
 
 //TODO REQUIRES
     //gyro code (navx, ahrs?)

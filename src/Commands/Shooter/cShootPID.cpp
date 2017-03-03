@@ -14,10 +14,12 @@ cShootPID::cShootPID(double speed, float timeout) :
 		speed(speed), timeout(timeout)
 {
 	Requires(CommandBase::s_shooter);
+	std::cout << "Hey its a me it the oi" << std::endl;
 }
 
 void cShootPID::Initialize()
 {
+	current_setpoint = 0;
 	s_shooter->EnablePID();
 
 	s_shooter->setPID(p, i, d, f);
@@ -28,6 +30,7 @@ void cShootPID::Initialize()
 	{
 		SetTimeout(timeout);
 	}
+	std::cout << "Hey its a me its the button being pressed" << std::endl;
 }
 //
 
@@ -37,13 +40,13 @@ void cShootPID::Execute()
 		s_shooter->EnablePID();
 	}
 
-	if (current_setpoint < speed) {
-		current_setpoint += RAMPING_CONSTANT;
+	if (current_setpoint > speed) { //Its a flipped
+		current_setpoint -= RAMPING_CONSTANT;
 	} else {
 		current_setpoint = speed;
 		s_shooter->setSetpoint(current_setpoint);
 	}
-
+	std::cout << "Setpoint: " << current_setpoint << std::endl;
 }
 
 bool cShootPID::IsFinished()
@@ -53,6 +56,7 @@ bool cShootPID::IsFinished()
 
 void cShootPID::End()
 {
+	s_shooter->setSpeed(0);
 	s_shooter->DisablePID();
 	s_shooter->ResetPID();
 }

@@ -3,6 +3,7 @@
 #include <Commands/GearMechanism/cAcquireGear.h>
 #include <Commands/Climber/cClimbRope.h>
 #include <Commands/GearMechanism/cDepositGear.h>
+#include <Commands/Shooter/cShootPID.h>
 #include <Commands/Shooter/cShootHigh.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Shooter/cAcquireBall.h>
@@ -39,6 +40,9 @@ OI::OI()
 
     m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
+
+    m_pidSpinUpShooter = new JoystickButton(m_buttons, 9);
+    m_pidSpinUpShooter->WhileHeld(new cShootPID(-150, 10000));
 
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));

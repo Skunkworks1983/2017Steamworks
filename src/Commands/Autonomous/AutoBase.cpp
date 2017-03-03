@@ -23,7 +23,7 @@ AutoBase::AutoBase()
 
 }
 
-AutoBase* configureAutonomous()
+AutoBase* AutoBase::configureAutonomous()
 {
     AutoBase* commands = new AutoBase();
 
@@ -45,7 +45,9 @@ AutoBase* configureAutonomous()
         commands->AddSequential(commands->placeGear());
         break;
     case POS_2:
-        commands->AddSequential(commands->placeGear());
+        //commands->AddSequential(commands->placeGear()); once we know what we're doing
+    	std::cout << "POS 2" << std::endl;
+    	commands->AddSequential(commands->deadLift2());
         break;
     case POS_3:
         commands->AddSequential(commands->goLift3());
