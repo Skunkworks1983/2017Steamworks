@@ -46,7 +46,7 @@ void cMotor::setOutput(float output)
             {
                 m_motor.Set(0);
                 m_timeStall = GetFPGATime();
-                LOG_INFO("BaneBots775 stall");
+                LOG_WARNING("BaneBots775 stall");
                 return;
             }
             break;
@@ -55,7 +55,7 @@ void cMotor::setOutput(float output)
             {
                 m_motor.Set(0);
                 m_timeStall = GetFPGATime();
-                LOG_INFO("NeveRest40 stall");
+                LOG_WARNING("NeveRest40 stall");
                 return;
             }
             break;
@@ -64,7 +64,7 @@ void cMotor::setOutput(float output)
             {
                 m_motor.Set(0);
                 m_timeStall = GetFPGATime();
-                LOG_INFO("CIM stall");
+                LOG_WARNING("CIM stall");
                 return;
             }
             break;
