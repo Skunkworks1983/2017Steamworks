@@ -37,6 +37,8 @@ public:
     static iFuelIndexer* s_fuelIndexer;
     static iShooter* s_shooter;
     static iTurret* s_turret;
+
+    static bool m_postMatch;
 };
 
 #endif

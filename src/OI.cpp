@@ -26,10 +26,14 @@ OI::OI()
 
     m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
 
+    m_climbRope = new JoystickButton(m_buttons, 11);
+
     m_loadBall->WhileHeld(new cRunFuelIndexer());
     m_runConveyor->WhileHeld(new cRunFuelConveyor());
 
     m_collectorPos->WhileHeld(new cSetCollectorPos());
+
+    m_climbRope->WhileHeld(new cClimbRope(0.9, 0));
 
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
     m_acquireBall = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREBALL_BUTTON);
