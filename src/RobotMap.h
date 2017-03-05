@@ -10,13 +10,13 @@
 
 // // MESSENGER // //
 
-#define BOILER_PI_IP "10.19.83.7"
-#define BOILER_PI_PORT "5802"
+const char* const BOILER_PI_IP = "10.19.83.7";
+const char* const BOILER_PI_PORT = "5802";
 
 const int BOILER_PI_ID = 1;
 
-#define GEAR_PI_IP "10.19.83.6"
-#define GEAR_PI_PORT "5800"
+const char* const GEAR_PI_IP = "10.19.83.6";
+const char* const GEAR_PI_PORT = "5800";
 
 const int GEAR_PI_ID = 0;
 
@@ -175,7 +175,7 @@ const int BOILER_PI_CAMERA_FOV = 53.5;
 
 enum eAlliance
 {
-    Red, Blue, Invalid
+    RED, BLUE, INVALID
 };
 
 enum eStartingPosition

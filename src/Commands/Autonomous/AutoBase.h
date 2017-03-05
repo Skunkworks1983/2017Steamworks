@@ -26,12 +26,6 @@
 #include <Commands/CommandGroup.h>
 #include <RobotMap.h>
 
-// TODO: idk where to put this so it's going here for now
-// i know these shouldn't be constants, but it won't build
-// without them being that way. todo: fix
-eAlliance alliance = Red;
-eStartingPosition startPosition = POS_1;
-
 class AutoBase: public frc::CommandGroup
 {
 private:
@@ -58,6 +52,8 @@ public:
     AutoBase* goLift1();
     AutoBase* goLift2();
     AutoBase* goLift3();
+
+    AutoBase* crossBaseline();
 
     AutoBase* placeGear();
 

@@ -30,10 +30,10 @@
 class Robot: public IterativeRobot
 {
 private:
-	//Put commands out here for declaration
-	cRunOneMotor* runMotor;
-	cRunTankDrive* tankDrive;
-	cDriveStraight* driveStraight;
+    //Put commands out here for declaration
+    cRunOneMotor* runMotor;
+    cRunTankDrive* tankDrive;
+    cDriveStraight* driveStraight;
 
     void RobotInit()
     {
@@ -72,7 +72,7 @@ private:
 
     void DisabledInit()
     {
-    	Scheduler::GetInstance()->RemoveAll();
+        Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("DisabledInit called");
 
         // disable the turret
@@ -94,11 +94,16 @@ private:
         CommandBase::s_turret->setEnabled(true);
 
         // auto commands
-        AutoBase* autoCommands = (new AutoBase())->configureAutonomous();
-        Scheduler::GetInstance()->AddCommand(autoCommands);
+        //AutoBase* autoCommands = (new AutoBase())->configureAutonomous();
+        //Scheduler::GetInstance()->AddCommand(autoCommands);
 
         //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
-	}
+
+        for(int i = 0; i < 8; i++)
+        {
+            std::cout << i << ": " << (new DigitalInput(i))->Get() << std::endl;
+        }
+    }
 
     void AutonomousPeriodic()
     {
@@ -134,29 +139,32 @@ private:
 
     void TestPeriodic()
     {
-    	/* NOTE
-    	 * Running the robot in Test mode will also allow access in SmartDashboard to all of the CANTalons.
-    	 * We may want to move this to another portion and have a debug switch in RobotMap.h
-    	 */
+        /* NOTE
+         * Running the robot in Test mode will also allow access in SmartDashboard to all of the CANTalons.
+         * We may want to move this to another portion and have a debug switch in RobotMap.h
+         */
         LiveWindow::GetInstance()->Run();
-		SmartDashboard::PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
+        SmartDashboard::PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
         SmartDashboard::PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
 
-    	/*dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
-    	dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
-    	dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
-    	dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());*/
+        /*dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
+         dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
+         dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
+         dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());*/
 
-    	SmartDashboard::PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
+        SmartDashboard::PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
 
-        SmartDashboard::PutNumber("Drivebase: left encoder", CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
-        SmartDashboard::PutNumber("Drivebase: right encoder", CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
+        SmartDashboard::PutNumber("Drivebase: left encoder",
+                CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
+        SmartDashboard::PutNumber("Drivebase: right encoder",
+                CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
 
         SmartDashboard::PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
         //SmartDashboard::PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
         SmartDashboard::PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
     }
 };
+
 START_ROBOT_CLASS(Robot)
 //if you comment this macro out
 //you should probably change that

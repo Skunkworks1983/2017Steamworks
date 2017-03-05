@@ -27,48 +27,24 @@ AutoBase::AutoBase()
 
 AutoBase* AutoBase::configureAutonomous()
 {
+    // initialize commands
     AutoBase* commands = new AutoBase();
 
-    // get the current alliance through driver station
-    alliance = DriverStation::GetInstance().GetAlliance();
-
-    // commands for moving to the lifts
-    switch(startPosition)
+    // config auto
+    switch(AutoBase::getStartingPosition())
     {
     case POS_1:
-        //
-
-        /*
-        commands->AddSequential(commands->goLift1());
-        commands->AddSequential(commands->placeGear());
-
-        if(USE_SHOOTER && USE_TURRET)
-        {
-            commands->AddSequential(new cSpinUpShooter());
-            commands->AddParallel(new cRotateTurret(30));
-            commands->AddParallel(new cShootWhenReady(30));
-        }
-        */
+        commands->AddSequential(AutoBase::crossBaseline());
 
         break;
     case POS_2:
-        /*
-        commands->AddSequential(commands->placeGear());
-
-        if(USE_SHOOTER && USE_TURRET)
-        {
-            commands->AddSequential(new cSpinUpShooter());
-            commands->AddParallel(new cRotateTurret(30));
-            commands->AddParallel(new cShootWhenReady(30));
-        }
-        */
 
         break;
     case POS_3:
-        /*
-        commands->AddSequential(commands->goLift3());
-        commands->AddSequential(commands->placeGear());
-        */
+        commands->AddSequential(AutoBase::crossBaseline());
+
+        break;
+    default:
 
         break;
     }
@@ -84,55 +60,28 @@ AutoBase::~AutoBase()
 
 eStartingPosition AutoBase::getStartingPosition()
 {
-    DigitalInput* port6 = new DigitalInput(6);
-    DigitalInput* port7 = new DigitalInput(7);
+    eStartingPosition startingPosition = (eStartingPosition) POS_2;
 
-    eStartingPosition startPos = (eStartingPosition) POS_2;
+    // we only need to check one pin, but just for future purposes
+    // we'll go through the entire motion of checking all the pins
 
-    if(port6->Get())
-    {
-        startPos = POS_1;
-    }
+    // quick note: when assembling the binary number, recall that
+    // numbers read right to left, in terms of digit order. d1 would
+    // be far right, while higher digits would follow to the right.
 
-    return startPos;
+    // d2 d1
 
-    /*
-     // read from the dial
-     std::vector<DigitalInput*> inputs;
+    // retrieve the digits from the dio pins
+    int d1 = (new DigitalInput(6))->Get();
+    int d2 = (new DigitalInput(7))->Get();
 
-     // get inputs from pins
-     for(int i = 0; i < START_POS_SELECTION_DIGITS; i++)
-     {
-     inputs.push_back(new DigitalInput(i));
-     }
-
-     // assemble number for starting position
-     eStartingPosition startPos = (eStartingPosition) 0;
-     int digit = 1;
-
-     // no idea why this needs to be unsigned
-     for(unsigned int i = 0; i < inputs.size(); i++)
-     {
-     if(inputs[i]->Get())
-     {
-     startPos = (eStartingPosition) (startPos | digit);
-     }
-
-     digit = digit << 1;
-     }
-
-     // return a value
-     return startPos;
-     */
+    return startingPosition;
 }
 
 eAlliance AutoBase::getAlliance()
 {
-    // assemble number for starting position
-    eAlliance alliance = (eAlliance) 0;
+    frc::DriverStation::Alliance dsAlliance = DriverStation::GetInstance().GetAlliance();
+    eAlliance alliance = (eAlliance) dsAlliance;
 
-    // doesnt do anything yet
-
-    // return a value
     return alliance;
 }
