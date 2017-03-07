@@ -129,9 +129,9 @@ double cMotor::GetSpeed() const
 	return m_motor.GetSpeed();
 }
 
-void cMotor::SetSetpoint(double value)
+void cMotor::SetSetpoint(double setpoint)
 {
-	return m_motor.SetSetpoint(value);
+	return m_motor.SetSetpoint(setpoint);
 }
 
 double cMotor::GetSetpoint() const

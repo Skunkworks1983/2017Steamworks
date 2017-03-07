@@ -23,7 +23,7 @@ private:
     bool m_manualEnabled = false;
 
 public:
-    cShooter(bool brake);
+    cShooter();
     ~cShooter();
     void InitDefaultCommand();
 
@@ -34,7 +34,7 @@ public:
 	void EnablePID();
 	void ResetPID();
 	bool isPIDEnabled();
-	void setSetpoint(float setpoint);
+	void setSetpoint(double setpoint);
 	double PIDGet();
 	void setPID(double p, double i, double d, double f);
 	double getSetpoint();

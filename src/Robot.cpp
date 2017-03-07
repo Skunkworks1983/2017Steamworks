@@ -47,7 +47,7 @@ private:
         CommandBase::s_fuelCollector = new cFuelCollector();
         CommandBase::s_fuelIndexer = new cFuelIndexer();
         CommandBase::s_fuelConveyor = new cFuelConveyor();
-        CommandBase::s_shooter = new cShooter(false);
+        CommandBase::s_shooter = new cShooter();
         CommandBase::s_oi = new OI();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
