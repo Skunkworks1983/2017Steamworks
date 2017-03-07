@@ -98,8 +98,8 @@ private:
 
 		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
 
-		//Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-		//Scheduler::GetInstance()->AddCommand(new cTurnAngle(60));
+		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
+		Scheduler::GetInstance()->AddCommand(new cTurnAngle(30));
 		//Scheduler::GetInstance()->AddCommand(new cDriveStraight(0.25*(-6200), 0.25));
 
 		//Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
