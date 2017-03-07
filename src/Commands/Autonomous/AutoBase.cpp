@@ -34,7 +34,7 @@ AutoBase* AutoBase::configureAutonomous()
         commands->AddParallel(new cSpinUpShooter());
 
         // start vision code to find the boiler
-        commands->AddParallel(new cRotateTurret(30));
+        commands->AddParallel(new cRotateTurret(30)); //this number was made by a wizard
     }
 
     // commands for moving to the lifts

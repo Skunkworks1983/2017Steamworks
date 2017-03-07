@@ -183,6 +183,7 @@ double cDriveBase::GetSonarDistance(bool left) {
 	} else {
 		eitherSonar = m_rSonar;
 	}
+	for (int a = 0; a < 1000000; a++) { //we need to do this every million or so cycles, I think.
 	int i;
 	double totalDistance = 0;
 	for (i = 0; i < 1000; i++) { //is this okay? if it takes too long, make it 100 or 50
@@ -191,6 +192,7 @@ double cDriveBase::GetSonarDistance(bool left) {
 		totalDistance = totalDistance + distanceFeet;
 	}
 	distanceFeet = totalDistance/1000; //need to change this number too
+	}
 	return distanceFeet;
 
 }

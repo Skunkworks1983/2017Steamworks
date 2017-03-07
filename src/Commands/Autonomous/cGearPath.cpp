@@ -23,9 +23,9 @@ void cGearPath::Initialize() {
 void cGearPath::Execute() {
 	//a^2 = b^2 + c^2 - 2*b*c*cos(A)
 	//cos(A) = ((- a * a + b * b + c * c) / 2 * b * c)
-	double leftDistance = CommandBase::s_drivebase->GetLeftDistance();
-	double rightDistance = CommandBase::s_drivebase->GetRightDistance();
-	double angleRobotPegWall;
+	double leftDistance = CommandBase::s_drivebase->GetLeftDistance(); //boiiiiiiiiiiiiiiiiii this doesnt work
+	double rightDistance = CommandBase::s_drivebase->GetRightDistance(); //if anybody actually ends up reading this
+	double angleRobotPegWall;											//an idea of which i have sincere doubts
 	double longerDistance;
 	double shorterDistance;
 	if (leftDistance > rightDistance) {
