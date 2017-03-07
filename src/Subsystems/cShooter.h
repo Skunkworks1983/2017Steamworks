@@ -23,7 +23,7 @@ private:
     bool m_manualEnabled = false;
 
 public:
-    cShooter(bool brake);
+    cShooter();
     ~cShooter();
     void InitDefaultCommand();
 

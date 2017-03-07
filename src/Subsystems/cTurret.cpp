@@ -8,18 +8,15 @@ cTurret::cTurret()
 {
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
     m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
-    m_motor1->configForwardLimit((double) turret_angle_to_rots(-90));
-    m_motor1->configReverseLimit((double) turret_angle_to_rots(90));
+    m_motor1->configForwardLimit((double) turret_angle_to_ticks(-90));
+    m_motor1->configReverseLimit((double) turret_angle_to_ticks(90));
+
+    m_motor1->setEnabled(false);
 }
 
 cTurret::~cTurret()
 {
     delete m_motor1;
-}
-
-void cTurret::InitDefaultCommand()
-{
-
 }
 
 void cTurret::setSpeed(float speed)
@@ -29,21 +26,21 @@ void cTurret::setSpeed(float speed)
 
 void cTurret::setOrientation(float heading)
 {
-    float desired = turret_angle_to_rots(heading);
+    float desired = turret_angle_to_ticks(heading);
     m_motor1->setSetpoint(desired);
 }
 
 void cTurret::rotate(float degrees)
 {
-    float current = turret_rots_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
-    float desired = turret_angle_to_rots(current + degrees);
+    float current = turret_ticks_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    float desired = turret_angle_to_ticks(current + degrees);
 
     m_motor1->setSetpoint(desired);
 }
 
 float cTurret::getHeading()
 {
-    return turret_rots_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    return turret_ticks_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
 }
 
 void cTurret::setManualEnabled(bool state)
@@ -59,6 +56,28 @@ bool cTurret::isManualEnabled()
     return m_manualEnabled;
 }
 
-cMotor* cTurret::getTurretMotor() {
-return m_motor1;
+cMotor* cTurret::getTurretMotor()
+{
+    return m_motor1;
+}
+
+void cTurret::setSetpoint(int ticks)
+{
+	std::cout << "Setpoint: " << ticks << std::endl;
+    m_motor1->setSetpoint(ticks);
+}
+
+double cTurret::PIDGet()
+{
+    return m_motor1->PIDGet();
+}
+
+double cTurret::getSetpoint()
+{
+    return m_motor1->GetSetpoint();
+}
+
+void cTurret::setEnabled(bool enabled)
+{
+    m_motor1->setEnabled(enabled);
 }

@@ -7,7 +7,7 @@
 #include <CommandBase.h>
 #include <Commands/DriveBase/cRunTankDrive.h>
 
-#include <Tests/Mocks/MockOI.h>
+#include <Tests/Mocks/cMockOI.h>
 #include <Tests/Mocks/cMockDriveBase.h>
 
 

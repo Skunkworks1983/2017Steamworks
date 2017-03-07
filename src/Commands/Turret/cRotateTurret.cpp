@@ -21,6 +21,8 @@ cRotateTurret::cRotateTurret(float timeout)
     }
 }
 
+// turtle
+
 void cRotateTurret::Initialize()
 {
 
@@ -35,30 +37,36 @@ void cRotateTurret::Execute()
         cBoilerData* data = CommandBase::s_boilerMessenger->receiveBoilerData();
 
         // turn the turret towards the boiler using our vision system
-        if(data->isFound())
-        {
-            // get the current angle of the boiler relative to the turret
-            float angle = data->getX() * (BOILER_PI_CAMERA_FOV / 2);
-            float current = CommandBase::s_turret->getHeading();
+        if(data->isFresh()) {
+            // stale data :(
+            data->setFresh(false);
 
-            float desired = clamp(current + angle, -TURRET_SWEEP_RANGE / 2, TURRET_SWEEP_RANGE / 2);
+            // do stuff
+            if(data->isFound() && CommandBase::s_boilerMessenger->isNotTimedOut())
+            {
+                // get the current angle of the boiler relative to the turret
+                float angle = data->getX() * (BOILER_PI_CAMERA_FOV / 2);
+                float current = CommandBase::s_turret->getHeading();
 
-            // TODO: motion tracking, idk what to call it
-            // target leading? whatever
+                float desired = clamp(current + angle, -TURRET_SWEEP_RANGE / 2, TURRET_SWEEP_RANGE / 2);
 
-            CommandBase::s_turret->setOrientation(desired);
-        }
-        // turn the turret towards where we think the boiler is, using our gyro
-        else
-        {
-            CommandBase::s_turret->setOrientation(alliance ? TURRET_SEARCH_HEADING : -TURRET_SEARCH_HEADING);
+                // TODO: motion tracking, idk what to call it
+                // target leading? whatever
+                CommandBase::s_turret->setOrientation(desired);
+            }
+            // turn the turret towards where we think the boiler is, using our gyro
+            else
+            {
+                // searching
+                //CommandBase::s_turret->setOrientation(alliance ? TURRET_SEARCH_HEADING : -TURRET_SEARCH_HEADING);
+            }
         }
     }
 }
 
 bool cRotateTurret::IsFinished()
 {
-    return false;
+    return IsTimedOut();
 }
 
 void cRotateTurret::End()

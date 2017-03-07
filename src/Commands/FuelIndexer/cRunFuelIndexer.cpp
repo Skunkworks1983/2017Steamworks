@@ -21,7 +21,7 @@ void cRunFuelIndexer::Initialize()
 
 void cRunFuelIndexer::Execute()
 {
-    CommandBase::s_fuelIndexer->setSpeed(FUELINDEXER_MOTOR1_SPEED);
+    CommandBase::s_fuelIndexer->setSpeed(-1*FUELINDEXER_MOTOR1_SPEED);
 }
 
 bool cRunFuelIndexer::IsFinished()
@@ -31,6 +31,7 @@ bool cRunFuelIndexer::IsFinished()
 
 void cRunFuelIndexer::End()
 {
+	CommandBase::s_fuelIndexer->setSpeed(0);
     LOG_INFO("ending cRunFuelIndexer");
 }
 

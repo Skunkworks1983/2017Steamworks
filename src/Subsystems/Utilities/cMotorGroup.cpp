@@ -62,6 +62,11 @@ cMotorGroup::~cMotorGroup()
 
 bool cMotorGroup::hasEncoder()
 {
+	for(std::size_t i = 0; i < m_motorList.size(); i++) {
+		if(m_motorList[i]->hasEncoder()) {
+			return true;
+		}
+	}
     return false; //TODO fix this
 }
 
@@ -92,4 +97,6 @@ double cMotorGroup::getPosition() {
 			return m_motorList[i]->getPosition();
 		}
 	}
+
+	return 0;
 }

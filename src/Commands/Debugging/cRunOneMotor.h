@@ -1,13 +1,17 @@
 #ifndef cRunOneMotor_H
 #define cRunOneMotor_H
 
-#include <CommandBase.h>
-#include <Subsystems/Utilities/cMotor.h>
+#include "../../CommandBase.h"
+#include "../../Subsystems/Utilities/cMotor.h"
+#include <vector>
 
 class cRunOneMotor : public CommandBase {
 private:
-	cMotor* m_motor1;
-	cMotor* m_motor2;
+
+	std::vector<cMotor*> m_motors;
+
+	bool m_pressedLastLoop;
+	int m_index;
 public:
 	cRunOneMotor();
 	void Initialize();
