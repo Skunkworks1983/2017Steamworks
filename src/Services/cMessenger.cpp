@@ -67,6 +67,8 @@ cMessenger::cMessenger(const char *server, const char *port)
 
 cMessenger::~cMessenger()
 {
+    kill();
+
     delete m_lastBoilerData;
     delete m_lastLiftData;
 }
@@ -106,14 +108,21 @@ std::string cMessenger::receiveMessage()
 // get the last known position of the boiler
 cBoilerData* cMessenger::receiveBoilerData()
 {
-    return m_lastBoilerData;
+    m_threadMutex->lock();
+    cBoilerData* lbdata = m_lastBoilerData;
+    m_threadMutex->unlock();
+
+    return lbdata;
 }
 
 // get the last known position of the lift
 cLiftData* cMessenger::receiveLiftData()
 {
-    // return the last known position of the boiler if there is none on screen
-    return m_lastLiftData;
+    m_threadMutex->lock();
+    cLiftData* lldata = m_lastLiftData;
+    m_threadMutex->unlock();
+
+    return lldata;
 }
 
 // get whether or not we have timed out
@@ -243,5 +252,6 @@ void* cMessenger::update(void* m)
         }
     }
 
+    pthread_exit(NULL);
     return NULL;
 }

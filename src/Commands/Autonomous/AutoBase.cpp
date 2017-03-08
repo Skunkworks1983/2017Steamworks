@@ -34,18 +34,12 @@ AutoBase* AutoBase::configureAutonomous()
     switch(AutoBase::getStartingPosition())
     {
     case POS_1:
-        commands->AddSequential(AutoBase::crossBaseline());
-
         break;
     case POS_2:
-
         break;
     case POS_3:
-        commands->AddSequential(AutoBase::crossBaseline());
-
         break;
     default:
-
         break;
     }
 
