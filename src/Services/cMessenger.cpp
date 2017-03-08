@@ -89,7 +89,9 @@ std::string cMessenger::receiveMessage()
     char message_buffer[MSG_LEN];
     memset(message_buffer, 0, MSG_LEN);
 
-    if(recv(m_sock, message_buffer, MSG_LEN, MSG_DONTWAIT) == -1)
+    // TODO; make messenger receive blocking
+
+    if(recv(m_sock, message_buffer, MSG_LEN, 0) == -1)
     {
         if(errno != EAGAIN && errno != EWOULDBLOCK)
         {
@@ -109,7 +111,12 @@ std::string cMessenger::receiveMessage()
 cBoilerData* cMessenger::receiveBoilerData()
 {
     m_threadMutex->lock();
-    cBoilerData* lbdata = m_lastBoilerData;
+
+    // ugly. copy the data from m_lastBoilerData to a new value,
+    // then return that value
+    cBoilerData* lbdata = new cBoilerData(m_lastBoilerData->getX(), m_lastBoilerData->getY(),
+            m_lastBoilerData->isFound());
+
     m_threadMutex->unlock();
 
     return lbdata;
@@ -119,7 +126,10 @@ cBoilerData* cMessenger::receiveBoilerData()
 cLiftData* cMessenger::receiveLiftData()
 {
     m_threadMutex->lock();
-    cLiftData* lldata = m_lastLiftData;
+
+    // see: receiveBoilerData
+    cLiftData* lldata = new cLiftData(m_lastLiftData->getX(), m_lastLiftData->isFound());
+
     m_threadMutex->unlock();
 
     return lldata;
@@ -158,8 +168,10 @@ void* cMessenger::update(void* m)
 
         if(message[0] != 0)
         {
-            std::cout << "test" << std::endl;
+            // lock
+            m_threadMutex->lock();
 
+            // parse data
             if(message[0] == std::to_string(BOILER_PI_ID)[0])
             {
                 float x, y;
@@ -182,7 +194,7 @@ void* cMessenger::update(void* m)
                 else
                 {
                     LOG_INFO("received incomplete message (x value)");
-                    x = messenger->m_lastBoilerData->getX();;
+                    x = messenger->m_lastBoilerData->getX();
                 }
 
                 // erase the x portion of the message
@@ -249,6 +261,9 @@ void* cMessenger::update(void* m)
                     messenger->m_lastLiftData = new cLiftData(x, found);
                 }
             }
+
+            // unlock
+            m_threadMutex->unlock();
         }
     }
 
