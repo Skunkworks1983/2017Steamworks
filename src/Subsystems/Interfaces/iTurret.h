@@ -23,11 +23,35 @@ public:
 
     virtual float getHeading() = 0;
 
+    virtual double PIDGet() = 0;
+    virtual double getSetpoint() = 0;
+
     virtual void setManualEnabled(bool state) = 0;
     virtual bool isManualEnabled() = 0;
     virtual cMotor* getTurretMotor() = 0;
+
+    virtual void setEnabled(bool enabled) = 0;
+    virtual void setSetpoint(int ticks) = 0;
 };
 
+/*
+ * cTurret();
+    ~cTurret();
+    void InitDefaultCommand();
 
+    //void setManualEnabled(bool state);
+    //bool isManualEnabled();
+
+    //float getHeading();
+
+    //void setSpeed(float speed);
+    //void setOrientation(float heading);
+    //void rotate(float degrees);
+
+    //cMotor* getTurretMotor();
+
+    //void setSetpoint(int ticks);
+    //void setEnabled(bool enabled);
+ */
 
 #endif /* SRC_SUBSYSTEMS_ITURRET_H_ */

@@ -8,6 +8,10 @@
 #define ROBOT_NAME "tim scoot"
 #define LOGFILE_NAME "/U/robotLog"
 
+//|||||||||||||||||||||||||||||||||||||||||||
+#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
+//|||||||||||||||||||||||||||||||||||||||||||
+
 // // MESSENGER // //
 
 #define BOILER_PI_IP "10.19.83.7"
@@ -22,10 +26,11 @@ const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 
-// // DRIVEBASE // //
+const float MESSENGER_TIMEOUT_SECS = 1;
 
-const int DRIVEBASE_LEFT_DIRECTION = -1;
-const int DRIVEBASE_RIGHT_DIRECTION = 1;
+
+const int DRIVEBASE_LEFT_DIRECTION = 1;
+const int DRIVEBASE_RIGHT_DIRECTION = -1;
 
 const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 
@@ -33,17 +38,17 @@ const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 //RIGHT:
 
 //11 climber: backwards is forwards
-const int DRIVEBASE_LEFTMOTOR_1_PORT = 12;
-const int DRIVEBASE_LEFTMOTOR_2_PORT = 14;
-const int DRIVEBASE_LEFTMOTOR_3_PORT = 14;
+const int DRIVEBASE_LEFTMOTOR_1_PORT = 0; //Rear
+const int DRIVEBASE_LEFTMOTOR_2_PORT = 1; //Middle
+const int DRIVEBASE_LEFTMOTOR_3_PORT = 12;//Front
+const int DRIVEBASE_RIGHTMOTOR_1_PORT = 13;//Read
+const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14;//Middle
+const int DRIVEBASE_RIGHTMOTOR_3_PORT = 15;//Front
 
-const int DRIVEBASE_RIGHTMOTOR_1_PORT = 15;
-const int DRIVEBASE_RIGHTMOTOR_2_PORT = 13;
-const int DRIVEBASE_RIGHTMOTOR_3_PORT = 13;
-
-const float SIMPLEDRIVEFORWARD_PID_P = 1;
-const float SIMPLEDRIVEFORWARD_PID_I = 1;
-const float SIMPLEDRIVEFORWARD_PID_D = 1;
+const float SIMPLEDRIVEFORWARD_PID_P = 1./3000;
+const float SIMPLEDRIVEFORWARD_PID_I = 0;
+const float SIMPLEDRIVEFORWARD_PID_D = 0;
+const float SIMPLEDRIVEFORWARD_PID_F = 0.1/3000;
 
 const float TURNDEGREE_PID_P = 1;
 const float TURNDEGREE_PID_I = 1;
@@ -59,18 +64,20 @@ const int OI_JOYSTICK_RIGHT_PORT = 0;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
-const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 1;
-const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 2;
-const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3;
-const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;
-const int OI_JOYSTICK_SHOOTHIGH = 5;
-const int OI_JOYSTICK_CLIMBROPE = 6;
-const int OI_JOYSTICK_SPINUPSHOOTER = 7;
+const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
+const int OI_JOYSTICK_COLLECTORPOS = 2;
+const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 3;
+//const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3; not yet used
 const int OI_JOYSTICK_INDEXER_BUTTON = 4;
+//const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;   not yet used
+//const int OI_JOYSTICK_SHOOTHIGH = 5;          not yet used
 const int OI_JOYSTICK_CONVEYOR_BUTTON = 5;
+const int OI_JOYSTICK_CLIMBROPE = 6;
+const int OI_JOYSTICK_TURRET_CONTROL = 7;
+const int OI_JOYSTICK_SPINUPSHOOTER = 8;
+const int OI_JOYSTICK_LOADBALL = 10;
 
 const int OI_JOYSTICK_SWITCHBACKFRONT = 10;
-const int OI_JOYSTICK_TURRET_CONTROL = 10000;
 const int OI_JOYSTICK_SHOOTER_CONTROL = 10000;
 
 const int MANUAL_TURRET_CONTROL_SCALAR = 0.5;
@@ -88,34 +95,28 @@ const float CLIMBER_MOTOR_DIRECTION = 1;
 
 const float ROPECLIMB_COMMAND_TIME_ON = 30;
 const float ROPECLIMB_COMMAND_TIME_OFF = 1;
+const int FUELCOLLECTOR_COLLECTOR_PORT = 6;
+const int FUELCOLLECTOR_ANGLE_PORT = 8;
 
-// // FUEL COLLECTOR // //
-
-enum FuelCollectorPosition
-{
-    UP = 90, DOWN = 0
-};
-
-const int FUELCOLLECTOR_MOTOR1_PORT = 10000;
-const int FUELCOLLECTOR_MOTOR2_PORT = 10000;
-
-const int FUELCOLLECTOR_GEAR_RATIO = (44 / 22) * (9 / 1) * (5 / 1);
+const int FUELCOLLECTOR_MIN_ENC_ANGLE = 10;
+const int FUELCOLLECTOR_MAX_ENC_ANGLE = 247;
 
 // // FUEL INDEXER // //
+const int FUELLOADER_MOTOR1_PORT = 6;
 
-const int FUELINDEXER_MOTOR1_PORT = 4;
-const float FUELINDEXER_MOTOR1_SPEED = 0.5;
+const int FUELINDEXER_MOTOR1_PORT = 5;
+const float FUELINDEXER_MOTOR1_SPEED = 1;
 
 // // FUEL CONVEYOR // //
 
-const int FUELCONVEYOR_MOTOR1_PORT = 6;
-const float FUELCONVEYOR_MOTOR1_SPEED = 0.5;
+const int FUELCONVEYOR_MOTOR1_PORT = 4;
+const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 // // TURRET // //
 
-const int TURRET_MOTOR1_PORT = 10000;
+const int TURRET_MOTOR1_PORT = 7;
 const int TURRET_MOTOR1_GEARING = 40;
-const int TURRET_MOTOR1_TICKS_PER_ROT = 360;
+const int TURRET_MOTOR1_TICKS_PER_ROT = 280;
 
 const int TURRET_SEARCH_HEADING = -45; // for red
 
@@ -125,25 +126,36 @@ const int TURRET_MOTOR1_P = 1;
 const int TURRET_MOTOR1_I = 0;
 const int TURRET_MOTOR1_D = 0;
 
-const int TURRET_GEAR1_TEETH = 10;
-const int TURRET_GEAR2_TEETH = 200;
+const int TURRET_GEAR1_TEETH = 10; // small sprocket
+const int TURRET_GEAR2_TEETH = 200; // large lazy susan
+
+const int TURRET_MIN_ENC = -2500;
+const int TURRET_MAX_ENC = 2500;
 
 const float CROTATETURRET_LEFT_SPEED = .5;
 const float CROTATETURRET_RIGHT_SPEED = -.5;
 
+const float TURRET_SETPOINT_RANGE = 2500; // middle to far side (doesn't matter which)
+const float TURRET_ANGLE_TOLERANCE = 0.05; // percent of setpoint
+
 // // SHOOTER // //
 
-const int SHOOTER_MOTOR1_PORT = 10000;
-const int SHOOTER_MOTOR2_PORT = 10000;
+const int SHOOTER_MOTOR1_PORT = 2;
+const int SHOOTER_MOTOR2_PORT = 3;
 
-const double SHOOTER_TARGET_SPEED = 1; //rps
+const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
-const double SHOOTER_P = 1;
+const double SHOOTER_P = 0.05;
 const double SHOOTER_I = 0;
 const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
 
 const int RAMPING_CONSTANT = 2;
+
+const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
+
+const int AUTO_TOGGLE_POS = 6; //or 7
+const int AUTO_TOGGLE_ALLIANCE = 7; //or 6
 
 // // GEAR COLLECTOR // //
 
@@ -156,9 +168,9 @@ const int GEARCOLLECTOR_SERVO_MAX = 170;
 const int GEARCOLLECTOR_OPEN_ANGLE = 170; // ANGLE OF THE SERVOS! NOT FLAP!
 const int GEARCOLLECTOR_CLOSE_ANGLE = 85; //0.5 * (GEARCOLLECTOR_SERVO_MIN + GEARCOLLECTOR_SERVO_MAX);
 
-const float BANEBOTS775_STALLING_CURRENT = 130;
-const float NEVEREST40_STALLING_CURRENT = 11.5;
-const float CIM_STALLING_CURRENT = 133;
+const float BANEBOTS775_STALLING_CURRENT = 70;
+const float NEVEREST40_STALLING_CURRENT = 6;
+const float CIM_STALLING_CURRENT = 70;
 
 // // RASPBERRY PI // //
 
@@ -176,11 +188,16 @@ enum eStartingPosition
     POS_1, POS_2, POS_3
 };
 
-const bool USE_SHOOTER = true;
+
+const int START_POS_SELECTION_DIGITS = 3;
+const int ALLIANCE_SELECTION_DIGITS = 1;
+
+const bool USE_SHOOTER = false;
 const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
 const bool USE_SONAR_SENSOR = true;
 const bool USE_CAMERA = true;
+const bool USE_GYRO = true;
 
 const int AUTO_MOVE_FORWARD_FEET = 3;
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
@@ -203,10 +220,10 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //SONAR
 //datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
-//you know what's annoying? eclipse literally does not allow you to save files that have emoji in them
-//insert hammer and sickle emoji here
-#define R_SONAR_PORT 0
-#define L_SONAR_PORT 1
+const int SONAR_INPUT_RIGHT =  0;
+const int SONAR_INPUT_LEFT = 1;
+const int SONAR_POWER_LEFT = 8;
+const int SONAR_POWER_RIGHT = 9;
 #define RATIO_OUTPUT_TO_FEET .11 //this is kinda sketchy; i want better/more data
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
@@ -220,14 +237,14 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 // positions start from the top of the field moving down
 
 /*
- * boiler           boiler
- *
  * red________________blue
  *   |1               |
  *   |      1 /       |
  *   |2    2 |        |
  *   |      3 \       |
  *   |3_______________|
+ *
+ *   boiler         boiler
  */
 
 const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
@@ -251,24 +268,13 @@ inline float clamp(float value, float minimum, float maximum)
 
 /*
  * this function takes in a desired angle for the
- * fuel collector flap in front.
- */
-
-inline float fuel_flap_angle_to_rots(float angle)
-{
-    float final = (angle / 360) * FUELCOLLECTOR_GEAR_RATIO;
-    return final;
-}
-
-/*
- * this function takes in a desired angle for the
  * entire turret. give this function an angle you
  * want the turret to face (-90 to 90), and it will
  * give you the number of rotations the turret motor needs
  * to turn.
  */
 
-inline float turret_angle_to_rots(float angle)
+inline float turret_angle_to_ticks(float angle)
 {
     float final = (angle / 360) * TURRET_MOTOR1_TICKS_PER_ROT;
     final *= TURRET_MOTOR1_GEARING;
@@ -282,7 +288,7 @@ inline float turret_angle_to_rots(float angle)
  * the entire turret.
  */
 
-inline float turret_rots_to_angle(float rots)
+inline float turret_ticks_to_angle(float rots)
 {
     float final = rots;
     final /= TURRET_GEAR2_TEETH / TURRET_GEAR1_TEETH;

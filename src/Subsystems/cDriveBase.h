@@ -12,7 +12,7 @@
 #include "Utilities/cMotor.h"
 #include <OI.h>
 #include <I2C.h>
-#include <AnalogInput.h>
+#include <Subsystems/Sensors/cSonar.h>
 #include <RobotMap.h>
 #include "Subsystems/Utilities/cMotorGroup.h"
 #include "Subsystems/Utilities//cReversingMotorGroup.h"
@@ -25,7 +25,7 @@ class cDriveBase: public iDriveBase
 private:
     cMotorGroup* m_motorGroupLeft;
     cMotorGroup* m_motorGroupRight;
-    cMotorGroup* m_motorGroupAll;
+    cReversingMotorGroup* m_motorGroupAll;
     cReversingMotorGroup* m_motorGroupGyro;
     iMotor* m_leftMotor1;
     iMotor* m_leftMotor2;
@@ -36,8 +36,8 @@ private:
 
 
 	I2C* m_colorSensor;
-	AnalogInput* m_rSonar;
-	AnalogInput* m_lSonar;
+	cSonar* m_rSonar;
+	cSonar* m_lSonar;
     int BitShift(uint8_t *colorReadout);
     iGyro* m_gyro;
 

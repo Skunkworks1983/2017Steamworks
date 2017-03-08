@@ -9,6 +9,7 @@
 #include <CANSpeedController.h>
 #include <CANTalon.h>
 #include <RobotMap.h>
+#include <Utility.h>
 
 cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder, frc::CANSpeedController::ControlMode controlMode) :
         m_motor(port), m_motorType(motorType) //this is ok
@@ -36,31 +37,43 @@ void cMotor::setBrakeMode(bool brake)
 
 void cMotor::setOutput(float output)
 {
-    switch(m_motorType)
+    if(GetFPGATime() > m_timeStall + 250000)
     {
-    case BaneBots775:
-        if(m_motor.GetOutputCurrent() >= BANEBOTS775_STALLING_CURRENT)
+        switch(m_motorType)
         {
-            m_motor.Set(0);
-            return;
+        case BaneBots775:
+            if(m_motor.GetOutputCurrent() >= BANEBOTS775_STALLING_CURRENT)
+            {
+                m_motor.Set(0);
+                m_timeStall = GetFPGATime();
+                LOG_WARNING("BaneBots775 stall");
+                return;
+            }
+            break;
+        case NeveRest40:
+            if(m_motor.GetOutputCurrent() >= NEVEREST40_STALLING_CURRENT)
+            {
+                m_motor.Set(0);
+                m_timeStall = GetFPGATime();
+                LOG_WARNING("NeveRest40 stall");
+                return;
+            }
+            break;
+        case CIM:
+            if(m_motor.GetOutputCurrent() >= CIM_STALLING_CURRENT)
+            {
+                m_motor.Set(0);
+                m_timeStall = GetFPGATime();
+                LOG_WARNING("CIM stall");
+                return;
+            }
+            break;
         }
-        break;
-    case NeveRest40:
-        if(m_motor.GetOutputCurrent() >= NEVEREST40_STALLING_CURRENT)
-        {
-            m_motor.Set(0);
-            return;
-        }
-        break;
-    case CIM:
-        if(m_motor.GetOutputCurrent() >= CIM_STALLING_CURRENT)
-        {
-            m_motor.Set(0);
-            return;
-        }
-        break;
+        m_motor.Set(output);
     }
-    m_motor.Set(output);
+    else {
+        m_motor.Set(0); //kill.
+    }
 }
 
 void cMotor::PIDWrite(double output)
@@ -70,7 +83,7 @@ void cMotor::PIDWrite(double output)
 
 double cMotor::PIDGet()
 {
-    return m_motor.PIDGet();
+    return m_motor.GetPosition();
 }
 
 void cMotor::setEnabled(bool enabled)

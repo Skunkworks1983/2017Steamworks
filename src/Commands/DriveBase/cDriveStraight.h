@@ -33,6 +33,7 @@ private:
 	float m_p;
 	float m_i;
 	float m_d;
+	float m_f;
 
 	float m_curTicks;
 

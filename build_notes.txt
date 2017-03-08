@@ -1,0 +1,13 @@
+Build Notes:
+
+Start with the normal WPI install steps from FRC
+
+You'll want to get the latest .cproject off of Slack: https://skunkworksteam1983.slack.com/files/tdesilva/F44F81CTX/.cproject
+
+CTRE and NavX libraries are a manual install step:
+http://www.ctr-electronics.com/control-system/hro.html#product_tabs_technical_resources 
+Download "CTRE Toolsuite (No Installer)" and follow the instructions in the readme.
+
+Get "navx-mxp-libs.zip" from Slack (https://files.slack.com/files-pri/T1F0J3JF3-F44AZ4JF5/download/navx-mxp-libs.zip) 
+Copy the contents of navx-mxp-libs.zip\roborio\cpp\lib\ to your \wpilib\user\cpp\lib directory
+Copy the contents of navx-mxp-libs.zip\roborio\cpp\include\ to your \wpilib\user\cpp\include directory
