@@ -34,9 +34,9 @@ private:
     JoystickButton *m_pidSpinUpShooter;
     /*JoystickButton *m_assignTargetBoiler;
     JoystickButton *m_assignTargetGoal;
-    JoystickButton *m_shootHigh;
+    JoystickButton *m_shootHigh;*/
     JoystickButton *m_climbRope;
-    JoystickButton *m_spinUpShooter;
+    /*JoystickButton *m_spinUpShooter;
     JoystickButton *m_loadBall;
     JoystickButton *m_fuelIndexer;
     JoystickButton *m_togglereversal;
