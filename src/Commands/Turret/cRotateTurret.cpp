@@ -37,7 +37,8 @@ void cRotateTurret::Execute()
         cBoilerData* data = CommandBase::s_boilerMessenger->receiveBoilerData();
 
         // turn the turret towards the boiler using our vision system
-        if(data->isFresh()) {
+        if(data->isFresh())
+        {
             // stale data :(
             data->setFresh(false);
 
@@ -66,7 +67,7 @@ void cRotateTurret::Execute()
 
 bool cRotateTurret::IsFinished()
 {
-    return IsTimedOut();
+return IsTimedOut();
 }
 
 void cRotateTurret::End()
@@ -76,7 +77,7 @@ void cRotateTurret::End()
 
 void cRotateTurret::Interrupted()
 {
-    End();
+End();
 }
 
 cRotateTurret::~cRotateTurret()

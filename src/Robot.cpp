@@ -17,6 +17,7 @@
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include <Commands/Autonomous/AutoBase.h>
+#include <Commands/Turret/cRotateTurret.h>
 
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/DriveBase/cDriveUntilWall.h>
@@ -30,11 +31,6 @@
 class Robot: public IterativeRobot
 {
 private:
-    //Put commands out here for declaration
-    cRunOneMotor* runMotor;
-    cRunTankDrive* tankDrive;
-    cDriveStraight* driveStraight;
-
     void RobotInit()
     {
         LOG_INFO("RobotInit called");
@@ -47,25 +43,14 @@ private:
         CommandBase::s_fuelIndexer = new cFuelIndexer();
         CommandBase::s_fuelConveyor = new cFuelConveyor();
         CommandBase::s_shooter = new cShooter();
-
         CommandBase::s_oi = new OI();
 
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
+
         CommandBase::s_drivebase->getGyro()->initGyro();
         CommandBase::s_drivebase->getGyro()->zeroYaw();
-
-        //colorSensor = new cColorSensor();
-
-        //Put construction of commands here
-        std::cout << "Before" << std::endl;
-        //driveStraight = new cDriveStraight(6);
-        std::cout << "After" << std::endl;
-
-        tankDrive = new cRunTankDrive();
-        runMotor = new cRunOneMotor();
-        driveStraight = new cDriveStraight(7300, 0.35);
 
         CameraServer::GetInstance()->StartAutomaticCapture();
     }
@@ -75,7 +60,6 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("DisabledInit called");
 
-        // disable the turret
         CommandBase::s_turret->setEnabled(false);
         CommandBase::s_drivebase->setBrakeMode(false);
     }
@@ -90,51 +74,33 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
 
-        // enable turret
         CommandBase::s_turret->setEnabled(true);
 
-        // auto commands
-        //AutoBase* autoCommands = (new AutoBase())->configureAutonomous();
-        //Scheduler::GetInstance()->AddCommand(autoCommands);
-
-        //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
-
-        for(int i = 0; i < 8; i++)
-        {
-            std::cout << i << ": " << (new DigitalInput(i))->Get() << std::endl;
-        }
+        Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
     }
 
     void AutonomousPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        CommandBase::s_boilerMessenger->sendMessage("auto"); //What if it misses the packet?
+        CommandBase::s_boilerMessenger->sendMessage("auto");
         CommandBase::s_liftMessenger->sendMessage("auto");
     }
 
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
-        Scheduler::GetInstance()->AddCommand(tankDrive);
-        //Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
-        std::cout << "Init" << std::endl;
 
-        // enable turret
-        CommandBase::s_turret->setEnabled(true);
+        Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
     }
 
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        std::cout << CommandBase::s_oi->getRotPos() << std::endl;
-
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");
-
-        std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
     }
 
     void TestPeriodic()
@@ -166,10 +132,3 @@ private:
 };
 
 START_ROBOT_CLASS(Robot)
-//if you comment this macro out
-//you should probably change that
-//when you build
-//i mean i'm not an expert
-//but its some pretty solid advice
-
-//as an expert, i agree with this not-quite-expert-but-still-pretty-good analysis

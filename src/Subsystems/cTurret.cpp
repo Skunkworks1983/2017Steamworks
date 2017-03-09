@@ -7,7 +7,7 @@
 cTurret::cTurret()
 {
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
-    m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
+    m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPercentVbus);
     m_motor1->configForwardLimit((double) turret_angle_to_ticks(-90));
     m_motor1->configReverseLimit((double) turret_angle_to_ticks(90));
 

@@ -5,8 +5,10 @@
 #include <Services/cLogger.h>
 #include <math.h>
 
-#define ROBOT_NAME "tim scoot"
-#define LOGFILE_NAME "/U/robotLog"
+// // ROBOT SETTINGS // //
+
+const char* const ROBOT_NAME = "tim scoot";
+const char* const LOGFILE_NAME = "/U/robotLog";
 
 // // MESSENGER // //
 
@@ -110,7 +112,7 @@ const int FUELCONVEYOR_MOTOR1_PORT = 4;
 const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 // // TURRETLES  //  //
-const int TURRET_MOTOR1_PORT = 0;
+const int TURRET_MOTOR1_PORT = 7;
 
 const int TURRET_SWEEP_RANGE = 180; // angle
 
@@ -198,19 +200,19 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //COLOR SENSOR
 //datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
-#define COLOR_SENSOR_I2C_SLAVE_ADR 0x29
-#define COLOR_SENSOR_C_HIGH_REG 0x15//apparently the high value of each registry is the accurate one.
-#define COLOR_SENSOR_R_HIGH_REG 0x17
-#define COLOR_SENSOR_G_HIGH_REG 0x19
-#define COLOR_SENSOR_B_HIGH_REG 0x1B
-#define COLOR_SENSOR_BYTE_LENGTH 2
-#define I2C_CHANNEL 1234
-#define FLOOR_TAPE_R_LOW 1234//these are found experimentally, unfortunately. TODO
-#define FLOOR_TAPE_R_HIGH 1234 //and they will vary TODO
-#define FLOOR_TAPE_G_LOW 1234//TODO
-#define FLOOR_TAPE_G_HIGH 1234//TODO
-#define FLOOR_TAPE_B_LOW 1234//TODO
-#define FLOOR_TAPE_B_HIGH 1234//TODO
+const u_int8_t COLOR_SENSOR_I2C_SLAVE_ADR = 0x29;
+const u_int8_t COLOR_SENSOR_C_HIGH_REG = 0x15;//apparently the high value of each registry is the accurate one.
+const u_int8_t COLOR_SENSOR_R_HIGH_REG = 0x17;
+const u_int8_t COLOR_SENSOR_G_HIGH_REG = 0x19;
+const u_int8_t COLOR_SENSOR_B_HIGH_REG = 0x1B;
+const int COLOR_SENSOR_BYTE_LENGTH = 2;
+const int I2C_CHANNEL = 1234;
+const int FLOOR_TAPE_R_LOW = 1234; //these are found experimentally, unfortunately. TODO
+const int FLOOR_TAPE_R_HIGH = 1234; //and they will vary TODO
+const int FLOOR_TAPE_G_LOW = 1234;//TODO
+const int FLOOR_TAPE_G_HIGH = 1234;//TODO
+const int FLOOR_TAPE_B_LOW = 1234;//TODO
+const int FLOOR_TAPE_B_HIGH = 1234;//TODO
 
 //SONAR
 //datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
@@ -220,15 +222,15 @@ const int SONAR_INPUT_RIGHT =  0;
 const int SONAR_INPUT_LEFT = 1;
 const int SONAR_POWER_LEFT = 8;
 const int SONAR_POWER_RIGHT = 9;
-#define RATIO_OUTPUT_TO_FEET .11 //this is kinda sketchy; i want better/more data
+const float RATIO_OUTPUT_TO_FEET = .11; //this is kinda sketchy; i want better/more data
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 
-#define DISTANCE_BETWEEN_SONAR (21/12) //inches to feet
-#define angleWallTapePivotPoint 1.1576 //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
-#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT (10.5/12) //inches to feet
-#define angleGoalPivotPointTape .4131 //rads (23.67 degrees)
-#define DISTANCE_FROM_PIVOT_POINT_TO_GOAL 2 //feet. This is to give some safe space to turn
+const float DISTANCE_BETWEEN_SONAR = (21/12); //inches to feet
+const float angleWallTapePivotPoint = 1.1576; //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
+const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = (10.5/12); //inches to feet
+const float angleGoalPivotPointTape = .4131; //rads (23.67 degrees)
+const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 2; //feet. This is to give some safe space to turn
 
 // positions start from the top of the field moving down
 

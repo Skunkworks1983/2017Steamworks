@@ -74,7 +74,6 @@ double OI::getSliderPos() {
 	x = pow(x, 10);
 	x /= .618726;
 	x = 1 - x;
-	std::cout << x << std::endl;
 	return x;
 }
 

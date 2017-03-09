@@ -169,7 +169,7 @@ void* cMessenger::update(void* m)
         if(message[0] != 0)
         {
             // lock
-            m_threadMutex->lock();
+            messenger->m_threadMutex->lock();
 
             // parse data
             if(message[0] == std::to_string(BOILER_PI_ID)[0])
@@ -263,7 +263,7 @@ void* cMessenger::update(void* m)
             }
 
             // unlock
-            m_threadMutex->unlock();
+            messenger->m_threadMutex->unlock();
         }
     }
 

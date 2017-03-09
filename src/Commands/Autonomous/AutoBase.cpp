@@ -30,16 +30,20 @@ AutoBase* AutoBase::configureAutonomous()
     // initialize commands
     AutoBase* commands = new AutoBase();
 
-    // config auto
+    // config autonomous commands
     switch(AutoBase::getStartingPosition())
     {
     case POS_1:
+
         break;
     case POS_2:
+
         break;
     case POS_3:
+
         break;
     default:
+
         break;
     }
 
@@ -64,10 +68,6 @@ eStartingPosition AutoBase::getStartingPosition()
     // be far right, while higher digits would follow to the right.
 
     // d2 d1
-
-    // retrieve the digits from the dio pins
-    int d1 = (new DigitalInput(6))->Get();
-    int d2 = (new DigitalInput(7))->Get();
 
     return startingPosition;
 }

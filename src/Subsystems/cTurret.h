@@ -15,7 +15,7 @@ private:
     bool m_manualEnabled = false;
 public:
     cTurret();
-    ~cTurret();
+    virtual ~cTurret();
 
     void setManualEnabled(bool state);
     bool isManualEnabled();

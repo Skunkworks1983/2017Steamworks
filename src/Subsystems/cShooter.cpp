@@ -31,8 +31,8 @@ void cShooter::InitDefaultCommand()
 
 void cShooter::setSpeed(float speed)
 {
-    m_motor1->setOutput(speed);
-    m_motor2->setOutput(-1*speed);
+    m_motor1->setOutput(-1 * speed);
+    m_motor2->setOutput(-1 * speed);
 }
 
 double cShooter::getSpeed()
