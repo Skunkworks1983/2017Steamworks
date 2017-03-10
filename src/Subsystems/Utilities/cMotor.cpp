@@ -154,6 +154,8 @@ double cMotor::GetSetpoint() const
 
 void cMotor::SetPID(double p, double i, double d, double f)
 {
+	m_motor.SelectProfileSlot(0);
+	m_motor.ConfigMaxOutputVoltage(12);
 	return m_motor.SetPID(p, i, d, f);
 }
 
