@@ -36,7 +36,9 @@ void cRunTankDrive::Execute()
     }
     else if(leftSpeed < 0)
     {
-        CommandBase::s_drivebase->setLeftSpeed(pow(-leftSpeed, .85) * -1); //scalling
+
+        CommandBase::s_drivebase->setLeftSpeed(-pow(-leftSpeed, .85)); //scalling
+
     }
     else
     {
@@ -49,11 +51,12 @@ void cRunTankDrive::Execute()
     }
     else if(rightSpeed < 0)
     {
-        CommandBase::s_drivebase->setRightSpeed(pow(-leftSpeed, .85) * -1);
+        CommandBase::s_drivebase->setRightSpeed(-pow(-rightSpeed, .85));
     }
     else
     {
-        CommandBase::s_drivebase->setRightSpeed(pow(leftSpeed, .85));
+        CommandBase::s_drivebase->setRightSpeed(pow(rightSpeed, .85));
+
     }
     std::cout << "Left: " << CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() << "\t\tRight: " << CommandBase::s_drivebase->getMotorGroupRight()->getPosition() << std::endl;
 }

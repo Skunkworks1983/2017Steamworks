@@ -7,6 +7,7 @@
 #include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/Interfaces/iShooter.h>
 #include "Subsystems/Utilities/cMotorGroup.h"
+#include "RobotMap.h"
 
 class cShooter : public iShooter
 {
@@ -33,7 +34,7 @@ public:
 	void EnablePID();
 	void ResetPID();
 	bool isPIDEnabled();
-	void setSetpoint(float setpoint);
+	void setSetpoint(double setpoint);
 	double PIDGet();
 	void setPID(double p, double i, double d, double f);
 	double getSetpoint();

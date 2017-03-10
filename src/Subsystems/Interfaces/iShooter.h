@@ -28,7 +28,7 @@ public:
 	virtual void EnablePID() = 0;
 	virtual void ResetPID() = 0;
 	virtual bool isPIDEnabled() = 0;
-	virtual void setSetpoint(float setpoint) = 0;
+	virtual void setSetpoint(double setpoint) = 0;
 	virtual double PIDGet() = 0;
 	virtual void setPID(double p, double i, double d, double f) = 0;
 	virtual double getSetpoint() = 0;

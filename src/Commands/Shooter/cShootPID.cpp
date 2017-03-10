@@ -1,5 +1,6 @@
 /*
- * cShootPID.cpp
+
+`1* cShootPID.cpp
  *
  *  Created on: Feb 11, 2017
  *      Author: s-2505674
@@ -8,6 +9,7 @@
 #include "cShootPID.h"
 #include <cmath>
 #include "RobotMap.h"
+#include <SmartDashboard/SmartDashboard.h>
 
 
 cShootPID::cShootPID(double speed, float timeout) :
@@ -19,12 +21,13 @@ cShootPID::cShootPID(double speed, float timeout) :
 
 void cShootPID::Initialize()
 {
+	std::cout <<"cShootPID initialize";
 	current_setpoint = 0;
-	s_shooter->EnablePID();
+	CommandBase::s_shooter->EnablePID();
 
-	s_shooter->setPID(p, i, d, f);
+	CommandBase::s_shooter->setPID(p, i, d, f);
 
-	s_shooter->setSetpoint(current_setpoint);
+	CommandBase::s_shooter->setSetpoint(current_setpoint);
 
 	if (timeout != 0)
 	{
@@ -36,17 +39,24 @@ void cShootPID::Initialize()
 
 void cShootPID::Execute()
 {
-	if (!s_shooter->isPIDEnabled()) {
-		s_shooter->EnablePID();
+	if (!CommandBase::s_shooter->isPIDEnabled()) {
+		CommandBase::s_shooter->EnablePID();
 	}
+
 
 	if (current_setpoint > speed) { //Its a flipped
 		current_setpoint -= RAMPING_CONSTANT;
 	} else {
 		current_setpoint = speed;
-		s_shooter->setSetpoint(current_setpoint);
+		CommandBase::s_shooter->setSetpoint(current_setpoint);
 	}
+
+	SmartDashboard::PutNumber("cShootPIDspeed", CommandBase::s_shooter->PIDGet());
+	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
+	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
+  
 	std::cout << "Setpoint: " << current_setpoint << std::endl;
+
 }
 
 bool cShootPID::IsFinished()
@@ -56,12 +66,16 @@ bool cShootPID::IsFinished()
 
 void cShootPID::End()
 {
-	s_shooter->setSpeed(0);
-	s_shooter->DisablePID();
-	s_shooter->ResetPID();
+	std::cout << "cShootPID End";
+	CommandBase::s_shooter->setSpeed(0);
+	CommandBase::s_shooter->DisablePID();
+	CommandBase::s_shooter->ResetPID();
 }
 
 void cShootPID::Interrupted()
 {
 	End();
 }
+
+//Sleep is good, death is better; but of course, the best thing would to have never been born at all.
+//	-Heinrich Heine

@@ -142,9 +142,9 @@ double cMotor::GetSpeed() const
 	return m_motor.GetSpeed();
 }
 
-void cMotor::SetSetpoint(double value)
+void cMotor::SetSetpoint(double setpoint)
 {
-	return m_motor.SetSetpoint(value);
+	return m_motor.SetSetpoint(setpoint);
 }
 
 double cMotor::GetSetpoint() const
@@ -154,6 +154,8 @@ double cMotor::GetSetpoint() const
 
 void cMotor::SetPID(double p, double i, double d, double f)
 {
+	m_motor.SelectProfileSlot(0);
+	m_motor.ConfigMaxOutputVoltage(12);
 	return m_motor.SetPID(p, i, d, f);
 }
 

@@ -77,7 +77,7 @@ void cShooter::ResetPID()
 	m_motor1->Reset();
 }
 
-void cShooter::setSetpoint(float setpoint)
+void cShooter::setSetpoint(double setpoint)
 {
 	m_motor1->Set(setpoint);
 	m_motor1->SetSetpoint(setpoint);
