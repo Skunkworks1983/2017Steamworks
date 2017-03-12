@@ -29,18 +29,14 @@
 class AutoBase: public frc::CommandGroup
 {
 private:
-    /* what are these?
     CommandGroup* m_placeGear;
     CommandGroup* m_driveToLine;
-    */
 
 public:
-    /* ?
     static double s_angleTapeRobotPivotPoint;
     static double s_distanceToPivotPoint;
     static double s_angleRobotPivotPointGoal;
     static bool s_reachedLine;
-    */
 
     AutoBase();
     ~AutoBase();

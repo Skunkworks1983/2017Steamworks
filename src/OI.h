@@ -27,8 +27,11 @@ private:
     // outdated
     JoystickButton *m_acquireGear;
     JoystickButton *m_acquireBall;
-    JoystickButton *m_enableManualShooting;
+    JoystickButton *m_enableManual;
     JoystickButton *m_spinUpShooter;
+    JoystickButton *m_shootPosLiftMiddle;
+    JoystickButton *m_shootPosLiftClose;
+    JoystickButton *m_shootPosHopperClose;
     /*JoystickButton *m_assignTargetBoiler;
     JoystickButton *m_assignTargetGoal;
     JoystickButton *m_shootHigh;

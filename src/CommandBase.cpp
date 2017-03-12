@@ -16,6 +16,7 @@ iFuelIndexer* CommandBase::s_fuelIndexer = NULL;
 iFuelConveyor* CommandBase::s_fuelConveyor = NULL;
 iShooter* CommandBase::s_shooter = NULL;
 iTurret* CommandBase::s_turret = NULL;
+iFuelAgitator* CommandBase::s_fuelAgitator = NULL;
 
 CommandBase::CommandBase(const std::string &name) :
         Command(name)

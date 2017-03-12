@@ -26,7 +26,6 @@ const int MSG_LEN = 1024;
 
 const float MESSENGER_TIMEOUT_SECS = 1;
 
-
 const int DRIVEBASE_LEFT_DIRECTION = 1;
 const int DRIVEBASE_RIGHT_DIRECTION = -1;
 
@@ -38,15 +37,15 @@ const float DRIVEBASE_FOOT_PER_TICK = 0.0025;
 //11 climber: backwards is forwards
 const int DRIVEBASE_LEFTMOTOR_1_PORT = 0; //Rear
 const int DRIVEBASE_LEFTMOTOR_2_PORT = 1; //Middle
-const int DRIVEBASE_LEFTMOTOR_3_PORT = 12;//Front
-const int DRIVEBASE_RIGHTMOTOR_1_PORT = 13;//Read
-const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14;//Middle
-const int DRIVEBASE_RIGHTMOTOR_3_PORT = 15;//Front
+const int DRIVEBASE_LEFTMOTOR_3_PORT = 12; //Front
+const int DRIVEBASE_RIGHTMOTOR_1_PORT = 13; //Read
+const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14; //Middle
+const int DRIVEBASE_RIGHTMOTOR_3_PORT = 15; //Front
 
-const float SIMPLEDRIVEFORWARD_PID_P = 1./3000;
+const float SIMPLEDRIVEFORWARD_PID_P = 1. / 3000;
 const float SIMPLEDRIVEFORWARD_PID_I = 0;
 const float SIMPLEDRIVEFORWARD_PID_D = 0;
-const float SIMPLEDRIVEFORWARD_PID_F = 0.1/3000;
+const float SIMPLEDRIVEFORWARD_PID_F = 0.1 / 3000;
 
 const float TURNDEGREE_PID_P = 1;
 const float TURNDEGREE_PID_I = 1;
@@ -61,6 +60,10 @@ const int OI_JOYSTICK_LEFT_PORT = 1;
 const int OI_JOYSTICK_RIGHT_PORT = 0;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
+
+const int OI_JOYSTICK_ASSIGN_LIFT_MIDDLE = 1;
+const int OI_JOYSTICK_ASSIGN_LIFT_CLOSE = 2;
+const int OI_JOYSTICK_ASSIGN_HOPPER_CLOSE = 4;
 
 const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
 const int OI_JOYSTICK_COLLECTORPOS = 2;
@@ -106,15 +109,25 @@ const int FUELLOADER_MOTOR1_PORT = 6;
 const int FUELINDEXER_MOTOR1_PORT = 5;
 const float FUELINDEXER_MOTOR1_SPEED = 1;
 
+// // FUEL AGITATOR // //
+
+const int FUELAGITATOR_MOTOR1_PORT = 9;
+const float FUELAGITATOR_MOTOR1_SPEED = 1;
+
 // // FUEL CONVEYOR // //
 
 const int FUELCONVEYOR_MOTOR1_PORT = 4;
 const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 // // TURRETLES  //  //
-const int TURRET_MOTOR1_PORT = 7;
 
-const int TURRET_SWEEP_RANGE = 180; // angle
+const int TURRET_SWEEP_RANGE = 4800; // ticks. also 180 degrees
+
+const int TURRET_SETPOINT_LIFT_MIDDLE = 925; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2) + 300; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
+const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
+
+const int TURRET_MOTOR1_PORT = 7;
 
 const int TURRET_MOTOR1_P = 1;
 const int TURRET_MOTOR1_I = 0;
@@ -133,7 +146,7 @@ const float TURRET_SETPOINT_RANGE = 2500; // middle to far side (doesn't matter 
 const float TURRET_ANGLE_TOLERANCE = 0.05; // percent of setpoint
 
 const float TURRET_MOTOR1_TICKS_PER_ROT = 12;
-const float TURRET_MOTOR1_GEARING = 0;
+const float TURRET_MOTOR1_GEARING = 40;
 
 // // SHOOTER // //
 
@@ -185,6 +198,11 @@ enum eStartingPosition
     POS_1, POS_2, POS_3
 };
 
+// close/middle refers to the distance to the boiler, not the loading station
+enum eShootingPosition
+{
+    LIFT_MIDDLE, LIFT_CLOSE, HOPPER_CLOSE
+};
 
 const int START_POS_SELECTION_DIGITS = 3;
 const int ALLIANCE_SELECTION_DIGITS = 1;
@@ -201,7 +219,7 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 //COLOR SENSOR
 //datasheet: https://cdn-shop.adafruit.com/datasheets/TCS34725.pdf
 const u_int8_t COLOR_SENSOR_I2C_SLAVE_ADR = 0x29;
-const u_int8_t COLOR_SENSOR_C_HIGH_REG = 0x15;//apparently the high value of each registry is the accurate one.
+const u_int8_t COLOR_SENSOR_C_HIGH_REG = 0x15; //apparently the high value of each registry is the accurate one.
 const u_int8_t COLOR_SENSOR_R_HIGH_REG = 0x17;
 const u_int8_t COLOR_SENSOR_G_HIGH_REG = 0x19;
 const u_int8_t COLOR_SENSOR_B_HIGH_REG = 0x1B;
@@ -209,16 +227,16 @@ const int COLOR_SENSOR_BYTE_LENGTH = 2;
 const int I2C_CHANNEL = 1234;
 const int FLOOR_TAPE_R_LOW = 1234; //these are found experimentally, unfortunately. TODO
 const int FLOOR_TAPE_R_HIGH = 1234; //and they will vary TODO
-const int FLOOR_TAPE_G_LOW = 1234;//TODO
-const int FLOOR_TAPE_G_HIGH = 1234;//TODO
-const int FLOOR_TAPE_B_LOW = 1234;//TODO
-const int FLOOR_TAPE_B_HIGH = 1234;//TODO
+const int FLOOR_TAPE_G_LOW = 1234; //TODO
+const int FLOOR_TAPE_G_HIGH = 1234; //TODO
+const int FLOOR_TAPE_B_LOW = 1234; //TODO
+const int FLOOR_TAPE_B_HIGH = 1234; //TODO
 
 //SONAR
 //datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
 //you know what's annoying? eclipse literally does not allow you to save files that have emoji in them
 //insert hammer and sickle emoji here
-const int SONAR_INPUT_RIGHT =  0;
+const int SONAR_INPUT_RIGHT = 0;
 const int SONAR_INPUT_LEFT = 1;
 const int SONAR_POWER_LEFT = 8;
 const int SONAR_POWER_RIGHT = 9;
@@ -226,9 +244,9 @@ const float RATIO_OUTPUT_TO_FEET = .11; //this is kinda sketchy; i want better/m
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 
-const float DISTANCE_BETWEEN_SONAR = (21/12); //inches to feet
+const float DISTANCE_BETWEEN_SONAR = (21 / 12); //inches to feet
 const float angleWallTapePivotPoint = 1.1576; //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
-const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = (10.5/12); //inches to feet
+const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = (10.5 / 12); //inches to feet
 const float angleGoalPivotPointTape = .4131; //rads (23.67 degrees)
 const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 2; //feet. This is to give some safe space to turn
 

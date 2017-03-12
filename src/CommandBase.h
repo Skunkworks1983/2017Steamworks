@@ -13,6 +13,7 @@
 #include <Subsystems/Interfaces/iTurret.h>
 #include <Subsystems/Interfaces/iFuelConveyor.h>
 #include <Subsystems/Interfaces/iFuelIndexer.h>
+#include <Subsystems/Interfaces/iFuelAgitator.h>
 #include <Services/Interfaces/iMessenger.h>
 
 /**
@@ -37,6 +38,8 @@ public:
     static iFuelIndexer* s_fuelIndexer;
     static iShooter* s_shooter;
     static iTurret* s_turret;
+    static iFuelAgitator* s_fuelAgitator;
+
 };
 
 #endif

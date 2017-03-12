@@ -25,6 +25,8 @@ public:
     virtual frc::CANSpeedController::ControlMode getControlMode() = 0;
     virtual void setControlMode(frc::CANSpeedController::ControlMode mode) = 0;
 
+    virtual void setPosition(double position) = 0;
+
     virtual void setSetpoint(double value) = 0;
 
     virtual double getPosition() = 0;

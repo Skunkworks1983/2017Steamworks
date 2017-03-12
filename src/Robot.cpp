@@ -35,24 +35,32 @@ private:
     {
         LOG_INFO("RobotInit called");
 
-        CommandBase::s_drivebase = new cDriveBase();
+        /*
         CommandBase::s_climber = new cClimber();
+        */
+
         CommandBase::s_turret = new cTurret();
+        CommandBase::s_shooter = new cShooter();
+        CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_gearCollector = new cGearCollector();
+
+        /*
         CommandBase::s_fuelCollector = new cFuelCollector();
         CommandBase::s_fuelIndexer = new cFuelIndexer();
         CommandBase::s_fuelConveyor = new cFuelConveyor();
-        CommandBase::s_shooter = new cShooter();
+
+        */
         CommandBase::s_oi = new OI();
 
+        /*
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
-
 
         CommandBase::s_drivebase->getGyro()->initGyro();
         CommandBase::s_drivebase->getGyro()->zeroYaw();
 
         CameraServer::GetInstance()->StartAutomaticCapture();
+        */
     }
 
     void DisabledInit()
@@ -60,8 +68,8 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("DisabledInit called");
 
-        CommandBase::s_turret->setEnabled(false);
-        CommandBase::s_drivebase->setBrakeMode(false);
+        //CommandBase::s_turret->setEnabled(false);
+        //CommandBase::s_drivebase->setBrakeMode(false);
     }
 
     void DisabledPeriodic()
@@ -74,17 +82,17 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("AutonomousInit called");
 
-        CommandBase::s_turret->setEnabled(true);
+        //CommandBase::s_turret->setEnabled(true);
 
-        Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
+        //Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
     }
 
     void AutonomousPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        CommandBase::s_boilerMessenger->sendMessage("auto");
-        CommandBase::s_liftMessenger->sendMessage("auto");
+        //CommandBase::s_boilerMessenger->sendMessage("auto");
+        //CommandBase::s_liftMessenger->sendMessage("auto");
     }
 
     void TeleopInit()
@@ -92,15 +100,19 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("TeleopInit called");
 
-        Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
+        //Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
+        Scheduler::GetInstance()->AddCommand(new cRotateTurret(100));
     }
 
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        CommandBase::s_boilerMessenger->sendMessage("tele");
-        CommandBase::s_liftMessenger->sendMessage("tele");
+        //CommandBase::s_boilerMessenger->sendMessage("tele");
+        //CommandBase::s_liftMessenger->sendMessage("tele");
+
+        std::cout << CommandBase::s_turret->getTurretMotor()->GetSetpoint() << " | " << CommandBase::s_turret->getTurretMotor()->getPosition() << std::endl;
+
     }
 
     void TestPeriodic()

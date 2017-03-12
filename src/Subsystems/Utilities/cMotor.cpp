@@ -126,73 +126,80 @@ void cMotor::configReverseLimit(double position)
 ////shooter
 double cMotor::GetSpeed() const
 {
-	return m_motor.GetSpeed();
+    return m_motor.GetSpeed();
 }
 
 void cMotor::SetSetpoint(double value)
 {
-	return m_motor.SetSetpoint(value);
+    return m_motor.SetSetpoint(value);
 }
 
 double cMotor::GetSetpoint() const
 {
-	return m_motor.GetSetpoint();
+    return m_motor.GetSetpoint();
 }
 
 void cMotor::SetPID(double p, double i, double d, double f)
 {
-	return m_motor.SetPID(p, i, d, f);
+
+    std::cout << p << std::endl;
+    return m_motor.SetPID(p, i, d, f);
 }
 
 void cMotor::Set(double value)
 {
-	m_motor.Set(value);
+    m_motor.Set(value);
 }
 
 void cMotor::reverseSensorDirection()
 {
-	m_motor.SetSensorDirection(true);
+    m_motor.SetSensorDirection(true);
 }
 
 void cMotor::reverseOutput()
 {
-	m_motor.SetClosedLoopOutputDirection(true);
+    m_motor.SetClosedLoopOutputDirection(true);
 }
 
 void cMotor::setFeedbackDevice()
 {
-	m_motor.SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder); //need to ask someone about this
+    m_motor.SetFeedbackDevice(CANTalon::FeedbackDevice::QuadEncoder); //need to ask someone about this
 }
 
 bool cMotor::isEnabled() const
 {
-	return m_motor.IsEnabled();
+    return m_motor.IsEnabled();
 }
 
 int cMotor::getClosedLoopError() const
 {
-	return m_motor.GetClosedLoopError();
+    return m_motor.GetClosedLoopError();
 }
 
 void cMotor::Enable()
 {
-	m_motor.Enable();
-	m_motor.EnableControl();
+    m_motor.Enable();
+    m_motor.EnableControl();
+}
+
+void cMotor::setPosition(double position)
+{
+    m_motor.SetPosition(position);
 }
 
 void cMotor::Disable()
 {
-	m_motor.ClearStickyFaults();
-	m_motor.SetControlMode(CANTalon::ControlMode::kPercentVbus);
-	m_motor.Set(0.0);
-	m_motor.SetControlMode(CANTalon::ControlMode::kSpeed);
-	m_motor.SetSetpoint(0.0);
-	m_motor.Set(0.0);
-	m_motor.Disable();
-	m_motor.Reset();
+    m_motor.ClearStickyFaults();
+    m_motor.SetControlMode(CANTalon::ControlMode::kPercentVbus);
+    m_motor.Set(0.0);
+    m_motor.SetControlMode(CANTalon::ControlMode::kSpeed);
+    m_motor.SetSetpoint(0.0);
+    m_motor.Set(0.0);
+    m_motor.Disable();
+    m_motor.Reset();
 }
 
 void cMotor::Reset()
 {
-	m_motor.Reset();
+    m_motor.Reset();
 }

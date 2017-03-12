@@ -52,6 +52,8 @@ public:
 
     bool hasEncoder();
 
+    void setPosition(double position);
+
     frc::CANSpeedController::ControlMode getControlMode();
     void setControlMode(frc::CANSpeedController::ControlMode mode);
 

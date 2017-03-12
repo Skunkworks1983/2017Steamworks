@@ -11,17 +11,21 @@
 
 cManualTurretControl::cManualTurretControl()
 {
-    CommandBase::s_turret->setManualEnabled(true);
+
 }
 
 void cManualTurretControl::Initialize()
 {
-
+    CommandBase::s_turret->setManualEnabled(true);
 }
 
 void cManualTurretControl::Execute()
 {
-    CommandBase::s_turret->setSpeed(CommandBase::s_oi->getRotPos() * -0.05);
+    CommandBase::s_turret->setSpeed(CommandBase::s_oi->getRotPos());
+
+    //CommandBase::s_turret->setManualEnabled(true);
+    //CommandBase::s_turret->getTurretMotor()->setPosition();
+
 }
 
 bool cManualTurretControl::IsFinished()
