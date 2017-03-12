@@ -21,6 +21,7 @@
 
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/DriveBase/cDriveUntilWall.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 
 #include <Commands/DriveBase/cDriveStraight.h>
 #include <Commands/Debugging/cRunOneMotor.h>
@@ -28,39 +29,32 @@
 #include <Subsystems/cFuelConveyor.h>
 #include <Subsystems/Sensors/cColorSensor.h>
 
-class Robot: public IterativeRobot
-{
+class Robot: public IterativeRobot {
 private:
     void RobotInit()
     {
         LOG_INFO("RobotInit called");
 
-        /*
         CommandBase::s_climber = new cClimber();
-        */
 
         CommandBase::s_turret = new cTurret();
         CommandBase::s_shooter = new cShooter();
         CommandBase::s_drivebase = new cDriveBase();
         CommandBase::s_gearCollector = new cGearCollector();
 
-        /*
         CommandBase::s_fuelCollector = new cFuelCollector();
         CommandBase::s_fuelIndexer = new cFuelIndexer();
         CommandBase::s_fuelConveyor = new cFuelConveyor();
 
-        */
         CommandBase::s_oi = new OI();
 
-        /*
         CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
         CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
-        CommandBase::s_drivebase->getGyro()->initGyro();
-        CommandBase::s_drivebase->getGyro()->zeroYaw();
+		CommandBase::s_drivebase->getGyro()->initGyro();
+		CommandBase::s_drivebase->getGyro()->zeroYaw();
 
         CameraServer::GetInstance()->StartAutomaticCapture();
-        */
     }
 
     void DisabledInit()
@@ -70,29 +64,26 @@ private:
 
         //CommandBase::s_turret->setEnabled(false);
         //CommandBase::s_drivebase->setBrakeMode(false);
-    }
+		CommandBase::m_postMatch = false;
+	}
 
-    void DisabledPeriodic()
-    {
+	void AutonomousInit() {
+		Scheduler::GetInstance()->RemoveAll();
+		LOG_INFO("AutonomousInit called");
 
-    }
+		// enable turret
+		CommandBase::s_turret->setEnabled(true);
 
-    void AutonomousInit()
-    {
-        Scheduler::GetInstance()->RemoveAll();
-        LOG_INFO("AutonomousInit called");
-
-        //CommandBase::s_turret->setEnabled(true);
-
-        //Scheduler::GetInstance()->AddCommand(cAutoBase::configureAutonomous());
+		//Scheduler::GetInstance()->AddCommand(cAutoBase::configureAutonomous());
+		//Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
     }
 
     void AutonomousPeriodic()
     {
         Scheduler::GetInstance()->Run();
 
-        //CommandBase::s_boilerMessenger->sendMessage("auto");
-        //CommandBase::s_liftMessenger->sendMessage("auto");
+        CommandBase::s_boilerMessenger->sendMessage("auto");
+        CommandBase::s_liftMessenger->sendMessage("auto");
     }
 
     void TeleopInit()
@@ -108,11 +99,8 @@ private:
     {
         Scheduler::GetInstance()->Run();
 
-        //CommandBase::s_boilerMessenger->sendMessage("tele");
-        //CommandBase::s_liftMessenger->sendMessage("tele");
-
-        std::cout << CommandBase::s_turret->getTurretMotor()->GetSetpoint() << " | " << CommandBase::s_turret->getTurretMotor()->getPosition() << std::endl;
-
+        CommandBase::s_boilerMessenger->sendMessage("tele");
+        CommandBase::s_liftMessenger->sendMessage("tele");
     }
 
     void TestPeriodic()

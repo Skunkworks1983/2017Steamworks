@@ -18,6 +18,8 @@ iShooter* CommandBase::s_shooter = NULL;
 iTurret* CommandBase::s_turret = NULL;
 iFuelAgitator* CommandBase::s_fuelAgitator = NULL;
 
+bool CommandBase::m_postMatch = false;
+
 CommandBase::CommandBase(const std::string &name) :
         Command(name)
 {

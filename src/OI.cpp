@@ -24,9 +24,19 @@ OI::OI()
     m_rightStick = new Joystick(OI_JOYSTICK_RIGHT_PORT);
 
     m_loadBall = new JoystickButton(m_buttons, OI_JOYSTICK_INDEXER_BUTTON);
-    m_runConveyor = new JoystickButton(m_buttons, 10); //this does both now
+    m_runConveyor = new JoystickButton(m_buttons, 10); //this does both now. see: below
 
     m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
+
+    m_climbRope = new JoystickButton(m_buttons, 11); // magic number. eli/rachel???? im scared
+
+
+    m_loadBall->WhileHeld(new cRunFuelIndexer());
+    m_runConveyor->WhileHeld(new cRunFuelConveyor());
+
+    m_collectorPos->WhileHeld(new cSetCollectorPos());
+
+    m_climbRope->WhileHeld(new cClimbRope(0.9, 0));
 
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
     m_acquireBall = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREBALL_BUTTON);

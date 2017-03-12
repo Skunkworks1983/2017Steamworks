@@ -40,6 +40,7 @@ public:
     static iTurret* s_turret;
     static iFuelAgitator* s_fuelAgitator;
 
+    static bool m_postMatch;
 };
 
 #endif
