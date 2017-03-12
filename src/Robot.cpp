@@ -17,10 +17,12 @@
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
 
+#include <Commands/Autonomous/AutoBase.h>
+
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/DriveBase/cDriveUntilWall.h>
-
 #include <Commands/DriveBase/cDriveStraight.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 #include <Commands/Debugging/cRunOneMotor.h>
 #include <Subsystems/cFuelIndexer.h>
 #include <Subsystems/cFuelConveyor.h>
@@ -92,10 +94,10 @@ private:
 
         // enable turret
         CommandBase::s_turret->setEnabled(true);
+        /*AutoBase* auto_base = new AutoBase();
+        Scheduler::GetInstance()->AddCommand(auto_base->configureAutonomous());*/
 
-        Scheduler::GetInstance()->AddCommand(driveStraight);
-
-        //Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
+        Scheduler::GetInstance()->AddCommand(new cTurnAngle(90));
 	}
 
     void AutonomousPeriodic()
@@ -109,8 +111,8 @@ private:
     void TeleopInit()
     {
         Scheduler::GetInstance()->RemoveAll();
-        Scheduler::GetInstance()->AddCommand(tankDrive);
-        //Scheduler::GetInstance()->AddCommand(runMotor);
+        //Scheduler::GetInstance()->AddCommand(tankDrive);
+        Scheduler::GetInstance()->AddCommand(runMotor);
         LOG_INFO("TeleopInit called");
         std::cout << "Init" << std::endl;
 
@@ -125,7 +127,7 @@ private:
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");
 
-        std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
+        std::cout << CommandBase::s_drivebase->getGyro()->PIDGet() << std::endl;
     }
 
     void TestPeriodic()

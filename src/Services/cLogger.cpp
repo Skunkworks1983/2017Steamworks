@@ -47,11 +47,13 @@ Logger::Logger()
 Logger * Logger::getLogger()
 {
     static Logger * instance = NULL;
+
     if(instance == NULL)
     {
         instance = new Logger();
     }
     return instance;
+
 }
 
 void Logger::push_message(LogMessage message)

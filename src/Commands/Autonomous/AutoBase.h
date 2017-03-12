@@ -30,7 +30,7 @@
 // i know these shouldn't be constants, but it won't build
 // without them being that way. todo: fix
 const eAlliance alliance = Red;
-const eStartingPosition startPosition = POS_1;
+const eStartingPosition startPosition = POS_2;
 
 class AutoBase: public frc::CommandGroup
 {
@@ -58,6 +58,8 @@ public:
     AutoBase* goLift1();
     AutoBase* goLift2();
     AutoBase* goLift3();
+
+    AutoBase* goDead2();
 
     AutoBase* placeGear();
 

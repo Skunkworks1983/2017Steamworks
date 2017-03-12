@@ -9,9 +9,12 @@
 #define SRC_COMMANDS_FUELCONVEYOR_CRUNFUELCONVEYOR_H_
 
 #include <Commands/Command.h>
+#include <Subsystems/Utilities/cMotor.h>
 
 class cRunFuelConveyor: public frc::Command
 {
+private:
+	cMotor* m_window;
 public:
     cRunFuelConveyor();
     virtual ~cRunFuelConveyor();

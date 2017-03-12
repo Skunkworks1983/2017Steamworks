@@ -15,7 +15,7 @@
 
 enum eMotorType
 {
-    BaneBots775,/*ayylmao*/NeveRest40, CIM
+    BaneBots775,NeveRest40, CIM
 };
 
 class cMotor: public iMotor

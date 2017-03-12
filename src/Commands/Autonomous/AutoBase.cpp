@@ -23,7 +23,7 @@ AutoBase::AutoBase()
 
 }
 
-AutoBase* configureAutonomous()
+AutoBase* AutoBase::configureAutonomous()
 {
     AutoBase* commands = new AutoBase();
 
@@ -31,10 +31,10 @@ AutoBase* configureAutonomous()
     if(USE_SHOOTER && USE_TURRET)
     {
         // spin up the shooter to prepare to shoot balls
-        commands->AddParallel(new cSpinUpShooter());
+        //commands->AddParallel(new cSpinUpShooter());
 
         // start vision code to find the boiler
-        commands->AddParallel(new cRotateTurret(30));
+        //commands->AddParallel(new cRotateTurret(30));
     }
 
     // commands for moving to the lifts
@@ -45,7 +45,8 @@ AutoBase* configureAutonomous()
         commands->AddSequential(commands->placeGear());
         break;
     case POS_2:
-        commands->AddSequential(commands->placeGear());
+        //commands->AddSequential(commands->placeGear());
+    	commands->AddSequential(commands->goDead2());
         break;
     case POS_3:
         commands->AddSequential(commands->goLift3());

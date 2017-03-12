@@ -193,6 +193,7 @@ const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
 const bool USE_SONAR_SENSOR = true;
 const bool USE_CAMERA = true;
+const bool USE_GYRO = false; //TODO
 
 const int AUTO_MOVE_FORWARD_FEET = 3;
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
@@ -248,6 +249,7 @@ const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding th
 const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
+const int   ENCODER_OK_ERROR = 25; //Encoder offset from ^^
 
 // // // // // UTILITIES // // // // //
 
