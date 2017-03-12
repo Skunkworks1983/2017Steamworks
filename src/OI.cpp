@@ -16,6 +16,7 @@
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Turret/cManualTurretControl.h>
 #include <Commands/Shooter/cManualShooterControl.h>
+
 OI::OI()
 {
     m_buttons = new Joystick(OI_JOYSTICK_OPERATOR_PORT);
@@ -47,11 +48,7 @@ OI::OI()
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
 
     m_pidSpinUpShooter = new JoystickButton(m_buttons, 9);
-    m_pidSpinUpShooter->WhileHeld(new cShootPID(-150, 10000));
-
-
-    m_shootPID = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
-    m_shootPID->WhenPressed(new cShootPID(-150, 35));
+    m_pidSpinUpShooter->WhileHeld(new cShootPID());
 
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));

@@ -22,8 +22,6 @@ private:
     JoystickButton *m_loadBall;
     JoystickButton *m_runConveyor;
 
-    JoystickButton *m_shootPID;
-
     JoystickButton *m_collectorPos;
 
     // outdated

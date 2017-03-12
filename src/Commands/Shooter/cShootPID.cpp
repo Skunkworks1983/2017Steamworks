@@ -12,8 +12,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 
-cShootPID::cShootPID(double speed, float timeout) :
-		speed(speed), timeout(timeout)
+cShootPID::cShootPID()
 {
 	Requires(CommandBase::s_shooter);
 	std::cout << "Hey its a me it the oi" << std::endl;
@@ -21,10 +20,16 @@ cShootPID::cShootPID(double speed, float timeout) :
 
 void cShootPID::Initialize()
 {
+	double p = SmartDashboard::GetNumber("P", SHOOTER_P);
+	double i = SmartDashboard::GetNumber("I", SHOOTER_I);
+	double d = SmartDashboard::GetNumber("D", SHOOTER_D);
+	double f = SmartDashboard::GetNumber("F", SHOOTER_F);
+	speed = SmartDashboard::GetNumber("TestShootSpeed", -150);
+
 	std::cout <<"cShootPID initialize";
+
 	current_setpoint = 0;
 	CommandBase::s_shooter->EnablePID();
-
 	CommandBase::s_shooter->setPID(p, i, d, f);
 
 	CommandBase::s_shooter->setSetpoint(current_setpoint);
@@ -39,21 +44,23 @@ void cShootPID::Initialize()
 
 void cShootPID::Execute()
 {
-	if (!CommandBase::s_shooter->isPIDEnabled()) {
+
+/*	if (!CommandBase::s_shooter->isPIDEnabled()) {
 		CommandBase::s_shooter->EnablePID();
 	}
-
 
 	if (current_setpoint > speed) { //Its a flipped
 		current_setpoint -= RAMPING_CONSTANT;
 	} else {
 		current_setpoint = speed;
-		CommandBase::s_shooter->setSetpoint(current_setpoint);
-	}
+	}*/
+
+	CommandBase::s_shooter->setSetpoint(speed);
 
 	SmartDashboard::PutNumber("cShootPIDspeed", CommandBase::s_shooter->PIDGet());
 	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
 	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
+
   
 	std::cout << "Setpoint: " << current_setpoint << std::endl;
 

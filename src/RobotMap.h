@@ -145,12 +145,12 @@ const int SHOOTER_MOTOR2_PORT = 3;
 
 const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
-const double SHOOTER_P = 0.05;
+const double SHOOTER_P = 500;
 const double SHOOTER_I = 0;
 const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
 
-const int RAMPING_CONSTANT = 2;
+const int RAMPING_CONSTANT = 5;
 
 const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
 

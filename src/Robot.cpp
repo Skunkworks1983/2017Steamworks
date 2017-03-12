@@ -45,7 +45,11 @@ private:
 	void RobotInit() {
 		LOG_INFO("RobotInit called");
 
-
+		SmartDashboard::PutNumber("P", SHOOTER_P);
+		SmartDashboard::PutNumber("I", SHOOTER_I);
+		SmartDashboard::PutNumber("D", SHOOTER_D);
+		SmartDashboard::PutNumber("F", SHOOTER_F);
+		SmartDashboard::PutNumber("TestShootSpeed", -150);
 
 		CommandBase::s_drivebase = new cDriveBase();
 		CommandBase::s_climber = new cClimber();
