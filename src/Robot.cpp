@@ -104,7 +104,6 @@ private:
 		// disable the turret
 		CommandBase::s_turret->setEnabled(false);
 		CommandBase::s_drivebase->setBrakeMode(false);
-        Scheduler::GetInstance()->AddCommand(new cTurnAngle(90));
 	}
 
 	void DisabledPeriodic() {
@@ -117,29 +116,8 @@ private:
 
 	void AutonomousInit() {
 		Scheduler::GetInstance()->RemoveAll();
+		Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
 		LOG_INFO("AutonomousInit called");
-
-    void TeleopInit()
-    {
-        Scheduler::GetInstance()->RemoveAll();
-        //Scheduler::GetInstance()->AddCommand(tankDrive);
-        Scheduler::GetInstance()->AddCommand(runMotor);
-        LOG_INFO("TeleopInit called");
-        std::cout << "Init" << std::endl;
-		// enable turret
-		CommandBase::s_turret->setEnabled(true);
-
-		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-
-		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-		Scheduler::GetInstance()->AddCommand(new cTurnAngle(30));
-		//Scheduler::GetInstance()->AddCommand(new cDriveStraight(0.25*(-6200), 0.25));
-
-
-		//Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
-
-
-		CommandBase::m_postMatch = true;
 	}
 
 	void AutonomousPeriodic() {
@@ -168,8 +146,7 @@ private:
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
 
-		std::cout << CommandBase::s_drivebase->getGyro()->getAngle()
-				<< std::endl;
+		std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
 	}
 
 	void TestPeriodic() {

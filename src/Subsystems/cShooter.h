@@ -40,6 +40,7 @@ public:
 	double getSetpoint();
 	double getError();
 	cMotor* getShooterMotor();
+	double getOutput();
 
 };
 

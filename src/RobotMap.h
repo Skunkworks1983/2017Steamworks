@@ -110,7 +110,7 @@ const float FUELINDEXER_MOTOR1_SPEED = 1;
 // // FUEL CONVEYOR // //
 
 const int FUELCONVEYOR_MOTOR1_PORT = 4;
-const float FUELCONVEYOR_MOTOR1_SPEED = 1;
+const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 // // TURRET // //
 
@@ -199,7 +199,7 @@ const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
 const bool USE_SONAR_SENSOR = true;
 const bool USE_CAMERA = true;
-const bool USE_GYRO = false; //TODO
+const bool USE_GYRO = true; //TODO
 
 const int AUTO_MOVE_FORWARD_FEET = 3;
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1

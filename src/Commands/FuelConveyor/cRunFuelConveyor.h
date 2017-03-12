@@ -14,7 +14,7 @@
 class cRunFuelConveyor: public frc::Command
 {
 private:
-	cMotor* m_window;
+	//cMotor* m_window;
 public:
     cRunFuelConveyor();
     virtual ~cRunFuelConveyor();

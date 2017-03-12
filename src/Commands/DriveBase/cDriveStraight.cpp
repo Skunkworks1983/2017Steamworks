@@ -2,6 +2,7 @@
 
 cDriveStraight::cDriveStraight(float distance, float speed) {
 	Requires(s_drivebase);
+	SetTimeout(5);
 	std::cout << "Begin cDriveStraight construct" << std::endl;
 	m_endTicks = distance;
 	m_beginningYaw = 0;
@@ -52,7 +53,7 @@ void cDriveStraight::Execute() {
 }
 
 bool cDriveStraight::IsFinished() {
-	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() < (m_curTicks + m_endTicks);
+	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curTicks + m_endTicks) || IsTimedOut();
 }
 
 void cDriveStraight::End() {

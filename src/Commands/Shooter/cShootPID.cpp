@@ -60,6 +60,7 @@ void cShootPID::Execute()
 	SmartDashboard::PutNumber("cShootPIDspeed", CommandBase::s_shooter->PIDGet());
 	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
 	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
+	SmartDashboard::PutNumber("Shooter output", CommandBase::s_shooter->getOutput());
 
   
 	std::cout << "Setpoint: " << current_setpoint << std::endl;

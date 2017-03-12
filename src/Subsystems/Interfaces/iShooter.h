@@ -34,6 +34,7 @@ public:
 	virtual double getSetpoint() = 0;
 	virtual double getError() = 0;
 	virtual cMotor* getShooterMotor() = 0;
+	virtual double getOutput() = 0;
 
 };
 

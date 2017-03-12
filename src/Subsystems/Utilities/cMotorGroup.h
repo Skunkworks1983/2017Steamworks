@@ -34,6 +34,8 @@ public:
     void setSetpoint(double value) override;
 
     double getPosition();
+
+    double getOutput(){};
 };
 
 #endif /* SRC_SUBSYSTEMS_CMOTORGROUP_H_ */

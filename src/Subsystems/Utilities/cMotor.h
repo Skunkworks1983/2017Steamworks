@@ -68,5 +68,7 @@ public:
 
     double getPosition();
 
+    double getOutput();
+
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */
