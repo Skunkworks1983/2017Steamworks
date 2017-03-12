@@ -24,6 +24,8 @@ cDriveStraight::cDriveStraight(float distance, float speed) {
 	m_speed = speed;
 
 	m_isDisabled = true;
+
+	std::cout << "cDriveStraight constructed" << std::endl;
 }
 
 void cDriveStraight::Initialize() {
@@ -37,15 +39,20 @@ void cDriveStraight::Initialize() {
 	std::cout << Preferences::GetInstance()->GetDouble("P", 0) << std::endl;
 	m_controller->SetPID(m_p, m_i, m_d);
 	m_controller->Enable();
+
+
+	std::cout << "cDriveStraight intialize" << std::endl;
+
 }
 
 void cDriveStraight::Execute() {
     //See PIDWrite
 	//m_controller->SetPID(Preferences::GetInstance()->GetDouble("P", 0), Preferences::GetInstance()->GetDouble("I", 0), Preferences::GetInstance()->GetDouble("D", 0));
+	m_controller->SetPID(m_p, m_i, m_d);
 }
 
 bool cDriveStraight::IsFinished() {
-	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curTicks + m_endTicks);
+	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() < (m_curTicks + m_endTicks);
 }
 
 void cDriveStraight::End() {
@@ -68,20 +75,22 @@ double cDriveStraight::PIDGet() {
 
 void cDriveStraight::PIDWrite(double output) {
 	if(!m_isDisabled) {
-		float percentDone = (CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() - m_curTicks)/((float)m_endTicks);
+		//float percentDone = (CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() - m_curTicks)/((float)m_endTicks);
 		float slowDown = 1;
 		//std::cout << "Percent done: " << percentDone << std::endl;
 		/*if(percentDone > 0.5) {
 			slowDown = -2*percentDone + 2;
 		}*/
 		//std::cout << CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() << std::endl;
-		std::cout << "P: " << m_controller->GetP();
+		//std::cout << "P: " << m_controller->GetP();
 
-		if(output > 0.1) {
-			output = 0.1;
-		} else if(output < -0.1) {
-			output = -0.1;
+		if(output > 0.95) {
+			output = 0.95;
+		} else if(output < -0.95) {
+			output = -0.95;
 		}
+
+		std::cout << "Output: " << output << std::endl;
 
 		float leftSpeed = slowDown*(m_speed - output);
 		float rightSpeed = slowDown*(m_speed + output);

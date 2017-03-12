@@ -75,6 +75,9 @@ void cGyro::initGyro() {
 			LOG_ERROR("Error instantiating navX MXP: %s \t", ex->what());
 
 			m_dead = true;
+		} catch ( ... ) {
+			std::cout << "Error instantiating navX MXP: ..." << std::endl;
+			LOG_ERROR("Error instantiating navX MXP: ... \t");
 		}
 	} else { std::cout << "Its not null" << std::endl; }
 }

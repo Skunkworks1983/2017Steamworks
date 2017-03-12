@@ -15,6 +15,7 @@ class cFuelConveyor: public iFuelConveyor
 {
 private:
     cMotor* m_motor1;
+    cMotor* window;
 
 public:
     cFuelConveyor();

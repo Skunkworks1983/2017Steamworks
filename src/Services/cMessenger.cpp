@@ -22,11 +22,12 @@ cMessenger::cMessenger(const char *server, const char *port)
     // create a new thread for the messenger, and
     // give it a reference to 'this' so that it knows
     // which messenger it is. also give it update as a routine to run.
+#if 0
     if(pthread_create(&m_thread, NULL, this->update, this))
     {
         LOG_INFO("failed to create messenger thread")
     }
-
+#endif
     // Initialize the last known variables
     m_dead = false;
     m_lastBoilerData = new cBoilerData(0, 0, false);
@@ -77,7 +78,7 @@ void cMessenger::sendMessage(std::string message)
     // Send a message to the socket using the connection settings obtained earlier
     if(sendto(m_sock, message.c_str(), message.length() + 1, 0, (struct sockaddr*) &m_remaddr, sizeof(m_remaddr)) == -1)
     {
-        std::cout << "sendto failed, error: " << errno << "\n";
+//        std::cout << "sendto failed, error: " << errno << "\n";
     }
 }
 
@@ -91,7 +92,7 @@ std::string cMessenger::receiveMessage()
     {
         if(errno != EAGAIN && errno != EWOULDBLOCK)
         {
-            std::cout << "recvfrom failed, error: " << errno << "\n";
+//            std::cout << "recvfrom failed, error: " << errno << "\n";
             return "message failed";
         }
     }

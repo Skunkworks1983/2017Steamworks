@@ -1,13 +1,23 @@
 #include "../AutoBase.h"
 #include <RobotMap.h>
 #include <Commands/DriveBase/cDriveStraight.h>
-#include <Commands/Autonomous/cTurnDegree.h>
 
-AutoBase* AutoBase::goDead2()
+AutoBase* AutoBase::deadLift2()
 {
     AutoBase* commands = new AutoBase();
 
-    commands->AddSequential(new cDriveStraight(7300, 0.35));
+    if(USE_GYRO) {
+    	//spin up shooter
+		#ifdef PRACTICE_BOT
+    		commands->AddSequential(new cDriveStraight(7250, 0.5));
+		#endif
+
+		#ifndef PRACTICE_BOT
+    		commands->AddSequential(new cDriveStraight(-7250, 0.2));
+		#endif
+    	std::cout << "Added cDriveStraight" << std::endl;
+    	//shoot balls
+    }
 
     return commands;
 }

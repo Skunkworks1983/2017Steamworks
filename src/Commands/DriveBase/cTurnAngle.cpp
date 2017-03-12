@@ -54,6 +54,8 @@ void cTurnAngle::Initialize() {
 		m_rightController->Enable();
 	}
 	m_isDisabled = false;
+
+	std::cout << "cTurnAngle init" << std::endl;
 }
 
 void cTurnAngle::Execute() {

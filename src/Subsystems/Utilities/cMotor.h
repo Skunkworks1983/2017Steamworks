@@ -12,6 +12,7 @@
 #include <PIDSource.h>
 #include <PIDOutput.h>
 #include <Subsystems/Interfaces/iMotor.h>
+#include <stdint.h>
 
 enum eMotorType
 {
@@ -21,8 +22,13 @@ enum eMotorType
 class cMotor: public iMotor
 {
 private:
-    CANTalon m_motor;bool m_hasEncoder;
+
     eMotorType m_motorType;
+    uint64_t m_timeStall;
+    CANTalon m_motor;
+    bool m_hasEncoder;
+    bool m_disabledEncoder;
+
 public:
     cMotor(int port, eMotorType motorType, bool hasEncoder = false, frc::CANSpeedController::ControlMode controlMode =
             frc::CANSpeedController::ControlMode::kPercentVbus);

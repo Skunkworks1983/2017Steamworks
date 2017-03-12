@@ -8,6 +8,10 @@
 #define ROBOT_NAME "tim scoot"
 #define LOGFILE_NAME "/U/robotLog"
 
+//|||||||||||||||||||||||||||||||||||||||||||
+#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
+//|||||||||||||||||||||||||||||||||||||||||||
+
 // // MESSENGER // //
 
 #define BOILER_PI_IP "10.19.83.7"
@@ -55,8 +59,8 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 // // OI // //
 
-const int OI_JOYSTICK_LEFT_PORT = 1;
-const int OI_JOYSTICK_RIGHT_PORT = 0;
+const int OI_JOYSTICK_LEFT_PORT = 0;
+const int OI_JOYSTICK_RIGHT_PORT = 1;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
@@ -141,12 +145,12 @@ const int SHOOTER_MOTOR2_PORT = 3;
 
 const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
-const double SHOOTER_P = 1;
+const double SHOOTER_P = 500;
 const double SHOOTER_I = 0;
 const double SHOOTER_D = 0;
 const double SHOOTER_F = 0;
 
-const int RAMPING_CONSTANT = 2;
+const int RAMPING_CONSTANT = 5;
 
 const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
 
@@ -164,9 +168,11 @@ const int GEARCOLLECTOR_SERVO_MAX = 170;
 const int GEARCOLLECTOR_OPEN_ANGLE = 170; // ANGLE OF THE SERVOS! NOT FLAP!
 const int GEARCOLLECTOR_CLOSE_ANGLE = 85; //0.5 * (GEARCOLLECTOR_SERVO_MIN + GEARCOLLECTOR_SERVO_MAX);
 
-const float BANEBOTS775_STALLING_CURRENT = 130;
+
+const float BANEBOTS775_STALLING_CURRENT = 80;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
-const float CIM_STALLING_CURRENT = 133;
+const float CIM_STALLING_CURRENT = 80;
+
 
 // // RASPBERRY PI // //
 
@@ -188,7 +194,7 @@ enum eStartingPosition
 const int START_POS_SELECTION_DIGITS = 3;
 const int ALLIANCE_SELECTION_DIGITS = 1;
 
-const bool USE_SHOOTER = true;
+const bool USE_SHOOTER = false;
 const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
 const bool USE_SONAR_SENSOR = true;
@@ -216,8 +222,6 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //SONAR
 //datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
-//you know what's annoying? eclipse literally does not allow you to save files that have emoji in them
-//insert hammer and sickle emoji here
 const int SONAR_INPUT_RIGHT =  0;
 const int SONAR_INPUT_LEFT = 1;
 const int SONAR_POWER_LEFT = 8;
