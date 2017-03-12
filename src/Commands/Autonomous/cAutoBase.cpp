@@ -1,12 +1,12 @@
 /*
- * AutoBase.cpp
+ * cAutoBase.cpp
  *
  *  Created on: Jan 26, 2017
  *      Author: s-4036956
  */
 
 #include "WPILib.h"
-#include "AutoBase.h"
+#include "cAutoBase.h"
 #include "cTurnDegree.h"
 #include "cSimpleDriveForward.h"
 #include "cGearPath.h"
@@ -16,22 +16,22 @@
 #include <Commands/FuelIndexer/cRunFuelIndexer.h>
 #include <Commands/Shooter/cShootWhenReady.h>
 
-double AutoBase::s_angleTapeRobotPivotPoint = 0;
-double AutoBase::s_distanceToPivotPoint = 0;
-double AutoBase::s_angleRobotPivotPointGoal = 0;
+double cAutoBase::s_angleTapeRobotPivotPoint = 0;
+double cAutoBase::s_distanceToPivotPoint = 0;
+double cAutoBase::s_angleRobotPivotPointGoal = 0;
 
-AutoBase::AutoBase()
+cAutoBase::cAutoBase()
 {
 
 }
 
-AutoBase* AutoBase::configureAutonomous()
+cAutoBase* cAutoBase::configureAutonomous()
 {
     // initialize commands
-    AutoBase* commands = new AutoBase();
+    cAutoBase* commands = new cAutoBase();
 
     // config autonomous commands
-    switch(AutoBase::getStartingPosition())
+    switch(cAutoBase::getStartingPosition())
     {
     case POS_1:
 
@@ -51,12 +51,12 @@ AutoBase* AutoBase::configureAutonomous()
     return commands;
 }
 
-AutoBase::~AutoBase()
+cAutoBase::~cAutoBase()
 {
     delete this;
 }
 
-eStartingPosition AutoBase::getStartingPosition()
+eStartingPosition cAutoBase::getStartingPosition()
 {
     eStartingPosition startingPosition = (eStartingPosition) POS_2;
 
@@ -72,7 +72,7 @@ eStartingPosition AutoBase::getStartingPosition()
     return startingPosition;
 }
 
-eAlliance AutoBase::getAlliance()
+eAlliance cAutoBase::getAlliance()
 {
     frc::DriverStation::Alliance dsAlliance = DriverStation::GetInstance().GetAlliance();
     eAlliance alliance = (eAlliance) dsAlliance;

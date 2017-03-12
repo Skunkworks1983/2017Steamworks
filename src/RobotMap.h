@@ -68,7 +68,6 @@ const int OI_JOYSTICK_ASSIGN_HOPPER_CLOSE = 4;
 const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
 const int OI_JOYSTICK_COLLECTORPOS = 2;
 const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 3;
-//cont in *turtles*
 //const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3; not yet used
 const int OI_JOYSTICK_INDEXER_BUTTON = 4;
 //const int OI_JOYSTICK_ASSIGNTARGETGOAL = 4;   not yet used
@@ -104,6 +103,7 @@ const int FUELCOLLECTOR_MIN_ENC_ANGLE = 10;
 const int FUELCOLLECTOR_MAX_ENC_ANGLE = 247;
 
 // // FUEL INDEXER // //
+
 const int FUELLOADER_MOTOR1_PORT = 6;
 
 const int FUELINDEXER_MOTOR1_PORT = 5;
@@ -119,7 +119,7 @@ const float FUELAGITATOR_MOTOR1_SPEED = 1;
 const int FUELCONVEYOR_MOTOR1_PORT = 4;
 const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
-// // TURRETLES  //  //
+// // TURRET  //  //
 
 const int TURRET_SWEEP_RANGE = 4800; // ticks. also 180 degrees
 

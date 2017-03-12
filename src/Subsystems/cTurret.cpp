@@ -28,14 +28,13 @@ void cTurret::setSpeed(float speed)
 void cTurret::setOrientation(float heading)
 {
     float desired = turret_angle_to_ticks(heading);
-    std::cout << desired << std::endl;
 
     m_motor1->setSetpoint(desired);
 }
 
 void cTurret::rotate(float degrees)
 {
-    float current = turret_ticks_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    float current = turret_ticks_to_angle(m_motor1->getPosition());
     float desired = turret_angle_to_ticks(current + degrees);
 
     m_motor1->setSetpoint(desired);
@@ -43,7 +42,7 @@ void cTurret::rotate(float degrees)
 
 float cTurret::getHeading()
 {
-    return turret_ticks_to_angle(m_motor1->getPosition() / TURRET_MOTOR1_GEARING);
+    return turret_ticks_to_angle(m_motor1->getPosition());
 }
 
 void cTurret::setManualEnabled(bool state)

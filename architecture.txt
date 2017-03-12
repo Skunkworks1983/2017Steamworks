@@ -11,7 +11,7 @@
 -Constants are stored in RobotMap to make things easier to find--may increase compile times
 -User-initiated commands are constructed and registered with buttons in OI::OI
 -OI should be constructed last because it constructs Commands which may be dependent on Subsystems
--AutoBase creates a CommandGroup for autonomous based on switch inputs
+-cAutoBase creates a CommandGroup for autonomous based on switch inputs
 -Both WPILib and CANTalon PIDs are used
 -Logging writes to a flashdrive (mounts to /U by default) in its own thread; variadic macros in RobotMap make logging work with format specifiers
 -Vision-based control (i.e. turret targeting and drivebase gear delivery) is blended with higher update rate sensors to improve neglect tolerance: latest vision data is used to set setpoints on PIDs with fast input sources
@@ -22,3 +22,5 @@
 -The reading of the pins for autonomous selection is as follows; first three: start position. fourth: alliance. rest: tbd
 -For autonomous mode selection, position 1 is always the closest position of the three to the boiler, regardless of alliance. Three is the farthest.
 -!ALL AUTONOMOUS COMMANDS ASSUME RED!
+-Talon PIDs can only have positive values for P (probably also the rest)
+-Turret angle values are given in reference to the starting point: the maximum angle of the turret facing the inside of the robots

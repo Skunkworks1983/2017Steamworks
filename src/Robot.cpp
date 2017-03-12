@@ -16,7 +16,7 @@
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
-#include <Commands/Autonomous/AutoBase.h>
+#include <Commands/Autonomous/cAutoBase.h>
 #include <Commands/Turret/cRotateTurret.h>
 
 #include <Commands/Autonomous/cSimpleDriveForward.h>
@@ -84,7 +84,7 @@ private:
 
         //CommandBase::s_turret->setEnabled(true);
 
-        //Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
+        //Scheduler::GetInstance()->AddCommand(cAutoBase::configureAutonomous());
     }
 
     void AutonomousPeriodic()

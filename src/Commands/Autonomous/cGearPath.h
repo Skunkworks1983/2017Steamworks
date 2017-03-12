@@ -8,7 +8,7 @@
 #ifndef SRC_COMMANDS_AUTONOMOUS_CGEARPATH_H_
 #define SRC_COMMANDS_AUTONOMOUS_CGEARPATH_H_
 #include <RobotMap.h>
-#include "AutoBase.h"
+#include "cAutoBase.h"
 #include "CommandBase.h"
 /*
  * This class uses the sonar sensors to determine the path the robot must take,

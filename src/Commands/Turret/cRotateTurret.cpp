@@ -8,8 +8,8 @@
 #include <Commands/Turret/cRotateTurret.h>
 #include <RobotMap.h>
 #include <CommandBase.h>
+#include <Commands/Autonomous/cAutoBase.h>
 #include <Services/cMessage.h>
-#include <Commands/Autonomous/Autobase.h>
 
 cRotateTurret::cRotateTurret(float timeout)
 {

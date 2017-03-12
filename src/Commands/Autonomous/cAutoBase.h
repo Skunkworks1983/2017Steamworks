@@ -1,18 +1,18 @@
 /*
- * AutoBase.h
+ * cAutoBase.h
  *
  *  Created on: Jan 26, 2017
  *      Author: s-4036956
  *
  * This class is to create command groups for
- * the autonomous period. The AutoBase itself is
+ * the autonomous period. The cAutoBase itself is
  * a command group, and calling member functions such
  * as goLift1 add groups of commands to the new
- * AutoBase command group, which then becomes the
+ * cAutoBase command group, which then becomes the
  * entire list of commands for everything in the autonomous period.
  *
- * Each of the functions that return a new AutoBase
- * work by creating their own AutoBase (essentially a CommandGroup), and
+ * Each of the functions that return a new cAutoBase
+ * work by creating their own cAutoBase (essentially a CommandGroup), and
  * adding it to the current master list of commands for
  * the autonomous period.
  *
@@ -21,12 +21,12 @@
  * place gear on lift 1).
  */
 
-#ifndef SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
-#define SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_
+#ifndef SRC_COMMANDS_AUTONOMOUS_CAUTOBASE_H_
+#define SRC_COMMANDS_AUTONOMOUS_CAUTOBASE_H_
 #include <Commands/CommandGroup.h>
 #include <RobotMap.h>
 
-class AutoBase: public frc::CommandGroup
+class cAutoBase: public frc::CommandGroup
 {
 private:
     CommandGroup* m_placeGear;
@@ -38,10 +38,10 @@ public:
     static double s_angleRobotPivotPointGoal;
     static bool s_reachedLine;
 
-    AutoBase();
-    ~AutoBase();
+    cAutoBase();
+    ~cAutoBase();
 
-    static AutoBase* configureAutonomous();
+    static cAutoBase* configureAutonomous();
 
     // returns the current auto starting position based on the dial/switch
     static eStartingPosition getStartingPosition();
@@ -49,13 +49,13 @@ public:
     // returns the current alliance based on dial/switch
     static eAlliance getAlliance();
 
-    AutoBase* goLift1();
-    AutoBase* goLift2();
-    AutoBase* goLift3();
+    cAutoBase* goLift1();
+    cAutoBase* goLift2();
+    cAutoBase* goLift3();
 
-    AutoBase* crossBaseline();
+    cAutoBase* crossBaseline();
 
-    AutoBase* placeGear();
+    cAutoBase* placeGear();
 
 //TODO REQUIRES
     //gyro code (navx, ahrs?)
@@ -69,4 +69,4 @@ public:
     //position front of loading zone
 };
 
-#endif /* SRC_COMMANDS_AUTONOMOUS_AUTOBASE_H_ */
+#endif /* SRC_COMMANDS_AUTONOMOUS_CAUTOBASE_H_ */

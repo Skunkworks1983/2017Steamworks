@@ -4,7 +4,7 @@
  *  Created on: Feb 2, 2017
  *      Author: Mike
  */
-#include "AutoBase.h"
+#include "cAutoBase.h"
 #include "cGearPath.h"
 #include "cSimpleDriveForward.h"
 #include "Subsystems/cDriveBase.h"
@@ -45,24 +45,24 @@ void cGearPath::Initialize() {
 
 	double anglePivotPointTapeRobot = (3.14 - angleWallTapePivotPoint -	 angleRobotTapeWall);
 
-	AutoBase::s_distanceToPivotPoint = sqrt(distanceToTape*distanceToTape + DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT - 2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT * cos(anglePivotPointTapeRobot));
+	cAutoBase::s_distanceToPivotPoint = sqrt(distanceToTape*distanceToTape + DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT - 2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT * cos(anglePivotPointTapeRobot));
 	// law of cosines. a^2 = b^2 + c^2 - 2*b*c*cos(A)
 
-	AutoBase::s_angleTapeRobotPivotPoint = acos((-DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT + AutoBase::s_distanceToPivotPoint * AutoBase::s_distanceToPivotPoint + distanceToTape * distanceToTape) / (2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT));
+	cAutoBase::s_angleTapeRobotPivotPoint = acos((-DISTANCE_FROM_TAPE_TO_PIVOT_POINT * DISTANCE_FROM_TAPE_TO_PIVOT_POINT + cAutoBase::s_distanceToPivotPoint * cAutoBase::s_distanceToPivotPoint + distanceToTape * distanceToTape) / (2 * distanceToTape * DISTANCE_FROM_TAPE_TO_PIVOT_POINT));
 	//cos(A) = ((- a * a + b * b + c * c) / 2 * b * c)
 
-	double angleRobotPivotPointTape = (3.14 - anglePivotPointTapeRobot -  AutoBase::s_angleTapeRobotPivotPoint);
+	double angleRobotPivotPointTape = (3.14 - anglePivotPointTapeRobot -  cAutoBase::s_angleTapeRobotPivotPoint);
 
-	AutoBase::s_angleRobotPivotPointGoal = (angleRobotPivotPointTape + angleGoalPivotPointTape);
+	cAutoBase::s_angleRobotPivotPointGoal = (angleRobotPivotPointTape + angleGoalPivotPointTape);
 
-	AutoBase::s_angleTapeRobotPivotPoint = ((AutoBase::s_angleTapeRobotPivotPoint * 180)/3.14);
-	AutoBase::s_distanceToPivotPoint = ((AutoBase::s_distanceToPivotPoint * 180)/3.14); //turns out turndegree turns degrees, not radians
-	AutoBase::s_angleRobotPivotPointGoal = ((AutoBase::s_angleRobotPivotPointGoal * 180)/3.14);
+	cAutoBase::s_angleTapeRobotPivotPoint = ((cAutoBase::s_angleTapeRobotPivotPoint * 180)/3.14);
+	cAutoBase::s_distanceToPivotPoint = ((cAutoBase::s_distanceToPivotPoint * 180)/3.14); //turns out turndegree turns degrees, not radians
+	cAutoBase::s_angleRobotPivotPointGoal = ((cAutoBase::s_angleRobotPivotPointGoal * 180)/3.14);
 
 	if (leftDistance == longerDistance) {
-		AutoBase::s_angleTapeRobotPivotPoint = AutoBase::s_angleTapeRobotPivotPoint * -1; //does it need to turn left then right, or right then left?
+		cAutoBase::s_angleTapeRobotPivotPoint = cAutoBase::s_angleTapeRobotPivotPoint * -1; //does it need to turn left then right, or right then left?
 	} else {
-		AutoBase::s_angleRobotPivotPointGoal = AutoBase::s_angleRobotPivotPointGoal * -1;
+		cAutoBase::s_angleRobotPivotPointGoal = cAutoBase::s_angleRobotPivotPointGoal * -1;
 	}
 }
 void cGearPath::Execute() {
