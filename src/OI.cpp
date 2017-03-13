@@ -28,7 +28,7 @@ OI::OI()
 
     m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
 
-    m_climbRope = new JoystickButton(m_buttons, 11); // magic number. eli/rachel???? im scared
+    m_climbRope = new JoystickButton(m_buttons, 11); // 11?
 
 
     m_loadBall->WhileHeld(new cRunFuelIndexer());
@@ -101,6 +101,6 @@ double OI::getSliderPos() {
 }
 
 double OI::getRotPos() {
-    // this shit is so broken. i'm too lazy to fix this though
+    // this is so broken. i'm too lazy to fix this though
 	return clamp((m_buttons->GetY() - 0.5) * -1.25, -0.5, 0.5) * 2;
 }

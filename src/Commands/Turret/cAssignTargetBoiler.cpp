@@ -21,32 +21,32 @@ void cAssignTargetBoiler::Initialize()
 {
     LOG_INFO("starting cAssignTargetBoiler");
 
-    // ugly as fuck, but ok
-    int heading = CommandBase::s_turret->getTurretMotor()->getPosition();
+    int heading = CommandBase::s_turret->getHeading();
     bool isRed = cAutoBase::getAlliance() == RED;
-    isRed = true;
+    isRed = true; // test TODO: remove
 
     switch(m_position)
     {
     case LIFT_MIDDLE:
-        heading = TURRET_SETPOINT_LIFT_MIDDLE;
+        heading = TURRET_ANGLE_LIFT_MIDDLE;
         break;
     case LIFT_CLOSE:
-        heading = TURRET_SETPOINT_LIFT_CLOSE;
+        heading = TURRET_ANGLE_LIFT_CLOSE;
         break;
     case HOPPER_CLOSE:
-        heading = TURRET_SETPOINT_HOPPER_CLOSE;
+        heading = TURRET_ANGLE_HOPPER_CLOSE;
         break;
     }
 
     // TODO: update conversion functions so that we don't
     // have to deal with stupid ass ticks. whatever
 
-    // mirror
-    heading = isRed ? heading : TURRET_SWEEP_RANGE - heading;
+    // mirror by subtracting 180 by the angle
+    // currently at 45d? 180 - 45 = mirrored angle
+    heading = isRed ? heading : 180 - heading;
 
     // set orientation
-    CommandBase::s_turret->setSetpoint(heading);
+    CommandBase::s_turret->setHeading(heading);
 }
 
 void cAssignTargetBoiler::Execute()

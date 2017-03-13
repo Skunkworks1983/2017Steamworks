@@ -25,7 +25,7 @@ void cTurret::setSpeed(float speed)
     m_motor1->setOutput(speed);
 }
 
-void cTurret::setOrientation(float heading)
+void cTurret::setHeading(float heading)
 {
     float desired = turret_angle_to_ticks(heading);
 

@@ -123,9 +123,9 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 1;
 
 const int TURRET_SWEEP_RANGE = 4800; // ticks. also 180 degrees
 
-const int TURRET_SETPOINT_LIFT_MIDDLE = 925; // angle our turret needs to be to aim at the boiler from the middle lift
-const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2) + 300; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
-const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
+const int TURRET_ANGLE_LIFT_MIDDLE = 34.68; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_ANGLE_LIFT_CLOSE = 101.25; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
+const int TURRET_ANGLE_HOPPER_CLOSE = 78.75; // angle our turret needs to be to aim at the boiler from the hopper position
 
 const int TURRET_MOTOR1_PORT = 7;
 
@@ -193,16 +193,20 @@ enum eAlliance
     RED, BLUE, INVALID
 };
 
+// close/middle refers to the distance to the boiler, not the loading station
 enum eStartingPosition
 {
-    POS_1, POS_2, POS_3
+    POS_CLOSE, POS_MIDDLE, POS_FAR
 };
 
-// close/middle refers to the distance to the boiler, not the loading station
+// see: above
 enum eShootingPosition
 {
     LIFT_MIDDLE, LIFT_CLOSE, HOPPER_CLOSE
 };
+
+const int AUTO_SELECTION_PORT1 = 7;
+const int AUTO_SELECTION_PORT2 = 6;
 
 const int START_POS_SELECTION_DIGITS = 3;
 const int ALLIANCE_SELECTION_DIGITS = 1;
