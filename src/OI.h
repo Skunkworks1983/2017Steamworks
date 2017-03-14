@@ -32,6 +32,7 @@ private:
     JoystickButton *m_shootPosLiftMiddle;
     JoystickButton *m_shootPosLiftClose;
     JoystickButton *m_shootPosHopperClose;
+    JoystickButton *m_pidSpinUpShooter;
     /*JoystickButton *m_assignTargetBoiler;
     JoystickButton *m_assignTargetGoal;
     JoystickButton *m_shootHigh;*/

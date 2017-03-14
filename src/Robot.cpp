@@ -4,6 +4,8 @@
 #include <errno.h>
 #include "RobotMap.h"
 
+#include <Commands/Autonomous/AutoBase.h>
+
 #include <SmartDashboard/SmartDashboard.h>
 
 #include "Subsystems/cDriveBase.h"
@@ -16,75 +18,114 @@
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
-#include <Commands/Autonomous/AutoBase.h>
+#include "Commands/Shooter/cSetSetpointManually.h"
 #include <Commands/Turret/cRotateTurret.h>
+
+#include <Commands/Autonomous/AutoBase.h>
 
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/DriveBase/cDriveUntilWall.h>
-#include <Commands/DriveBase/cTurnAngle.h>
-
 #include <Commands/DriveBase/cDriveStraight.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 #include <Commands/Debugging/cRunOneMotor.h>
 #include <Subsystems/cFuelIndexer.h>
 #include <Subsystems/cFuelConveyor.h>
 #include <Subsystems/Sensors/cColorSensor.h>
 
+
 class Robot: public IterativeRobot {
+
 private:
-    void RobotInit()
-    {
-        LOG_INFO("RobotInit called");
+	//Put commands out here for declaration
+	cRunOneMotor* runMotor;
 
-        CommandBase::s_climber = new cClimber();
+	cSetSetpointManually* runShooter;
 
-        CommandBase::s_turret = new cTurret();
-        CommandBase::s_shooter = new cShooter();
-        CommandBase::s_drivebase = new cDriveBase();
-        CommandBase::s_gearCollector = new cGearCollector();
+	cRunTankDrive* tankDrive;
+	cDriveStraight* driveStraight;
 
-        CommandBase::s_fuelCollector = new cFuelCollector();
-        CommandBase::s_fuelIndexer = new cFuelIndexer();
-        CommandBase::s_fuelConveyor = new cFuelConveyor();
+	void RobotInit() {
+		LOG_INFO("RobotInit called");
 
-        CommandBase::s_oi = new OI();
+		SmartDashboard::PutNumber("P", SHOOTER_P);
+		SmartDashboard::PutNumber("I", SHOOTER_I);
+		SmartDashboard::PutNumber("D", SHOOTER_D);
+		SmartDashboard::PutNumber("F", SHOOTER_F);
+		SmartDashboard::PutNumber("TestShootSpeed", -80);
 
-        CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP, BOILER_PI_PORT);
-        CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
+		CommandBase::s_drivebase = new cDriveBase();
+		CommandBase::s_climber = new cClimber();
+		CommandBase::s_turret = new cTurret();
+		CommandBase::s_gearCollector = new cGearCollector();
+		CommandBase::s_fuelCollector = new cFuelCollector();
+		//CommandBase::s_fuelLoader = new cFuelLoader();
+		CommandBase::s_fuelIndexer = new cFuelIndexer();
+		CommandBase::s_fuelConveyor = new cFuelConveyor();
+		CommandBase::s_shooter = new cShooter();
+
+
+		CommandBase::s_oi = new OI();
+
+		CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP,
+				BOILER_PI_PORT);
+		CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
 		CommandBase::s_drivebase->getGyro()->initGyro();
 		CommandBase::s_drivebase->getGyro()->zeroYaw();
 
         CameraServer::GetInstance()->StartAutomaticCapture();
-    }
 
-    void DisabledInit()
-    {
-        Scheduler::GetInstance()->RemoveAll();
-        LOG_INFO("DisabledInit called");
+		//colorSensor = new cColorSensor();
 
-        //CommandBase::s_turret->setEnabled(false);
-        //CommandBase::s_drivebase->setBrakeMode(false);
+		//Put construction of commands here
+		std::cout << "Before" << std::endl;
+		//driveStraight = new cDriveStraight(6);
+		std::cout << "After" << std::endl;
+
+
+		tankDrive = new cRunTankDrive();
+		runMotor = new cRunOneMotor();
+
+		//CameraServer::GetInstance()->StartAutomaticCapture();
+
+        // enable turret
+        CommandBase::s_turret->setEnabled(true);
+        /*AutoBase* auto_base = new AutoBase();
+        Scheduler::GetInstance()->AddCommand(auto_base->configureAutonomous());*/
+
 		CommandBase::m_postMatch = false;
+	}
+
+	void DisabledInit() {
+		Scheduler::GetInstance()->RemoveAll();
+		LOG_INFO("DisabledInit called");
+
+		// disable the turret
+		CommandBase::s_turret->setEnabled(false);
+		CommandBase::s_drivebase->setBrakeMode(false);
+	}
+
+	void DisabledPeriodic() {
+		// spam with packets
+		if (CommandBase::m_postMatch) {
+			CommandBase::s_boilerMessenger->sendMessage("shutdown");
+			CommandBase::s_liftMessenger->sendMessage("shutdown");
+		}
 	}
 
 	void AutonomousInit() {
 		Scheduler::GetInstance()->RemoveAll();
+		Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
+
 		LOG_INFO("AutonomousInit called");
+	}
 
-		// enable turret
-		CommandBase::s_turret->setEnabled(true);
+	void AutonomousPeriodic() {
+		Scheduler::GetInstance()->Run();
 
-		//Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
-		//Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-    }
-
-    void AutonomousPeriodic()
-    {
-        Scheduler::GetInstance()->Run();
-
-        CommandBase::s_boilerMessenger->sendMessage("auto");
-        CommandBase::s_liftMessenger->sendMessage("auto");
-    }
+		CommandBase::s_boilerMessenger->sendMessage("auto"); //What if it misses the packet?
+		CommandBase::s_liftMessenger->sendMessage("auto");
+	}
 
     void TeleopInit()
     {
@@ -128,7 +169,9 @@ private:
         SmartDashboard::PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
         //SmartDashboard::PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
         SmartDashboard::PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
-    }
+
+        CommandBase::m_postMatch = true;
+	}
 };
 
 START_ROBOT_CLASS(Robot)

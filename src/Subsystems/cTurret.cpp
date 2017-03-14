@@ -65,6 +65,7 @@ cMotor* cTurret::getTurretMotor()
 
 void cTurret::setSetpoint(int ticks)
 {
+	std::cout << "Setpoint: " << ticks << std::endl;
     m_motor1->setSetpoint(ticks);
 }
 

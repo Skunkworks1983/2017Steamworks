@@ -10,7 +10,6 @@
 #include <math.h>
 
 class cTurnAngle : public CommandBase, public PIDOutput {
-private:
 	float m_finalAngle;
 	float m_startingAngle;
 
@@ -18,7 +17,12 @@ private:
 	float m_i;
 	float m_d;
 
-	PIDController* m_controller;
+	int m_leftStart;
+	int m_rightStart;
+
+	PIDController* m_gyroController;
+	PIDController* m_leftController;
+	PIDController* m_rightController;
 
 	bool m_isDisabled;
 public:

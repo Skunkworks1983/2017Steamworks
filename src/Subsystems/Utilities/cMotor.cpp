@@ -9,12 +9,15 @@
 #include <CANSpeedController.h>
 #include <CANTalon.h>
 #include <RobotMap.h>
+#include <Utility.h>
 
 cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder, frc::CANSpeedController::ControlMode controlMode) :
         m_motor(port), m_motorType(motorType) //this is ok
 {
     m_hasEncoder = hasEncoder;
     m_motor.SetControlMode(controlMode);
+
+    m_timeStall = 0;
 }
 
 cMotor::~cMotor()
@@ -36,31 +39,43 @@ void cMotor::setBrakeMode(bool brake)
 
 void cMotor::setOutput(float output)
 {
-    switch(m_motorType)
+    if(GetFPGATime() > m_timeStall + 250000)
     {
-    case BaneBots775:
-        if(m_motor.GetOutputCurrent() >= BANEBOTS775_STALLING_CURRENT)
+        switch(m_motorType)
         {
-            m_motor.Set(0);
-            return;
+        case BaneBots775:
+            if(m_motor.GetOutputCurrent() >= BANEBOTS775_STALLING_CURRENT)
+            {
+                m_motor.Set(0);
+                m_timeStall = GetFPGATime();
+                LOG_WARNING("BaneBots775 stall");
+                return;
+            }
+            break;
+        case NeveRest40:
+            if(m_motor.GetOutputCurrent() >= NEVEREST40_STALLING_CURRENT)
+            {
+                m_motor.Set(0);
+                m_timeStall = GetFPGATime();
+                LOG_WARNING("NeveRest40 stall");
+                return;
+            }
+            break;
+        case CIM:
+            if(m_motor.GetOutputCurrent() >= CIM_STALLING_CURRENT)
+            {
+                m_motor.Set(0);
+                m_timeStall = GetFPGATime();
+                LOG_WARNING("CIM stall");
+                return;
+            }
+            break;
         }
-        break;
-    case NeveRest40:
-        if(m_motor.GetOutputCurrent() >= NEVEREST40_STALLING_CURRENT)
-        {
-            m_motor.Set(0);
-            return;
-        }
-        break;
-    case CIM:
-        if(m_motor.GetOutputCurrent() >= CIM_STALLING_CURRENT)
-        {
-            m_motor.Set(0);
-            return;
-        }
-        break;
+        m_motor.Set(output);
     }
-    m_motor.Set(output);
+    else {
+        m_motor.Set(0); //kill.
+    }
 }
 
 void cMotor::PIDWrite(double output)
@@ -129,9 +144,9 @@ double cMotor::GetSpeed() const
     return m_motor.GetSpeed();
 }
 
-void cMotor::SetSetpoint(double value)
+void cMotor::SetSetpoint(double setpoint)
 {
-    return m_motor.SetSetpoint(value);
+	return m_motor.SetSetpoint(setpoint);
 }
 
 double cMotor::GetSetpoint() const
@@ -141,8 +156,6 @@ double cMotor::GetSetpoint() const
 
 void cMotor::SetPID(double p, double i, double d, double f)
 {
-
-    std::cout << p << std::endl;
     return m_motor.SetPID(p, i, d, f);
 }
 
@@ -202,4 +215,8 @@ void cMotor::Disable()
 void cMotor::Reset()
 {
     m_motor.Reset();
+}
+
+double cMotor::getOutput() {
+	return m_motor.Get();
 }

@@ -3,9 +3,11 @@
 #include <Commands/GearMechanism/cAcquireGear.h>
 #include <Commands/Climber/cClimbRope.h>
 #include <Commands/GearMechanism/cDepositGear.h>
+#include <Commands/Shooter/cShootPID.h>
 #include <Commands/Shooter/cShootHigh.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Shooter/cAcquireBall.h>
+#include <Commands/Shooter/cShootPID.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/FuelCollector/cRunFuelCollector.h>
 #include <Commands/FuelCollector/cSetCollectorPos.h>
@@ -30,21 +32,17 @@ OI::OI()
 
     m_climbRope = new JoystickButton(m_buttons, 11); // 11?
 
-
-    m_loadBall->WhileHeld(new cRunFuelIndexer());
-    m_runConveyor->WhileHeld(new cRunFuelConveyor());
-
-    m_collectorPos->WhileHeld(new cSetCollectorPos());
-
-    m_climbRope->WhileHeld(new cClimbRope(0.9, 0));
+    m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
 
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
     m_acquireBall = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREBALL_BUTTON);
 
     m_shootPosLiftMiddle = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_MIDDLE);
     m_shootPosLiftClose = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_CLOSE);
-    m_shootPosHopperClose = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_HOPPER_CLOSE);
+    m_shootPosHopperClose = new JoystickButton(m_buttons, 5);
 
+
+    m_climbRope->WhileHeld(new cClimbRope(0.9));
 
     m_shootPosLiftMiddle->WhenPressed(new cAssignTargetBoiler(LIFT_MIDDLE));
     m_shootPosLiftClose->WhenPressed(new cAssignTargetBoiler(LIFT_CLOSE));
@@ -53,8 +51,6 @@ OI::OI()
     m_enableManual = new JoystickButton(m_buttons, OI_JOYSTICK_TURRET_CONTROL);
     m_enableManual->WhileHeld(new cManualShooterControl());
     m_enableManual->WhileHeld(new cManualTurretControl());
-
-    /*m_loadBall->WhileHeld(new cRunFuelIndexer());
     m_runConveyor->WhileHeld(new cRunFuelConveyor());
 
     m_collectorPos->WhileHeld(new cSetCollectorPos());
@@ -62,9 +58,11 @@ OI::OI()
     m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
 
+    m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
+    m_pidSpinUpShooter->WhileHeld(new cShootPID());
+
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
-    */
 }
 
 float OI::getLeftStickY()
@@ -104,3 +102,4 @@ double OI::getRotPos() {
     // this is so broken. i'm too lazy to fix this though
 	return clamp((m_buttons->GetY() - 0.5) * -1.25, -0.5, 0.5) * 2;
 }
+
