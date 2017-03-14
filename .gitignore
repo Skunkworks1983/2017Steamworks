@@ -7,4 +7,3 @@ build.properties
 build.xml
 Debug
 Unit Tests
-*.o
