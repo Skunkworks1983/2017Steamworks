@@ -19,6 +19,9 @@
 #include "Subsystems/Sensors/cGyro.h"
 #include <PIDController.h>
 #include "Subsystems/Interfaces/iDriveBase.h"
+#include <SerialPort.h>
+#include <DigitalOutput.h>
+
 
 class cDriveBase: public iDriveBase
 {
@@ -34,10 +37,14 @@ private:
     iMotor* m_rightMotor2;
     iMotor* m_rightMotor3;
 
+    DigitalOutput* m_sonarControl;
+    AnalogInput* m_leftSonar;
+    AnalogInput* m_rightSonar;
+    double m_leftSonarReading;
+    double m_rightSonarReading;
 
 	I2C* m_colorSensor;
-	AnalogInput* m_rSonar;
-	AnalogInput* m_lSonar;
+
     int BitShift(uint8_t *colorReadout);
     iGyro* m_gyro;
 
@@ -61,7 +68,7 @@ public:
     bool CanSeeTape();
     double GetLeftDistance();
     double GetRightDistance();
-    double GetSonarDistance(bool left);
+    void GetSonarDistance();
     cReversingMotorGroup* getMotorGroupGyro();
     iGyro* getGyro();
     bool getIsReversed();
@@ -71,6 +78,8 @@ public:
     double GetBValue();
     double GetCValue();
 
+    double GetLeftSonarReading();
+    double GetRightSonarReading();
 };
 
 #endif /* SRC_SUBSYSTEMS_CDRIVEBASE_H_ */

@@ -200,30 +200,32 @@ const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 #define COLOR_SENSOR_R_HIGH_REG 0x17
 #define COLOR_SENSOR_G_HIGH_REG 0x19
 #define COLOR_SENSOR_B_HIGH_REG 0x1B
-#define COLOR_SENSOR_BYTE_LENGTH 2
-#define I2C_CHANNEL 1234
-#define FLOOR_TAPE_R_LOW 1234//these are found experimentally, unfortunately. TODO
-#define FLOOR_TAPE_R_HIGH 1234 //and they will vary TODO
-#define FLOOR_TAPE_G_LOW 1234//TODO
-#define FLOOR_TAPE_G_HIGH 1234//TODO
-#define FLOOR_TAPE_B_LOW 1234//TODO
-#define FLOOR_TAPE_B_HIGH 1234//TODO
+const int COLOR_SENSOR_BYTE_LENGTH = 2;
+const int I2C_CHANNEL = 1234;
+const int FLOOR_TAPE_R_LOW = 1234;//these are found experimentally, unfortunately. TODO
+const int FLOOR_TAPE_R_HIGH = 1234; //and they will vary TODO
+const int FLOOR_TAPE_G_LOW = 1234;//TODO
+const int FLOOR_TAPE_G_HIGH = 1234;//TODO
+const int FLOOR_TAPE_B_LOW = 1234;//TODO
+const int FLOOR_TAPE_B_HIGH = 1234;//TODO
 
 //SONAR
 //datasheet: http://www.maxbotix.com/documents/LV-MaxSonar-EZ_Datasheet.pdf
 //you know what's annoying? eclipse literally does not allow you to save files that have emoji in them
 //insert hammer and sickle emoji here
-#define R_SONAR_PORT 0
-#define L_SONAR_PORT 1
-#define RATIO_OUTPUT_TO_FEET .11 //this is kinda sketchy; i want better/more data
+const int SONAR_CONTROL_PORT = 9;
+const int SONAR_BAUD_RATE = 9600;
+const int R_SONAR_PORT = 1;
+const int L_SONAR_PORT = 0;
+const int RATIO_OUTPUT_TO_FEET = .11; //this is kinda sketchy; i want better/more data
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 
-#define DISTANCE_BETWEEN_SONAR (21/12) //inches to feet
-#define angleWallTapePivotPoint 1.1576 //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
-#define DISTANCE_FROM_TAPE_TO_PIVOT_POINT (10.5/12) //inches to feet
-#define angleGoalPivotPointTape .4131 //rads (23.67 degrees)
-#define DISTANCE_FROM_PEG_TO_PIVOT_POINT 2 //feet. This is to give some safe space to turn
+const int DISTANCE_BETWEEN_SONAR = (21/12); //inches to feet
+const int angleWallTapePivotPoint = 1.1576; //rads (66.32 degrees) Keep in mind that the pivot point is an arbitrary point. All numbers that have to do with it are subject to change.
+const int DISTANCE_FROM_TAPE_TO_PIVOT_POINT = (10.5/12); //inches to feet
+const int angleGoalPivotPointTape = .4131; //rads (23.67 degrees)
+const int DISTANCE_FROM_PEG_TO_PIVOT_POINT = 2; //feet. This is to give some safe space to turn
 
 
 const int BOILER_START_FIRST_ANGLE = 60; //deg

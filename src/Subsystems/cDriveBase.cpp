@@ -13,6 +13,7 @@
 #include <Subsystems/Utilities/cMotorGroup.h>
 #include <Subsystems/Utilities/cReversingMotorGroup.h>
 #include <PIDController.h>
+#include <Utility.h>
 
 cDriveBase::cDriveBase()
 {
@@ -49,12 +50,15 @@ cDriveBase::cDriveBase()
 
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
     m_motorGroupAll = new cMotorGroup(allMotors);
-	m_rSonar = new AnalogInput(R_SONAR_PORT);
-	m_lSonar = new AnalogInput(L_SONAR_PORT);
+
 
     m_gyro = new cGyro();
 
     m_IsReversed = false;
+
+	m_sonarControl = new DigitalOutput(SONAR_CONTROL_PORT);
+	m_leftSonar = new AnalogInput(L_SONAR_PORT);
+	m_rightSonar = new AnalogInput(R_SONAR_PORT);
 
 }
 cDriveBase::~cDriveBase()
@@ -158,11 +162,11 @@ int cDriveBase::BitShift(uint8_t *colorReadout) {
 }
 
 double cDriveBase::GetLeftDistance() {
-	return GetSonarDistance(true);
+	//return GetSonarDistance();
 }
 
 double cDriveBase::GetRightDistance() {
-	return GetSonarDistance(false);
+	//return GetSonarDistance();
 }
 
 cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
@@ -175,28 +179,39 @@ iGyro* cDriveBase::getGyro()
     return m_gyro;
 }
 
-double cDriveBase::GetSonarDistance(bool left) {
-	AnalogInput* eitherSonar;
-	double distanceFeet;
-	if (left) {
-		eitherSonar = m_lSonar;
-	} else {
-		eitherSonar = m_rSonar;
-	}
-	for (int a = 0; a < 1000000; a++) { //we need to do this every million or so cycles, I think.
-	int i;
-	double totalDistance = 0;
-	for (i = 0; i < 1000; i++) { //is this okay? if it takes too long, make it 100 or 50
-		distanceFeet = eitherSonar->GetVoltage();
-		distanceFeet = (distanceFeet / RATIO_OUTPUT_TO_FEET);
-		totalDistance = totalDistance + distanceFeet;
-	}
-	distanceFeet = totalDistance/1000; //need to change this number too
-	}
-	return distanceFeet;
+void cDriveBase::GetSonarDistance() {
+	m_sonarControl->Set(true);
+	unsigned initialTime = GetFPGATime();
+	while (GetFPGATime() < initialTime + 100) {
 
+	}
+
+	m_leftSonarReading = m_leftSonar->GetVoltage();
+	m_rightSonarReading = m_rightSonar->GetVoltage();
+	m_sonarControl->Set(false);
+	/*
+	SerialPort* serialPort = new SerialPort(SONAR_BAUD_RATE);
+	double distanceFeet;
+//	for (int a = 0; a < 1000000; a++) { //we need to do this every million or so cycles, I think. (segun mr desilva senior)
+	//	if (a == 1000000) {
+			char buffer[80];
+			int totalDistance;
+			//distanceFeet = serialPort->GetBytesReceived();
+			serialPort->Read(buffer, 8);
+			std::string foo = buffer;
+			return foo;
+//		}
+//	}
+	//return distanceFeet;
+*/
+}
+double cDriveBase::GetLeftSonarReading() {
+	return m_leftSonarReading;
 }
 
+double cDriveBase::GetRightSonarReading() {
+	return m_rightSonarReading;
+}
 bool cDriveBase::getIsReversed()
 {
     return m_IsReversed;

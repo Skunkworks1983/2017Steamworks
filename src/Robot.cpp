@@ -86,7 +86,7 @@ private:
         LOG_INFO("AutonomousInit called");
 
         AutoBase* autoCommand = (new AutoBase())->configureAutonomous();
-        Scheduler::GetInstance()->AddCommand(autoCommand);
+        //Scheduler::GetInstance()->AddCommand(autoCommand);
 
         // enable turret
         CommandBase::s_turret->setEnabled(true);
@@ -117,6 +117,10 @@ private:
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
+        CommandBase::s_drivebase->GetSonarDistance();
+        SmartDashboard::PutNumber("Left value", CommandBase::s_drivebase->GetLeftSonarReading());
+        SmartDashboard::PutNumber("Right value", CommandBase::s_drivebase->GetRightSonarReading());
+
 
         //CommandBase::s_boilerMessenger->sendMessage("tele");
         //CommandBase::s_liftMessenger->sendMessage("tele");
