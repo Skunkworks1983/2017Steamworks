@@ -8,8 +8,8 @@
 #include <Commands/Turret/cAssignTargetBoiler.h>
 #include <RobotMap.h>
 #include <CommandBase.h>
+#include <Commands/Autonomous/AutoBase.h>
 #include "cAssignTargetBoiler.h"
-#include <Commands/Autonomous/cAutoBase.h>
 
 cAssignTargetBoiler::cAssignTargetBoiler(eShootingPosition position) :
         m_position(position)
@@ -22,7 +22,7 @@ void cAssignTargetBoiler::Initialize()
     LOG_INFO("starting cAssignTargetBoiler");
 
     int heading = CommandBase::s_turret->getHeading();
-    bool isRed = cAutoBase::getAlliance() == RED;
+    bool isRed = AutoBase::getAlliance() == RED;
     isRed = true; // test TODO: remove
 
     switch(m_position)

@@ -11,7 +11,7 @@
 -Constants are stored in RobotMap to make things easier to find--may increase compile times
 -User-initiated commands are constructed and registered with buttons in OI::OI
 -OI should be constructed last because it constructs Commands which may be dependent on Subsystems
--cAutoBase creates a CommandGroup for autonomous based on switch inputs
+-AutoBase creates a CommandGroup for autonomous based on switch inputs
 -Both WPILib and CANTalon PIDs are used
 -Logging writes to a flashdrive (mounts to /U by default) in its own thread; variadic macros in RobotMap make logging work with format specifiers
 -Vision-based control (i.e. turret targeting and drivebase gear delivery) is blended with higher update rate sensors to improve neglect tolerance: latest vision data is used to set setpoints on PIDs with fast input sources

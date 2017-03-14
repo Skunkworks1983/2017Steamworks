@@ -1,11 +1,11 @@
-#include "../cAutoBase.h"
+#include <Commands/Autonomous/AutoBase.h>
 #include <RobotMap.h>
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/Autonomous/cTurnDegree.h>
 
-cAutoBase* cAutoBase::goLift1()
+AutoBase* AutoBase::goLift1()
 {
-    cAutoBase* commands = new cAutoBase();
+    AutoBase* commands = new AutoBase();
 
     if(USE_COLOR_SENSOR)
     {

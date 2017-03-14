@@ -8,7 +8,7 @@
 #include <Commands/Turret/cRotateTurret.h>
 #include <RobotMap.h>
 #include <CommandBase.h>
-#include <Commands/Autonomous/cAutoBase.h>
+#include <Commands/Autonomous/AutoBase.h>
 #include <Services/cMessage.h>
 
 cRotateTurret::cRotateTurret(float timeout)
