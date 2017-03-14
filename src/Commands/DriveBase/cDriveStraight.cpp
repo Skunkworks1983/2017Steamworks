@@ -15,6 +15,8 @@ cDriveStraight::cDriveStraight(float distance, float speed) {
 	m_speed = speed;
 
 	m_isDisabled = true;
+
+	std::cout << "cDriveStraight constructed" << std::endl;
 }
 
 void cDriveStraight::Initialize() {
@@ -29,7 +31,9 @@ void cDriveStraight::Initialize() {
 	m_controller->SetPID(m_p, m_i, m_d);
 	m_controller->Enable();
 
+
 	std::cout << "cDriveStraight intialize" << std::endl;
+
 }
 
 void cDriveStraight::Execute() {
@@ -65,13 +69,15 @@ void cDriveStraight::PIDWrite(double output) {
 			slowDown = -2*percentDone + 2;
 		}*/
 		//std::cout << CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() << std::endl;
-		std::cout << "P: " << m_controller->GetP();
+		//std::cout << "P: " << m_controller->GetP();
 
 		if(output > 0.95) {
 			output = 0.95;
 		} else if(output < -0.95) {
 			output = -0.95;
 		}
+
+		std::cout << "Output: " << output << std::endl;
 
 		float leftSpeed = slowDown*(m_speed - output);
 		float rightSpeed = slowDown*(m_speed + output);

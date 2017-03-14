@@ -51,11 +51,13 @@ public:
 
     AutoBase* goLift1();
     AutoBase* goLift2();
+    AutoBase* deadLift2();
     AutoBase* goLift3();
 
     AutoBase* crossBaseline();
 
     AutoBase* placeGear();
+
 
 //TODO REQUIRES
     //gyro code (navx, ahrs?)

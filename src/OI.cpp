@@ -3,9 +3,11 @@
 #include <Commands/GearMechanism/cAcquireGear.h>
 #include <Commands/Climber/cClimbRope.h>
 #include <Commands/GearMechanism/cDepositGear.h>
+#include <Commands/Shooter/cShootPID.h>
 #include <Commands/Shooter/cShootHigh.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Shooter/cAcquireBall.h>
+#include <Commands/Shooter/cShootPID.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/FuelCollector/cRunFuelCollector.h>
 #include <Commands/FuelCollector/cSetCollectorPos.h>
@@ -62,6 +64,9 @@ OI::OI()
     m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
 
+    m_pidSpinUpShooter = new JoystickButton(m_buttons, 9);
+    m_pidSpinUpShooter->WhileHeld(new cShootPID());
+
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
     */
@@ -104,3 +109,4 @@ double OI::getRotPos() {
     // this is so broken. i'm too lazy to fix this though
 	return clamp((m_buttons->GetY() - 0.5) * -1.25, -0.5, 0.5) * 2;
 }
+

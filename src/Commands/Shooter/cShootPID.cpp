@@ -1,5 +1,6 @@
 /*
- * cShootPID.cpp
+
+`1* cShootPID.cpp
  *
  *  Created on: Feb 11, 2017
  *      Author: s-2505674
@@ -8,41 +9,60 @@
 #include "cShootPID.h"
 #include <cmath>
 #include "RobotMap.h"
+#include <SmartDashboard/SmartDashboard.h>
 
 
-cShootPID::cShootPID(double speed, float timeout) :
-		speed(speed), timeout(timeout)
+cShootPID::cShootPID()
 {
 	Requires(CommandBase::s_shooter);
+	std::cout << "Hey its a me it the oi" << std::endl;
 }
 
 void cShootPID::Initialize()
 {
-	s_shooter->EnablePID();
+	double p = SmartDashboard::GetNumber("P", SHOOTER_P);
+	double i = SmartDashboard::GetNumber("I", SHOOTER_I);
+	double d = SmartDashboard::GetNumber("D", SHOOTER_D);
+	double f = SmartDashboard::GetNumber("F", SHOOTER_F);
+	speed = SmartDashboard::GetNumber("TestShootSpeed", -150);
 
-	s_shooter->setPID(p, i, d, f);
+	std::cout <<"cShootPID initialize";
 
-	s_shooter->setSetpoint(current_setpoint);
+	current_setpoint = 0;
+	CommandBase::s_shooter->EnablePID();
+	CommandBase::s_shooter->setPID(p, i, d, f);
+
+	CommandBase::s_shooter->setSetpoint(current_setpoint);
 
 	if (timeout != 0)
 	{
 		SetTimeout(timeout);
 	}
+	std::cout << "Hey its a me its the button being pressed" << std::endl;
 }
 //
 
 void cShootPID::Execute()
 {
-	if (!s_shooter->isPIDEnabled()) {
-		s_shooter->EnablePID();
+
+/*	if (!CommandBase::s_shooter->isPIDEnabled()) {
+		CommandBase::s_shooter->EnablePID();
 	}
 
-	if (current_setpoint < speed) {
-		current_setpoint += RAMPING_CONSTANT;
+	if (current_setpoint > speed) { //Its a flipped
+		current_setpoint -= RAMPING_CONSTANT;
 	} else {
 		current_setpoint = speed;
-		s_shooter->setSetpoint(current_setpoint);
-	}
+	}*/
+
+	CommandBase::s_shooter->setSetpoint(speed);
+
+	SmartDashboard::PutNumber("cShootPIDspeed", CommandBase::s_shooter->PIDGet());
+	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
+	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
+
+  
+	std::cout << "Setpoint: " << current_setpoint << std::endl;
 
 }
 
@@ -53,11 +73,16 @@ bool cShootPID::IsFinished()
 
 void cShootPID::End()
 {
-	s_shooter->DisablePID();
-	s_shooter->ResetPID();
+	std::cout << "cShootPID End";
+	CommandBase::s_shooter->setSpeed(0);
+	CommandBase::s_shooter->DisablePID();
+	CommandBase::s_shooter->ResetPID();
 }
 
 void cShootPID::Interrupted()
 {
 	End();
 }
+
+//Sleep is good, death is better; but of course, the best thing would to have never been born at all.
+//	-Heinrich Heine
