@@ -1,3 +1,4 @@
+*.o
 .cproject
 desktop.ini
 .classpath
@@ -5,5 +6,7 @@ desktop.ini
 .settings/
 build.properties
 build.xml
-Debug
+Debug/
 Unit Tests
+*.o
+/Debug/

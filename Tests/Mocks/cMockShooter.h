@@ -19,6 +19,18 @@ public:
 
     MOCK_METHOD1(setManualEnabled, void(bool state));
     MOCK_METHOD0(isManualEnabled, bool());
+
+    MOCK_METHOD0(ResetPID, void());
+    MOCK_METHOD0(EnablePID, void());
+    MOCK_METHOD0(isPIDEnabled, bool());
+    MOCK_METHOD4(setPID, void(double p, double i, double d, double f));
+    MOCK_METHOD0(PIDGet, double());
+    MOCK_METHOD0(getError, double());
+    MOCK_METHOD1(setSetpoint, void(float setpoint));
+    MOCK_METHOD0(getSetpoint, double());
+    MOCK_METHOD0(DisablePID, void());
+    MOCK_METHOD0(getShooterMotor, cMotor*());
+
 };
 
 #endif

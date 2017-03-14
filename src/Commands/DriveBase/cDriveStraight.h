@@ -23,7 +23,7 @@ ____...-`  \ /``'-..
                    `-. `,`. ._ )
                       ```  `--`
 */
-class cDriveStraight : public CommandBase, public PIDOutput {
+class cDriveStraight : public CommandBase, public PIDOutput, public PIDSource {
 private:
 	int m_endTicks;
 	double m_beginningYaw;
@@ -49,6 +49,7 @@ public:
 	void Interrupted();
 
 	void PIDWrite(double output);
+	double PIDGet();
 };
 
 #endif

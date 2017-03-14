@@ -4,6 +4,8 @@
 #include <errno.h>
 #include "RobotMap.h"
 
+#include <Commands/Autonomous/AutoBase.h>
+
 #include <SmartDashboard/SmartDashboard.h>
 
 #include "Subsystems/cDriveBase.h"
@@ -16,26 +18,40 @@
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
+#include "Commands/Shooter/cSetSetpointManually.h"
+#include <Commands/Turret/cRotateTurret.h>
+
+#include <Commands/Autonomous/AutoBase.h>
 
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/DriveBase/cDriveUntilWall.h>
-#include <Commands/DriveBase/cTurnAngle.h>
-
 #include <Commands/DriveBase/cDriveStraight.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 #include <Commands/Debugging/cRunOneMotor.h>
 #include <Subsystems/cFuelIndexer.h>
 #include <Subsystems/cFuelConveyor.h>
 #include <Subsystems/Sensors/cColorSensor.h>
 
+
 class Robot: public IterativeRobot {
+
 private:
 	//Put commands out here for declaration
 	cRunOneMotor* runMotor;
+
+	cSetSetpointManually* runShooter;
+
 	cRunTankDrive* tankDrive;
 	cDriveStraight* driveStraight;
 
 	void RobotInit() {
 		LOG_INFO("RobotInit called");
+
+		SmartDashboard::PutNumber("P", SHOOTER_P);
+		SmartDashboard::PutNumber("I", SHOOTER_I);
+		SmartDashboard::PutNumber("D", SHOOTER_D);
+		SmartDashboard::PutNumber("F", SHOOTER_F);
+		SmartDashboard::PutNumber("TestShootSpeed", -80);
 
 		CommandBase::s_drivebase = new cDriveBase();
 		CommandBase::s_climber = new cClimber();
@@ -47,6 +63,7 @@ private:
 		CommandBase::s_fuelConveyor = new cFuelConveyor();
 		CommandBase::s_shooter = new cShooter();
 
+
 		CommandBase::s_oi = new OI();
 
 		CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP,
@@ -56,6 +73,8 @@ private:
 		CommandBase::s_drivebase->getGyro()->initGyro();
 		CommandBase::s_drivebase->getGyro()->zeroYaw();
 
+        CameraServer::GetInstance()->StartAutomaticCapture();
+
 		//colorSensor = new cColorSensor();
 
 		//Put construction of commands here
@@ -63,11 +82,16 @@ private:
 		//driveStraight = new cDriveStraight(6);
 		std::cout << "After" << std::endl;
 
+
 		tankDrive = new cRunTankDrive();
 		runMotor = new cRunOneMotor();
-		driveStraight = new cDriveStraight(7300, 0.35);
 
 		//CameraServer::GetInstance()->StartAutomaticCapture();
+
+        // enable turret
+        CommandBase::s_turret->setEnabled(true);
+        /*AutoBase* auto_base = new AutoBase();
+        Scheduler::GetInstance()->AddCommand(auto_base->configureAutonomous());*/
 
 		CommandBase::m_postMatch = false;
 	}
@@ -91,20 +115,9 @@ private:
 
 	void AutonomousInit() {
 		Scheduler::GetInstance()->RemoveAll();
+		Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
+
 		LOG_INFO("AutonomousInit called");
-
-		// enable turret
-		CommandBase::s_turret->setEnabled(true);
-
-		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-
-		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-		Scheduler::GetInstance()->AddCommand(new cTurnAngle(30));
-		//Scheduler::GetInstance()->AddCommand(new cDriveStraight(0.25*(-6200), 0.25));
-
-		//Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
-
-		CommandBase::m_postMatch = true;
 	}
 
 	void AutonomousPeriodic() {
@@ -114,65 +127,51 @@ private:
 		CommandBase::s_liftMessenger->sendMessage("auto");
 	}
 
-	void TeleopInit() {
-		Scheduler::GetInstance()->RemoveAll();
-		Scheduler::GetInstance()->AddCommand(tankDrive);
-		//Scheduler::GetInstance()->AddCommand(runMotor);
-		LOG_INFO("TeleopInit called");
-		std::cout << "Init" << std::endl;
+    void TeleopInit()
+    {
+        Scheduler::GetInstance()->RemoveAll();
+        LOG_INFO("TeleopInit called");
 
-		// enable turret
-		CommandBase::s_turret->setEnabled(true);
+        //Scheduler::GetInstance()->AddCommand(new cRunTankDrive());
+        Scheduler::GetInstance()->AddCommand(new cRotateTurret(100));
+    }
 
-		CommandBase::m_postMatch = true;
-	}
+    void TeleopPeriodic()
+    {
+        Scheduler::GetInstance()->Run();
 
-	void TeleopPeriodic() {
-		Scheduler::GetInstance()->Run();
+        CommandBase::s_boilerMessenger->sendMessage("tele");
+        CommandBase::s_liftMessenger->sendMessage("tele");
+    }
 
-		CommandBase::s_boilerMessenger->sendMessage("tele");
-		CommandBase::s_liftMessenger->sendMessage("tele");
+    void TestPeriodic()
+    {
+        /* NOTE
+         * Running the robot in Test mode will also allow access in SmartDashboard to all of the CANTalons.
+         * We may want to move this to another portion and have a debug switch in RobotMap.h
+         */
+        LiveWindow::GetInstance()->Run();
+        SmartDashboard::PutNumber("Left sonar distance", CommandBase::s_drivebase->GetLeftDistance());
+        SmartDashboard::PutNumber("Right sonar distance", CommandBase::s_drivebase->GetRightDistance());
 
-		std::cout << CommandBase::s_drivebase->getGyro()->getAngle()
-				<< std::endl;
-	}
+        /*dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
+         dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
+         dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
+         dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());*/
 
-	void TestPeriodic() {
-		/* NOTE
-		 * Running the robot in Test mode will also allow access in SmartDashboard to all of the CANTalons.
-		 * We may want to move this to another portion and have a debug switch in RobotMap.h
-		 */
-		LiveWindow::GetInstance()->Run();
-		SmartDashboard::PutNumber("Left sonar distance",
-				CommandBase::s_drivebase->GetLeftDistance());
-		SmartDashboard::PutNumber("Right sonar distance",
-				CommandBase::s_drivebase->GetRightDistance());
+        SmartDashboard::PutNumber("Camera: Gear tape x pos", CommandBase::s_liftMessenger->receiveLiftData()->getX());
 
-		/*dashboard->PutNumber("Color sensor R value", CommandBase::s_drivebase->GetRValue());
-		 dashboard->PutNumber("Color sensor G value", CommandBase::s_drivebase->GetGValue());
-		 dashboard->PutNumber("Color sensor B value", CommandBase::s_drivebase->GetBValue());
-		 dashboard->PutNumber("Color sensor C value", CommandBase::s_drivebase->GetCValue());*/
+        SmartDashboard::PutNumber("Drivebase: left encoder",
+                CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
+        SmartDashboard::PutNumber("Drivebase: right encoder",
+                CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
 
-		SmartDashboard::PutNumber("Camera: Gear tape x pos",
-				CommandBase::s_liftMessenger->receiveLiftData()->getX());
+        SmartDashboard::PutNumber("Shooter: encoder", CommandBase::s_shooter->getShooterMotor()->getPosition());
+        //SmartDashboard::PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
+        SmartDashboard::PutNumber("Turret: encoder", CommandBase::s_turret->getTurretMotor()->getPosition());
 
-		SmartDashboard::PutNumber("Drivebase: left encoder",
-				CommandBase::s_drivebase->getMotorGroupLeft()->getPosition());
-		SmartDashboard::PutNumber("Drivebase: right encoder",
-				CommandBase::s_drivebase->getMotorGroupRight()->getPosition());
-
-		SmartDashboard::PutNumber("Shooter: encoder",
-				CommandBase::s_shooter->getShooterMotor()->getPosition());
-		//SmartDashboard::PutNumber("Collector: encoder", CommandBase::s_fuelCollector->getCollectorMotor()->getPosition());
-		SmartDashboard::PutNumber("Turret: encoder",
-				CommandBase::s_turret->getTurretMotor()->getPosition());
+        CommandBase::m_postMatch = true;
 	}
 };
-START_ROBOT_CLASS(Robot)
-//if you comment this macro out
-//you should probably change that
-//when you build
-//i mean i'm not an expert
-//but its some pretty solid advice
 
-//as an expert, i agree with this not-quite-expert-but-still-pretty-good analysis
+START_ROBOT_CLASS(Robot)

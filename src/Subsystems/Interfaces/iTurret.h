@@ -18,7 +18,7 @@ private:
 public:
     iTurret() : Subsystem("Turret"){};
     virtual void setSpeed(float speed) = 0;
-    virtual void setOrientation(float heading) = 0;
+    virtual void setHeading(float heading) = 0;
     virtual void rotate(float degrees) = 0;
 
     virtual float getHeading() = 0;

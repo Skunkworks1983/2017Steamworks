@@ -68,6 +68,8 @@ cMessenger::cMessenger(const char *server, const char *port)
 
 cMessenger::~cMessenger()
 {
+    kill();
+
     delete m_lastBoilerData;
     delete m_lastLiftData;
 }
@@ -88,7 +90,9 @@ std::string cMessenger::receiveMessage()
     char message_buffer[MSG_LEN];
     memset(message_buffer, 0, MSG_LEN);
 
-    if(recv(m_sock, message_buffer, MSG_LEN, MSG_DONTWAIT) == -1)
+    // TODO; make messenger receive blocking
+
+    if(recv(m_sock, message_buffer, MSG_LEN, 0) == -1)
     {
         if(errno != EAGAIN && errno != EWOULDBLOCK)
         {
@@ -107,14 +111,29 @@ std::string cMessenger::receiveMessage()
 // get the last known position of the boiler
 cBoilerData* cMessenger::receiveBoilerData()
 {
-    return m_lastBoilerData;
+    m_threadMutex->lock();
+
+    // ugly. copy the data from m_lastBoilerData to a new value,
+    // then return that value
+    cBoilerData* lbdata = new cBoilerData(m_lastBoilerData->getX(), m_lastBoilerData->getY(),
+            m_lastBoilerData->isFound());
+
+    m_threadMutex->unlock();
+
+    return lbdata;
 }
 
 // get the last known position of the lift
 cLiftData* cMessenger::receiveLiftData()
 {
-    // return the last known position of the boiler if there is none on screen
-    return m_lastLiftData;
+    m_threadMutex->lock();
+
+    // see: receiveBoilerData
+    cLiftData* lldata = new cLiftData(m_lastLiftData->getX(), m_lastLiftData->isFound());
+
+    m_threadMutex->unlock();
+
+    return lldata;
 }
 
 // get whether or not we have timed out
@@ -150,8 +169,10 @@ void* cMessenger::update(void* m)
 
         if(message[0] != 0)
         {
-            std::cout << "test" << std::endl;
+            // lock
+            messenger->m_threadMutex->lock();
 
+            // parse data
             if(message[0] == std::to_string(BOILER_PI_ID)[0])
             {
                 float x, y;
@@ -174,7 +195,7 @@ void* cMessenger::update(void* m)
                 else
                 {
                     LOG_INFO("received incomplete message (x value)");
-                    x = messenger->m_lastBoilerData->getX();;
+                    x = messenger->m_lastBoilerData->getX();
                 }
 
                 // erase the x portion of the message
@@ -241,8 +262,12 @@ void* cMessenger::update(void* m)
                     messenger->m_lastLiftData = new cLiftData(x, found);
                 }
             }
+
+            // unlock
+            messenger->m_threadMutex->unlock();
         }
     }
 
+    pthread_exit(NULL);
     return NULL;
 }

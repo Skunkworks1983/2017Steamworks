@@ -5,14 +5,20 @@
  *      Author: s-4036956
  */
 
-#include "AutoBase.h"
+#include <Commands/Autonomous/AutoBase.h>
+#include "WPILib.h"
 #include "cTurnDegree.h"
 #include "cSimpleDriveForward.h"
 #include "cGearPath.h"
 #include <RobotMap.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
-#include <Commands/FuelIndexer/cRunFuelIndexer.h>
+#include <Commands/Turret/cAssignTargetBoiler.h>
+#include <Commands/FuelConveyor/cRunFuelConveyor.h>
+#include <Commands/Shooter/cShootWhenReady.h>
+#include <Commands/Shooter/cShootPID.h>
+
+#include <Commands/Autonomous/cWait.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
@@ -23,38 +29,33 @@ AutoBase::AutoBase()
 
 }
 
-AutoBase* configureAutonomous()
+AutoBase* AutoBase::configureAutonomous()
 {
+    // initialize commands
     AutoBase* commands = new AutoBase();
 
-    // shooter & turret control code
-    if(USE_SHOOTER && USE_TURRET)
-    {
-        // spin up the shooter to prepare to shoot balls
-        commands->AddParallel(new cSpinUpShooter());
+    CommandGroup* waitThenIndex = new CommandGroup();
 
-        // start vision code to find the boiler
-        commands->AddParallel(new cRotateTurret(30));
-    }
-
-    // commands for moving to the lifts
-    switch(startPosition)
+    // config autonomous commands
+    switch(AutoBase::getStartingPosition())
     {
-    case POS_1:
-        commands->AddSequential(commands->goLift1());
-        commands->AddSequential(commands->placeGear());
+    case POS_CLOSE:
+
         break;
-    case POS_2:
-        commands->AddSequential(commands->placeGear());
+    case POS_MIDDLE:
+
         break;
-    case POS_3:
-        commands->AddSequential(commands->goLift3());
-        commands->AddSequential(commands->placeGear());
+    case POS_FAR:
+
         break;
     }
 
-    // load balls into the shooter
-    commands->AddSequential(new cRunFuelIndexer());
+    waitThenIndex->AddSequential(new cWait(2));
+    waitThenIndex->AddSequential(new cRunFuelConveyor());
+
+    commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
+    commands->AddParallel(new cShootPID());
+    commands->AddParallel(waitThenIndex);
 
     // return the commands
     return commands;
@@ -67,41 +68,32 @@ AutoBase::~AutoBase()
 
 eStartingPosition AutoBase::getStartingPosition()
 {
-    // read from the dial
-    std::vector<DigitalInput*> inputs;
+    eStartingPosition startingPosition = (eStartingPosition) POS_MIDDLE;
 
-    // get inputs from pins
-    for(int i = 0; i < START_POS_SELECTION_DIGITS; i++)
+    // temporary. auto selection for practice bot, using two switches
+    // instead of one three state switch
+
+    // for two switches (bad explanation):
+    // one switch will represent whether or not the second switch
+    // will be used. depending on whether or not the second switch
+    // is on, we select the outer positions but if the first switch
+    // is off then we default to position two
+
+    DigitalInput* d1 = new DigitalInput(AUTO_SELECTION_PORT1);
+    DigitalInput* d2 = new DigitalInput(AUTO_SELECTION_PORT2);
+
+    if(d1->Get())
     {
-        inputs.push_back(new DigitalInput(i));
+        startingPosition = d2->Get() ? POS_CLOSE : POS_MIDDLE;
     }
 
-    // assemble number for starting position
-    eStartingPosition startPos = (eStartingPosition) 0;
-    int digit = 1;
-
-    // no idea why this needs to be unsigned
-    for(unsigned int i = 0; i < inputs.size(); i++)
-    {
-        if(inputs[i]->Get())
-        {
-            startPos = (eStartingPosition) (startPos | digit);
-        }
-
-        digit = digit << 1;
-    }
-
-    // return a value
-    return startPos;
+    return startingPosition;
 }
 
-eAlliance getAlliance()
+eAlliance AutoBase::getAlliance()
 {
-    // assemble number for starting position
-    eAlliance alliance = (eAlliance) 0;
+    frc::DriverStation::Alliance dsAlliance = DriverStation::GetInstance().GetAlliance();
+    eAlliance alliance = (eAlliance) dsAlliance;
 
-    // doesnt do anything yet
-
-    // return a value
     return alliance;
 }

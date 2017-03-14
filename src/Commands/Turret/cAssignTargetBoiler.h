@@ -9,11 +9,15 @@
 #define SRC_COMMANDS_CASSIGNTARGETBOILER_H_
 
 #include <Commands/Command.h>
+#include <RobotMap.h>
 
 class cAssignTargetBoiler: public frc::Command
 {
+private:
+    eShootingPosition m_position;
+
 public:
-    cAssignTargetBoiler();
+    cAssignTargetBoiler(eShootingPosition position);
     virtual ~cAssignTargetBoiler();
 
     void Initialize();
