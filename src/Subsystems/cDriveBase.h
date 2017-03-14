@@ -12,7 +12,7 @@
 #include "Utilities/cMotor.h"
 #include <OI.h>
 #include <I2C.h>
-#include <AnalogInput.h>
+#include <Subsystems/Sensors/cSonar.h>
 #include <RobotMap.h>
 #include "Subsystems/Utilities/cMotorGroup.h"
 #include "Subsystems/Utilities//cReversingMotorGroup.h"
@@ -28,7 +28,7 @@ class cDriveBase: public iDriveBase
 private:
     cMotorGroup* m_motorGroupLeft;
     cMotorGroup* m_motorGroupRight;
-    cMotorGroup* m_motorGroupAll;
+    cReversingMotorGroup* m_motorGroupAll;
     cReversingMotorGroup* m_motorGroupGyro;
     iMotor* m_leftMotor1;
     iMotor* m_leftMotor2;
@@ -38,12 +38,13 @@ private:
     iMotor* m_rightMotor3;
 
     DigitalOutput* m_sonarControl;
-    AnalogInput* m_leftSonar;
-    AnalogInput* m_rightSonar;
-    double m_leftSonarReading;
-    double m_rightSonarReading;
+
+
 
 	I2C* m_colorSensor;
+
+	cSonar* m_rSonar;
+	cSonar* m_lSonar;
 
     int BitShift(uint8_t *colorReadout);
     iGyro* m_gyro;
@@ -68,7 +69,6 @@ public:
     bool CanSeeTape();
     double GetLeftDistance();
     double GetRightDistance();
-    void GetSonarDistance();
     cReversingMotorGroup* getMotorGroupGyro();
     iGyro* getGyro();
     bool getIsReversed();
@@ -78,8 +78,6 @@ public:
     double GetBValue();
     double GetCValue();
 
-    double GetLeftSonarReading();
-    double GetRightSonarReading();
 };
 
 #endif /* SRC_SUBSYSTEMS_CDRIVEBASE_H_ */

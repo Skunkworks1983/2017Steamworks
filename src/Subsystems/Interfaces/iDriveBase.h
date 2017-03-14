@@ -30,7 +30,6 @@ public:
     virtual bool CanSeeTape() = 0;
     virtual double GetLeftDistance() = 0;
     virtual double GetRightDistance() = 0;
-    virtual void GetSonarDistance() = 0;
     virtual bool getIsReversed() = 0;
     virtual void setIsReversed(bool isreversed) = 0;
     virtual double GetRValue() = 0;
@@ -38,8 +37,6 @@ public:
     virtual double GetBValue() = 0;
     virtual double GetCValue() = 0;
 
-    virtual double GetLeftSonarReading() = 0;
-    virtual double GetRightSonarReading() = 0;
 };
 
 #endif /* SRC_SUBSYSTEMS_IDRIVEBASE_H_ */

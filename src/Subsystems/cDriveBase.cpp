@@ -17,12 +17,12 @@
 
 cDriveBase::cDriveBase()
 {
-    m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM);
-    m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM, true);
+    m_leftMotor1 = new cMotor(DRIVEBASE_LEFTMOTOR_1_PORT, CIM, true);
+    m_leftMotor2 = new cMotor(DRIVEBASE_LEFTMOTOR_2_PORT, CIM);
     m_leftMotor3 = new cMotor(DRIVEBASE_LEFTMOTOR_3_PORT, CIM);
 
-    m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT, CIM);
-    m_rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT, CIM, true);
+    m_rightMotor1 = new cMotor(DRIVEBASE_RIGHTMOTOR_1_PORT, CIM, true);
+    m_rightMotor2 = new cMotor(DRIVEBASE_RIGHTMOTOR_2_PORT, CIM);
     m_rightMotor3 = new cMotor(DRIVEBASE_RIGHTMOTOR_3_PORT, CIM);
 
     std::vector<iMotor*> leftMotors;
@@ -49,16 +49,17 @@ cDriveBase::cDriveBase()
 	m_colorSensor = new I2C(I2C::kOnboard, COLOR_SENSOR_I2C_SLAVE_ADR);
 
     m_motorGroupGyro = new cReversingMotorGroup(reversed, allMotors);
-    m_motorGroupAll = new cMotorGroup(allMotors);
 
+    m_motorGroupAll = new cReversingMotorGroup(reversed, allMotors);
+	m_rSonar = new cSonar(SONAR_INPUT_LEFT, SONAR_POWER_LEFT);
+	m_lSonar = new cSonar(SONAR_INPUT_RIGHT, SONAR_POWER_RIGHT);
 
     m_gyro = new cGyro();
 
     m_IsReversed = false;
 
 	m_sonarControl = new DigitalOutput(SONAR_CONTROL_PORT);
-	m_leftSonar = new AnalogInput(L_SONAR_PORT);
-	m_rightSonar = new AnalogInput(R_SONAR_PORT);
+
 
 }
 cDriveBase::~cDriveBase()
@@ -129,7 +130,6 @@ bool cDriveBase::CanSeeTape() {
 			}
 		}
 	}
-
 	return false;
 
 }
@@ -162,11 +162,11 @@ int cDriveBase::BitShift(uint8_t *colorReadout) {
 }
 
 double cDriveBase::GetLeftDistance() {
-	//return GetSonarDistance();
+	return m_lSonar->GetLeftDistance();
 }
 
 double cDriveBase::GetRightDistance() {
-	//return GetSonarDistance();
+	return m_rSonar->GetRightDistance();
 }
 
 cReversingMotorGroup* cDriveBase::getMotorGroupGyro()
@@ -179,39 +179,6 @@ iGyro* cDriveBase::getGyro()
     return m_gyro;
 }
 
-void cDriveBase::GetSonarDistance() {
-	m_sonarControl->Set(true);
-	unsigned initialTime = GetFPGATime();
-	while (GetFPGATime() < initialTime + 100) {
-
-	}
-
-	m_leftSonarReading = m_leftSonar->GetVoltage();
-	m_rightSonarReading = m_rightSonar->GetVoltage();
-	m_sonarControl->Set(false);
-	/*
-	SerialPort* serialPort = new SerialPort(SONAR_BAUD_RATE);
-	double distanceFeet;
-//	for (int a = 0; a < 1000000; a++) { //we need to do this every million or so cycles, I think. (segun mr desilva senior)
-	//	if (a == 1000000) {
-			char buffer[80];
-			int totalDistance;
-			//distanceFeet = serialPort->GetBytesReceived();
-			serialPort->Read(buffer, 8);
-			std::string foo = buffer;
-			return foo;
-//		}
-//	}
-	//return distanceFeet;
-*/
-}
-double cDriveBase::GetLeftSonarReading() {
-	return m_leftSonarReading;
-}
-
-double cDriveBase::GetRightSonarReading() {
-	return m_rightSonarReading;
-}
 bool cDriveBase::getIsReversed()
 {
     return m_IsReversed;

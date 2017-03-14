@@ -17,22 +17,25 @@ cSimpleDriveForward::cSimpleDriveForward(float distance, bool stopAtLine)
     double p = SIMPLEDRIVEFORWARD_PID_P;
     double i = SIMPLEDRIVEFORWARD_PID_I;
     double d = SIMPLEDRIVEFORWARD_PID_D;
+    double f = SIMPLEDRIVEFORWARD_PID_F;
 
     m_stopAtLine = stopAtLine;
     motorGroupAll = CommandBase::s_drivebase->getMotorGroupAll();
-    this->m_pidController = new PIDController(p, i, d, motorGroupAll, motorGroupAll);
-    this->m_distance = (distance / DRIVEBASE_FOOT_PER_TICK);
+    this->m_pidController = new PIDController(p, i, d, f, motorGroupAll, motorGroupAll);
+    //this->m_distance = (distance / DRIVEBASE_FOOT_PER_TICK);
+    this->m_distance = CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() + distance;
 }
 
 void cSimpleDriveForward::Initialize()
 {
     m_pidController->SetSetpoint(m_distance);
     m_pidController->Enable();
+    CommandBase::s_drivebase->setBrakeMode(true);
 }
 
 void cSimpleDriveForward::Execute()
 {
-
+	std::cout << m_pidController->GetError() << std::endl;
 }
 
 bool cSimpleDriveForward::IsFinished()

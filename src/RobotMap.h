@@ -41,9 +41,10 @@ const int DRIVEBASE_RIGHTMOTOR_1_PORT = 13;//Read
 const int DRIVEBASE_RIGHTMOTOR_2_PORT = 14;//Middle
 const int DRIVEBASE_RIGHTMOTOR_3_PORT = 15;//Front
 
-const float SIMPLEDRIVEFORWARD_PID_P = 1;
-const float SIMPLEDRIVEFORWARD_PID_I = 1;
-const float SIMPLEDRIVEFORWARD_PID_D = 1;
+const float SIMPLEDRIVEFORWARD_PID_P = 1./3000;
+const float SIMPLEDRIVEFORWARD_PID_I = 0;
+const float SIMPLEDRIVEFORWARD_PID_D = 0;
+const float SIMPLEDRIVEFORWARD_PID_F = 0.1/3000;
 
 const float TURNDEGREE_PID_P = 1;
 const float TURNDEGREE_PID_I = 1;
@@ -54,8 +55,8 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 // // OI // //
 
-const int OI_JOYSTICK_LEFT_PORT = 1;
-const int OI_JOYSTICK_RIGHT_PORT = 0;
+const int OI_JOYSTICK_LEFT_PORT = 0;
+const int OI_JOYSTICK_RIGHT_PORT = 1;
 
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
@@ -149,6 +150,9 @@ const int RAMPING_CONSTANT = 2;
 
 const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
 
+const int AUTO_TOGGLE_POS = 6; //or 7
+const int AUTO_TOGGLE_ALLIANCE = 7; //or 6
+
 // // GEAR COLLECTOR // //
 
 const int GEARCOLLECTOR_SERVO1_PORT = 0;
@@ -160,9 +164,9 @@ const int GEARCOLLECTOR_SERVO_MAX = 170;
 const int GEARCOLLECTOR_OPEN_ANGLE = 170; // ANGLE OF THE SERVOS! NOT FLAP!
 const int GEARCOLLECTOR_CLOSE_ANGLE = 85; //0.5 * (GEARCOLLECTOR_SERVO_MIN + GEARCOLLECTOR_SERVO_MAX);
 
-const float BANEBOTS775_STALLING_CURRENT = 130;
+const float BANEBOTS775_STALLING_CURRENT = 80;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
-const float CIM_STALLING_CURRENT = 133;
+const float CIM_STALLING_CURRENT = 80;
 
 // // RASPBERRY PI // //
 
@@ -218,6 +222,12 @@ const int SONAR_BAUD_RATE = 9600;
 const int R_SONAR_PORT = 1;
 const int L_SONAR_PORT = 0;
 const int RATIO_OUTPUT_TO_FEET = .11; //this is kinda sketchy; i want better/more data
+
+const int SONAR_INPUT_RIGHT =  0;
+const int SONAR_INPUT_LEFT = 1;
+const int SONAR_POWER_LEFT = 8;
+const int SONAR_POWER_RIGHT = 9;
+#define RATIO_OUTPUT_TO_FEET .11 //this is kinda sketchy; i want better/more data
 
 //SPECIFICALLY GEAR PLACEMENT THINGS
 
