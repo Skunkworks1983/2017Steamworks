@@ -11,7 +11,7 @@
 cFuelConveyor::cFuelConveyor()
 {
     m_motor1 = new cMotor(FUELCONVEYOR_MOTOR1_PORT, BaneBots775);
-    window = new cMotor(9, NeveRest40);
+    window = new cMotor(9, CIM);
 }
 
 void cFuelConveyor::setSpeed(float speed)

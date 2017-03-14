@@ -114,3 +114,7 @@ bool cShooter::isManualEnabled()
 cMotor* cShooter::getShooterMotor() {
 	return m_motor1;
 }
+
+double cShooter::getOutput() {
+	return m_motor1->getOutput();
+}

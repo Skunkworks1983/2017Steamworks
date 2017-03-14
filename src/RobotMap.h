@@ -5,10 +5,10 @@
 #include <Services/cLogger.h>
 #include <math.h>
 
-// // ROBOT SETTINGS // //
+const std::string ROBOT_NAME = "tim_scoot";
+const std::string LOGFILE_NAME = "robotLog";
 
-const char* const ROBOT_NAME = "tim scoot";
-const char* const LOGFILE_NAME = "/U/robotLog";
+// // ROBOT SETTINGS // //
 
 //|||||||||||||||||||||||||||||||||||||||||||
 #define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
@@ -121,7 +121,7 @@ const float FUELAGITATOR_MOTOR1_SPEED = 1;
 // // FUEL CONVEYOR // //
 
 const int FUELCONVEYOR_MOTOR1_PORT = 4;
-const float FUELCONVEYOR_MOTOR1_SPEED = 1;
+const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 // // TURRET  //  //
 
@@ -222,7 +222,7 @@ const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
 const bool USE_SONAR_SENSOR = true;
 const bool USE_CAMERA = true;
-const bool USE_GYRO = true;
+const bool USE_GYRO = true; //TODO
 
 const int AUTO_MOVE_FORWARD_FEET = 3;
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
@@ -276,6 +276,7 @@ const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding th
 const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
+const int   ENCODER_OK_ERROR = 25; //Encoder offset from ^^
 
 // // // // // UTILITIES // // // // //
 

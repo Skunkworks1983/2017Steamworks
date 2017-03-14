@@ -13,8 +13,12 @@
 #include <RobotMap.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
-#include <Commands/FuelIndexer/cRunFuelIndexer.h>
+#include <Commands/Turret/cAssignTargetBoiler.h>
+#include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Shooter/cShootWhenReady.h>
+#include <Commands/Shooter/cShootPID.h>
+
+#include <Commands/Autonomous/cWait.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
@@ -30,6 +34,8 @@ AutoBase* AutoBase::configureAutonomous()
     // initialize commands
     AutoBase* commands = new AutoBase();
 
+    CommandGroup* waitThenIndex = new CommandGroup();
+
     // config autonomous commands
     switch(AutoBase::getStartingPosition())
     {
@@ -37,15 +43,20 @@ AutoBase* AutoBase::configureAutonomous()
 
         break;
     case POS_MIDDLE:
+        commands->goDead2();
 
         break;
     case POS_FAR:
 
         break;
-    default:
-
-        break;
     }
+
+    waitThenIndex->AddSequential(new cWait(2));
+    waitThenIndex->AddSequential(new cRunFuelConveyor());
+
+    commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
+    commands->AddParallel(new cShootPID());
+    commands->AddParallel(waitThenIndex);
 
     // return the commands
     return commands;

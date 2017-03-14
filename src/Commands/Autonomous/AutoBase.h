@@ -51,7 +51,7 @@ public:
 
     AutoBase* goLift1();
     AutoBase* goLift2();
-    AutoBase* deadLift2();
+    AutoBase* goDead2();
     AutoBase* goLift3();
 
     AutoBase* crossBaseline();

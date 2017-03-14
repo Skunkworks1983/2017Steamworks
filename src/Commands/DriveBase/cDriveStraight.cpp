@@ -2,16 +2,26 @@
 
 cDriveStraight::cDriveStraight(float distance, float speed) {
 	Requires(s_drivebase);
+	SetTimeout(5);
 	std::cout << "Begin cDriveStraight construct" << std::endl;
 	m_endTicks = distance;
 	m_beginningYaw = 0;
 	m_curTicks = 0;
-	m_p = 0.0292;
-	m_i = 0;
-	m_d = 0.0007;
-	m_f = 0.05;
+	if(CommandBase::s_drivebase->getGyro()->isDead()) {
+		m_controller = new PIDController(m_p, m_i, m_d, this, this);
+	} else {
+		m_p = 0.030;
+		m_i = 0;
+		m_d = 0.0006;
+		m_f = 0.05;
+		m_controller = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getGyro(), this);
+	}
 
-	m_controller = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getGyro(), this);
+	if(CommandBase::s_drivebase->getGyro()->isDead()) {
+
+	} else {
+
+	}
 	m_speed = speed;
 
 	m_isDisabled = true;
@@ -43,7 +53,7 @@ void cDriveStraight::Execute() {
 }
 
 bool cDriveStraight::IsFinished() {
-	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() < (m_curTicks + m_endTicks);
+	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curTicks + m_endTicks) || IsTimedOut();
 }
 
 void cDriveStraight::End() {
@@ -58,6 +68,10 @@ void cDriveStraight::Interrupted() {
 	m_controller->Disable();
 	CommandBase::s_drivebase->setLeftSpeed(0);
 	CommandBase::s_drivebase->setRightSpeed(0);
+}
+
+double cDriveStraight::PIDGet() {
+	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() - CommandBase::s_drivebase->getMotorGroupRight()->getPosition();
 }
 
 void cDriveStraight::PIDWrite(double output) {

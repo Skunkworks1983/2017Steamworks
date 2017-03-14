@@ -17,16 +17,16 @@
 #include <Services/cMessenger.h>
 
 #include "Commands/GearMechanism/cAcquireGear.h"
-#include "Commands/DriveBase/cRunTankDrive.h"
 #include <Commands/Autonomous/AutoBase.h>
+#include "Commands/DriveBase/cRunTankDrive.h"
 #include <Commands/Turret/cRotateTurret.h>
+#include "Commands/Shooter/cSetSetpointManually.h"
 #include "Commands/Shooter/cSetSetpointManually.h"
 
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/DriveBase/cDriveUntilWall.h>
-#include <Commands/DriveBase/cTurnAngle.h>
-
 #include <Commands/DriveBase/cDriveStraight.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 #include <Commands/Debugging/cRunOneMotor.h>
 #include <Subsystems/cFuelIndexer.h>
 #include <Subsystems/cFuelConveyor.h>
@@ -51,7 +51,7 @@ private:
 		SmartDashboard::PutNumber("I", SHOOTER_I);
 		SmartDashboard::PutNumber("D", SHOOTER_D);
 		SmartDashboard::PutNumber("F", SHOOTER_F);
-		SmartDashboard::PutNumber("TestShootSpeed", -150);
+		SmartDashboard::PutNumber("TestShootSpeed", -80);
 
 		CommandBase::s_drivebase = new cDriveBase();
 		CommandBase::s_climber = new cClimber();
@@ -80,7 +80,6 @@ private:
 
 		tankDrive = new cRunTankDrive();
 		runMotor = new cRunOneMotor();
-		driveStraight = new cDriveStraight(7300, 0.35);
 
 		CommandBase::s_drivebase->getGyro()->initGyro();
 		CommandBase::s_drivebase->getGyro()->zeroYaw();
@@ -95,13 +94,22 @@ private:
         Scheduler::GetInstance()->RemoveAll();
         LOG_INFO("DisabledInit called");
 
-        //CommandBase::s_turret->setEnabled(false);
-        //CommandBase::s_drivebase->setBrakeMode(false);
-		CommandBase::m_postMatch = false;
+        CommandBase::m_postMatch = false;
+
+		CommandBase::s_turret->setEnabled(false);
+		CommandBase::s_drivebase->setBrakeMode(false);
+	}
+
+	void DisabledPeriodic() {
+		if (CommandBase::m_postMatch) {
+			CommandBase::s_boilerMessenger->sendMessage("shutdown");
+			CommandBase::s_liftMessenger->sendMessage("shutdown");
+		}
 	}
 
 	void AutonomousInit() {
 		Scheduler::GetInstance()->RemoveAll();
+		Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
 		LOG_INFO("AutonomousInit called");
 
 		CommandBase::s_turret->setEnabled(true);

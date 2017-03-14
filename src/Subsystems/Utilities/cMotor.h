@@ -16,9 +16,7 @@
 
 enum eMotorType
 {
-
     BaneBots775,NeveRest40, CIM
-
 };
 
 class cMotor: public iMotor
@@ -71,6 +69,8 @@ public:
     void setSetpoint(double value);
 
     double getPosition();
+
+    double getOutput();
 
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */

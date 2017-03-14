@@ -16,6 +16,8 @@ cMotor::cMotor(int port, eMotorType motorType, bool hasEncoder, frc::CANSpeedCon
 {
     m_hasEncoder = hasEncoder;
     m_motor.SetControlMode(controlMode);
+
+    m_timeStall = 0;
 }
 
 cMotor::~cMotor()
@@ -144,7 +146,7 @@ double cMotor::GetSpeed() const
 
 void cMotor::SetSetpoint(double setpoint)
 {
-    m_motor.SetSetpoint(setpoint);
+	return m_motor.SetSetpoint(setpoint);
 }
 
 double cMotor::GetSetpoint() const
@@ -215,4 +217,8 @@ void cMotor::Disable()
 void cMotor::Reset()
 {
     m_motor.Reset();
+}
+
+double cMotor::getOutput() {
+	return m_motor.Get();
 }
