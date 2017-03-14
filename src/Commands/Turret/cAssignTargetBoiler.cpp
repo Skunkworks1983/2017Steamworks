@@ -26,6 +26,8 @@ void cAssignTargetBoiler::Initialize()
     bool isRed = AutoBase::getAlliance() == RED;
     isRed = true;
 
+    std::cout << "cBoiler init" << std::endl;
+
     switch(m_position)
     {
     case LIFT_MIDDLE:
@@ -46,6 +48,7 @@ void cAssignTargetBoiler::Initialize()
     heading = isRed ? heading : TURRET_SWEEP_RANGE - heading;
 
     // set orientation
+    std::cout << "heading: " << heading << std::endl;
     CommandBase::s_turret->setSetpoint(heading);
 }
 
@@ -62,6 +65,7 @@ bool cAssignTargetBoiler::IsFinished()
 void cAssignTargetBoiler::End()
 {
     LOG_INFO("ending cAssignTargetBoiler");
+    std::cout << "end cBoiler" << std::endl;
 }
 
 void cAssignTargetBoiler::Interrupted()

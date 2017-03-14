@@ -12,19 +12,20 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 
-cShootPID::cShootPID()
+cShootPID::cShootPID(double setpoint)
 {
 	Requires(CommandBase::s_shooter);
 	std::cout << "Hey its a me it the oi" << std::endl;
+	m_setpoint = setpoint;
 }
 
 void cShootPID::Initialize()
 {
-	double p = 10;//SmartDashboard::GetNumber("P", SHOOTER_P);
+	double p = 250;//SmartDashboard::GetNumber("P", SHOOTER_P);
 	double i = 0;//SmartDashboard::GetNumber("I", SHOOTER_I);
 	double d = 0;//SmartDashboard::GetNumber("D", SHOOTER_D);
-	double f = 10;//SmartDashboard::GetNumber("F", SHOOTER_F);
-	speed = -80;//SmartDashboard::GetNumber("TestShootSpeed", -80);
+	double f = 3.5;//SmartDashboard::GetNumber("F", SHOOTER_F);
+	speed = m_setpoint;//155 (FOR MIDDLE); SmartDashboard::GetNumber("TestShootSpeed", -80);
 
 	std::cout <<"cShootPID initialize";
 
@@ -39,6 +40,8 @@ void cShootPID::Initialize()
 		SetTimeout(timeout);
 	}
 	std::cout << "Hey its a me its the button being pressed" << std::endl;
+
+	CommandBase::s_shooter->getShooterMotor()->reverseOutput();
 }
 //
 
@@ -61,6 +64,7 @@ void cShootPID::Execute()
 	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
 	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
 	SmartDashboard::PutNumber("Shooter output", CommandBase::s_shooter->getOutput());
+	//SmartDashboard::PutNumber("Shooter throttle", CommandBase::s_shooter->get)
 
   
 	std::cout << "Setpoint: " << current_setpoint << std::endl;

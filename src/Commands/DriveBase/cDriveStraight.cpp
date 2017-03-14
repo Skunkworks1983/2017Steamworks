@@ -61,6 +61,7 @@ void cDriveStraight::End() {
 	m_controller->Disable();
 	CommandBase::s_drivebase->setLeftSpeed(0);
 	CommandBase::s_drivebase->setRightSpeed(0);
+	std::cout << "cDriveStraight end" << std::endl;
 }
 
 void cDriveStraight::Interrupted() {
@@ -68,6 +69,7 @@ void cDriveStraight::Interrupted() {
 	m_controller->Disable();
 	CommandBase::s_drivebase->setLeftSpeed(0);
 	CommandBase::s_drivebase->setRightSpeed(0);
+	std::cout << "cDriveStraight interrupt" << std::endl;
 }
 
 double cDriveStraight::PIDGet() {

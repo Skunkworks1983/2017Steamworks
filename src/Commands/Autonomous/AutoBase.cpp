@@ -14,9 +14,12 @@
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/Turret/cAssignTargetBoiler.h>
+#include <Commands/Turret/cSetTurretSetpoint.h>
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Shooter/cShootWhenReady.h>
 #include <Commands/Shooter/cShootPID.h>
+
+#include <Commands/DriveBase/cDriveStraight.h>
 
 #include <Commands/Autonomous/cWait.h>
 
@@ -55,6 +58,13 @@ AutoBase* AutoBase::configureAutonomous()
     case POS_2:
         //commands->AddSequential(commands->placeGear());
     	commands->AddSequential(commands->goDead2());
+    	commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
+
+    	waitThenIndex->AddSequential(new cWait(5));
+    	waitThenIndex->AddSequential(new cRunFuelConveyor());
+
+    	commands->AddParallel(new cShootPID(155));
+    	commands->AddParallel(waitThenIndex);
         break;
     case POS_3:
 
@@ -63,12 +73,17 @@ AutoBase* AutoBase::configureAutonomous()
 
         break;
     }
-    waitThenIndex->AddSequential(new cWait(2));
-    waitThenIndex->AddSequential(new cRunFuelConveyor());
+    //waitThenIndex->AddSequential(new cWait(6));
+    //waitThenIndex->AddSequential(new cRunFuelConveyor());
 
-    commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
-    commands->AddParallel(new cShootPID());
-    commands->AddParallel(waitThenIndex);
+    //commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
+    //commands->AddParallel(new cShootPID());
+    //commands->AddParallel(waitThenIndex);
+
+    /*commands->AddParallel(new cDriveStraight(7250*1.75, 0.4));
+    commands->AddParallel(new cSetTurretSetpoint(2050));
+    commands->AddParallel(new cShootPID(150));
+    commands->AddParallel(waitThenIndex);*/
 
     // return the commands
     return commands;

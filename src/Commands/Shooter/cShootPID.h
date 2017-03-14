@@ -25,8 +25,10 @@ private:
 	double d = SHOOTER_D;
 	double f = SHOOTER_F;*/
 
+	double m_setpoint;
+
 public:
-	cShootPID();
+	cShootPID(double setpoint);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

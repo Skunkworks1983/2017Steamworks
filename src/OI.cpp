@@ -56,7 +56,7 @@ OI::OI()
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
 
     m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
-    m_pidSpinUpShooter->WhileHeld(new cShootPID());
+    m_pidSpinUpShooter->WhileHeld(new cShootPID(155));
 
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
