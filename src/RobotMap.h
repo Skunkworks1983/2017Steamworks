@@ -5,6 +5,9 @@
 #include <Services/cLogger.h>
 #include <math.h>
 
+const std::string ROBOT_NAME = "tim_scoot";
+const std::string LOGFILE_NAME = "robotLog";
+
 // // ROBOT SETTINGS // //
 
 //|||||||||||||||||||||||||||||||||||||||||||
@@ -124,7 +127,7 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 const int TURRET_SWEEP_RANGE = 4800; // ticks. also 180 degrees
 
-const int TURRET_SETPOINT_LIFT_MIDDLE = 925; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_MIDDLE = 871; // angle our turret needs to be to aim at the boiler from the middle lift
 const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2) + 300; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
 const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
 

@@ -9,7 +9,7 @@ AutoBase* AutoBase::goDead2()
     if(USE_GYRO) {
     	//spin up shooter
 		#ifdef PRACTICE_BOT
-    		commands->AddSequential(new cDriveStraight(7250, 0.35));
+    		commands->AddSequential(new cDriveStraight(7250, 0.3));
 		#endif
 
 		#ifndef PRACTICE_BOT

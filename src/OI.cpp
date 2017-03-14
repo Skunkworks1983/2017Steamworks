@@ -28,6 +28,8 @@ OI::OI()
     m_loadBall = new JoystickButton(m_buttons, OI_JOYSTICK_INDEXER_BUTTON);
     m_runConveyor = new JoystickButton(m_buttons, 10); //this does both now
 
+    m_climbRope = new JoystickButton(m_buttons, 11);
+
     m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
 
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
@@ -35,8 +37,9 @@ OI::OI()
 
     m_shootPosLiftMiddle = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_MIDDLE);
     m_shootPosLiftClose = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_CLOSE);
-    m_shootPosHopperClose = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_HOPPER_CLOSE);
+    m_shootPosHopperClose = new JoystickButton(m_buttons, 5);
 
+    m_climbRope->WhileHeld(new cClimbRope(0.9));
 
     m_shootPosLiftMiddle->WhenPressed(new cAssignTargetBoiler(LIFT_MIDDLE));
     m_shootPosLiftClose->WhenPressed(new cAssignTargetBoiler(LIFT_CLOSE));
@@ -45,8 +48,6 @@ OI::OI()
     m_enableManual = new JoystickButton(m_buttons, OI_JOYSTICK_TURRET_CONTROL);
     m_enableManual->WhileHeld(new cManualShooterControl());
     m_enableManual->WhileHeld(new cManualTurretControl());
-
-    /*m_loadBall->WhileHeld(new cRunFuelIndexer());
     m_runConveyor->WhileHeld(new cRunFuelConveyor());
 
     m_collectorPos->WhileHeld(new cSetCollectorPos());
@@ -54,12 +55,11 @@ OI::OI()
     m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
 
-    m_pidSpinUpShooter = new JoystickButton(m_buttons, 9);
+    m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
     m_pidSpinUpShooter->WhileHeld(new cShootPID());
 
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
-    */
 }
 
 float OI::getLeftStickY()
