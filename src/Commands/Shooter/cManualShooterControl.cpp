@@ -11,22 +11,17 @@
 
 cManualShooterControl::cManualShooterControl()
 {
-	std::cout << "Holy shit init" << std::endl;
+
 }
 
 void cManualShooterControl::Initialize()
 {
 	CommandBase::s_shooter->setManualEnabled(true);
-	CommandBase::s_turret->setManualEnabled(true);
-
-	CommandBase::s_turret->setEnabled(true);
 }
 
 void cManualShooterControl::Execute()
 {
-	std::cout << "Enabling cManualShooter" << std::endl;
     CommandBase::s_shooter->setSpeed(CommandBase::s_oi->getSliderPos() * MANUAL_SHOOTER_CONTROL_SCALAR);
-    CommandBase::s_turret->setSetpoint(2500*CommandBase::s_oi->getRotPos());
 }
 
 bool cManualShooterControl::IsFinished()
@@ -37,7 +32,6 @@ bool cManualShooterControl::IsFinished()
 void cManualShooterControl::End()
 {
     CommandBase::s_shooter->setManualEnabled(false);
-    CommandBase::s_turret->setManualEnabled(false);
 }
 
 void cManualShooterControl::Interrupted()

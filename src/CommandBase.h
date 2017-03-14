@@ -13,6 +13,7 @@
 #include <Subsystems/Interfaces/iTurret.h>
 #include <Subsystems/Interfaces/iFuelConveyor.h>
 #include <Subsystems/Interfaces/iFuelIndexer.h>
+#include <Subsystems/Interfaces/iFuelAgitator.h>
 #include <Services/Interfaces/iMessenger.h>
 
 /**

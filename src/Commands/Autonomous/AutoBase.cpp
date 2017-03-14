@@ -5,6 +5,7 @@
  *      Author: s-4036956
  */
 
+#include "WPILib.h"
 #include "AutoBase.h"
 #include "cTurnDegree.h"
 #include "cSimpleDriveForward.h"
@@ -13,6 +14,7 @@
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
 #include <Commands/FuelIndexer/cRunFuelIndexer.h>
+#include <Commands/Shooter/cShootWhenReady.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
@@ -25,10 +27,11 @@ AutoBase::AutoBase()
 
 AutoBase* AutoBase::configureAutonomous()
 {
+    // initialize commands
     AutoBase* commands = new AutoBase();
 
-    // shooter & turret control code
-    if(USE_SHOOTER && USE_TURRET)
+    // config autonomous commands
+    switch(AutoBase::getStartingPosition())
     {
         // spin up the shooter to prepare to shoot balls
         //commands->AddParallel(new cSpinUpShooter());
@@ -41,21 +44,19 @@ AutoBase* AutoBase::configureAutonomous()
     switch(startPosition)
     {
     case POS_1:
-        commands->AddSequential(commands->goLift1());
-        commands->AddSequential(commands->placeGear());
+
         break;
     case POS_2:
         //commands->AddSequential(commands->placeGear());
     	commands->AddSequential(commands->goDead2());
         break;
     case POS_3:
-        commands->AddSequential(commands->goLift3());
-        commands->AddSequential(commands->placeGear());
+
+        break;
+    default:
+
         break;
     }
-
-    // load balls into the shooter
-    commands->AddSequential(new cRunFuelIndexer());
 
     // return the commands
     return commands;
@@ -68,41 +69,24 @@ AutoBase::~AutoBase()
 
 eStartingPosition AutoBase::getStartingPosition()
 {
-    // read from the dial
-    std::vector<DigitalInput*> inputs;
+    eStartingPosition startingPosition = (eStartingPosition) POS_2;
 
-    // get inputs from pins
-    for(int i = 0; i < START_POS_SELECTION_DIGITS; i++)
-    {
-        inputs.push_back(new DigitalInput(i));
-    }
+    // we only need to check one pin, but just for future purposes
+    // we'll go through the entire motion of checking all the pins
 
-    // assemble number for starting position
-    eStartingPosition startPos = (eStartingPosition) 0;
-    int digit = 1;
+    // quick note: when assembling the binary number, recall that
+    // numbers read right to left, in terms of digit order. d1 would
+    // be far right, while higher digits would follow to the right.
 
-    // no idea why this needs to be unsigned
-    for(unsigned int i = 0; i < inputs.size(); i++)
-    {
-        if(inputs[i]->Get())
-        {
-            startPos = (eStartingPosition) (startPos | digit);
-        }
+    // d2 d1
 
-        digit = digit << 1;
-    }
-
-    // return a value
-    return startPos;
+    return startingPosition;
 }
 
-eAlliance getAlliance()
+eAlliance AutoBase::getAlliance()
 {
-    // assemble number for starting position
-    eAlliance alliance = (eAlliance) 0;
+    frc::DriverStation::Alliance dsAlliance = DriverStation::GetInstance().GetAlliance();
+    eAlliance alliance = (eAlliance) dsAlliance;
 
-    // doesnt do anything yet
-
-    // return a value
     return alliance;
 }

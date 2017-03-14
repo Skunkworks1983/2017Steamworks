@@ -7,11 +7,11 @@
 cTurret::cTurret()
 {
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
+    m_motor1->setPosition(0);
+    m_motor1->SetPID(10, 0, 0, 0);
+    m_motor1->reverseOutput();
     m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
-    m_motor1->configForwardLimit((double) turret_angle_to_ticks(-90));
-    m_motor1->configReverseLimit((double) turret_angle_to_ticks(90));
-
-    m_motor1->setEnabled(false);
+    m_motor1->setEnabled(true);
 }
 
 cTurret::~cTurret()
@@ -21,12 +21,15 @@ cTurret::~cTurret()
 
 void cTurret::setSpeed(float speed)
 {
+
     m_motor1->setOutput(speed);
 }
 
 void cTurret::setOrientation(float heading)
 {
     float desired = turret_angle_to_ticks(heading);
+    std::cout << desired << std::endl;
+
     m_motor1->setSetpoint(desired);
 }
 

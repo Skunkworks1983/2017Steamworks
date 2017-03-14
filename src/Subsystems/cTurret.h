@@ -6,16 +6,18 @@
 #include <OI.h>
 #include <Subsystems/Utilities/cMotor.h>
 #include <Subsystems/Interfaces/iTurret.h>
+#include <RobotMap.h>
 
 class cTurret : public iTurret
 {
 private:
     cMotor* m_motor1;
 
+    eStartingPosition target;
     bool m_manualEnabled = false;
 public:
     cTurret();
-    ~cTurret();
+    virtual ~cTurret();
 
     void setManualEnabled(bool state);
     bool isManualEnabled();

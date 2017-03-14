@@ -50,15 +50,17 @@ public:
     static AutoBase* configureAutonomous();
 
     // returns the current auto starting position based on the dial/switch
-    eStartingPosition getStartingPosition();
+    static eStartingPosition getStartingPosition();
 
     // returns the current alliance based on dial/switch
-    eAlliance getAlliance();
+    static eAlliance getAlliance();
 
     AutoBase* goLift1();
     AutoBase* goLift2();
     AutoBase* goDead2();
     AutoBase* goLift3();
+
+    AutoBase* crossBaseline();
 
     AutoBase* placeGear();
 

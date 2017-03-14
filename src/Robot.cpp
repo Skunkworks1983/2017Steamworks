@@ -181,11 +181,5 @@ private:
 	}
 
 };
-START_ROBOT_CLASS(Robot)
-//if you comment this macro out
-//you should probably change that
-//when you build
-//i mean i'm not an expert
-//but its some pretty solid advice
 
-//as an expert, i agree with this not-quite-expert-but-still-pretty-good analysis
+START_ROBOT_CLASS(Robot)
