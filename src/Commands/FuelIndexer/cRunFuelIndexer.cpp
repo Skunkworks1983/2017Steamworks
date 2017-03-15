@@ -9,7 +9,7 @@
 #include <Commands/FuelIndexer/cRunFuelIndexer.h>
 #include <RobotMap.h>
 
-cRunFuelIndexer::cRunFuelIndexer()
+cRunFuelIndexer::cRunFuelIndexer(float mult) : m_multiplier(mult)
 {
     Requires(CommandBase::s_fuelIndexer);
 }
@@ -21,7 +21,7 @@ void cRunFuelIndexer::Initialize()
 
 void cRunFuelIndexer::Execute()
 {
-    CommandBase::s_fuelIndexer->setSpeed(-1*FUELINDEXER_MOTOR1_SPEED);
+    CommandBase::s_fuelIndexer->setSpeed(-1*FUELINDEXER_MOTOR1_SPEED * m_multiplier);
 }
 
 bool cRunFuelIndexer::IsFinished()
