@@ -29,7 +29,8 @@
 // TODO: idk where to put this so it's going here for now
 // i know these shouldn't be constants, but it won't build
 // without them being that way. todo: fix
-const eAlliance alliance = Red;
+
+const eAlliance alliance = RED;
 const eStartingPosition startPosition = POS_BOILER;
 
 class AutoBase: public frc::CommandGroup
@@ -47,20 +48,24 @@ public:
     AutoBase();
     ~AutoBase();
 
-    AutoBase* configureAutonomous();
+    static AutoBase* configureAutonomous();
 
     AutoBase* goLiftBoiler();
     AutoBase* goLiftRetrieval();
     AutoBase* goLiftCenter();
 
     // returns the current auto starting position based on the dial/switch
-    eStartingPosition getStartingPosition();
+    static eStartingPosition getStartingPosition();
 
     // returns the current alliance based on dial/switch
-    eAlliance getAlliance();
+    static eAlliance getAlliance();
 
+
+
+    AutoBase* crossBaseline();
 
     AutoBase* placeGear();
+
 
 //TODO REQUIRES
     //gyro code (navx, ahrs?)

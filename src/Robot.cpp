@@ -4,6 +4,8 @@
 #include <errno.h>
 #include "RobotMap.h"
 
+#include <Commands/Autonomous/AutoBase.h>
+
 #include <SmartDashboard/SmartDashboard.h>
 
 #include "Subsystems/cDriveBase.h"
@@ -16,12 +18,14 @@
 
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
+#include "Commands/Shooter/cSetSetpointManually.h"
+
+#include <Commands/Autonomous/AutoBase.h>
 
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/DriveBase/cDriveUntilWall.h>
-#include <Commands/DriveBase/cTurnAngle.h>
-
 #include <Commands/DriveBase/cDriveStraight.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 #include <Commands/Debugging/cRunOneMotor.h>
 #include <Subsystems/cFuelIndexer.h>
 #include <Subsystems/cFuelConveyor.h>
@@ -30,10 +34,15 @@
 
 #include <Utility.h>
 
+
 class Robot: public IterativeRobot {
+
 private:
 	//Put commands out here for declaration
 	cRunOneMotor* runMotor;
+
+	cSetSetpointManually* runShooter;
+
 	cRunTankDrive* tankDrive;
 	cDriveStraight* driveStraight;
 
@@ -41,6 +50,12 @@ private:
 
 	void RobotInit() {
 		LOG_INFO("RobotInit called");
+
+		SmartDashboard::PutNumber("P", SHOOTER_P);
+		SmartDashboard::PutNumber("I", SHOOTER_I);
+		SmartDashboard::PutNumber("D", SHOOTER_D);
+		SmartDashboard::PutNumber("F", SHOOTER_F);
+		SmartDashboard::PutNumber("TestShootSpeed", -80);
 
 		CommandBase::s_drivebase = new cDriveBase();
 		CommandBase::s_climber = new cClimber();
@@ -52,14 +67,18 @@ private:
 		CommandBase::s_fuelConveyor = new cFuelConveyor();
 		CommandBase::s_shooter = new cShooter();
 
+
 		CommandBase::s_oi = new OI();
 
 		CommandBase::s_boilerMessenger = new cMessenger(BOILER_PI_IP,
 				BOILER_PI_PORT);
 		CommandBase::s_liftMessenger = new cMessenger(GEAR_PI_IP, GEAR_PI_PORT);
 
+
+        runShooter = new cSetSetpointManually();
 		CommandBase::s_drivebase->getGyro()->initGyro();
 		CommandBase::s_drivebase->getGyro()->zeroYaw();
+
 
 		//colorSensor = new cColorSensor();
 
@@ -71,9 +90,13 @@ private:
 
 		tankDrive = new cRunTankDrive();
 		runMotor = new cRunOneMotor();
-		driveStraight = new cDriveStraight(7300, 0.35);
 
 		//CameraServer::GetInstance()->StartAutomaticCapture();
+
+        // enable turret
+        CommandBase::s_turret->setEnabled(true);
+        /*AutoBase* auto_base = new AutoBase();
+        Scheduler::GetInstance()->AddCommand(auto_base->configureAutonomous());*/
 
 		CommandBase::m_postMatch = false;
 	}
@@ -98,20 +121,8 @@ private:
 
 	void AutonomousInit() {
 		Scheduler::GetInstance()->RemoveAll();
+		Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
 		LOG_INFO("AutonomousInit called");
-
-		// enable turret
-		CommandBase::s_turret->setEnabled(true);
-
-		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-
-		Scheduler::GetInstance()->AddCommand(new cDriveStraight(-6200, 0.25));
-		Scheduler::GetInstance()->AddCommand(new cTurnAngle(30));
-		//Scheduler::GetInstance()->AddCommand(new cDriveStraight(0.25*(-6200), 0.25));
-
-		//Scheduler::GetInstance()->AddCommand(new cAcquireGear(0, 5));
-
-		CommandBase::m_postMatch = true;
 	}
 
     void AutonomousPeriodic()
@@ -148,8 +159,7 @@ private:
 			initialTime = GetFPGATime();
 		}
 
-		std::cout << CommandBase::s_drivebase->getGyro()->getAngle()
-				<< std::endl;
+		std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
 	}
 
 	void TestPeriodic() {
@@ -183,12 +193,7 @@ private:
 				CommandBase::s_turret->getTurretMotor()->getPosition());
 		*/
 	}
-};
-START_ROBOT_CLASS(Robot)
-//if you comment this macro out
-//you should probably change that
-//when you build
-//i mean i'm not an expert
-//but its some pretty solid advice
 
-//as an expert, i agree with this not-quite-expert-but-still-pretty-good analysis
+};
+
+START_ROBOT_CLASS(Robot)

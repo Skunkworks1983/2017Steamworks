@@ -130,6 +130,7 @@ bool cDriveBase::CanSeeTape() {
 			}
 		}
 	}
+
 	return false;
 
 }

@@ -21,3 +21,4 @@
 -Some Talons (e.g. turret, collector rotation) have soft limits based on their encoders configured; if a soft limit is reached, the Talon's LEDs will alternate flashing the color of the direction of the limit
 -The reading of the pins for autonomous selection is as follows; first three: start position. fourth: alliance. rest: tbd
 -For autonomous mode selection, position 1 is always the closest position of the three to the boiler, regardless of alliance. Three is the farthest.
+-!ALL AUTONOMOUS COMMANDS ASSUME RED!

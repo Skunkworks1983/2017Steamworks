@@ -5,6 +5,7 @@
  *      Author: s-4036956
  */
 
+#include "WPILib.h"
 #include "AutoBase.h"
 #include "cTurnDegree.h"
 #include "cSimpleDriveForward.h"
@@ -12,7 +13,15 @@
 #include <RobotMap.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
-#include <Commands/FuelIndexer/cRunFuelIndexer.h>
+#include <Commands/Turret/cAssignTargetBoiler.h>
+#include <Commands/Turret/cSetTurretSetpoint.h>
+#include <Commands/FuelConveyor/cRunFuelConveyor.h>
+#include <Commands/Shooter/cShootWhenReady.h>
+#include <Commands/Shooter/cShootPID.h>
+
+#include <Commands/DriveBase/cDriveStraight.h>
+
+#include <Commands/Autonomous/cWait.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
@@ -24,17 +33,31 @@ AutoBase::AutoBase()
 }
 AutoBase* AutoBase::configureAutonomous()
 
+
 {
+    // initialize commands
     AutoBase* commands = new AutoBase();
 
-    // shooter & turret control code
-    if(USE_SHOOTER && USE_TURRET)
+    CommandGroup* waitThenIndex = new CommandGroup();
+
+    // config autonomous commands
+    switch(AutoBase::getStartingPosition())
     {
+    case POS_BOILER:
+    	break;
+
+    case POS_CENTER:
+    	break;
+
+    case POS_RETRIEVAL:
+    	break;
+
         // spin up the shooter to prepare to shoot balls
-        commands->AddParallel(new cSpinUpShooter());
+        //commands->AddParallel(new cSpinUpShooter());
 
         // start vision code to find the boiler
-        commands->AddParallel(new cRotateTurret(30)); //this number was made by a wizard
+
+        //commands->AddParallel(new cRotateTurret(30));
     }
 
     // commands for moving to the lifts
@@ -51,11 +74,20 @@ AutoBase* AutoBase::configureAutonomous()
     case POS_RETRIEVAL:
         commands->AddSequential(commands->goLiftRetrieval());
         //commands->AddSequential(commands->cPlaceGear());
+
         break;
     }
+    //waitThenIndex->AddSequential(new cWait(6));
+    //waitThenIndex->AddSequential(new cRunFuelConveyor());
 
-    // load balls into the shooter
-    commands->AddSequential(new cRunFuelIndexer());
+    //commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
+    //commands->AddParallel(new cShootPID());
+    //commands->AddParallel(waitThenIndex);
+
+    /*commands->AddParallel(new cDriveStraight(7250*1.75, 0.4));
+    commands->AddParallel(new cSetTurretSetpoint(2050));
+    commands->AddParallel(new cShootPID(150));
+    commands->AddParallel(waitThenIndex);*/
 
     // return the commands
     return commands;
@@ -68,41 +100,24 @@ AutoBase::~AutoBase()
 
 eStartingPosition AutoBase::getStartingPosition()
 {
-    // read from the dial
-    std::vector<DigitalInput*> inputs;
+    eStartingPosition startingPosition = (eStartingPosition) POS_CENTER;
 
-    // get inputs from pins
-    for(int i = 0; i < START_POS_SELECTION_DIGITS; i++)
-    {
-        inputs.push_back(new DigitalInput(i));
-    }
+    // we only need to check one pin, but just for future purposes
+    // we'll go through the entire motion of checking all the pins
 
-    // assemble number for starting position
-    eStartingPosition startPos = (eStartingPosition) 0;
-    int digit = 1;
+    // quick note: when assembling the binary number, recall that
+    // numbers read right to left, in terms of digit order. d1 would
+    // be far right, while higher digits would follow to the right.
 
-    // no idea why this needs to be unsigned
-    for(unsigned int i = 0; i < inputs.size(); i++)
-    {
-        if(inputs[i]->Get())
-        {
-            startPos = (eStartingPosition) (startPos | digit);
-        }
+    // d2 d1
 
-        digit = digit << 1;
-    }
-
-    // return a value
-    return startPos;
+    return startingPosition;
 }
 
-eAlliance getAlliance()
+eAlliance AutoBase::getAlliance()
 {
-    // assemble number for starting position
-    eAlliance alliance = (eAlliance) 0;
+    frc::DriverStation::Alliance dsAlliance = DriverStation::GetInstance().GetAlliance();
+    eAlliance alliance = (eAlliance) dsAlliance;
 
-    // doesnt do anything yet
-
-    // return a value
     return alliance;
 }

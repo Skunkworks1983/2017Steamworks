@@ -12,7 +12,7 @@ AutoBase* AutoBase::goLiftBoiler()
 
     commands->AddSequential(new cSimpleDriveForward(BOILER_START_DRIVE_DISTANCE));
 
-    if (Red) { //TODO
+    if (RED) { //TODO
         commands->AddSequential(new cTurnDegree(-1 * BOILER_START_FIRST_ANGLE));
     } else {
         commands->AddSequential(new cTurnDegree(BOILER_START_FIRST_ANGLE));

@@ -10,7 +10,7 @@ AutoBase* AutoBase::goLiftRetrieval()
 {
     AutoBase* commands = new AutoBase();
 
-    if (Red) {
+    if (RED) {
         commands->AddSequential(new cTurnDegree(RETRIEVAL_START_FIRST_ANGLE));
     } else {
         commands->AddSequential(new cTurnDegree(-1 * RETRIEVAL_START_FIRST_ANGLE));
@@ -18,7 +18,7 @@ AutoBase* AutoBase::goLiftRetrieval()
 
     commands->AddSequential(new cSimpleDriveForward(RETRIEVAL_START_DRIVE_DISTANCE));
 
-    if (Red) {
+    if (RED) {
         commands->AddSequential(new cTurnDegree(RETRIEVAL_START_SECOND_ANGLE));
     } else {
         commands->AddSequential(new cTurnDegree(-1 * RETRIEVAL_START_SECOND_ANGLE));
