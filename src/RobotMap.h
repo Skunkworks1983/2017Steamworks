@@ -60,6 +60,12 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 // // OI // //
 
+// // test
+
+const int OI_UNJAM_BUTTON = 10;
+
+// // test
+
 const int OI_JOYSTICK_LEFT_PORT = 0;
 const int OI_JOYSTICK_RIGHT_PORT = 1;
 

@@ -9,7 +9,7 @@
 #include <CommandBase.h>
 #include <RobotMap.h>
 
-cRunFuelConveyor::cRunFuelConveyor()
+cRunFuelConveyor::cRunFuelConveyor(float mult) : m_multiplier(mult)
 {
 	Requires(CommandBase::s_fuelIndexer);
     Requires(CommandBase::s_fuelConveyor);
@@ -24,8 +24,8 @@ void cRunFuelConveyor::Initialize()
 
 void cRunFuelConveyor::Execute()
 {
-    CommandBase::s_fuelConveyor->setSpeed(FUELCONVEYOR_MOTOR1_SPEED);
-    CommandBase::s_fuelIndexer->setSpeed(-1*FUELINDEXER_MOTOR1_SPEED);
+    CommandBase::s_fuelConveyor->setSpeed(FUELCONVEYOR_MOTOR1_SPEED * m_multiplier);
+    CommandBase::s_fuelIndexer->setSpeed(-1*FUELINDEXER_MOTOR1_SPEED * m_multiplier);
     //m_window->setOutput(1);
 }
 

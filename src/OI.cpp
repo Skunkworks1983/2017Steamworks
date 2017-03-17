@@ -58,6 +58,16 @@ OI::OI()
     m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
     m_pidSpinUpShooter->WhileHeld(new cShootPID(79));
 
+    // // // // // //
+
+    // testing. will be removed later. don't get upset at me for magic numbers
+
+    m_unjam = new JoystickButton(m_buttons, OI_UNJAM_BUTTON);
+    m_unjam->WhileHeld(new cRunFuelConveyor(-1));
+    m_unjam->WhileHeld(new cRunFuelIndexer(-1));
+
+    // // // // // //
+
     m_acquireBall->WhileHeld(new cRunFuelCollector(1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
 }

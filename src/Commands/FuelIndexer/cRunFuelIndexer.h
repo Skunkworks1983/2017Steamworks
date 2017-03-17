@@ -12,8 +12,10 @@
 
 class cRunFuelIndexer: public frc::Command
 {
+private:
+    float m_multiplier = 1;
 public:
-    cRunFuelIndexer();
+    cRunFuelIndexer(float mult = 1);
     virtual ~cRunFuelIndexer();
 
     void Initialize();
