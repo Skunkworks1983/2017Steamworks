@@ -62,7 +62,7 @@ const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
 
 // // test
 
-const int OI_UNJAM_BUTTON = 10;
+const int OI_UNJAM_BUTTON = 6;
 
 // // test
 

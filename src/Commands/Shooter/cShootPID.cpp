@@ -45,7 +45,7 @@ void cShootPID::Initialize()
 
 	CommandBase::s_shooter->getShooterMotor()->reverseOutput();
 
-	CommandBase::s_shooter->getShooterMotor()->setVoltageRampRate(12);
+	CommandBase::s_shooter->getShooterMotor()->setVoltageRampRate(2);
 }
 //
 
