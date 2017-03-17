@@ -11,7 +11,7 @@ const std::string LOGFILE_NAME = "robotLog";
 // // ROBOT SETTINGS // //
 
 //|||||||||||||||||||||||||||||||||||||||||||
-#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
+//#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
 //|||||||||||||||||||||||||||||||||||||||||||
 
 // // MESSENGER // //
@@ -66,8 +66,8 @@ const int OI_JOYSTICK_RIGHT_PORT = 1;
 const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
 const int OI_JOYSTICK_ASSIGN_LIFT_MIDDLE = 1;
-const int OI_JOYSTICK_ASSIGN_LIFT_CLOSE = 2;
-const int OI_JOYSTICK_ASSIGN_HOPPER_CLOSE = 4;
+const int OI_JOYSTICK_ASSIGN_LIFT_CLOSE = 15;
+const int OI_JOYSTICK_ASSIGN_HOPPER_CLOSE = 16;
 
 const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
 const int OI_JOYSTICK_COLLECTORPOS = 2;
@@ -111,7 +111,7 @@ const int FUELCOLLECTOR_MAX_ENC_ANGLE = 247;
 const int FUELLOADER_MOTOR1_PORT = 6;
 
 const int FUELINDEXER_MOTOR1_PORT = 5;
-const float FUELINDEXER_MOTOR1_SPEED = 1;
+const float FUELINDEXER_MOTOR1_SPEED = -1;
 
 // // FUEL AGITATOR // //
 
@@ -125,9 +125,9 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 // // TURRETLES  //  //
 
-const int TURRET_SWEEP_RANGE = 4800; // ticks. also 180 degrees
+const int TURRET_SWEEP_RANGE = 5050; // ticks. also 180 degrees
 
-const int TURRET_SETPOINT_LIFT_MIDDLE = 871; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_MIDDLE = 921; // angle our turret needs to be to aim at the boiler from the middle lift
 const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2) + 300; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
 const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
 
@@ -210,15 +210,15 @@ enum eShootingPosition
     LIFT_MIDDLE, LIFT_CLOSE, HOPPER_CLOSE
 };
 
-const int START_POS_SELECTION_DIGITS = 3;
-const int ALLIANCE_SELECTION_DIGITS = 1;
+const int POS_SELECTION_PORT1 = 6;
+const int POS_SELECTION_PORT2 = 7;
 
 const bool USE_SHOOTER = false;
 const bool USE_TURRET = true;
 const bool USE_COLOR_SENSOR = true;
 const bool USE_SONAR_SENSOR = true;
 const bool USE_CAMERA = true;
-const bool USE_GYRO = true; //TODO
+const bool USE_GYRO = true;
 
 const int AUTO_MOVE_FORWARD_FEET = 3;
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1

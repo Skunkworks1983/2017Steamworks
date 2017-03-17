@@ -72,5 +72,9 @@ public:
 
     double getOutput();
 
+    void setVoltageRampRate(double rate);
+
+    CANTalon* getTalon();
+
 };
 #endif /* SRC_SUBSYSTEMS_CMOTOR_H_ */

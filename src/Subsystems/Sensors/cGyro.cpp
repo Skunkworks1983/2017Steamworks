@@ -11,8 +11,6 @@
 
 cGyro::cGyro()
 {
-    // TODO Auto-generated constructor stub
-    //m_ahrs = new AHRS(SPI::kMXP); /* Alternatives:  SPI::kMXP, I2C::kMXP or SerialPort::kUSB */
 	m_ahrs = NULL;
 	m_dead = false;
 }
@@ -20,7 +18,6 @@ cGyro::cGyro()
 cGyro::~cGyro()
 {
     delete m_ahrs;
-    // TODO Auto-generated destructor stub
 }
 
 double cGyro::PIDGet()
@@ -78,6 +75,8 @@ void cGyro::initGyro() {
 		} catch ( ... ) {
 			std::cout << "Error instantiating navX MXP: ..." << std::endl;
 			LOG_ERROR("Error instantiating navX MXP: ... \t");
+
+			m_dead = true;
 		}
 	} else { std::cout << "Its not null" << std::endl; }
 }
@@ -87,6 +86,5 @@ bool cGyro::isDead() {
 }
 
 double cGyro::getAngle() {
-	//std::cout << "Angle: " << m_ahrs->GetAngle() << std::endl;
 	return m_ahrs->GetAngle();
 }

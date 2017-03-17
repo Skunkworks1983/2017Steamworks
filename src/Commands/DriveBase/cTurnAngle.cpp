@@ -20,7 +20,7 @@ cTurnAngle::cTurnAngle(float angle) {
 	} else {
 		m_finalAngle = angle*18.33;
 
-		m_p = 1./250;
+		m_p = -1./1000;
 		m_i = 0;
 		m_d = 0;
 

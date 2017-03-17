@@ -9,7 +9,7 @@ cTurret::cTurret()
     m_motor1 = new cMotor(TURRET_MOTOR1_PORT, NeveRest40);
     m_motor1->setPosition(0);
     m_motor1->SetPID(10, 0, 0, 0);
-    m_motor1->reverseOutput();
+    //m_motor1->reverseOutput();
     m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
     m_motor1->setEnabled(true);
 }
@@ -66,8 +66,8 @@ cMotor* cTurret::getTurretMotor()
 
 void cTurret::setSetpoint(int ticks)
 {
-	std::cout << "Setpoint: " << ticks << std::endl;
-    m_motor1->setSetpoint(ticks);
+	//std::cout << "Setpoint: " << ticks << std::endl;
+    m_motor1->setSetpoint(-1*ticks); //FOR COMP BOT ONLY TODO TODO TODO
 }
 
 double cTurret::PIDGet()

@@ -31,6 +31,8 @@
 #include <Subsystems/cFuelConveyor.h>
 #include <Subsystems/Sensors/cColorSensor.h>
 
+#include <DigitalInput.h>
+
 
 class Robot: public IterativeRobot {
 
@@ -94,6 +96,9 @@ private:
         Scheduler::GetInstance()->AddCommand(auto_base->configureAutonomous());*/
 
 		CommandBase::m_postMatch = false;
+
+		AutoBase::m_d1 = new DigitalInput(POS_SELECTION_PORT1);
+		AutoBase::m_d2 = new DigitalInput(POS_SELECTION_PORT2);
 	}
 
 	void DisabledInit() {
@@ -116,13 +121,15 @@ private:
 	void AutonomousInit() {
 		Scheduler::GetInstance()->RemoveAll();
 		Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
+
+		//Scheduler::GetInstance()->AddCommand(new cTurnAngle(90));
 		LOG_INFO("AutonomousInit called");
 	}
 
 	void AutonomousPeriodic() {
 		Scheduler::GetInstance()->Run();
 
-		CommandBase::s_boilerMessenger->sendMessage("auto"); //What if it misses the packet?
+		CommandBase::s_boilerMessenger->sendMessage("auto");
 		CommandBase::s_liftMessenger->sendMessage("auto");
 	}
 
@@ -145,7 +152,7 @@ private:
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
 
-		std::cout << CommandBase::s_drivebase->getGyro()->getAngle() << std::endl;
+		std::cout << "Position: " << AutoBase::getStartingPosition() << "\tGet Alliance: " << AutoBase::getAlliance() << std::endl;
 	}
 
 	void TestPeriodic() {

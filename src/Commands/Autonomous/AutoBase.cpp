@@ -13,19 +13,26 @@
 #include <RobotMap.h>
 #include <Commands/Shooter/cSpinUpShooter.h>
 #include <Commands/Turret/cRotateTurret.h>
-#include <Commands/Turret/cAssignTargetBoiler.h>
 #include <Commands/Turret/cSetTurretSetpoint.h>
-#include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Shooter/cShootWhenReady.h>
-#include <Commands/Shooter/cShootPID.h>
 
 #include <Commands/DriveBase/cDriveStraight.h>
 
 #include <Commands/Autonomous/cWait.h>
+#include <Commands/Turret/cAssignTargetBoiler.h>
+#include <Commands/Shooter/cShootPID.h>
+#include <Commands/Autonomous/cWait.h>
+#include <Commands/FuelConveyor/cRunFuelConveyor.h>
 
 double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
 double AutoBase::s_angleRobotPivotPointGoal = 0;
+
+// i feel like this isn't very safe
+DigitalInput* AutoBase::m_d1 = NULL;
+DigitalInput* AutoBase::m_d2 = NULL;
+
+
 
 AutoBase::AutoBase()
 {
@@ -34,6 +41,8 @@ AutoBase::AutoBase()
 
 AutoBase* AutoBase::configureAutonomous()
 {
+
+
     // initialize commands
     AutoBase* commands = new AutoBase();
 
@@ -50,40 +59,43 @@ AutoBase* AutoBase::configureAutonomous()
     }
 
     // commands for moving to the lifts
-    switch(startPosition)
+    switch(AutoBase::getStartingPosition())
     {
     case POS_1:
+    	waitThenIndex->AddSequential(new cWait(6));
+		waitThenIndex->AddSequential(new cRunFuelConveyor());
 
+		commands->AddParallel(new cDriveStraight(-7250*1.75, 0.3));
+		if(AutoBase::getAlliance() == BLUE) {
+			commands->AddParallel(new cSetTurretSetpoint(TURRET_SWEEP_RANGE-2050));
+		} else {
+			commands->AddParallel(new cSetTurretSetpoint(2050));
+		}
+		commands->AddParallel(new cShootPID(79));
+		commands->AddParallel(waitThenIndex);
         break;
     case POS_2:
         //commands->AddSequential(commands->placeGear());
     	commands->AddSequential(commands->goDead2());
-    	commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
-
-    	waitThenIndex->AddSequential(new cWait(5));
-    	waitThenIndex->AddSequential(new cRunFuelConveyor());
-
-    	commands->AddParallel(new cShootPID(155));
-    	commands->AddParallel(waitThenIndex);
         break;
     case POS_3:
+    	waitThenIndex->AddSequential(new cWait(6));
+		waitThenIndex->AddSequential(new cRunFuelConveyor());
 
+		commands->AddParallel(new cDriveStraight(-7250*1.75, 0.3));
+		if(AutoBase::getAlliance() == BLUE) {
+			commands->AddParallel(new cSetTurretSetpoint(TURRET_SWEEP_RANGE-2050));
+		} else {
+			commands->AddParallel(new cSetTurretSetpoint(2050));
+		}
+		commands->AddParallel(new cShootPID(79));
+		commands->AddParallel(waitThenIndex);
         break;
     default:
 
         break;
     }
-    //waitThenIndex->AddSequential(new cWait(6));
-    //waitThenIndex->AddSequential(new cRunFuelConveyor());
 
-    //commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
-    //commands->AddParallel(new cShootPID());
-    //commands->AddParallel(waitThenIndex);
-
-    /*commands->AddParallel(new cDriveStraight(7250*1.75, 0.4));
-    commands->AddParallel(new cSetTurretSetpoint(2050));
-    commands->AddParallel(new cShootPID(150));
-    commands->AddParallel(waitThenIndex);*/
 
     // return the commands
     return commands;
@@ -106,6 +118,14 @@ eStartingPosition AutoBase::getStartingPosition()
     // be far right, while higher digits would follow to the right.
 
     // d2 d1
+
+    if(m_d1->Get()) {
+    	startingPosition = POS_1;
+    } else if(m_d2->Get()) {
+    	startingPosition = POS_3;
+    }
+
+    std::cout << "D1: " << m_d1->Get() << "\tD2: " << m_d2->Get() << std::endl;
 
     return startingPosition;
 }

@@ -24,7 +24,6 @@ void cAssignTargetBoiler::Initialize()
     // ugly as fuck, but ok
     int heading = CommandBase::s_turret->getTurretMotor()->getPosition();
     bool isRed = AutoBase::getAlliance() == RED;
-    isRed = true;
 
     std::cout << "cBoiler init" << std::endl;
 

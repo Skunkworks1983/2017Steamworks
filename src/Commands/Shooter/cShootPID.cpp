@@ -12,36 +12,40 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 
-cShootPID::cShootPID(double setpoint)
+cShootPID::cShootPID(double setpoint, float timeout)
 {
 	Requires(CommandBase::s_shooter);
 	std::cout << "Hey its a me it the oi" << std::endl;
-	m_setpoint = setpoint;
+	m_speed = setpoint;//155 (FOR MIDDLE); SmartDashboard::GetNumber("TestShootSpeed", -80);
+
+	m_currentSetpoint = -1.0;
+	m_timeout = timeout;
 }
 
 void cShootPID::Initialize()
 {
-	double p = 250;//SmartDashboard::GetNumber("P", SHOOTER_P);
+	double p = 125;//SmartDashboard::GetNumber("P", SHOOTER_P);
 	double i = 0;//SmartDashboard::GetNumber("I", SHOOTER_I);
 	double d = 0;//SmartDashboard::GetNumber("D", SHOOTER_D);
-	double f = 3.5;//SmartDashboard::GetNumber("F", SHOOTER_F);
-	speed = m_setpoint;//155 (FOR MIDDLE); SmartDashboard::GetNumber("TestShootSpeed", -80);
+	double f = 4;//SmartDashboard::GetNumber("F", SHOOTER_F);
 
 	std::cout <<"cShootPID initialize";
 
-	current_setpoint = 0;
+	m_currentSetpoint = 0;
 	CommandBase::s_shooter->EnablePID();
 	CommandBase::s_shooter->setPID(p, i, d, f);
 
-	CommandBase::s_shooter->setSetpoint(current_setpoint);
+	CommandBase::s_shooter->setSetpoint(m_currentSetpoint);
 
-	if (timeout != 0)
+	if (m_timeout != 0)
 	{
-		SetTimeout(timeout);
+		SetTimeout(m_timeout);
 	}
 	std::cout << "Hey its a me its the button being pressed" << std::endl;
 
 	CommandBase::s_shooter->getShooterMotor()->reverseOutput();
+
+	CommandBase::s_shooter->getShooterMotor()->setVoltageRampRate(12);
 }
 //
 
@@ -58,22 +62,24 @@ void cShootPID::Execute()
 		current_setpoint = speed;
 	}*/
 
-	CommandBase::s_shooter->setSetpoint(speed);
+	CommandBase::s_shooter->setSetpoint(m_speed);
 
 	SmartDashboard::PutNumber("cShootPIDspeed", CommandBase::s_shooter->PIDGet());
 	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
 	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
 	SmartDashboard::PutNumber("Shooter output", CommandBase::s_shooter->getOutput());
-	//SmartDashboard::PutNumber("Shooter throttle", CommandBase::s_shooter->get)
+
+	SmartDashboard::PutNumber("Shooter speed: ", CommandBase::s_shooter->getSpeed());
 
   
-	std::cout << "Setpoint: " << current_setpoint << std::endl;
+	std::cout << "Setpoint: " << m_currentSetpoint << std::endl;
 
 }
 
 bool cShootPID::IsFinished()
 {
-	return IsTimedOut();
+	//return IsTimedOut();
+	return false;
 }
 
 void cShootPID::End()

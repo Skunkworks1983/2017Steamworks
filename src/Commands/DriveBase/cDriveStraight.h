@@ -25,6 +25,8 @@ ____...-`  \ /``'-..
 */
 class cDriveStraight : public CommandBase, public PIDOutput, public PIDSource {
 private:
+	float m_timeout;
+
 	int m_endTicks;
 	double m_beginningYaw;
 
@@ -40,8 +42,10 @@ private:
 	float m_speed;
 
 	bool m_isDisabled;
+
+	bool m_gyroMode;
 public:
-	cDriveStraight(float distance, float speed=0.25); //In feet
+	cDriveStraight(float distance, float speed=0.25, float timeout=0); //In feet
 	void Initialize();
 	void Execute();
 	bool IsFinished();

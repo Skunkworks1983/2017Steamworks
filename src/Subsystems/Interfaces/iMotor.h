@@ -11,6 +11,7 @@
 #include <PIDSource.h>
 #include <PIDOutput.h>
 #include <CANSpeedController.h>
+#include <CANTalon.h>
 
 class iMotor: public frc::PIDSource, public frc::PIDOutput
 {
@@ -32,5 +33,9 @@ public:
     virtual double getPosition() = 0;
 
     virtual double getOutput() = 0;
+
+    virtual void setVoltageRampRate(double rate) = 0;
+
+    virtual CANTalon* getTalon() = 0;
 };
 #endif /* SRC_SUBSYSTEMS_IMOTOR_H_ */

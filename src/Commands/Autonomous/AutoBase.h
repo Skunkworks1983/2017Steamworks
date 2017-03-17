@@ -38,6 +38,8 @@ private:
     CommandGroup* m_placeGear;
     CommandGroup* m_driveToLine;
 
+
+
 public:
     static double s_angleTapeRobotPivotPoint;
     static double s_distanceToPivotPoint;
@@ -63,6 +65,9 @@ public:
     AutoBase* crossBaseline();
 
     AutoBase* placeGear();
+
+    static DigitalInput* m_d1;
+    static DigitalInput* m_d2;
 
 
 //TODO REQUIRES

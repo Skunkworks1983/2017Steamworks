@@ -16,19 +16,17 @@ class cShooter;
 
 class cShootPID: public frc::Command {
 private:
-	double speed;
-	double current_setpoint = -1.0;
-	float timeout;
+	double m_speed;
+	double m_currentSetpoint;
+	float m_timeout;
 
 	/*double p = SHOOTER_P;
 	double i = SHOOTER_I;
 	double d = SHOOTER_D;
 	double f = SHOOTER_F;*/
 
-	double m_setpoint;
-
 public:
-	cShootPID(double setpoint);
+	cShootPID(double setpoint, float timeout = 0);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

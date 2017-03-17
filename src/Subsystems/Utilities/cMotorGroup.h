@@ -37,7 +37,13 @@ public:
 
     double getPosition();
 
-    double getOutput(){};
+    double getOutput(){
+    	return 0;
+    };
+
+    void setVoltageRampRate(double rate){};
+
+    CANTalon* getTalon(){};
 };
 
 #endif /* SRC_SUBSYSTEMS_CMOTORGROUP_H_ */
