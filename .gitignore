@@ -1,4 +1,4 @@
-*.o
+Debug/**/*.o
 .cproject
 desktop.ini
 .classpath

@@ -24,7 +24,7 @@ cShootPID::cShootPID(double setpoint, float timeout)
 
 void cShootPID::Initialize()
 {
-	double p = 125;//SmartDashboard::GetNumber("P", SHOOTER_P);
+	double p = 30;//SmartDashboard::GetNumber("P", SHOOTER_P);
 	double i = 0;//SmartDashboard::GetNumber("I", SHOOTER_I);
 	double d = 0;//SmartDashboard::GetNumber("D", SHOOTER_D);
 	double f = 4;//SmartDashboard::GetNumber("F", SHOOTER_F);
@@ -45,7 +45,7 @@ void cShootPID::Initialize()
 
 	CommandBase::s_shooter->getShooterMotor()->reverseOutput();
 
-	CommandBase::s_shooter->getShooterMotor()->setVoltageRampRate(2);
+	CommandBase::s_shooter->getShooterMotor()->setVoltageRampRate(3);
 }
 //
 

@@ -54,7 +54,11 @@ void cDriveStraight::Execute() {
 }
 
 bool cDriveStraight::IsFinished() {
-	return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() < (m_curTicks + m_endTicks) || IsTimedOut(); //FLIPPED FOR COMP BOT TODO TODO TODO
+	if(m_endTicks < 0) {
+		return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() < (m_curTicks + m_endTicks) || IsTimedOut(); //FLIPPED FOR COMP BOT TODO TODO TODO
+	} else {
+		return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curTicks + m_endTicks) || IsTimedOut();
+	}
 }
 
 void cDriveStraight::End() {

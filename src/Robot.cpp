@@ -152,7 +152,7 @@ private:
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
 
-		//std::cout << "Position: " << AutoBase::getStartingPosition() << "\tGet Alliance: " << AutoBase::getAlliance() << std::endl;
+		std::cout << "Position: " << AutoBase::getStartingPosition() << "\tGet Alliance: " << AutoBase::getAlliance() << std::endl;
 	}
 
 	void TestPeriodic() {

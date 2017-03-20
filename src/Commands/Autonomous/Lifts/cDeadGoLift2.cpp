@@ -10,19 +10,23 @@ AutoBase* AutoBase::goDead2()
 {
     AutoBase* commands = new AutoBase();
     CommandGroup* waitThenIndex = new CommandGroup();
+    CommandGroup* forwardThenBack = new CommandGroup();
 
-    waitThenIndex->AddSequential(new cWait(5));
+    waitThenIndex->AddSequential(new cWait(6));
 	waitThenIndex->AddSequential(new cRunFuelConveyor());
 
 	#ifdef PRACTICE_BOT
-		commands->AddSequential(new cDriveStraight(7250, 0.3, 5));
+		commands->AddSequential(new cDriveStraight(7250, 0.3, 5)); //FIX WITH FORWARD THEN BACK
 	#endif
 
 	#ifndef PRACTICE_BOT
-		commands->AddSequential(new cDriveStraight(-7250, 0.2, 5));
+		forwardThenBack->AddSequential(new cDriveStraight(-7250, 0.2, 5.5));
+		forwardThenBack->AddSequential(new cDriveStraight(100, -0.15, 1));
+		//commands->AddSequential(new cDriveStraight)
 	#endif
 
-	commands->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE));
+	commands->AddParallel(forwardThenBack);
+	commands->AddParallel(new cAssignTargetBoiler(LIFT_MIDDLE));
 
 	commands->AddParallel(new cShootPID(79));
 	commands->AddParallel(waitThenIndex);
