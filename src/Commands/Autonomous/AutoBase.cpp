@@ -41,53 +41,25 @@ AutoBase::AutoBase()
 
 AutoBase* AutoBase::configureAutonomous()
 {
-
-
     // initialize commands
     AutoBase* commands = new AutoBase();
-
-    CommandGroup* waitThenIndex = new CommandGroup();
 
     // commands for moving to the lifts
     switch(AutoBase::getStartingPosition())
     {
     case POS_1:
-    	waitThenIndex->AddSequential(new cWait(5.5));
-		waitThenIndex->AddSequential(new cRunFuelConveyor());
-
-		commands->AddParallel(new cDriveStraight(-7250*1.75, 0.3));
-		if(AutoBase::getAlliance() == BLUE) {
-			commands->AddParallel(new cSetTurretSetpoint(TURRET_SWEEP_RANGE-2050));
-		} else {
-			commands->AddParallel(new cSetTurretSetpoint(2050));
-		}
-		commands->AddParallel(new cShootPID(79));
-		commands->AddParallel(waitThenIndex);
-        break;
+    	commands->AddSequential(commands->goFarBoiler());
+    	break;
     case POS_2:
-        //commands->AddSequential(commands->placeGear());
     	commands->AddSequential(commands->goDead2());
         break;
     case POS_3:
-    	waitThenIndex->AddSequential(new cWait(5.5));
-		waitThenIndex->AddSequential(new cRunFuelConveyor());
-
-		commands->AddParallel(new cDriveStraight(-7250*1.75, 0.3));
-		if(AutoBase::getAlliance() == BLUE) {
-			commands->AddParallel(new cSetTurretSetpoint(TURRET_SWEEP_RANGE-2050));
-		} else {
-			commands->AddParallel(new cSetTurretSetpoint(2050));
-		}
-		commands->AddParallel(new cShootPID(79));
-		commands->AddParallel(waitThenIndex);
+    	commands->AddSequential(commands->goFarBoiler());
         break;
     default:
-
         break;
     }
 
-
-    // return the commands
     return commands;
 }
 
@@ -117,7 +89,6 @@ eStartingPosition AutoBase::getStartingPosition()
     	startingPosition = POS_3;
     }
 
-    std::cout << "D1: " << m_d1->Get() << "\tD2: " << m_d2->Get() << std::endl;
 
     return startingPosition;
 }

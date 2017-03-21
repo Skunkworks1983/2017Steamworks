@@ -35,10 +35,6 @@ const eStartingPosition startPosition = POS_2;
 class AutoBase: public frc::CommandGroup
 {
 private:
-    CommandGroup* m_placeGear;
-    CommandGroup* m_driveToLine;
-
-
 
 public:
     static double s_angleTapeRobotPivotPoint;
@@ -61,6 +57,8 @@ public:
     AutoBase* goLift2();
     AutoBase* goDead2();
     AutoBase* goLift3();
+
+    AutoBase* goFarBoiler();
 
     AutoBase* crossBaseline();
 
