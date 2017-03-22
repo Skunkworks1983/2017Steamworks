@@ -6,7 +6,7 @@
 AutoBase* AutoBase::goLiftRetrieval() {
 	AutoBase* commands = new AutoBase();
 
-	if (RED) {
+	if (AutoBase::getAlliance() == RED) {
 		commands->AddSequential(new cTurnAngle(RETRIEVAL_START_FIRST_ANGLE));
 	} else {
 		commands->AddSequential(new cTurnAngle(-1 * RETRIEVAL_START_FIRST_ANGLE));
