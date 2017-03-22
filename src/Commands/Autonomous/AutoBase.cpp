@@ -47,13 +47,13 @@ AutoBase* AutoBase::configureAutonomous()
     // commands for moving to the lifts
     switch(AutoBase::getStartingPosition())
     {
-    case POS_1:
+    case POS_BOILER:
     	commands->AddSequential(commands->goFarBoiler());
     	break;
-    case POS_2:
-    	commands->AddSequential(commands->goDead2());
+    case POS_CENTER:
+    	commands->AddSequential(commands->goLiftCenter());
         break;
-    case POS_3:
+    case POS_RETRIEVAL:
     	commands->AddSequential(commands->goFarBoiler());
         break;
     default:
@@ -70,7 +70,7 @@ AutoBase::~AutoBase()
 
 eStartingPosition AutoBase::getStartingPosition()
 {
-    eStartingPosition startingPosition = (eStartingPosition) POS_2;
+    eStartingPosition startingPosition = (eStartingPosition) POS_CENTER;
 
     // we only need to check one pin, but just for future purposes
     // we'll go through the entire motion of checking all the pins
@@ -82,11 +82,11 @@ eStartingPosition AutoBase::getStartingPosition()
     // d2 d1
 
     if(m_d1->Get() && m_d2->Get()) {
-    	startingPosition = POS_2;
+    	startingPosition = POS_CENTER;
     } else if(m_d1->Get()) {
-    	startingPosition = POS_1;
+    	startingPosition = POS_BOILER;
     } else if(m_d2->Get()) {
-    	startingPosition = POS_3;
+    	startingPosition = POS_RETRIEVAL;
     }
 
 

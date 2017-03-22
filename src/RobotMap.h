@@ -207,7 +207,7 @@ enum eAlliance
 
 enum eStartingPosition
 {
-    POS_1, POS_2, POS_3
+    POS_BOILER, POS_CENTER, POS_RETRIEVAL
 };
 
 // close/middle refers to the distance to the boiler, not the loading station
@@ -226,7 +226,7 @@ const bool USE_SONAR_SENSOR = true;
 const bool USE_CAMERA = true;
 const bool USE_GYRO = true;
 
-const int AUTO_MOVE_FORWARD_FEET = 3;
+const int AUTO_MOVE_FORWARD_FEET = 3; //lmao what
 const int AUTO_TURN_DEGREES = 45; //assuming we are at lift 1
 
 //COLOR SENSOR

@@ -6,7 +6,7 @@
 #include <Commands/Autonomous/cWait.h>
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
 
-AutoBase* AutoBase::goDead2()
+AutoBase* AutoBase::goLiftCenter()
 {
 	float WAIT_TIME = 6;
 	float DRIVE_DISTANCE = -7250;

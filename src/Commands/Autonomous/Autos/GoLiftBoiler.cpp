@@ -3,7 +3,7 @@
 #include <Commands/Autonomous/cSimpleDriveForward.h>
 #include <Commands/Autonomous/cTurnDegree.h>
 
-AutoBase* AutoBase::goLift3()
+AutoBase* AutoBase::goLiftBoiler()
 {
     AutoBase* commands = new AutoBase();
 
@@ -16,7 +16,7 @@ AutoBase* AutoBase::goLift3()
         commands->AddSequential(new cSimpleDriveForward(AUTO_MOVE_FORWARD_FEET, false));
     }
 
-    commands->AddSequential(new cTurnDegree(-AUTO_TURN_DEGREES));
+    commands->AddSequential(new cTurnDegree(AUTO_TURN_DEGREES));
 
     return commands;
 }
