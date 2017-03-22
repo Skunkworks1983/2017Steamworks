@@ -1,22 +1,20 @@
 #include "../AutoBase.h"
 #include <RobotMap.h>
 #include <Commands/Autonomous/cSimpleDriveForward.h>
-#include <Commands/Autonomous/cTurnDegree.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 
 AutoBase* AutoBase::goLiftBoiler()
 {
     AutoBase* commands = new AutoBase();
 
-    if(USE_COLOR_SENSOR)
-    {
-        commands->AddSequential(new cSimpleDriveForward(100, true));
-    }
-    else
-    {
-        commands->AddSequential(new cSimpleDriveForward(AUTO_MOVE_FORWARD_FEET, false));
-    }
+    commands->AddSequential(new cSimpleDriveForward(BOILER_START_DRIVE_DISTANCE));
 
-    commands->AddSequential(new cTurnDegree(AUTO_TURN_DEGREES));
+    if (RED) { //TODO
+        commands->AddSequential(new cTurnAngle(-1 * BOILER_START_FIRST_ANGLE));
+    } else {
+        commands->AddSequential(new cTurnAngle(BOILER_START_FIRST_ANGLE));
+    }
+    commands->AddSequential(new cSimpleDriveForward(DISTANCE_BASE_LINE_TO_PEG));
 
     return commands;
 }

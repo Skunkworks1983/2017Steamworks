@@ -263,21 +263,14 @@ const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = (10.5 / 12); //inches to feet
 const float angleGoalPivotPointTape = .4131; //rads (23.67 degrees)
 const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 2; //feet. This is to give some safe space to turn
 
-// positions start from the top of the field moving down
-
-/*
- * red________________blue
- *   |1               |
- *   |      1 /       |
- *   |2    2 |        |
- *   |      3 \       |
- *   |3_______________|
- *
- *   boiler         boiler
- */
-
-const float ARM_ANGLE = ((70 * 3.14) / 180); // Angle of the arms surrounding the hook from the wall. Radians. Placeholder.
-const float DISTANCE_TO_RECOVERY_POINT = 5; //placeholder! In feet, apparently (though that's super dumb)
+const double BOILER_START_FIRST_ANGLE = 60; //deg
+const double BOILER_START_DRIVE_DISTANCE = 7.7; //feet
+const double RETRIEVAL_START_FIRST_ANGLE = 6; //deg
+const double RETRIEVAL_START_SECOND_ANGLE = 54; //deg
+const double RETRIEVAL_START_DRIVE_DISTANCE = (115/12); //115 inches
+const double DISTANCE_WALL_TO_BASE_LINE = (114/12); // 114 inches
+const double DISTANCE_BASE_LINE_TO_PEG = (34.5/12); // ever so slightly less than 3 feet
+const double angleInfinityBaseLinePeg = 60; //we're turning relative to a hexagon. having a good time.
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
 const int   ENCODER_OK_ERROR = 25; //Encoder offset from ^^

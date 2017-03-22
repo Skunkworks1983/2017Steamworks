@@ -1,22 +1,26 @@
 #include "../AutoBase.h"
 #include <RobotMap.h>
 #include <Commands/Autonomous/cSimpleDriveForward.h>
-#include <Commands/Autonomous/cTurnDegree.h>
+#include <Commands/DriveBase/cTurnAngle.h>
 
-AutoBase* AutoBase::goLiftRetrieval()
-{
-    AutoBase* commands = new AutoBase();
+AutoBase* AutoBase::goLiftRetrieval() {
+	AutoBase* commands = new AutoBase();
 
-    if(USE_COLOR_SENSOR)
-    {
-        commands->AddSequential(new cSimpleDriveForward(100, true));
-    }
-    else
-    {
-        commands->AddSequential(new cSimpleDriveForward(AUTO_MOVE_FORWARD_FEET, false));
-    }
+	if (RED) {
+		commands->AddSequential(new cTurnAngle(RETRIEVAL_START_FIRST_ANGLE));
+	} else {
+		commands->AddSequential(new cTurnAngle(-1 * RETRIEVAL_START_FIRST_ANGLE));
+	}
 
-    commands->AddSequential(new cTurnDegree(-AUTO_TURN_DEGREES));
+	commands->AddSequential(
+			new cSimpleDriveForward(RETRIEVAL_START_DRIVE_DISTANCE));
 
-    return commands;
+	if (RED) {
+		commands->AddSequential(new cTurnAngle(RETRIEVAL_START_SECOND_ANGLE));
+	} else {
+		commands->AddSequential(new cTurnAngle(-1 * RETRIEVAL_START_SECOND_ANGLE));
+	}
+	commands->AddSequential(new cSimpleDriveForward(DISTANCE_BASE_LINE_TO_PEG));
+
+	return commands;
 }
