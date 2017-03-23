@@ -1,104 +1,64 @@
 #include "cTurnAngle.h"
 #include <RobotMap.h>
+#include <time.h>
 
-cTurnAngle::cTurnAngle(float angle) {
-	Requires(CommandBase::s_drivebase);
+cTurnAngle::cTurnAngle(float angle)
+{
+    Requires(CommandBase::s_drivebase);
 
-	m_startingAngle = 0;
-	m_leftStart = 0;
-	m_rightStart = 0;
+    m_finalAngle = angle + CommandBase::s_drivebase->getGyro()->getAngle();
 
-	if(!CommandBase::s_drivebase->getGyro()->isDead() && USE_GYRO) {
-		m_finalAngle = angle; //Angle to get to
+    m_lastTime = clock();
+    m_timeInTarget = 0;
 
-		m_p = 0.01;
-		m_i = 0;
-		m_d = 0;
+    m_outputController = new PIDController(TURNDEGREE_PID_P, TURNDEGREE_PID_I, TURNDEGREE_PID_D,
+            CommandBase::s_drivebase->getGyro(), this);
 
-		m_gyroController = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getGyro(), this);
-		m_gyroController->SetOutputRange(-1, 1);
-	} else {
-		m_finalAngle = angle*18.33;
+    m_outputController->Disable();
 
-		m_p = -1./1000;
-		m_i = 0;
-		m_d = 0;
-
-		m_leftController = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getMotorGroupLeft(), CommandBase::s_drivebase->getMotorGroupLeft());
-		m_rightController = new PIDController(m_p, m_i, m_d, CommandBase::s_drivebase->getMotorGroupRight(), CommandBase::s_drivebase->getMotorGroupRight());
-		m_leftController->SetOutputRange(-1, 1);
-		m_rightController->SetOutputRange(-1, 1);
-	}
-
-	m_isDisabled = true;
+    m_outputController->SetOutputRange(-1, 1);
 }
 
-void cTurnAngle::Initialize() {
-	m_leftStart = CommandBase::s_drivebase->getMotorGroupLeft()->getPosition();
-	m_rightStart = CommandBase::s_drivebase->getMotorGroupRight()->getPosition();
-
-	m_startingAngle = CommandBase::s_drivebase->getGyro()->getAngle(); //Angle we start at
-
-	if(!CommandBase::s_drivebase->getGyro()->isDead() && USE_GYRO) {
-		m_gyroController->SetSetpoint(m_finalAngle + m_startingAngle);
-		m_gyroController->SetAbsoluteTolerance(ANGLE_OK_ERROR);
-		m_gyroController->Enable();
-	} else {
-		m_leftController->SetSetpoint(m_finalAngle + m_leftStart);
-		m_leftController->SetAbsoluteTolerance(ENCODER_OK_ERROR);
-
-		m_rightController->SetSetpoint(m_rightStart - m_finalAngle);
-		m_rightController->SetAbsoluteTolerance(ENCODER_OK_ERROR);
-
-		//m_leftController->Enable();
-		m_rightController->Enable();
-	}
-	m_isDisabled = false;
-
-	std::cout << "cTurnAngle init" << std::endl;
+void cTurnAngle::Initialize()
+{
+    m_outputController->Enable();
+    m_outputController->SetSetpoint(m_finalAngle);
 }
 
-void cTurnAngle::Execute() {
-	//See PIDWrite
-	std::cout << "RE: " << m_rightController->GetError() << std::endl;
+void cTurnAngle::Execute()
+{
+    if(abs(m_finalAngle - CommandBase::s_drivebase->getGyro()->getAngle()) < TURNANGLE_ANGLE_OK_RANGE)
+    {
+        // ask me whats going on here if i dont add a comment eventually
+        // doesnt actually return time
+        m_timeInTarget += 0.01;
+    }
+    else
+    {
+        m_timeInTarget = 0;
+    }
 }
 
-bool cTurnAngle::IsFinished() {
-	if(!CommandBase::s_drivebase->getGyro()->isDead() && USE_GYRO) {
-		return m_gyroController->OnTarget();
-	} else {
-		return m_leftController->OnTarget() && m_rightController->OnTarget();
-	}
+bool cTurnAngle::IsFinished()
+{
+    // TODO TODO TODO magic number range
+    return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT;
 }
 
-void cTurnAngle::End() {
-	m_isDisabled = true;
-	CommandBase::s_drivebase->setLeftSpeed(0);
-	CommandBase::s_drivebase->setRightSpeed(0);
-
-	if(!CommandBase::s_drivebase->getGyro()->isDead() && USE_GYRO) {
-		m_gyroController->Disable();
-	} else {
-		m_leftController->Disable();
-		m_rightController->Disable();
-	}
+void cTurnAngle::End()
+{
+    m_outputController->Disable();
 }
 
-void cTurnAngle::Interrupted() {
-	End();
+void cTurnAngle::Interrupted()
+{
+    End();
 }
 
-void cTurnAngle::PIDWrite(double output) {
-	if(!m_isDisabled) {
-		std::cout << "Error: " << m_gyroController->GetError() << "\tOutput: " << output << std::endl;
+void cTurnAngle::PIDWrite(double output)
+{
+    output = clamp(output, -0.5, 0.5);
 
-		if(output > 0.5) {
-			output = 0.5;
-		} else if(output < -0.5) {
-			output = -0.5;
-		}
-
-		CommandBase::s_drivebase->setLeftSpeed(output);
-		CommandBase::s_drivebase->setRightSpeed(-1*output);
-	}
+    CommandBase::s_drivebase->setLeftSpeed(-output);
+    CommandBase::s_drivebase->setRightSpeed(output);
 }

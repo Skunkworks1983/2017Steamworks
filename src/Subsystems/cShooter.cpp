@@ -66,7 +66,6 @@ void cShooter::EnablePID()
 	m_motor2->Set(SHOOTER_MOTOR1_PORT);
 	m_motor1->Enable();
 
-	std::cout << "Shooter PID enabled" << std::endl;
 }
 
 void cShooter::DisablePID()

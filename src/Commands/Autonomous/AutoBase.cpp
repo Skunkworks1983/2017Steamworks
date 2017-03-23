@@ -48,21 +48,11 @@ AutoBase* AutoBase::configureAutonomous()
 
     CommandGroup* waitThenIndex = new CommandGroup();
 
-    // config autonomous commands
-    switch(AutoBase::getStartingPosition())
-    {
-        // spin up the shooter to prepare to shoot balls
-        //commands->AddParallel(new cSpinUpShooter());
-
-        // start vision code to find the boiler
-        //commands->AddParallel(new cRotateTurret(30));
-    }
-
     // commands for moving to the lifts
     switch(AutoBase::getStartingPosition())
     {
     case POS_1:
-    	waitThenIndex->AddSequential(new cWait(6));
+    	waitThenIndex->AddSequential(new cWait(5.5));
 		waitThenIndex->AddSequential(new cRunFuelConveyor());
 
 		commands->AddParallel(new cDriveStraight(-7250*1.75, 0.3));
@@ -79,7 +69,7 @@ AutoBase* AutoBase::configureAutonomous()
     	commands->AddSequential(commands->goDead2());
         break;
     case POS_3:
-    	waitThenIndex->AddSequential(new cWait(6));
+    	waitThenIndex->AddSequential(new cWait(5.5));
 		waitThenIndex->AddSequential(new cRunFuelConveyor());
 
 		commands->AddParallel(new cDriveStraight(-7250*1.75, 0.3));
@@ -119,7 +109,9 @@ eStartingPosition AutoBase::getStartingPosition()
 
     // d2 d1
 
-    if(m_d1->Get()) {
+    if(m_d1->Get() && m_d2->Get()) {
+    	startingPosition = POS_2;
+    } else if(m_d1->Get()) {
     	startingPosition = POS_1;
     } else if(m_d2->Get()) {
     	startingPosition = POS_3;

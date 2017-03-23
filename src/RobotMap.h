@@ -11,7 +11,7 @@ const std::string LOGFILE_NAME = "robotLog";
 // // ROBOT SETTINGS // //
 
 //|||||||||||||||||||||||||||||||||||||||||||
-//#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
+#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
 //|||||||||||||||||||||||||||||||||||||||||||
 
 // // MESSENGER // //
@@ -54,6 +54,13 @@ const float SIMPLEDRIVEFORWARD_PID_F = 0.1 / 3000;
 const float TURNDEGREE_PID_P = 1;
 const float TURNDEGREE_PID_I = 1;
 const float TURNDEGREE_PID_D = 1;
+
+const float TURNANGLE_PID_P = 0.0325;
+const float TURNANGLE_PID_I = 0;
+const float TURNANGLE_PID_D = 0.07;
+
+const float TURNANGLE_ANGLE_OK_RANGE = 3; // +/- value
+const float TURNANGLE_ANGLE_OK_TIMEOUT = 3; // cycles that we kill the command after if the gyro angle is in the range for this amount of time
 
 const float TURNANGLE_TARGET_ANGLE = 71;
 const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
@@ -133,7 +140,7 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 const int TURRET_SWEEP_RANGE = 5050; // ticks. also 180 degrees
 
-const int TURRET_SETPOINT_LIFT_MIDDLE = 921; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_MIDDLE = 896; // angle our turret needs to be to aim at the boiler from the middle lift
 const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2) + 300; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
 const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
 

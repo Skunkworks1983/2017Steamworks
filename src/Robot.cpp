@@ -120,7 +120,9 @@ private:
 
 	void AutonomousInit() {
 		Scheduler::GetInstance()->RemoveAll();
-		Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
+		//Scheduler::GetInstance()->AddCommand(AutoBase::configureAutonomous());
+
+        Scheduler::GetInstance()->AddCommand(new cTurnAngle(180));
 
 		//Scheduler::GetInstance()->AddCommand(new cTurnAngle(90));
 		LOG_INFO("AutonomousInit called");
@@ -140,6 +142,8 @@ private:
 		LOG_INFO("TeleopInit called");
 		std::cout << "Init" << std::endl;
 
+		Scheduler::GetInstance()->AddCommand(new cTurnAngle(10));
+
 		// enable turret
 		CommandBase::s_turret->setEnabled(true);
 
@@ -151,8 +155,6 @@ private:
 
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
-
-		//std::cout << "Position: " << AutoBase::getStartingPosition() << "\tGet Alliance: " << AutoBase::getAlliance() << std::endl;
 	}
 
 	void TestPeriodic() {

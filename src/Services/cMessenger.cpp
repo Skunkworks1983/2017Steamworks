@@ -172,6 +172,8 @@ void* cMessenger::update(void* m)
             // lock
             messenger->m_threadMutex->lock();
 
+            std::cout << message << std::endl;
+
             // parse data
             if(message[0] == std::to_string(BOILER_PI_ID)[0])
             {
