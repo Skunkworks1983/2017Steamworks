@@ -45,7 +45,7 @@ private:
 
 	bool m_gyroMode;
 public:
-	cDriveStraight(float distance, float speed=0.25, float timeout=0); //In feet
+	cDriveStraight(float distance, float speed=0.25, float timeout=0, bool wiggly = false); //In feet
 	void Initialize();
 	void Execute();
 	bool IsFinished();

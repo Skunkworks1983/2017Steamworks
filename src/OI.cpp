@@ -71,7 +71,7 @@ OI::OI()
 
     m_unjam = new JoystickButton(m_buttons, OI_UNJAM_BUTTON);
     m_unjam->WhileHeld(new cRunFuelConveyor(-1));
-    m_unjam->WhileHeld(new cRunFuelIndexer(-1));
+    //m_unjam->WhileHeld(new cRunFuelIndexer(-1));
 
     // // // // // //
 

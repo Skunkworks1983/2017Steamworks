@@ -7,7 +7,7 @@
 AutoBase* AutoBase::placeGear()
 {
     AutoBase* placeGear = new AutoBase();
-    m_placeGear = new CommandGroup;
+    CommandGroup* m_placeGear = new CommandGroup();
     m_placeGear->AddSequential(new cCenterTape());
     m_placeGear->AddSequential(new cGearPath());
     m_placeGear->AddSequential(new cTurnDegree(AutoBase::s_angleTapeRobotPivotPoint));
