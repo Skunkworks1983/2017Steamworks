@@ -30,15 +30,11 @@
 // i know these shouldn't be constants, but it won't build
 // without them being that way. todo: fix
 const eAlliance alliance = RED;
-const eStartingPosition startPosition = POS_2;
+const eStartingPosition startPosition = POS_CENTER;
 
 class AutoBase: public frc::CommandGroup
 {
 private:
-    CommandGroup* m_placeGear;
-    CommandGroup* m_driveToLine;
-
-
 
 public:
     static double s_angleTapeRobotPivotPoint;
@@ -57,10 +53,12 @@ public:
     // returns the current alliance based on dial/switch
     static eAlliance getAlliance();
 
-    AutoBase* goLift1();
-    AutoBase* goLift2();
+    AutoBase* goLiftBoiler();
+    AutoBase* goLiftCenter();
     AutoBase* goDead2();
-    AutoBase* goLift3();
+    AutoBase* goLiftRetrieval();
+
+    AutoBase* goFarBoiler();
 
     AutoBase* crossBaseline();
 
