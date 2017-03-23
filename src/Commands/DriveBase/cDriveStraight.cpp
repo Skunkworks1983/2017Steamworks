@@ -1,6 +1,6 @@
 #include "cDriveStraight.h"
 
-cDriveStraight::cDriveStraight(float distance, float speed, float timeout) {
+cDriveStraight::cDriveStraight(float distance, float speed, float timeout, bool wiggly) {
 	Requires(s_drivebase);
 	std::cout << "Begin cDriveStraight construct" << std::endl;
 	m_endTicks = distance;
@@ -13,7 +13,11 @@ cDriveStraight::cDriveStraight(float distance, float speed, float timeout) {
 
 	m_speed = speed;
 
-	m_p = 0.030;
+	double wiggleFactor = 1;
+	if (wiggly) {
+	wiggleFactor = 1.1;
+	}
+	m_p = 0.030 * wiggleFactor;
 	m_i = 0;
 	m_d = 0.0006;
 	m_f = 0.05;
