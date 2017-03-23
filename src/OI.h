@@ -22,7 +22,8 @@ private:
     JoystickButton *m_loadBall;
     JoystickButton *m_runConveyor;
 
-    JoystickButton *m_collectorPos;
+    JoystickButton *m_collectorPosUp;
+    JoystickButton *m_collectorPosDown;
 
     // outdated
     JoystickButton *m_acquireGear;

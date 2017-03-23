@@ -125,7 +125,7 @@ eStartingPosition AutoBase::getStartingPosition()
     	startingPosition = POS_3;
     }
 
-    std::cout << "D1: " << m_d1->Get() << "\tD2: " << m_d2->Get() << std::endl;
+    //std::cout << "D1: " << m_d1->Get() << "\tD2: " << m_d2->Get() << std::endl;
 
     return startingPosition;
 }

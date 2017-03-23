@@ -33,7 +33,7 @@ public:
     static iMessenger* s_liftMessenger;
     static iClimber * s_climber;
     static iGearCollector* s_gearCollector;
-    static iFuelCollector* s_fuelCollector;
+    static iFuelCollector* s_floorCollector;
     static iFuelConveyor* s_fuelConveyor;
     static iFuelIndexer* s_fuelIndexer;
     static iShooter* s_shooter;

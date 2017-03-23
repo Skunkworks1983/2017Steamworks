@@ -9,9 +9,9 @@
 #include <Commands/Shooter/cAcquireBall.h>
 #include <Commands/Shooter/cShootPID.h>
 #include <Commands/Turret/cRotateTurret.h>
-#include <Commands/FuelCollector/cRunFuelCollector.h>
-#include <Commands/FuelCollector/cSetCollectorPos.h>
 #include <Commands/DriveBase/cSwitchBackFront.h>
+#include <Commands/FloorCollector/cRunFloorCollector.h>
+#include <Commands/FloorCollector/cSetCollectorPos.h>
 #include <Commands/FuelIndexer/cRunFuelIndexer.h>
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Turret/cManualTurretControl.h>
@@ -30,7 +30,8 @@ OI::OI()
 
     m_climbRope = new JoystickButton(m_buttons, 11);
 
-    m_collectorPos = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOS);
+    m_collectorPosUp = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOSUP);
+    m_collectorPosDown = new JoystickButton(m_buttons, OI_JOYSTICK_COLLECTORPOSDOWN);
 
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
     m_acquireBall = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREBALL_BUTTON);
@@ -46,11 +47,17 @@ OI::OI()
     m_shootPosHopperClose->WhenPressed(new cAssignTargetBoiler(HOPPER_CLOSE));
 
     m_enableManual = new JoystickButton(m_buttons, OI_JOYSTICK_TURRET_CONTROL);
-    m_enableManual->WhileHeld(new cManualShooterControl());
-    m_enableManual->WhileHeld(new cManualTurretControl());
+    CommandGroup* manualControllers = new CommandGroup();
+    manualControllers->AddParallel(new cManualShooterControl());
+    manualControllers->AddParallel(new cManualTurretControl());
+    m_enableManual->WhileHeld(manualControllers);
     m_runConveyor->WhileHeld(new cRunFuelConveyor());
 
-    m_collectorPos->WhileHeld(new cSetCollectorPos());
+    m_collectorPosUp->WhileHeld(new cSetCollectorPos(FLOORCOLLECTOR_MIN_ENC_ANGLE));
+    CommandGroup* DownRoll = new CommandGroup();
+    DownRoll->AddParallel(new cRunFloorCollector(1));
+    DownRoll->AddParallel(new cSetCollectorPos(FLOORCOLLECTOR_MAX_ENC_ANGLE));
+    m_collectorPosDown->WhileHeld(DownRoll);
 
     m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
     m_spinUpShooter->WhileHeld(new cSpinUpShooter());
@@ -68,7 +75,7 @@ OI::OI()
 
     // // // // // //
 
-    m_acquireBall->WhileHeld(new cRunFuelCollector(1));
+    m_acquireBall->WhileHeld(new cRunFloorCollector(-1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
 }
 

@@ -11,7 +11,6 @@
 #include "Subsystems/cDriveBase.h"
 #include "Subsystems/cClimber.h"
 #include "Subsystems/cGearCollector.h"
-#include "Subsystems/cFuelCollector.h"
 #include "Subsystems/cShooter.h"
 #include "Subsystems/cTurret.h"
 #include <Services/cMessenger.h>
@@ -32,6 +31,7 @@
 #include <Subsystems/Sensors/cColorSensor.h>
 
 #include <DigitalInput.h>
+#include <Subsystems/cFloorCollector.h>
 
 
 class Robot: public IterativeRobot {
@@ -58,7 +58,7 @@ private:
 		CommandBase::s_climber = new cClimber();
 		CommandBase::s_turret = new cTurret();
 		CommandBase::s_gearCollector = new cGearCollector();
-		CommandBase::s_fuelCollector = new cFuelCollector();
+		CommandBase::s_floorCollector = new cFloorCollector();
 		//CommandBase::s_fuelLoader = new cFuelLoader();
 		CommandBase::s_fuelIndexer = new cFuelIndexer();
 		CommandBase::s_fuelConveyor = new cFuelConveyor();
@@ -135,8 +135,8 @@ private:
 
 	void TeleopInit() {
 		Scheduler::GetInstance()->RemoveAll();
-		Scheduler::GetInstance()->AddCommand(tankDrive);
-		//Scheduler::GetInstance()->AddCommand(runMotor);
+		//Scheduler::GetInstance()->AddCommand(tankDrive);
+		Scheduler::GetInstance()->AddCommand(runMotor);
 		LOG_INFO("TeleopInit called");
 		std::cout << "Init" << std::endl;
 
@@ -152,7 +152,7 @@ private:
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
 
-		std::cout << "Position: " << AutoBase::getStartingPosition() << "\tGet Alliance: " << AutoBase::getAlliance() << std::endl;
+		//std::cout << "Position: " << AutoBase::getStartingPosition() << "\tGet Alliance: " << AutoBase::getAlliance() << std::endl;
 	}
 
 	void TestPeriodic() {
