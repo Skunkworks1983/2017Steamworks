@@ -263,13 +263,14 @@ const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = (10.5 / 12); //inches to feet
 const float angleGoalPivotPointTape = .4131; //rads (23.67 degrees)
 const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 2; //feet. This is to give some safe space to turn
 
+const double TICK_INCH_RATIO = (7250/114);
 const double BOILER_START_FIRST_ANGLE = 60; //deg
-const double BOILER_START_DRIVE_DISTANCE = 7.7; //feet
+const double BOILER_START_DRIVE_DISTANCE = 92 * TICK_INCH_RATIO; //feet
 const double RETRIEVAL_START_FIRST_ANGLE = 6; //deg
 const double RETRIEVAL_START_SECOND_ANGLE = 54; //deg
-const double RETRIEVAL_START_DRIVE_DISTANCE = (115/12); //115 inches
-const double DISTANCE_WALL_TO_BASE_LINE = (114/12); // 114 inches
-const double DISTANCE_BASE_LINE_TO_PEG = (34.5/12); // ever so slightly less than 3 feet
+const double RETRIEVAL_START_DRIVE_DISTANCE = 115 * TICK_INCH_RATIO; //115 inches, converted to feet, converted to ticks
+const double DISTANCE_WALL_TO_BASE_LINE = 114 * TICK_INCH_RATIO; // 114 inches
+const double DISTANCE_BASE_LINE_TO_PEG = 34.5 * TICK_INCH_RATIO; // ever so slightly less than 3 feet
 const double angleInfinityBaseLinePeg = 60; //we're turning relative to a hexagon. having a good time.
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
