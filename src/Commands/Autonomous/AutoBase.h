@@ -64,6 +64,8 @@ public:
 
     AutoBase* placeGear();
 
+    AutoBase* goHopper();
+
     static DigitalInput* m_d1;
     static DigitalInput* m_d2;
 
