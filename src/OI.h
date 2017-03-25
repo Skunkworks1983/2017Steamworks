@@ -25,6 +25,9 @@ private:
     JoystickButton *m_collectorPosUp;
     JoystickButton *m_collectorPosDown;
 
+    JoystickButton *m_manualCollectorUp;
+    JoystickButton *m_manualCollectorDown;
+
     // outdated
     JoystickButton *m_acquireGear;
     JoystickButton *m_acquireBall;

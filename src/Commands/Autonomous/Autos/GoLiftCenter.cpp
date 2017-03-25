@@ -15,7 +15,7 @@ AutoBase* AutoBase::goLiftCenter()
 	float BACKUP_DIST = 100;
 	float BACKUP_SPEED = -0.15;
 	float BACKUP_TIMEOUT = 1;
-	float SHOOTER_SETPOINT = 79;
+	float SHOOTER_SETPOINT = 8800;
 
     AutoBase* commands = new AutoBase();
     CommandGroup* waitThenIndex = new CommandGroup();

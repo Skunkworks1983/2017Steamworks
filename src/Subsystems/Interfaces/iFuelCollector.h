@@ -21,6 +21,8 @@ public:
     virtual double getError() = 0;
 
     virtual void setEnabled(bool enabled) = 0;
+
+    virtual void setFlapSpeed(double speed) = 0;
 };
 
 

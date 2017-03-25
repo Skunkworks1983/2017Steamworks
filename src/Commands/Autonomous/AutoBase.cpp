@@ -48,13 +48,13 @@ AutoBase* AutoBase::configureAutonomous()
     switch(AutoBase::getStartingPosition())
     {
     case POS_BOILER:
-    	commands->AddSequential(commands->goFarBoiler());
+    	commands->AddSequential(commands->goLiftBoiler());
     	break;
     case POS_CENTER:
     	commands->AddSequential(commands->goLiftCenter());
         break;
     case POS_RETRIEVAL:
-    	commands->AddSequential(commands->goFarBoiler());
+    	commands->AddSequential(commands->goLiftRetrieval());
         break;
     default:
         break;
@@ -83,11 +83,16 @@ eStartingPosition AutoBase::getStartingPosition()
 
     if(m_d1->Get() && m_d2->Get()) {
     	startingPosition = POS_CENTER;
+    	std::cout << "Center" << std::endl;
     } else if(m_d1->Get()) {
     	startingPosition = POS_BOILER;
+    	std::cout << "Boiler" << std::endl;
     } else if(m_d2->Get()) {
     	startingPosition = POS_RETRIEVAL;
+    	std::cout << "Retrieval" << std::endl;
     }
+
+
 
     return startingPosition;
 }

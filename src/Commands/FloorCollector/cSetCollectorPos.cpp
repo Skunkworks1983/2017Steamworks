@@ -23,7 +23,7 @@ bool cSetCollectorPos::IsFinished() {
 
 // Called once after isFinished returns true
 void cSetCollectorPos::End() {
-    CommandBase::s_floorCollector->setFlapSetpoint(m_setpoint);
+    CommandBase::s_floorCollector->setFlapSetpoint(FLOORCOLLECTOR_MIN_ENC_ANGLE);
 }
 
 // Called when another command which requires one or more of the same

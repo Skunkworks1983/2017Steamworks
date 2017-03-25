@@ -16,8 +16,8 @@ cFloorCollector::cFloorCollector()
     m_collectorMotor->setBrakeMode(true);
 
     m_p = 1./1250;
-    m_i = 0;
-    m_d = 1./1000;
+    m_i = 1./10000000;
+    m_d = 1./950;
 
     m_controller = new PIDController(m_p, m_i, m_d, m_angleMotor, m_angleMotor);
 
@@ -51,3 +51,8 @@ void cFloorCollector::setEnabled(bool enabled) {
 	}
 }
 
+void cFloorCollector::setFlapSpeed(double speed) {
+	if(!m_controller->IsEnabled()) {
+		m_angleMotor->setOutput(speed);
+	}
+}
