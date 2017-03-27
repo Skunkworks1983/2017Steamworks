@@ -24,10 +24,10 @@ cShootPID::cShootPID(double setpoint, float timeout)
 
 void cShootPID::Initialize()
 {
-	double p = 0;//SmartDashboard::GetNumber("P", SHOOTER_P);
+	double p = 0.144;//SmartDashboard::GetNumber("P", SHOOTER_P);
 	double i = 0;//SmartDashboard::GetNumber("I", SHOOTER_I);
 	double d = 0;//SmartDashboard::GetNumber("D", SHOOTER_D);
-	double f = 0.25;//SmartDashboard::GetNumber("F", SHOOTER_F);
+	double f = 0.0385*1.075;//SmartDashboard::GetNumber("F", SHOOTER_F);
 
 	std::cout <<"cShootPID initialize";
 
@@ -85,7 +85,7 @@ bool cShootPID::IsFinished()
 void cShootPID::End()
 {
 	std::cout << "cShootPID End";
-	CommandBase::s_shooter->setSpeed(0);
+	CommandBase::s_shooter->setSetpoint(0);
 	CommandBase::s_shooter->DisablePID();
 	CommandBase::s_shooter->ResetPID();
 }

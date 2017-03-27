@@ -155,7 +155,6 @@ private:
 
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
-		AutoBase::getStartingPosition();
 	}
 
 	void TestPeriodic() {

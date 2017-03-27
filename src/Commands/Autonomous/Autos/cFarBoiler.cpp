@@ -12,9 +12,9 @@ AutoBase* AutoBase::goFarBoiler() {
 	float WAIT_TIME = 5.5;
 	float AIRSHIP_TICK_DISTANCE = -7250*1.75;
 	float AIRSHIP_TRAVEL_SPEED = 0.3;
-	float TURRET_BLUE_SETPOINT = TURRET_SWEEP_RANGE-2050;
-	float TURRET_RED_SETPOINT = 2050;
-	float SHOOTER_SETPOINT = 79;
+	float TURRET_BLUE_SETPOINT = TURRET_SWEEP_RANGE+2050;
+	float TURRET_RED_SETPOINT = -2050;
+	float SHOOTER_SETPOINT = 9750;
 
 	AutoBase* commands = new AutoBase();
 	CommandGroup* waitThenIndex = new CommandGroup();

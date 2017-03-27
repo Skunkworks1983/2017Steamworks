@@ -6,6 +6,8 @@ cTurnAngle::cTurnAngle(float angle)
 {
     Requires(CommandBase::s_drivebase);
 
+    SetTimeout(3);
+
     float TURNANGLE_PID_P = 0.0325/0.75;
     float TURNANGLE_PID_I = 0;
     float TURNANGLE_PID_D = 0.075;
@@ -48,7 +50,7 @@ bool cTurnAngle::IsFinished()
 {
     // TODO TODO TODO magic number range
 	std::cout << "Error: " << m_outputController->GetError() << "\tCounter: " << m_timeInTarget << std::endl;
-    return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT;
+    return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT || IsTimedOut();
 }
 
 void cTurnAngle::End()

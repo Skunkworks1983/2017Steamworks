@@ -12,9 +12,9 @@
 AutoBase* AutoBase::goLiftBoiler()
 {
 	float WAIT_TIME = 5.5;
-	float TURRET_BLUE_SETPOINT = TURRET_SWEEP_RANGE-2050; //quod? TODO
-	float TURRET_RED_SETPOINT = -1234; //placeholder TODO
-	float SHOOTER_SETPOINT = 1234; //the placest of holders TODO
+	float TURRET_BLUE_SETPOINT = TURRET_SWEEP_RANGE+2050; //quod? TODO
+	float TURRET_RED_SETPOINT = -2050; //placeholder TODO
+	float SHOOTER_SETPOINT = 9500; //the placest of holders TODO
     const std::string friendlyWarning = "But the soul is still oracular; amid the market's din \nList the ominous stern whisper from the Delphic cave within \nThey enslave their children's children who make compromise with sin";
     std::cout << "GO LIFT BOILER" << std::endl;
     AutoBase* commands = new AutoBase();

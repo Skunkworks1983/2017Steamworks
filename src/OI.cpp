@@ -40,7 +40,7 @@ OI::OI()
     m_manualCollectorUp = new JoystickButton(m_buttons, 12);
     m_manualCollectorDown = new JoystickButton(m_buttons, 13);
 
-    m_shootPosLiftMiddle = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_MIDDLE);
+    m_shootPosLiftMiddle = new JoystickButton(m_buttons, 1);
     m_shootPosLiftClose = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_CLOSE);
     m_shootPosHopperClose = new JoystickButton(m_buttons, 5);
 
@@ -63,11 +63,11 @@ OI::OI()
     DownRoll->AddParallel(new cSetCollectorPos(FLOORCOLLECTOR_MAX_ENC_ANGLE));
     m_collectorPosDown->WhileHeld(DownRoll);
 
-    m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
-    m_spinUpShooter->WhileHeld(new cSpinUpShooter());
+    /*m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
+    m_spinUpShooter->WhileHeld(new cSpinUpShooter());*/
 
     m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
-    m_pidSpinUpShooter->WhileHeld(new cShootPID(8800));
+    m_pidSpinUpShooter->WhileHeld(new cShootPID(9200));
 
     m_manualCollectorUp->WhileHeld(new cSetCollectorSpeed(0.25));
     m_manualCollectorDown->WhileHeld(new cSetCollectorSpeed(-0.25));

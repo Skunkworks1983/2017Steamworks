@@ -114,7 +114,7 @@ const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 const int FUELCOLLECTOR_COLLECTOR_PORT = 6;
 const int FUELCOLLECTOR_ANGLE_PORT = 8;
 
-const int FLOORCOLLECTOR_MIN_ENC_ANGLE = 0;
+const int FLOORCOLLECTOR_MIN_ENC_ANGLE = 100;
 const int FLOORCOLLECTOR_MAX_ENC_ANGLE = -1500;
 
 // // FUEL INDEXER // //
@@ -269,10 +269,10 @@ const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 2; //feet. This is to give some 
 
 const double TICK_INCH_RATIO = (7250/114);
 const double BOILER_START_FIRST_ANGLE = 60; //deg
-const double BOILER_START_DRIVE_DISTANCE = 7225; //feet
+const double BOILER_START_DRIVE_DISTANCE = 7225 + (7250./114 * 4); //feet
 const double RETRIEVAL_START_FIRST_ANGLE = 6; //deg
 const double RETRIEVAL_START_SECOND_ANGLE = 54; //deg
-const double RETRIEVAL_START_DRIVE_DISTANCE = -88.5 * TICK_INCH_RATIO; //115 inches, converted to feet, converted to ticks
+const double RETRIEVAL_START_DRIVE_DISTANCE = -106.5 * TICK_INCH_RATIO; //115 inches, converted to feet, converted to ticks
 const double DISTANCE_WALL_TO_BASE_LINE = 114 * TICK_INCH_RATIO; // 114 inches
 const double DISTANCE_BASE_LINE_TO_PEG = 36 * TICK_INCH_RATIO; // ever so slightly less than 3 feet
 const double angleInfinityBaseLinePeg = 60; //we're turning relative to a hexagon. having a good time.
