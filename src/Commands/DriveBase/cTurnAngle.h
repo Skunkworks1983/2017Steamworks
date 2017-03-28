@@ -10,9 +10,9 @@
 #include <math.h>
 
 class cTurnAngle : public CommandBase, public PIDOutput {
+	float m_startAngle;
     float m_finalAngle;
     float m_timeInTarget = 0;
-    float m_lastTime = 0;
 
     PIDController* m_outputController;
 

@@ -5,23 +5,22 @@
 #include <Commands/DriveBase/cDriveStraight.h>
 
 AutoBase* AutoBase::goLiftRetrieval() {
-	AutoBase* commands = new AutoBase();
+
+	AutoBase* driving = new AutoBase();
+	/*if (AutoBase::getAlliance() == RED) {
+		driving->AddSequential(new cTurnAngle(RETRIEVAL_START_FIRST_ANGLE));
+	} else {
+		driving->AddSequential(new cTurnAngle(-1 * RETRIEVAL_START_FIRST_ANGLE));
+	}*/
+
+	driving->AddSequential(new cDriveStraight(RETRIEVAL_START_DRIVE_DISTANCE));
 
 	if (AutoBase::getAlliance() == RED) {
-		commands->AddSequential(new cTurnAngle(RETRIEVAL_START_FIRST_ANGLE));
+		driving->AddSequential(new cTurnAngle(RETRIEVAL_START_SECOND_ANGLE));
 	} else {
-		commands->AddSequential(new cTurnAngle(-1 * RETRIEVAL_START_FIRST_ANGLE));
+		driving->AddSequential(new cTurnAngle(-1 * RETRIEVAL_START_SECOND_ANGLE));
 	}
+	driving->AddSequential(new cDriveStraight(DISTANCE_BASE_LINE_TO_PEG, .25, 0, true));
 
-	commands->AddSequential(
-			new cDriveStraight(RETRIEVAL_START_DRIVE_DISTANCE));
-
-	if (AutoBase::getAlliance() == RED) {
-		commands->AddSequential(new cTurnAngle(RETRIEVAL_START_SECOND_ANGLE));
-	} else {
-		commands->AddSequential(new cTurnAngle(-1 * RETRIEVAL_START_SECOND_ANGLE));
-	}
-	commands->AddSequential(new cDriveStraight(DISTANCE_BASE_LINE_TO_PEG, .25, 0, true));
-
-	return commands;
+	return driving;
 }

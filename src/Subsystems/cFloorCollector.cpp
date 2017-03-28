@@ -13,15 +13,17 @@ cFloorCollector::cFloorCollector()
     m_collectorMotor = new cMotor(FUELCOLLECTOR_COLLECTOR_PORT, BaneBots775);
     m_angleMotor = new cMotor(FUELCOLLECTOR_ANGLE_PORT, BaneBots775, true);
 
+    m_angleMotor->setPosition(0);
+
     m_collectorMotor->setBrakeMode(true);
 
     m_p = 1./1250;
-    m_i = 0;
-    m_d = 1./1000;
+    m_i = 2./10000000;
+    m_d = 1./950;
 
     m_controller = new PIDController(m_p, m_i, m_d, m_angleMotor, m_angleMotor);
 
-    m_controller->SetOutputRange(-1, 1);
+    m_controller->SetOutputRange(-0.25, 0.25);
 }
 
 void cFloorCollector::setCollectorSpeed(double speed) {
@@ -51,3 +53,8 @@ void cFloorCollector::setEnabled(bool enabled) {
 	}
 }
 
+void cFloorCollector::setFlapSpeed(double speed) {
+	if(!m_controller->IsEnabled()) {
+		m_angleMotor->setOutput(speed);
+	}
+}

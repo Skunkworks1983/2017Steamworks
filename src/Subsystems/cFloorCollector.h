@@ -37,6 +37,8 @@ public:
     double getError();
 
     void setEnabled(bool enabled);
+
+    void setFlapSpeed(double speed);
 };
 
 #endif /* SRC_SUBSYSTEMS_CFLOORCOLLECTOR_H_ */

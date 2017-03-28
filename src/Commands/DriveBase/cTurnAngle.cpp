@@ -6,28 +6,35 @@ cTurnAngle::cTurnAngle(float angle)
 {
     Requires(CommandBase::s_drivebase);
 
-    m_finalAngle = angle + CommandBase::s_drivebase->getGyro()->getAngle();
+    SetTimeout(3);
 
-    m_lastTime = clock();
+    float TURNANGLE_PID_P = 0.0325/0.75;
+    float TURNANGLE_PID_I = 0;
+    float TURNANGLE_PID_D = 0.075;
+
+    m_startAngle = angle;
+
     m_timeInTarget = 0;
 
-    m_outputController = new PIDController(TURNDEGREE_PID_P, TURNDEGREE_PID_I, TURNDEGREE_PID_D,
+    m_outputController = new PIDController(TURNANGLE_PID_P, TURNANGLE_PID_I, TURNANGLE_PID_D,
             CommandBase::s_drivebase->getGyro(), this);
 
     m_outputController->Disable();
 
-    m_outputController->SetOutputRange(-1, 1);
+    m_outputController->SetOutputRange(-0.5, 0.5);
 }
 
 void cTurnAngle::Initialize()
 {
+	m_finalAngle = m_startAngle + CommandBase::s_drivebase->getGyro()->getAngle();
+	m_outputController->SetSetpoint(m_finalAngle);
     m_outputController->Enable();
-    m_outputController->SetSetpoint(m_finalAngle);
+    m_outputController->SetAbsoluteTolerance(TURNANGLE_ANGLE_OK_RANGE);
 }
 
 void cTurnAngle::Execute()
 {
-    if(abs(m_finalAngle - CommandBase::s_drivebase->getGyro()->getAngle()) < TURNANGLE_ANGLE_OK_RANGE)
+    if(m_outputController->OnTarget())
     {
         // ask me whats going on here if i dont add a comment eventually
         // doesnt actually return time
@@ -42,11 +49,13 @@ void cTurnAngle::Execute()
 bool cTurnAngle::IsFinished()
 {
     // TODO TODO TODO magic number range
-    return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT;
+	std::cout << "Error: " << m_outputController->GetError() << "\tCounter: " << m_timeInTarget << std::endl;
+    return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT || IsTimedOut();
 }
 
 void cTurnAngle::End()
 {
+	std::cout << "cTurnAngle end" << std::endl;
     m_outputController->Disable();
 }
 

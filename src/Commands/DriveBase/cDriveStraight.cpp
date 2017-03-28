@@ -15,7 +15,7 @@ cDriveStraight::cDriveStraight(float distance, float speed, float timeout, bool 
 
 	double wiggleFactor = 1;
 	if (wiggly) {
-	wiggleFactor = 1.1;
+	wiggleFactor = 2;
 	}
 	m_p = 0.030 * wiggleFactor;
 	m_i = 0;
@@ -85,7 +85,8 @@ double cDriveStraight::PIDGet() {
 	if(m_gyroMode) {
 		return CommandBase::s_drivebase->getGyro()->getAngle();
 	} else {
-		return (CommandBase::s_drivebase->getMotorGroupRight()->getPosition() - CommandBase::s_drivebase->getMotorGroupLeft()->getPosition())/51.433;
+		return m_speed;
+		//return (CommandBase::s_drivebase->getMotorGroupRight()->getPosition() - CommandBase::s_drivebase->getMotorGroupLeft()->getPosition())/51.433;
 	}
 }
 
@@ -97,8 +98,6 @@ void cDriveStraight::PIDWrite(double output) {
 		} else if(output < -0.95) {
 			output = -0.95;
 		}
-
-		std::cout << "Output: " << output << std::endl;
 
 		float leftSpeed = (m_speed - output);
 		float rightSpeed = (m_speed + output);

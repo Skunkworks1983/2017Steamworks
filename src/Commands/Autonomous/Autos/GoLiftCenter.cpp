@@ -10,12 +10,12 @@ AutoBase* AutoBase::goLiftCenter()
 {
 	float WAIT_TIME = 6;
 	float DRIVE_DISTANCE = -7250;
-	float DRIVE_STRAIGHT_SPEED = 0.2;
+	float DRIVE_STRAIGHT_SPEED = 0.25;
 	float DRIVE_TIMEOUT = 5.5;
 	float BACKUP_DIST = 100;
 	float BACKUP_SPEED = -0.15;
 	float BACKUP_TIMEOUT = 1;
-	float SHOOTER_SETPOINT = 79;
+	float SHOOTER_SETPOINT = 9750;
 
     AutoBase* commands = new AutoBase();
     CommandGroup* waitThenIndex = new CommandGroup();

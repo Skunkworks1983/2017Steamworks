@@ -16,7 +16,7 @@ cManualShooterControl::cManualShooterControl()
 
 void cManualShooterControl::Initialize()
 {
-	CommandBase::s_shooter->setManualEnabled(true);
+	CommandBase::s_shooter->setManualEnabled(true); //Changes the mode, cant getSpeed while enabled
 }
 
 void cManualShooterControl::Execute()

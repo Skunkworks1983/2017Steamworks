@@ -12,6 +12,7 @@
 #include <Commands/DriveBase/cSwitchBackFront.h>
 #include <Commands/FloorCollector/cRunFloorCollector.h>
 #include <Commands/FloorCollector/cSetCollectorPos.h>
+#include <Commands/FloorCollector/cSetCollectorSpeed.h>
 #include <Commands/FuelIndexer/cRunFuelIndexer.h>
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/Turret/cManualTurretControl.h>
@@ -36,7 +37,10 @@ OI::OI()
     m_acquireGear = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREGEAR_BUTTON);
     m_acquireBall = new JoystickButton(m_buttons, OI_JOYSTICK_ACQUIREBALL_BUTTON);
 
-    m_shootPosLiftMiddle = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_MIDDLE);
+    m_manualCollectorUp = new JoystickButton(m_buttons, 12);
+    m_manualCollectorDown = new JoystickButton(m_buttons, 13);
+
+    m_shootPosLiftMiddle = new JoystickButton(m_buttons, 1);
     m_shootPosLiftClose = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_CLOSE);
     m_shootPosHopperClose = new JoystickButton(m_buttons, 5);
 
@@ -53,17 +57,20 @@ OI::OI()
     m_enableManual->WhileHeld(manualControllers);
     m_runConveyor->WhileHeld(new cRunFuelConveyor());
 
-    m_collectorPosUp->WhileHeld(new cSetCollectorPos(FLOORCOLLECTOR_MIN_ENC_ANGLE));
+    m_collectorPosUp->WhileHeld(new cRunFloorCollector(-1));
     CommandGroup* DownRoll = new CommandGroup();
     DownRoll->AddParallel(new cRunFloorCollector(1));
     DownRoll->AddParallel(new cSetCollectorPos(FLOORCOLLECTOR_MAX_ENC_ANGLE));
     m_collectorPosDown->WhileHeld(DownRoll);
 
-    m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
-    m_spinUpShooter->WhileHeld(new cSpinUpShooter());
+    /*m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
+    m_spinUpShooter->WhileHeld(new cSpinUpShooter());*/
 
     m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
-    m_pidSpinUpShooter->WhileHeld(new cShootPID(79));
+    m_pidSpinUpShooter->WhileHeld(new cShootPID(9200));
+
+    m_manualCollectorUp->WhileHeld(new cSetCollectorSpeed(0.25));
+    m_manualCollectorDown->WhileHeld(new cSetCollectorSpeed(-0.25));
 
     // // // // // //
 
@@ -71,11 +78,10 @@ OI::OI()
 
     m_unjam = new JoystickButton(m_buttons, OI_UNJAM_BUTTON);
     m_unjam->WhileHeld(new cRunFuelConveyor(-1));
-    //m_unjam->WhileHeld(new cRunFuelIndexer(-1));
 
     // // // // // //
 
-    m_acquireBall->WhileHeld(new cRunFloorCollector(-1));
+    //m_acquireBall->WhileHeld(new cRunFloorCollector(-1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
 }
 

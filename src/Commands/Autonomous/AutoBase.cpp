@@ -48,7 +48,7 @@ AutoBase* AutoBase::configureAutonomous()
     switch(AutoBase::getStartingPosition())
     {
     case POS_BOILER:
-    	commands->AddSequential(commands->goFarBoiler());
+    	commands->AddSequential(commands->goLiftBoiler());
     	break;
     case POS_CENTER:
     	commands->AddSequential(commands->goLiftCenter());
@@ -88,6 +88,8 @@ eStartingPosition AutoBase::getStartingPosition()
     } else if(m_d2->Get()) {
     	startingPosition = POS_RETRIEVAL;
     }
+
+
 
     return startingPosition;
 }

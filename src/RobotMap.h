@@ -11,7 +11,7 @@ const std::string LOGFILE_NAME = "robotLog";
 // // ROBOT SETTINGS // //
 
 //|||||||||||||||||||||||||||||||||||||||||||
-#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
+//#define PRACTICE_BOT //COMMENT OUT IF ITS NOT PRACTICE BOT
 //|||||||||||||||||||||||||||||||||||||||||||
 
 // // MESSENGER // //
@@ -55,12 +55,8 @@ const float TURNDEGREE_PID_P = 1;
 const float TURNDEGREE_PID_I = 1;
 const float TURNDEGREE_PID_D = 1;
 
-const float TURNANGLE_PID_P = 0.0325;
-const float TURNANGLE_PID_I = 0;
-const float TURNANGLE_PID_D = 0.07;
-
 const float TURNANGLE_ANGLE_OK_RANGE = 3; // +/- value
-const float TURNANGLE_ANGLE_OK_TIMEOUT = 3; // cycles that we kill the command after if the gyro angle is in the range for this amount of time
+const float TURNANGLE_ANGLE_OK_TIMEOUT = 0.25; // cycles that we kill the command after if the gyro angle is in the range for this amount of time
 
 const float TURNANGLE_TARGET_ANGLE = 71;
 const float TURNANGLE_ABSTOLERANCE_ANGLE = .01;
@@ -80,11 +76,11 @@ const int OI_JOYSTICK_OPERATOR_PORT = 2;
 
 const int OI_JOYSTICK_ASSIGN_LIFT_MIDDLE = 2345;
 const int OI_JOYSTICK_ASSIGN_LIFT_CLOSE = 15;
-const int OI_JOYSTICK_ASSIGN_HOPPER_CLOSE = 16;
+const int OI_JOYSTICK_ASSIGN_HOPPER_CLOSE = 100;
 
 const int OI_JOYSTICK_ACQUIREBALL_BUTTON = 1;
 const int OI_JOYSTICK_COLLECTORPOSUP = 2;
-const int OI_JOYSTICK_COLLECTORPOSDOWN = 12;
+const int OI_JOYSTICK_COLLECTORPOSDOWN = 16;
 const int OI_JOYSTICK_ACQUIREGEAR_BUTTON = 3;
 //cont in *turtles*
 //const int OI_JOYSTICK_ASSIGNTARGETBOILER = 3; not yet used
@@ -118,8 +114,8 @@ const float ROPECLIMB_COMMAND_TIME_OFF = 1;
 const int FUELCOLLECTOR_COLLECTOR_PORT = 6;
 const int FUELCOLLECTOR_ANGLE_PORT = 8;
 
-const int FLOORCOLLECTOR_MIN_ENC_ANGLE = 0;
-const int FLOORCOLLECTOR_MAX_ENC_ANGLE = -1530;
+const int FLOORCOLLECTOR_MIN_ENC_ANGLE = 100;
+const int FLOORCOLLECTOR_MAX_ENC_ANGLE = -1500;
 
 // // FUEL INDEXER // //
 const int FUELLOADER_MOTOR1_PORT = 6;
@@ -139,9 +135,9 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 // // TURRETLES  //  //
 
-const int TURRET_SWEEP_RANGE = 5050; // ticks. also 180 degrees
+const int TURRET_SWEEP_RANGE = -5050; // ticks. also 180 degrees
 
-const int TURRET_SETPOINT_LIFT_MIDDLE = 896; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_MIDDLE = -896; // angle our turret needs to be to aim at the boiler from the middle lift
 const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2) + 300; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
 const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
 
@@ -273,12 +269,12 @@ const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 2; //feet. This is to give some 
 
 const double TICK_INCH_RATIO = (7250/114);
 const double BOILER_START_FIRST_ANGLE = 60; //deg
-const double BOILER_START_DRIVE_DISTANCE = 92 * TICK_INCH_RATIO; //feet
+const double BOILER_START_DRIVE_DISTANCE = 7225 + (7250./114 * 4); //feet
 const double RETRIEVAL_START_FIRST_ANGLE = 6; //deg
 const double RETRIEVAL_START_SECOND_ANGLE = 54; //deg
-const double RETRIEVAL_START_DRIVE_DISTANCE = 115 * TICK_INCH_RATIO; //115 inches, converted to feet, converted to ticks
+const double RETRIEVAL_START_DRIVE_DISTANCE = -106.5 * TICK_INCH_RATIO; //115 inches, converted to feet, converted to ticks
 const double DISTANCE_WALL_TO_BASE_LINE = 114 * TICK_INCH_RATIO; // 114 inches
-const double DISTANCE_BASE_LINE_TO_PEG = 34.5 * TICK_INCH_RATIO; // ever so slightly less than 3 feet
+const double DISTANCE_BASE_LINE_TO_PEG = 36 * TICK_INCH_RATIO; // ever so slightly less than 3 feet
 const double angleInfinityBaseLinePeg = 60; //we're turning relative to a hexagon. having a good time.
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
