@@ -181,6 +181,13 @@ const float SHOOTER_SPEED_TOLERANCE = 0.1; // percent of setpoint
 const int AUTO_TOGGLE_POS = 6; //or 7
 const int AUTO_TOGGLE_ALLIANCE = 7; //or 6
 
+const float SHOOTER_MOTOR_GEAR_TEETH = 18.0;
+const float SHOOTER_WHEEL_GEAR_TEETH = 24.0;
+
+const float SHOOTER_ENCODER_TICKS_PER_REVOLUTION = 256.0 / 4.0;
+
+const float TICKS_TO_WHEEL_REVOLUTIONS = (SHOOTER_WHEEL_GEAR_TEETH / SHOOTER_MOTOR_GEAR_TEETH) * (SHOOTER_ENCODER_TICKS_PER_REVOLUTION); // (G2/G1) * E
+
 // // GEAR COLLECTOR // //
 
 const int GEARCOLLECTOR_SERVO1_PORT = 0;
@@ -192,11 +199,9 @@ const int GEARCOLLECTOR_SERVO_MAX = 170;
 const int GEARCOLLECTOR_OPEN_ANGLE = 170; // ANGLE OF THE SERVOS! NOT FLAP!
 const int GEARCOLLECTOR_CLOSE_ANGLE = 85; //0.5 * (GEARCOLLECTOR_SERVO_MIN + GEARCOLLECTOR_SERVO_MAX);
 
-
 const float BANEBOTS775_STALLING_CURRENT = 80;
 const float NEVEREST40_STALLING_CURRENT = 11.5;
 const float CIM_STALLING_CURRENT = 80;
-
 
 // // RASPBERRY PI // //
 
@@ -267,9 +272,9 @@ const float DISTANCE_FROM_TAPE_TO_PIVOT_POINT = (10.5 / 12); //inches to feet
 const float angleGoalPivotPointTape = .4131; //rads (23.67 degrees)
 const float DISTANCE_FROM_PIVOT_POINT_TO_GOAL = 2; //feet. This is to give some safe space to turn
 
-const double TICK_INCH_RATIO = (7250/114);
+const double TICK_INCH_RATIO = (7250 / 114);
 const double BOILER_START_FIRST_ANGLE = 60; //deg
-const double BOILER_START_DRIVE_DISTANCE = 7225 + (7250./114 * 4); //feet
+const double BOILER_START_DRIVE_DISTANCE = 7225 + (7250. / 114 * 4); //feet
 const double RETRIEVAL_START_FIRST_ANGLE = 6; //deg
 const double RETRIEVAL_START_SECOND_ANGLE = 54; //deg
 const double RETRIEVAL_START_DRIVE_DISTANCE = -106.5 * TICK_INCH_RATIO; //115 inches, converted to feet, converted to ticks
@@ -278,7 +283,7 @@ const double DISTANCE_BASE_LINE_TO_PEG = 36 * TICK_INCH_RATIO; // ever so slight
 const double angleInfinityBaseLinePeg = 60; //we're turning relative to a hexagon. having a good time.
 
 const float ANGLE_OK_ERROR = 0.5; //Offset from finalangle that currentangle that it will end the command
-const int   ENCODER_OK_ERROR = 25; //Encoder offset from ^^
+const int ENCODER_OK_ERROR = 25; //Encoder offset from ^^
 
 // // // // // UTILITIES // // // // //
 
@@ -325,6 +330,32 @@ inline float turret_ticks_to_angle(float rots)
     final *= 360;
     return final;
 }
+
+/*
+ * this function takes in a number of ticks
+ * and spits out an rpm for the flywheel.
+ * we're expecting ticks per one tenth of a second
+ */
+
+inline float shooter_ticks_to_rpm(float ticks)
+{
+    // setspeed is based on 10ms.
+    // getspeed is based on 100ms.
+    // thanks, whoever made the talon libraries.
+    return ((ticks * 10 * 10) * 60) / TICKS_TO_WHEEL_REVOLUTIONS; //getspeed() on talon will return ticks per tenth of a second. multiply by 10 to get rots per sec, multiply by 60 to get rots per min
+}
+
+/*
+ * this function takes in a rpm
+ * and spits out a value for ticks for the flywheel.
+ * we're expecting ticks per one tenth of a second
+ */
+
+inline float shooter_rpm_to_ticks(float rpm)
+{
+    return (((rpm * TICKS_TO_WHEEL_REVOLUTIONS) / 60) / 10) / 10;
+}
+
 
 #define LOG_DEBUG(...) {\
             char buf[1024];\
