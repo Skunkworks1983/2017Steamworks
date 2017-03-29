@@ -28,7 +28,6 @@ double AutoBase::s_angleTapeRobotPivotPoint = 0;
 double AutoBase::s_distanceToPivotPoint = 0;
 double AutoBase::s_angleRobotPivotPointGoal = 0;
 
-// i feel like this isn't very safe
 DigitalInput* AutoBase::m_d1 = NULL;
 DigitalInput* AutoBase::m_d2 = NULL;
 

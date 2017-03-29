@@ -63,25 +63,15 @@ OI::OI()
     DownRoll->AddParallel(new cSetCollectorPos(FLOORCOLLECTOR_MAX_ENC_ANGLE));
     m_collectorPosDown->WhileHeld(DownRoll);
 
-    /*m_spinUpShooter = new JoystickButton(m_buttons, OI_JOYSTICK_SPINUPSHOOTER);
-    m_spinUpShooter->WhileHeld(new cSpinUpShooter());*/
-
     m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
     m_pidSpinUpShooter->WhileHeld(new cShootPID(9200));
 
     m_manualCollectorUp->WhileHeld(new cSetCollectorSpeed(0.25));
     m_manualCollectorDown->WhileHeld(new cSetCollectorSpeed(-0.25));
 
-    // // // // // //
-
-    // testing. will be removed later. don't get upset at me for magic numbers
-
     m_unjam = new JoystickButton(m_buttons, OI_UNJAM_BUTTON);
     m_unjam->WhileHeld(new cRunFuelConveyor(-1));
 
-    // // // // // //
-
-    //m_acquireBall->WhileHeld(new cRunFloorCollector(-1));
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
 }
 
