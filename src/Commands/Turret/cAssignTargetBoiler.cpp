@@ -31,12 +31,15 @@ void cAssignTargetBoiler::Initialize()
     {
     case LIFT_MIDDLE:
         heading = TURRET_SETPOINT_LIFT_MIDDLE;
+        CommandBase::s_turret->m_heading = TurretShootPosition::CenterLift;
         break;
     case LIFT_CLOSE:
         heading = TURRET_SETPOINT_LIFT_CLOSE;
+        CommandBase::s_turret->m_heading = TurretShootPosition::CloseLift;
         break;
     case HOPPER_CLOSE:
         heading = TURRET_SETPOINT_HOPPER_CLOSE;
+        CommandBase::s_turret->m_heading = TurretShootPosition::WhiteLine;
         break;
     }
 

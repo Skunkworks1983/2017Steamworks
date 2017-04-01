@@ -42,7 +42,7 @@ OI::OI()
 
     m_shootPosLiftMiddle = new JoystickButton(m_buttons, 1);
     m_shootPosLiftClose = new JoystickButton(m_buttons, OI_JOYSTICK_ASSIGN_LIFT_CLOSE);
-    m_shootPosHopperClose = new JoystickButton(m_buttons, 5);
+    m_shootPosHopperClose = new JoystickButton(m_buttons, 14);
 
     m_climbRope->WhileHeld(new cClimbRope(0.9));
 
@@ -64,7 +64,10 @@ OI::OI()
     m_collectorPosDown->WhileHeld(DownRoll);
 
     m_pidSpinUpShooter = new JoystickButton(m_buttons, 4);
-    m_pidSpinUpShooter->WhileHeld(new cShootPID(9200));
+
+    // FUGLY
+
+    m_pidSpinUpShooter->WhileHeld(new cShootPID(0));
 
     m_manualCollectorUp->WhileHeld(new cSetCollectorSpeed(0.25));
     m_manualCollectorDown->WhileHeld(new cSetCollectorSpeed(-0.25));

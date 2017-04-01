@@ -7,11 +7,11 @@
 #include <Commands/CommandGroup.h>
 #include <RobotMap.h>
 #include <Commands/DriveBase/cTurnAngle.h>
-
+#include <Commands/Autonomous/cConditionalWiggle.h>
 
 AutoBase* AutoBase::goLiftBoiler()
 {
-	float WAIT_TIME = 5.5;
+	float WAIT_TIME = 5;
 	float TURRET_BLUE_SETPOINT = TURRET_SWEEP_RANGE+2050; //quod? TODO
 	float TURRET_RED_SETPOINT = -2050; //placeholder TODO
 	float SHOOTER_SETPOINT = 9500; //the placest of holders TODO
@@ -21,9 +21,13 @@ AutoBase* AutoBase::goLiftBoiler()
     CommandGroup* shooting = new CommandGroup();
     CommandGroup* driving = new CommandGroup();
 
+    cConditionalWiggle* wiggle = new cConditionalWiggle();
 
-    driving->AddSequential(new cDriveStraight(-1 * BOILER_START_DRIVE_DISTANCE));
+    shooting->AddParallel(new cShootPID(SHOOTER_SETPOINT)); //is this sequential? is this parallel? does evil exist, or are there just good people making bad decisions? these are the things I wonder
+    CommandBase::s_turret->m_heading = TurretShootPosition::CloseLift;
 
+
+    driving->AddSequential(new cDriveStraight(-0.885 * BOILER_START_DRIVE_DISTANCE));
     if (AutoBase::getAlliance() == 	RED) {
     	shooting->AddParallel(new cSetTurretSetpoint(TURRET_RED_SETPOINT));
         driving->AddSequential(new cTurnAngle(-1 * BOILER_START_FIRST_ANGLE));
@@ -31,8 +35,13 @@ AutoBase* AutoBase::goLiftBoiler()
     	shooting->AddParallel(new cSetTurretSetpoint(TURRET_BLUE_SETPOINT));
         driving->AddSequential(new cTurnAngle(BOILER_START_FIRST_ANGLE));
     }
+
+    driving->AddSequential(new cDriveStraight(DISTANCE_BASE_LINE_TO_PEG * 2, .25, 0, true));
     driving->AddSequential(new cDriveStraight(-1 * DISTANCE_BASE_LINE_TO_PEG, .25, 0, true));
-	shooting->AddParallel(new cShootPID(SHOOTER_SETPOINT)); //is this sequential? is this parallel? does evil exist, or are there just good people making bad decisions? these are the things I wonder
+
+    driving->AddSequential(new cWait(1.5));
+    driving->AddSequential(wiggle);
+    driving->AddSequential(wiggle->m_commands);
 
 	CommandGroup* waitThenIndex = new CommandGroup();
 	waitThenIndex->AddSequential(new cWait(WAIT_TIME));

@@ -10,6 +10,7 @@
 #include <cmath>
 #include "RobotMap.h"
 #include <SmartDashboard/SmartDashboard.h>
+#include <Subsystems/cTurret.h>
 
 
 cShootPID::cShootPID(double setpoint, float timeout)
@@ -62,7 +63,21 @@ void cShootPID::Execute()
 		current_setpoint = speed;
 	}*/
 
-	CommandBase::s_shooter->setSetpoint(m_speed);
+    // ugly as fuck, get rid of this shit asap
+
+    switch(CommandBase::s_turret->m_heading) {
+    case TurretShootPosition::CenterLift:
+        CommandBase::s_shooter->setSetpoint(8750);
+        break;
+    case TurretShootPosition::CloseLift:
+        CommandBase::s_shooter->setSetpoint(9500);
+        break;
+    case TurretShootPosition::WhiteLine:
+        CommandBase::s_shooter->setSetpoint(9750);
+        break;
+    }
+
+    std::cout << CommandBase::s_shooter->getSetpoint() << std::endl;
 
 	SmartDashboard::PutNumber("cShootPIDspeed", CommandBase::s_shooter->PIDGet());
 	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());

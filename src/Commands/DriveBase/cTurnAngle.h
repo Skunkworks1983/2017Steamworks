@@ -34,7 +34,7 @@ class cTurnAngle : public CommandBase, public PIDOutput {
 	bool m_isDisabled;
 	*/
 public:
-	cTurnAngle(float angle);
+	cTurnAngle(float angle, float timeout = 3);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

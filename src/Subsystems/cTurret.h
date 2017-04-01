@@ -16,6 +16,9 @@ private:
     eStartingPosition target;
     bool m_manualEnabled = false;
 public:
+    // fuck having beautiful code that protects us
+    TurretShootPosition m_heading;
+
     cTurret();
     virtual ~cTurret();
 

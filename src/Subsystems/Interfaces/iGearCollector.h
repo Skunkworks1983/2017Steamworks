@@ -17,6 +17,7 @@ public:
 
     virtual void setFlapState(bool open) = 0;
     virtual void setServoAngle(float angle) = 0;
+    virtual bool isGearIn() = 0;
 };
 
 

@@ -10,12 +10,16 @@
 #define SRC_SUBSYSTEMS_ITURRET_H_
 #include <Commands/Subsystem.h>
 
+enum TurretShootPosition {CenterLift, CloseLift, WhiteLine};
+
 class iTurret : public Subsystem
 {
 private:
     bool m_manualEnabled = false;
 
 public:
+    TurretShootPosition m_heading;
+
     iTurret() : Subsystem("Turret"){};
     virtual void setSpeed(float speed) = 0;
     virtual void setOrientation(float heading) = 0;

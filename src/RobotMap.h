@@ -136,9 +136,9 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 // // TURRETLES  //  //
 
 const int TURRET_SWEEP_RANGE = -5050; // ticks. also 180 degrees
-
-const int TURRET_SETPOINT_LIFT_MIDDLE = -896; // angle our turret needs to be to aim at the boiler from the middle lift
-const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2) + 300; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
+//top kek
+const int TURRET_SETPOINT_LIFT_MIDDLE = -860; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_CLOSE = (TURRET_SWEEP_RANGE / 2); // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
 const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
 
 const int TURRET_MOTOR1_PORT = 7;
@@ -342,7 +342,7 @@ inline float shooter_ticks_to_rpm(float ticks)
     // setspeed is based on 10ms.
     // getspeed is based on 100ms.
     // thanks, whoever made the talon libraries.
-    return ((ticks * 10 * 10) * 60) / TICKS_TO_WHEEL_REVOLUTIONS; //getspeed() on talon will return ticks per tenth of a second. multiply by 10 to get rots per sec, multiply by 60 to get rots per min
+    return ((ticks * 10) * 60) / TICKS_TO_WHEEL_REVOLUTIONS; //getspeed() on talon will return ticks per tenth of a second. multiply by 10 to get rots per sec, multiply by 60 to get rots per min
 }
 
 /*

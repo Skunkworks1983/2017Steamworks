@@ -30,7 +30,7 @@ double AutoBase::s_angleRobotPivotPointGoal = 0;
 
 DigitalInput* AutoBase::m_d1 = NULL;
 DigitalInput* AutoBase::m_d2 = NULL;
-
+DigitalInput* AutoBase::m_button = NULL;
 
 
 AutoBase::AutoBase()

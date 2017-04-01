@@ -68,6 +68,7 @@ public:
 
     static DigitalInput* m_d1;
     static DigitalInput* m_d2;
+    static DigitalInput* m_button;
 
 
 //TODO REQUIRES

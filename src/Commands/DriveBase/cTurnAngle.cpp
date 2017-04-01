@@ -2,17 +2,18 @@
 #include <RobotMap.h>
 #include <time.h>
 
-cTurnAngle::cTurnAngle(float angle)
+cTurnAngle::cTurnAngle(float angle, float timeout)
 {
     Requires(CommandBase::s_drivebase);
 
-    SetTimeout(3);
+    SetTimeout(timeout);
 
     float TURNANGLE_PID_P = 0.0325/0.75;
     float TURNANGLE_PID_I = 0;
     float TURNANGLE_PID_D = 0.075;
 
     m_startAngle = angle;
+    m_finalAngle = 0; //set in initialize
 
     m_timeInTarget = 0;
 
@@ -49,8 +50,7 @@ void cTurnAngle::Execute()
 bool cTurnAngle::IsFinished()
 {
     // TODO TODO TODO magic number range
-	std::cout << "Error: " << m_outputController->GetError() << "\tCounter: " << m_timeInTarget << std::endl;
-    return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT || IsTimedOut();
+	return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT || IsTimedOut();
 }
 
 void cTurnAngle::End()

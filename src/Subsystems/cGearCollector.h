@@ -13,6 +13,7 @@ class cGearCollector: public iGearCollector
 private:
     iServo* m_servo1;
     iServo* m_servo2;
+    DigitalInput* m_gearButton;
 
 public:
     cGearCollector();
@@ -21,6 +22,7 @@ public:
 
     void setFlapState(bool open);
     void setServoAngle(float angle);
+    bool isGearIn();
 };
 
 #endif

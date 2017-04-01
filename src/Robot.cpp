@@ -18,6 +18,7 @@
 #include "Commands/GearMechanism/cAcquireGear.h"
 #include "Commands/DriveBase/cRunTankDrive.h"
 #include "Commands/Shooter/cSetSetpointManually.h"
+#include "Commands/Shooter/cShootPID.h"
 
 #include <Commands/Autonomous/AutoBase.h>
 
@@ -99,6 +100,7 @@ private:
 
 		AutoBase::m_d1 = new DigitalInput(POS_SELECTION_PORT1);
 		AutoBase::m_d2 = new DigitalInput(POS_SELECTION_PORT2);
+		AutoBase::m_button = new DigitalInput(2);
 	}
 
 	void DisabledInit() {
@@ -131,8 +133,14 @@ private:
 	void AutonomousPeriodic() {
 		Scheduler::GetInstance()->Run();
 
+        std::cout << CommandBase::s_shooter->getShooterMotor()->GetSetpoint() << std::endl;
+
+
 		CommandBase::s_boilerMessenger->sendMessage("auto");
 		CommandBase::s_liftMessenger->sendMessage("auto");
+		//CommandBase::s_gearCollector->sendMessage(isGearIn());
+
+		std::cout << CommandBase::s_gearCollector->isGearIn() << std::endl;
 	}
 
 	void TeleopInit() {
@@ -148,13 +156,21 @@ private:
 		CommandBase::s_turret->setEnabled(true);
 
 		CommandBase::m_postMatch = true;
+
+		//Scheduler::GetInstance()->AddCommand(new cShootPID(shooter_rpm_to_ticks(5000)));
+
 	}
 
 	void TeleopPeriodic() {
 		Scheduler::GetInstance()->Run();
 
+		std::cout << CommandBase::s_shooter->getShooterMotor()->getPosition() << std::endl;
+
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
+
+		//std::cout << shooter_ticks_to_rpm(CommandBase::s_shooter->getShooterMotor()->GetSpeed()) << std::endl;
+		std::cout << "Gear in: " << CommandBase::s_gearCollector->isGearIn() << std::endl;
 	}
 
 	void TestPeriodic() {

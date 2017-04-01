@@ -2,6 +2,7 @@
 #include <RobotMap.h>
 #include <Subsystems/Utilities/cServo.h>
 #include <Commands/GearMechanism/cAcquireGear.h>
+#include <Commands/Autonomous/AutoBase.h>
 
 cGearCollector::cGearCollector()
 {
@@ -11,7 +12,9 @@ cGearCollector::cGearCollector()
 
 cGearCollector::~cGearCollector()
 {
-
+	delete m_gearButton;
+	delete m_servo1;
+	delete m_servo2;
 }
 
 void cGearCollector::InitDefaultCommand()
@@ -39,4 +42,9 @@ void cGearCollector::setServoAngle(float angle)
 {
     m_servo1->setAngle(angle);
     m_servo2->setAngle(GEARCOLLECTOR_SERVO_MAX - angle);
+}
+
+bool cGearCollector::isGearIn()
+{
+	return AutoBase::m_button->Get();
 }
