@@ -8,12 +8,14 @@
 #include <RobotMap.h>
 #include <Commands/DriveBase/cTurnAngle.h>
 #include <Commands/Autonomous/cConditionalWiggle.h>
+#include <Commands/Turret/cAssignTargetBoiler.h>
+#include <Commands/Autonomous/AutoBase.h>
 
 AutoBase* AutoBase::goLiftBoiler()
 {
-	float WAIT_TIME = 5;
+	float WAIT_TIME = 6;
 	float TURRET_BLUE_SETPOINT = TURRET_SWEEP_RANGE+2050; //quod? TODO
-	float TURRET_RED_SETPOINT = -2050; //placeholder TODO
+	float TURRET_RED_SETPOINT = -2800; //placeholder TODO
 	float SHOOTER_SETPOINT = 9500; //the placest of holders TODO
     const std::string friendlyWarning = "But the soul is still oracular; amid the market's din \nList the ominous stern whisper from the Delphic cave within \nThey enslave their children's children who make compromise with sin";
     std::cout << "GO LIFT BOILER" << std::endl;
@@ -26,20 +28,19 @@ AutoBase* AutoBase::goLiftBoiler()
     shooting->AddParallel(new cShootPID(SHOOTER_SETPOINT)); //is this sequential? is this parallel? does evil exist, or are there just good people making bad decisions? these are the things I wonder
     CommandBase::s_turret->m_heading = TurretShootPosition::CloseLift;
 
+    shooting->AddParallel(new cAssignTargetBoiler(LIFT_CLOSE));
 
     driving->AddSequential(new cDriveStraight(-0.885 * BOILER_START_DRIVE_DISTANCE));
     if (AutoBase::getAlliance() == 	RED) {
-    	shooting->AddParallel(new cSetTurretSetpoint(TURRET_RED_SETPOINT));
         driving->AddSequential(new cTurnAngle(-1 * BOILER_START_FIRST_ANGLE));
     } else {
-    	shooting->AddParallel(new cSetTurretSetpoint(TURRET_BLUE_SETPOINT));
-        driving->AddSequential(new cTurnAngle(BOILER_START_FIRST_ANGLE));
+    	driving->AddSequential(new cTurnAngle(BOILER_START_FIRST_ANGLE));
     }
 
-    driving->AddSequential(new cDriveStraight(DISTANCE_BASE_LINE_TO_PEG * 2, .25, 0, true));
-    driving->AddSequential(new cDriveStraight(-1 * DISTANCE_BASE_LINE_TO_PEG, .25, 0, true));
+    driving->AddSequential(new cDriveStraight(DISTANCE_BASE_LINE_TO_PEG * 2, .25, 1, true));
+    driving->AddSequential(new cDriveStraight(-100, .25, .5, true));
 
-    driving->AddSequential(new cWait(1.5));
+    driving->AddSequential(new cWait(.5));
     driving->AddSequential(wiggle);
     driving->AddSequential(wiggle->m_commands);
 

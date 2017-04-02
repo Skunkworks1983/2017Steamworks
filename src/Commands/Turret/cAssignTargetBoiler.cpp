@@ -21,7 +21,7 @@ void cAssignTargetBoiler::Initialize()
 {
     LOG_INFO("starting cAssignTargetBoiler");
 
-    // ugly as fuck, but ok
+    // ugly as fuck, but ok, like a turtle
     int heading = CommandBase::s_turret->getTurretMotor()->getPosition();
     bool isRed = AutoBase::getAlliance() == RED;
 

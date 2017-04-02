@@ -67,17 +67,15 @@ void cShootPID::Execute()
 
     switch(CommandBase::s_turret->m_heading) {
     case TurretShootPosition::CenterLift:
-        CommandBase::s_shooter->setSetpoint(8750);
+        CommandBase::s_shooter->setSetpoint(9125);
         break;
     case TurretShootPosition::CloseLift:
-        CommandBase::s_shooter->setSetpoint(9500);
+        CommandBase::s_shooter->setSetpoint(9200);
         break;
     case TurretShootPosition::WhiteLine:
         CommandBase::s_shooter->setSetpoint(9750);
         break;
     }
-
-    std::cout << CommandBase::s_shooter->getSetpoint() << std::endl;
 
 	SmartDashboard::PutNumber("cShootPIDspeed", CommandBase::s_shooter->PIDGet());
 	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());

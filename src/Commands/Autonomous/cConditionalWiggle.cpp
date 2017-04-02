@@ -34,19 +34,16 @@ void cConditionalWiggle::Initialize()
     float DRIVE_TIMEOUT = 5.5;
     float TURN_TIMEOUT = 1.5;
 
-    if(CommandBase::s_gearCollector->isGearIn())
-    {
-        m_commands->AddSequential(new cDriveStraight(-DRIVE_DISTANCE / 4, -DRIVE_STRAIGHT_SPEED, DRIVE_TIMEOUT));
-        m_commands->AddSequential(new cTurnAngle(-20, 1.5));
-        m_commands->AddSequential(new cTurnAngle(40, 1.5));
-        m_commands->AddSequential(new cTurnAngle(-20, 1.5));
-        m_commands->AddSequential(new cDriveStraight(DRIVE_DISTANCE / 4, DRIVE_STRAIGHT_SPEED, DRIVE_TIMEOUT));
+    /*for(int i = 0; i < 100; i++)
+        std::cout << "wiggle" << std::endl;*/
 
-        //std::cout << "SWITCH" << std::endl;
-    }
-    else {
-        End();
-    }
+    m_commands->AddSequential(new cDriveStraight(-DRIVE_DISTANCE / 4, -DRIVE_STRAIGHT_SPEED, DRIVE_TIMEOUT));
+    m_commands->AddSequential(new cTurnAngle(-20, 1.5));
+    m_commands->AddSequential(new cTurnAngle(40, 1.5));
+    m_commands->AddSequential(new cTurnAngle(-20, 1.5));
+    m_commands->AddSequential(new cDriveStraight(DRIVE_DISTANCE / 4, DRIVE_STRAIGHT_SPEED, DRIVE_TIMEOUT));
+
+    //std::cout << "SWITCH" << std::endl;
 }
 
 void cConditionalWiggle::Execute()

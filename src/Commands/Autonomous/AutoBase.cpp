@@ -88,8 +88,6 @@ eStartingPosition AutoBase::getStartingPosition()
     	startingPosition = POS_RETRIEVAL;
     }
 
-
-
     return startingPosition;
 }
 

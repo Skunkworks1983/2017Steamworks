@@ -7,6 +7,10 @@ cDriveStraight::cDriveStraight(float distance, float speed, float timeout, bool 
 	m_beginningYaw = 0;
 	m_curTicks = 0;
 
+    if(timeout != 0) {
+        SetTimeout(timeout);
+    }
+
 	m_timeout = timeout;
 
 	m_gyroMode = true; //default gyro mode
@@ -30,9 +34,6 @@ cDriveStraight::cDriveStraight(float distance, float speed, float timeout, bool 
 }
 
 void cDriveStraight::Initialize() {
-	if(m_timeout != 0) {
-		SetTimeout(m_timeout);
-	}
 	if(CommandBase::s_drivebase->getGyro()->isDead() || !USE_GYRO) {
 		m_gyroMode = false;
 	} else {

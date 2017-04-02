@@ -49,6 +49,11 @@ private:
     JoystickButton *m_enableShooterControl;
     */
 
+    JoystickButton* m_backupClimb;
+    JoystickButton* m_backupAcquireGear;
+    JoystickButton* m_backupCollectorPosUp;
+    JoystickButton* m_backupCollectorPosDown;
+
 public:
     OI();
     ~OI();

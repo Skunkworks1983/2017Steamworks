@@ -76,6 +76,19 @@ OI::OI()
     m_unjam->WhileHeld(new cRunFuelConveyor(-1));
 
     m_acquireGear->WhileHeld(new cAcquireGear(true, 10000));
+
+    // BACKUP holy
+
+    m_backupClimb = new JoystickButton(m_leftStick, 1);
+    m_backupAcquireGear = new JoystickButton(m_rightStick, 1);
+    m_backupCollectorPosUp = new JoystickButton(m_leftStick, 2);
+    m_backupCollectorPosDown = new JoystickButton(m_rightStick, 2);
+
+    m_backupClimb->WhileHeld(new cClimbRope(0.9));
+    m_backupAcquireGear->WhileHeld(new cAcquireGear(true, 1000));
+
+    m_backupCollectorPosUp->WhileHeld(new cRunFloorCollector(-1));
+    m_backupCollectorPosDown->WhileHeld(DownRoll);
 }
 
 float OI::getLeftStickY()

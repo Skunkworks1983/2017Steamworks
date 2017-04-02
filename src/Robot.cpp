@@ -164,13 +164,12 @@ private:
 	void TeleopPeriodic() {
 		Scheduler::GetInstance()->Run();
 
-		std::cout << CommandBase::s_shooter->getShooterMotor()->getPosition() << std::endl;
-
 		CommandBase::s_boilerMessenger->sendMessage("tele");
 		CommandBase::s_liftMessenger->sendMessage("tele");
 
+		std::cout << CommandBase::s_gearCollector->isGearIn() << std::endl;
+
 		//std::cout << shooter_ticks_to_rpm(CommandBase::s_shooter->getShooterMotor()->GetSpeed()) << std::endl;
-		std::cout << "Gear in: " << CommandBase::s_gearCollector->isGearIn() << std::endl;
 	}
 
 	void TestPeriodic() {
