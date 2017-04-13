@@ -62,6 +62,7 @@ void cGyro::initGyro() {
 					break;
 				}*/
 			}
+
 			std::cout << counter << std::endl;
 			std::cout << "Is it dead: " << m_dead << std::endl;
 			std::cout << "Is it connected: " << m_ahrs->IsConnected() << std::endl;
@@ -82,7 +83,7 @@ void cGyro::initGyro() {
 }
 
 bool cGyro::isDead() {
-	return m_dead;
+	return !m_ahrs->IsConnected() || m_ahrs->IsCalibrating();
 }
 
 double cGyro::getAngle() {

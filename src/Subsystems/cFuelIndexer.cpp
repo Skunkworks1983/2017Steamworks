@@ -16,7 +16,7 @@ cFuelIndexer::cFuelIndexer()
 
 void cFuelIndexer::setSpeed(float speed)
 {
-    m_motor1->setOutput(speed);
+    m_motor1->setOutput(-1 * speed);
 }
 
 cFuelIndexer::~cFuelIndexer()

@@ -9,10 +9,12 @@
 #include <CommandBase.h>
 #include <RobotMap.h>
 
-cRunFuelConveyor::cRunFuelConveyor(float mult) : m_multiplier(mult)
+cRunFuelConveyor::cRunFuelConveyor(float mult, float timeout) : m_multiplier(mult)
 {
 	Requires(CommandBase::s_fuelIndexer);
     Requires(CommandBase::s_fuelConveyor);
+
+    SetTimeout(timeout);
 
     //m_window = new cMotor(9, NeveRest40);
 }
@@ -31,7 +33,7 @@ void cRunFuelConveyor::Execute()
 
 bool cRunFuelConveyor::IsFinished()
 {
-	return false;
+	return IsTimedOut();
 }
 
 void cRunFuelConveyor::End()

@@ -1,6 +1,7 @@
 #include "cDriveStraight.h"
+#include <Commands/Autonomous/AutoBase.h>
 
-cDriveStraight::cDriveStraight(float distance, float speed, float timeout, bool wiggly) {
+cDriveStraight::cDriveStraight(float distance, float speed, float timeout, bool wiggly, bool isWiggle) : m_isWiggle(isWiggle) {
 	Requires(s_drivebase);
 	std::cout << "Begin cDriveStraight construct" << std::endl;
 	m_endTicks = distance;
@@ -59,10 +60,12 @@ void cDriveStraight::Execute() {
 }
 
 bool cDriveStraight::IsFinished() {
+    std::cout << m_isWiggle << std::endl;
+
 	if(m_endTicks < 0) {
-		return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() < (m_curTicks + m_endTicks) || IsTimedOut(); //FLIPPED FOR COMP BOT TODO TODO TODO
+		return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() < (m_curTicks + m_endTicks) || IsTimedOut() || ((m_isWiggle && !AutoBase::m_wiggle)); //FLIPPED FOR COMP BOT TODO TODO TODO
 	} else {
-		return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curTicks + m_endTicks) || IsTimedOut();
+		return CommandBase::s_drivebase->getMotorGroupLeft()->getPosition() > (m_curTicks + m_endTicks) || IsTimedOut() || ((m_isWiggle && !AutoBase::m_wiggle));
 	}
 }
 
@@ -83,12 +86,12 @@ void cDriveStraight::Interrupted() {
 }
 
 double cDriveStraight::PIDGet() {
-	if(m_gyroMode) {
+	//if(m_gyroMode) {
 		return CommandBase::s_drivebase->getGyro()->getAngle();
-	} else {
-		return m_speed;
+	//} else {
+		//return 0;
 		//return (CommandBase::s_drivebase->getMotorGroupRight()->getPosition() - CommandBase::s_drivebase->getMotorGroupLeft()->getPosition())/51.433;
-	}
+	//}
 }
 
 void cDriveStraight::PIDWrite(double output) {

@@ -13,11 +13,11 @@
 class cConditionalWiggle: public frc::Command
 {
 private:
-    // holy shit this is disgusting
 
 
 public:
     CommandGroup* m_commands;
+
     cConditionalWiggle();
     virtual ~cConditionalWiggle();
 

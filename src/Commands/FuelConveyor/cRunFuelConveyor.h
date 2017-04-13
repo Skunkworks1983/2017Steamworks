@@ -17,7 +17,7 @@ private:
 	//cMotor* m_window;
     float m_multiplier = 1;
 public:
-    cRunFuelConveyor(float mult = 1);
+    cRunFuelConveyor(float mult = 1, float timeout = 1000);
     virtual ~cRunFuelConveyor();
 
     void Initialize();

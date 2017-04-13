@@ -41,6 +41,7 @@ public:
     static double s_distanceToPivotPoint;
     static double s_angleRobotPivotPointGoal;
     static bool s_reachedLine;
+    static bool m_wiggle;
 
     AutoBase();
     ~AutoBase();
@@ -69,6 +70,7 @@ public:
     static DigitalInput* m_d1;
     static DigitalInput* m_d2;
     static DigitalInput* m_button;
+    static Relay* m_relay;
 
 
 //TODO REQUIRES

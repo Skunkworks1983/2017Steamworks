@@ -16,6 +16,7 @@
 #include <Commands/Autonomous/cWait.h>
 #include <Commands/FuelConveyor/cRunFuelConveyor.h>
 #include <Commands/DriveBase/cTurnAngle.h>
+#include <Commands/Autonomous/AutoBase.h>
 
 cConditionalWiggle::cConditionalWiggle()
 {
@@ -29,21 +30,7 @@ cConditionalWiggle::~cConditionalWiggle()
 
 void cConditionalWiggle::Initialize()
 {
-    float DRIVE_DISTANCE = -7250;
-    float DRIVE_STRAIGHT_SPEED = 0.25;
-    float DRIVE_TIMEOUT = 5.5;
-    float TURN_TIMEOUT = 1.5;
-
-    /*for(int i = 0; i < 100; i++)
-        std::cout << "wiggle" << std::endl;*/
-
-    m_commands->AddSequential(new cDriveStraight(-DRIVE_DISTANCE / 4, -DRIVE_STRAIGHT_SPEED, DRIVE_TIMEOUT));
-    m_commands->AddSequential(new cTurnAngle(-20, 1.5));
-    m_commands->AddSequential(new cTurnAngle(40, 1.5));
-    m_commands->AddSequential(new cTurnAngle(-20, 1.5));
-    m_commands->AddSequential(new cDriveStraight(DRIVE_DISTANCE / 4, DRIVE_STRAIGHT_SPEED, DRIVE_TIMEOUT));
-
-    //std::cout << "SWITCH" << std::endl;
+    AutoBase::m_wiggle = CommandBase::s_gearCollector->isGearIn();
 }
 
 void cConditionalWiggle::Execute()

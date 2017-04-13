@@ -67,13 +67,13 @@ void cShootPID::Execute()
 
     switch(CommandBase::s_turret->m_heading) {
     case TurretShootPosition::CenterLift:
-        CommandBase::s_shooter->setSetpoint(9125);
+        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks(7000));
         break;
     case TurretShootPosition::CloseLift:
-        CommandBase::s_shooter->setSetpoint(9200);
+        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks(6000));
         break;
     case TurretShootPosition::WhiteLine:
-        CommandBase::s_shooter->setSetpoint(9750);
+        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks(6500));
         break;
     }
 

@@ -14,6 +14,8 @@ class cTurnAngle : public CommandBase, public PIDOutput {
     float m_finalAngle;
     float m_timeInTarget = 0;
 
+    bool m_isWiggle = false;
+
     PIDController* m_outputController;
 
     /*
@@ -34,7 +36,7 @@ class cTurnAngle : public CommandBase, public PIDOutput {
 	bool m_isDisabled;
 	*/
 public:
-	cTurnAngle(float angle, float timeout = 3);
+	cTurnAngle(float angle, float timeout = 3, bool isWiggle = false);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

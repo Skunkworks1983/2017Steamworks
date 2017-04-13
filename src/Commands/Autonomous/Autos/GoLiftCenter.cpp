@@ -10,6 +10,62 @@
 
 AutoBase* AutoBase::goLiftCenter()
 {
+    // constants
+    float driveToLiftDistance = 7200;
+    float driveToLiftSpeed = 0.25;
+    float driveToLiftTimeout = 5;
+
+    float backupFromLiftDistance = -100;
+    float backupFromLiftSpeed = -0.25;
+    float backupFromLiftTimeout = 5;
+
+    // FUUUUUUUUUUUUdge
+    float WIGGLE_SWEEP_ANGLE = 60; // the total angle we turn, far left to far right
+    float WIGGLE_TURN_TIMEOUT = 1;
+
+    float WIGGLE_BACKUP_DISTANCE = 1000;
+    float WIGGLE_BACKUP_SPEED = 1;
+    float WIGGLE_BACKUP_TIMEOUT = 1.5;
+
+    // make commands: keep command groups in order! read bottom down
+    AutoBase* commands = new AutoBase();
+
+    CommandGroup* driveToLift = new CommandGroup();
+
+    CommandGroup* shoot = new CommandGroup();
+    CommandGroup* wiggle = new CommandGroup();
+
+
+    driveToLift->AddSequential(new cDriveStraight(driveToLiftDistance, driveToLiftSpeed, driveToLiftTimeout)); // drive to lift
+    driveToLift->AddParallel(new cAssignTargetBoiler(LIFT_MIDDLE)); // turn turret
+    //driveToLift->AddParallel(new cShootPID(0)); // cShootPID broken
+    driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
+
+    shoot->AddParallel(new cRunFuelConveyor(1, 10));
+
+    // HOLLLYYY shirt TTHIS IS UALGY AS fudge AND TRIGGERING
+    // AS heck PELASE FIX AFTER SEASON OR SOMETHIGN juan FSCHIREST
+    wiggle->AddSequential(new cWait(2));
+
+    wiggle->AddSequential(new cConditionalWiggle()); // ugly
+
+    wiggle->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
+    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
+
+
+    // add commands and return base
+    commands->AddSequential(driveToLift);
+
+    commands->AddParallel(shoot);
+    commands->AddParallel(wiggle);
+
+    return commands;
+}
+
+    /*
 	float WAIT_TIME = 6;
 	float DRIVE_DISTANCE = -7250; // not used for wiggle
 	float DRIVE_STRAIGHT_SPEED = 0.25; // not used wiggle
@@ -50,4 +106,4 @@ AutoBase* AutoBase::goLiftCenter()
 	std::cout << "Added cDriveStraight" << std::endl;
 
     return commands;
-}
+}*/

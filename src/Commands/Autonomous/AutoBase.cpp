@@ -31,7 +31,8 @@ double AutoBase::s_angleRobotPivotPointGoal = 0;
 DigitalInput* AutoBase::m_d1 = NULL;
 DigitalInput* AutoBase::m_d2 = NULL;
 DigitalInput* AutoBase::m_button = NULL;
-
+Relay* AutoBase::m_relay = NULL;
+bool AutoBase::m_wiggle = false;
 
 AutoBase::AutoBase()
 {
@@ -47,13 +48,13 @@ AutoBase* AutoBase::configureAutonomous()
     switch(AutoBase::getStartingPosition())
     {
     case POS_BOILER:
-    	commands->AddSequential(commands->goLiftBoiler());
-    	break;
+        commands->AddSequential(commands->goLiftBoiler());
+        break;
     case POS_CENTER:
-    	commands->AddSequential(commands->goLiftCenter());
+        commands->AddSequential(commands->goLiftCenter());
         break;
     case POS_RETRIEVAL:
-    	commands->AddSequential(commands->goFarBoiler());
+        commands->AddSequential(commands->goFarBoiler());
         break;
     default:
         break;
@@ -64,7 +65,9 @@ AutoBase* AutoBase::configureAutonomous()
 
 AutoBase::~AutoBase()
 {
-    delete this;
+    delete m_button;
+    delete m_d1;
+    delete m_d2;
 }
 
 eStartingPosition AutoBase::getStartingPosition()
@@ -80,13 +83,32 @@ eStartingPosition AutoBase::getStartingPosition()
 
     // d2 d1
 
-    if(m_d1->Get() && m_d2->Get()) {
-    	startingPosition = POS_CENTER;
-    } else if(m_d1->Get()) {
-    	startingPosition = POS_BOILER;
-    } else if(m_d2->Get()) {
-    	startingPosition = POS_RETRIEVAL;
+
+    // cancer code because of readability reasons
+    if(m_d1->Get() && m_d2->Get())
+    {
+        startingPosition = POS_CENTER;
     }
+    else if(m_d1->Get() && !m_d2->Get())
+    {
+        startingPosition = POS_BOILER;
+    }
+    else if(!m_d1->Get() && m_d2->Get())
+    {
+        startingPosition = POS_RETRIEVAL;
+    }
+    else
+    {
+        startingPosition = POS_HOPPER;
+    }
+
+    /*if(m_d1->Get() && m_d2->Get()) {
+     startingPosition = POS_CENTER;
+     } else if(m_d1->Get()) {
+     startingPosition = POS_BOILER;
+     } else if(m_d2->Get()) {
+     startingPosition = POS_RETRIEVAL;
+     }*/
 
     return startingPosition;
 }

@@ -32,6 +32,8 @@ private:
 
 	PIDController* m_controller;
 
+	bool m_isWiggle = false;
+
 	float m_p;
 	float m_i;
 	float m_d;
@@ -45,7 +47,7 @@ private:
 
 	bool m_gyroMode;
 public:
-	cDriveStraight(float distance, float speed=0.25, float timeout=0, bool wiggly = false); //In feet
+	cDriveStraight(float distance, float speed=0.25, float timeout=0, bool wiggly = false, bool isWiggle = false); //In feet
 	void Initialize();
 	void Execute();
 	bool IsFinished();

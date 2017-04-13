@@ -1,8 +1,9 @@
 #include "cTurnAngle.h"
 #include <RobotMap.h>
 #include <time.h>
+#include <Commands/Autonomous/AutoBase.h>
 
-cTurnAngle::cTurnAngle(float angle, float timeout)
+cTurnAngle::cTurnAngle(float angle, float timeout, bool isWiggle) : m_isWiggle(isWiggle)
 {
     Requires(CommandBase::s_drivebase);
 
@@ -50,7 +51,7 @@ void cTurnAngle::Execute()
 bool cTurnAngle::IsFinished()
 {
     // TODO TODO TODO magic number range
-	return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT || IsTimedOut();
+	return m_timeInTarget > TURNANGLE_ANGLE_OK_TIMEOUT || IsTimedOut() || ((m_isWiggle && !AutoBase::m_wiggle));
 }
 
 void cTurnAngle::End()
