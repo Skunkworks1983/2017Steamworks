@@ -22,12 +22,13 @@ cShootPID::cShootPID(double setpoint, float timeout)
 	m_currentSetpoint = -1.0;
 	m_timeout = timeout;
 
-	m_p = 0.125/16;
+	m_p = 0.21;
 	m_i = 0;
-	m_d = 0;
-	m_f = 0.25/2;
+	m_d = 0.02;
+	m_f = 0.107;
 
 	SmartDashboard::PutNumber("P", m_p);
+	SmartDashboard::PutNumber("D", m_d);
 	SmartDashboard::PutNumber("F", m_f);
 }
 
@@ -76,10 +77,10 @@ void cShootPID::Execute()
 
     switch(CommandBase::s_turret->m_heading) {
     case TurretShootPosition::CenterLift:
-        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3500)));
+        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3525)));
         break;
     case TurretShootPosition::CloseLift:
-        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((6000)));
+        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3500)));
         break;
     case TurretShootPosition::WhiteLine:
         CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((6500)));
@@ -91,7 +92,7 @@ void cShootPID::Execute()
 	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
 	SmartDashboard::PutNumber("Shooter output", CommandBase::s_shooter->getOutput());
 
-	CommandBase::s_shooter->setPID(SmartDashboard::GetNumber("P", 0), 0, 0, SmartDashboard::GetNumber("F", 0));
+	CommandBase::s_shooter->setPID(SmartDashboard::GetNumber("P", m_p), 0, SmartDashboard::GetNumber("D", m_d), SmartDashboard::GetNumber("F", m_f));
 
 	SmartDashboard::PutNumber("Shooter speed: ", CommandBase::s_shooter->getSpeed());
 

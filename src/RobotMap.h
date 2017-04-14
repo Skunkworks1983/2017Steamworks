@@ -137,7 +137,7 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 const int TURRET_SWEEP_RANGE = -5050; // ticks. also 180 degrees
 //top kek
-const int TURRET_SETPOINT_LIFT_MIDDLE = -860; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_MIDDLE = -885; // angle our turret needs to be to aim at the boiler from the middle lift
 const int TURRET_SETPOINT_LIFT_CLOSE = -2880; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
 const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
 
