@@ -137,7 +137,7 @@ const float FUELCONVEYOR_MOTOR1_SPEED = 0.75;
 
 const int TURRET_SWEEP_RANGE = -5050; // ticks. also 180 degrees
 //top kek
-const int TURRET_SETPOINT_LIFT_MIDDLE = -860; // angle our turret needs to be to aim at the boiler from the middle lift
+const int TURRET_SETPOINT_LIFT_MIDDLE = -885; // angle our turret needs to be to aim at the boiler from the middle lift
 const int TURRET_SETPOINT_LIFT_CLOSE = -2880; // angle our turret needs to be to aim at the boiler from the lift closest to the boiler
 const int TURRET_SETPOINT_HOPPER_CLOSE = (TURRET_SWEEP_RANGE / 2) - 100; // angle our turret needs to be to aim at the boiler from the hopper position
 
@@ -187,7 +187,7 @@ const float SHOOTER_MOTOR_GEARING = 3.0;
 
 const float SHOOTER_ENCODER_TICKS_PER_REVOLUTION = 256.0 / 4.0;
 
-const float TICKS_TO_WHEEL_REVOLUTIONS = SHOOTER_MOTOR_GEARING * (SHOOTER_MOTOR_GEAR_TEETH / SHOOTER_WHEEL_GEAR_TEETH) * SHOOTER_ENCODER_TICKS_PER_REVOLUTION; // (G2/G1) * E
+const float TICKS_TO_WHEEL_REVOLUTIONS = (SHOOTER_MOTOR_GEAR_TEETH / SHOOTER_WHEEL_GEAR_TEETH) * SHOOTER_ENCODER_TICKS_PER_REVOLUTION; // (G2/G1) * E
 
 // // GEAR COLLECTOR // //
 
@@ -354,7 +354,7 @@ inline float shooter_ticks_to_rpm(float ticks)
 
 inline float shooter_rpm_to_ticks(float rpm)
 {
-    return (((rpm * TICKS_TO_WHEEL_REVOLUTIONS) / 60) / 10);
+    return ((rpm * TICKS_TO_WHEEL_REVOLUTIONS) / 60);
 }
 
 
