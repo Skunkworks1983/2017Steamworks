@@ -54,7 +54,7 @@ AutoBase* AutoBase::configureAutonomous()
         commands->AddSequential(commands->goLiftCenter());
         break;
     case POS_RETRIEVAL:
-        commands->AddSequential(commands->goFarBoiler());
+        commands->AddSequential(commands->goLiftRetrieval());
         break;
     default:
         break;

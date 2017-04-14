@@ -22,7 +22,7 @@ AutoBase* AutoBase::goLiftBoiler()
     float WIGGLE_TURN_TIMEOUT = 1;
 
     float WIGGLE_BACKUP_DISTANCE = 1000;
-    float WIGGLE_BACKUP_SPEED = 1;
+    float WIGGLE_BACKUP_SPEED = .25;
     float WIGGLE_BACKUP_TIMEOUT = 1.5;
 
     // make commands: keep command groups in order! read bottom down
@@ -34,9 +34,9 @@ AutoBase* AutoBase::goLiftBoiler()
     CommandGroup* wiggle = new CommandGroup();
 
 
-    driveToLift->AddSequential(new cDriveStraight(7000, 0.25, 5)); // drive to lift
-    driveToLift->AddSequential(new cTurnAngle(-45, 3));
-    driveToLift->AddSequential(new cDriveStraight(2000, 0.25, 5)); // drive to lift
+    driveToLift->AddSequential(new cDriveStraight(7750, 0.35, 7)); // drive to lift
+    driveToLift->AddSequential(new cTurnAngle(-60, 3));
+    driveToLift->AddSequential(new cDriveStraight(3000, 0.25, 3)); // drive to lift
     driveToLift->AddParallel(new cAssignTargetBoiler(LIFT_CLOSE)); // turn turret
     //driveToLift->AddParallel(new cShootPID(0)); // cShootPID broken
     driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
@@ -53,7 +53,7 @@ AutoBase* AutoBase::goLiftBoiler()
     wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
     wiggle->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
     wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
+    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
 
 
     // add commands and return base

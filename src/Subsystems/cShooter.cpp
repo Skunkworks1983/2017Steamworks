@@ -16,6 +16,9 @@ cShooter::cShooter()
 	m_motor2->setBrakeMode(false);
 	m_motor1->setFeedbackDevice();
 
+	m_motor1->reverseOutput();
+	m_motor2->reverseOutput();
+
 	//m_motor1->getTalon()->SetSensorDirection(true);
 }
 

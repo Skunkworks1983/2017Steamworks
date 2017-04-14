@@ -149,14 +149,8 @@ private:
         //CommandBase::s_liftMessenger->sendMessage("auto");
 
         // ugly for readability reasons
-        if(CommandBase::s_drivebase->getGyro()->isDead())
-        {
-            AutoBase::m_relay->Set(Relay::Value::kOn);
-        }
-        else
-        {
-            AutoBase::m_relay->Set(Relay::Value::kOff);
-        }
+        std::cout << "d1:" << AutoBase::m_d1->Get() << std::endl;
+        std::cout << "d2:" << AutoBase::m_d2->Get() << std::endl;
     }
 
     void TeleopInit()
@@ -173,6 +167,9 @@ private:
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
+
+        std::cout << CommandBase::s_shooter->getShooterMotor()->getPosition() << std::endl;;
+
 
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");

@@ -12,19 +12,19 @@ AutoBase* AutoBase::goLiftCenter()
 {
     // constants
     float driveToLiftDistance = 7200;
-    float driveToLiftSpeed = 0.25;
+    float driveToLiftSpeed = 0.3;
     float driveToLiftTimeout = 5;
 
-    float backupFromLiftDistance = -100;
-    float backupFromLiftSpeed = -0.25;
+    float backupFromLiftDistance = -250;
+    float backupFromLiftSpeed = -0.35;
     float backupFromLiftTimeout = 5;
 
     // FUUUUUUUUUUUUdge
     float WIGGLE_SWEEP_ANGLE = 60; // the total angle we turn, far left to far right
     float WIGGLE_TURN_TIMEOUT = 1;
 
-    float WIGGLE_BACKUP_DISTANCE = 1000;
-    float WIGGLE_BACKUP_SPEED = 1;
+    float WIGGLE_BACKUP_DISTANCE = 1500;
+    float WIGGLE_BACKUP_SPEED = .4;
     float WIGGLE_BACKUP_TIMEOUT = 1.5;
 
     // make commands: keep command groups in order! read bottom down
@@ -52,8 +52,8 @@ AutoBase* AutoBase::goLiftCenter()
     wiggle->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
     wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
     wiggle->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
+    wiggle->AddSequential(new cTurnAngle((-WIGGLE_SWEEP_ANGLE / 2) - 5, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
 
 
     // add commands and return base
