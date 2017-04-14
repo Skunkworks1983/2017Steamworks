@@ -5,12 +5,12 @@
 
 cShooter::cShooter()
 {
-    m_motor1 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775, true); //one of these needs an encoder. Which? god only knows
-    m_motor2 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775);
+    m_motor1 = new cMotor(SHOOTER_MOTOR1_PORT, BaneBots775, true); //one of these needs an encoder. Which? god only knows
+    m_motor2 = new cMotor(SHOOTER_MOTOR2_PORT, BaneBots775);
 
 	//m_motor1->reverseSensorDirection();
 	m_motor2->setControlMode(CANSpeedController::kFollower);
-	m_motor2->Set(SHOOTER_MOTOR2_PORT);
+	m_motor2->Set(SHOOTER_MOTOR1_PORT);
 	m_motor1->setControlMode(CANSpeedController::kSpeed);
 	m_motor1->setBrakeMode(false);
 	m_motor2->setBrakeMode(false);
@@ -63,7 +63,7 @@ void cShooter::EnablePID()
 	}
 
 	m_motor2->setControlMode(CANSpeedController::kFollower);
-	m_motor2->Set(SHOOTER_MOTOR2_PORT);
+	m_motor2->Set(SHOOTER_MOTOR1_PORT);
 	m_motor1->Enable();
 
 }
@@ -102,7 +102,7 @@ void cShooter::setManualEnabled(bool state)
 	} else {
 		m_motor1->setControlMode(CANSpeedController::kSpeed);
 		m_motor2->setControlMode(CANSpeedController::kFollower);
-		m_motor2->Set(SHOOTER_MOTOR2_PORT);
+		m_motor2->Set(SHOOTER_MOTOR1_PORT);
 	}
     m_manualEnabled = state;
 }

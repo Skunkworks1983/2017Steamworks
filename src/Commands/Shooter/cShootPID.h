@@ -25,6 +25,8 @@ private:
 	double d = SHOOTER_D;
 	double f = SHOOTER_F;*/
 
+	double m_p, m_i, m_d, m_f;
+
 public:
 	cShootPID(double setpoint, float timeout = 0);
 	void Initialize();
