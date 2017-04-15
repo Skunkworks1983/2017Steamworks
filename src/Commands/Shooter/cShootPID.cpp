@@ -77,7 +77,7 @@ void cShootPID::Execute()
 
     switch(CommandBase::s_turret->m_heading) {
     case TurretShootPosition::CenterLift:
-        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3525)));
+        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3550)));
         break;
     case TurretShootPosition::CloseLift:
         CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3500)));
@@ -91,6 +91,8 @@ void cShootPID::Execute()
 	SmartDashboard::PutNumber("cShootPIDError", CommandBase::s_shooter->getError());
 	SmartDashboard::PutNumber("cShootPIDSetpoint", CommandBase::s_shooter->getSetpoint());
 	SmartDashboard::PutNumber("Shooter output", CommandBase::s_shooter->getOutput());
+
+	std::cout << CommandBase::s_shooter->getOutput() << std::endl;
 
 	CommandBase::s_shooter->setPID(SmartDashboard::GetNumber("P", m_p), 0, SmartDashboard::GetNumber("D", m_d), SmartDashboard::GetNumber("F", m_f));
 

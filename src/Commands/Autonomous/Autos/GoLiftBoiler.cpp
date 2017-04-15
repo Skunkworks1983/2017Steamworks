@@ -25,6 +25,8 @@ AutoBase* AutoBase::goLiftBoiler()
     float WIGGLE_BACKUP_SPEED = .25;
     float WIGGLE_BACKUP_TIMEOUT = 1.5;
 
+    float mult = AutoBase::getAlliance() == eAlliance::RED ? 1 : -1;
+
     // make commands: keep command groups in order! read bottom down
     AutoBase* commands = new AutoBase();
 
@@ -33,12 +35,10 @@ AutoBase* AutoBase::goLiftBoiler()
     CommandGroup* shoot = new CommandGroup();
     CommandGroup* wiggle = new CommandGroup();
 
-
-    driveToLift->AddSequential(new cDriveStraight(7750, 0.35, 7)); // drive to lift
-    driveToLift->AddSequential(new cTurnAngle(-60, 3));
-    driveToLift->AddSequential(new cDriveStraight(3000, 0.25, 3)); // drive to lift
     driveToLift->AddParallel(new cAssignTargetBoiler(LIFT_CLOSE)); // turn turret
-    //driveToLift->AddParallel(new cShootPID(0)); // cShootPID broken
+    driveToLift->AddSequential(new cDriveStraight(7250, 0.5, 7)); // drive to lift
+    driveToLift->AddSequential(new cTurnAngle(-60 * mult, 3));
+    driveToLift->AddSequential(new cDriveStraight(3000, 0.5, 3)); // drive to lift
     driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
 
     shoot->AddParallel(new cRunFuelConveyor(1, 10));
@@ -57,6 +57,7 @@ AutoBase* AutoBase::goLiftBoiler()
 
 
     // add commands and return base
+    commands->AddParallel(new cShootPID(0));
     commands->AddSequential(driveToLift);
 
     commands->AddParallel(shoot);

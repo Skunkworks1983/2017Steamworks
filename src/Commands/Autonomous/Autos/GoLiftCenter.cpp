@@ -12,7 +12,7 @@ AutoBase* AutoBase::goLiftCenter()
 {
     // constants
     float driveToLiftDistance = 7200;
-    float driveToLiftSpeed = 0.3;
+    float driveToLiftSpeed = 0.35;
     float driveToLiftTimeout = 5;
 
     float backupFromLiftDistance = -250;
@@ -35,10 +35,8 @@ AutoBase* AutoBase::goLiftCenter()
     CommandGroup* shoot = new CommandGroup();
     CommandGroup* wiggle = new CommandGroup();
 
-
-    driveToLift->AddSequential(new cDriveStraight(driveToLiftDistance, driveToLiftSpeed, driveToLiftTimeout)); // drive to lift
     driveToLift->AddParallel(new cAssignTargetBoiler(LIFT_MIDDLE)); // turn turret
-    //driveToLift->AddParallel(new cShootPID(0)); // cShootPID broken
+    driveToLift->AddSequential(new cDriveStraight(driveToLiftDistance, driveToLiftSpeed, driveToLiftTimeout)); // drive to lift
     driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
 
     shoot->AddParallel(new cRunFuelConveyor(1, 10));
@@ -57,6 +55,7 @@ AutoBase* AutoBase::goLiftCenter()
 
 
     // add commands and return base
+    commands->AddParallel(new cShootPID(0));
     commands->AddSequential(driveToLift);
 
     commands->AddParallel(shoot);

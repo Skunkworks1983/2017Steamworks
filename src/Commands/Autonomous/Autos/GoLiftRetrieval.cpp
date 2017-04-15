@@ -7,7 +7,7 @@
 #include <Commands/Autonomous/cWait.h>
 
 AutoBase* AutoBase::goLiftRetrieval() {
-    float backupFromLiftDistance = -100;
+    float backupFromLiftDistance = -50;
     float backupFromLiftSpeed = -0.35;
     float backupFromLiftTimeout = 5;
 
@@ -19,6 +19,8 @@ AutoBase* AutoBase::goLiftRetrieval() {
     float WIGGLE_BACKUP_SPEED = .35;
     float WIGGLE_BACKUP_TIMEOUT = 1.5;
 
+    float mult = AutoBase::getAlliance() == eAlliance::RED ? 1 : -1;
+
     // make commands: keep command groups in order! read bottom down
     AutoBase* commands = new AutoBase();
 
@@ -27,7 +29,7 @@ AutoBase* AutoBase::goLiftRetrieval() {
 
 
     driveToLift->AddSequential(new cDriveStraight(6100, .5, 5)); // drive to lift
-    driveToLift->AddSequential(new cTurnAngle(60, 3));
+    driveToLift->AddSequential(new cTurnAngle(60 * mult, 3));
     driveToLift->AddSequential(new cDriveStraight(4000, 0.35, 2)); // drive to lift
     //driveToLift->AddParallel(new cShootPID(0)); // cShootPID broken
     driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
