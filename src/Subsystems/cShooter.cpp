@@ -12,8 +12,6 @@ cShooter::cShooter()
 	m_motor2->setControlMode(CANSpeedController::kFollower);
 	m_motor2->Set(SHOOTER_MOTOR1_PORT);
 	m_motor1->setControlMode(CANSpeedController::kSpeed);
-	m_motor1->reverseOutput();
-	//m_motor1->reverseSensorDirection();
 	m_motor1->setBrakeMode(false);
 	m_motor2->setBrakeMode(false);
 	m_motor1->setFeedbackDevice();

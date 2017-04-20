@@ -121,12 +121,12 @@ private:
         // ugly for readability reasons
         if(CommandBase::s_drivebase->getGyro()->isDead())
         {
-            //std::cout << "DEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO" << std::endl;
+            std::cout << "DEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO" << std::endl;
             AutoBase::m_relay->Set(Relay::Value::kOn);
         }
         else
         {
-            //std::cout << "GOOD GYRO! :-)" << std::endl;
+            std::cout << "GOOD GYRO! :-)" << std::endl;
             AutoBase::m_relay->Set(Relay::Value::kOff);
         }
     }

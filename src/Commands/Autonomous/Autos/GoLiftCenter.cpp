@@ -33,37 +33,33 @@ AutoBase* AutoBase::goLiftCenter()
     CommandGroup* driveToLift = new CommandGroup();
 
     CommandGroup* shoot = new CommandGroup();
-    //CommandGroup* wiggle = new CommandGroup();
+    CommandGroup* wiggle = new CommandGroup();
 
-    driveToLift->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE)); // turn turret
-    driveToLift->AddSequential(new cDriveStraight(FLIP*driveToLiftDistance, driveToLiftSpeed, driveToLiftTimeout)); // drive to lift
-    driveToLift->AddSequential(new cDriveStraight(FLIP*backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
-    driveToLift->AddSequential(new cWait(3));
+    driveToLift->AddParallel(new cAssignTargetBoiler(LIFT_MIDDLE)); // turn turret
+    driveToLift->AddSequential(new cDriveStraight(driveToLiftDistance, driveToLiftSpeed, driveToLiftTimeout)); // drive to lift
+    driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
 
-	driveToLift->AddSequential(new cConditionalWiggle()); // ugly
-
-	driveToLift->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
-	driveToLift->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-	driveToLift->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
-	driveToLift->AddSequential(new cTurnAngle((-WIGGLE_SWEEP_ANGLE / 2) - 5, WIGGLE_TURN_TIMEOUT, true));
-	driveToLift->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
-
-
-    shoot->AddParallel(new cWait(0.01));
-    shoot->AddParallel(new cShootPID(0));
-    shoot->AddSequential(new cWait(5));
-    shoot->AddSequential(new cRunFuelConveyor(1, 10));
+    shoot->AddParallel(new cRunFuelConveyor(1, 10));
 
     // HOLLLYYY shirt TTHIS IS UALGY AS fudge AND TRIGGERING
     // AS heck PELASE FIX AFTER SEASON OR SOMETHIGN juan FSCHIREST
+    wiggle->AddSequential(new cWait(2));
+
+    wiggle->AddSequential(new cConditionalWiggle()); // ugly
+
+    wiggle->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
+    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cTurnAngle((-WIGGLE_SWEEP_ANGLE / 2) - 5, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
 
 
     // add commands and return base
-    //commands->AddParallel(wiggle);
-    commands->AddParallel(driveToLift);
+    commands->AddParallel(new cShootPID(0));
+    commands->AddSequential(driveToLift);
 
     commands->AddParallel(shoot);
-
+    commands->AddParallel(wiggle);
 
     return commands;
 }

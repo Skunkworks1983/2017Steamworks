@@ -28,30 +28,28 @@ AutoBase* AutoBase::goLiftRetrieval() {
     CommandGroup* wiggle = new CommandGroup();
 
 
-    driveToLift->AddSequential(new cDriveStraight(FLIP*6100, .5, 5)); // drive to lift
+    driveToLift->AddSequential(new cDriveStraight(6100, .5, 5)); // drive to lift
     driveToLift->AddSequential(new cTurnAngle(60 * mult, 3));
-    driveToLift->AddSequential(new cDriveStraight(FLIP*4000, 0.35, 2)); // drive to lift
+    driveToLift->AddSequential(new cDriveStraight(4000, 0.35, 2)); // drive to lift
     //driveToLift->AddParallel(new cShootPID(0)); // cShootPID broken
     driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
-    driveToLift->AddSequential(new cWait(2));
-
-	driveToLift->AddSequential(new cConditionalWiggle()); // ugly
-
-	driveToLift->AddSequential(new cDriveStraight(FLIP*-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
-	driveToLift->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-	driveToLift->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
-	driveToLift->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-	driveToLift->AddSequential(new cDriveStraight(FLIP*WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
-
 
     // HOLLLYYY shirt TTHIS IS UALGY AS fudge AND TRIGGERING
     // AS heck PELASE FIX AFTER SEASON OR SOMETHIGN juan FSCHIREST
+    wiggle->AddSequential(new cWait(2));
 
+    wiggle->AddSequential(new cConditionalWiggle()); // ugly
+
+    wiggle->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
+    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
 
 
     // add commands and return base
     commands->AddSequential(driveToLift);
-    //commands->AddParallel(wiggle);
+    commands->AddParallel(wiggle);
 
     return commands;
 }

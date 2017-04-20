@@ -56,9 +56,6 @@ AutoBase* AutoBase::configureAutonomous()
     case POS_RETRIEVAL:
         commands->AddSequential(commands->goLiftRetrieval());
         break;
-    case POS_HOPPER:
-    	commands->AddSequential(commands->goHopper());
-    	break;
     default:
         break;
     }

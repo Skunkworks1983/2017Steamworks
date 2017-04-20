@@ -10,7 +10,6 @@ cTurret::cTurret()
     m_motor1->setPosition(0);
     m_motor1->SetPID(10, 0, 0, 0);
     m_motor1->reverseOutput();
-    m_motor1->reverseSensorDirection();
     m_motor1->setControlMode(frc::CANSpeedController::ControlMode::kPosition);
     m_motor1->setEnabled(true);
 }

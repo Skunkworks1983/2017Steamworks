@@ -28,8 +28,6 @@ const int GEAR_PI_ID = 0;
 
 const int MSG_LEN = 1024;
 
-const int FLIP = -1;
-
 const float MESSENGER_TIMEOUT_SECS = 1;
 
 const int DRIVEBASE_LEFT_DIRECTION = 1;
@@ -166,8 +164,8 @@ const float TURRET_MOTOR1_GEARING = 40;
 
 // // SHOOTER // //
 
-const int SHOOTER_MOTOR1_PORT = 3;
-const int SHOOTER_MOTOR2_PORT = 2;
+const int SHOOTER_MOTOR1_PORT = 2;
+const int SHOOTER_MOTOR2_PORT = 3;
 
 const double SHOOTER_TARGET_SPEED = -165; //based on GetSpeed()
 
