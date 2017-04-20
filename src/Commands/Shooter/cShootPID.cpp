@@ -22,7 +22,7 @@ cShootPID::cShootPID(double setpoint, float timeout)
 	m_currentSetpoint = -1.0;
 	m_timeout = timeout;
 
-	m_p = 0.21;
+	m_p = 0.25;
 	m_i = 0;
 	m_d = 0.02;
 	m_f = 0.107;
@@ -54,7 +54,7 @@ void cShootPID::Initialize()
 	std::cout << "Hey its a me its the button being pressed" << std::endl;
 
 	//CommandBase::s_shooter->getShooterMotor()->reverseOutput();
-	CommandBase::s_shooter->getShooterMotor()->reverseSensorDirection();
+	//CommandBase::s_shooter->getShooterMotor()->reverseSensorDirection();
 
 	CommandBase::s_shooter->getShooterMotor()->setVoltageRampRate(3);
 }
@@ -80,7 +80,7 @@ void cShootPID::Execute()
         CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3550)));
         break;
     case TurretShootPosition::CloseLift:
-        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3500)));
+        CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((3475)));
         break;
     case TurretShootPosition::WhiteLine:
         CommandBase::s_shooter->setSetpoint(shooter_rpm_to_ticks((6500)));

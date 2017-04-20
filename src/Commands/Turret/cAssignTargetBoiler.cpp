@@ -56,7 +56,7 @@ void cAssignTargetBoiler::Initialize()
 
 void cAssignTargetBoiler::Execute()
 {
-
+	std::cout << CommandBase::s_turret->m_heading << std::endl;
 }
 
 bool cAssignTargetBoiler::IsFinished()
@@ -72,6 +72,9 @@ void cAssignTargetBoiler::End()
 
 void cAssignTargetBoiler::Interrupted()
 {
+	for(int i = 0; i < 100; i++) {
+		std::cout << "Interrupted" << std::endl;
+	}
     LOG_INFO("interrupted cAssignTargetBoiler");
     End();
 }
