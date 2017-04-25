@@ -21,33 +21,36 @@ void cAssignTargetBoiler::Initialize()
 {
     LOG_INFO("starting cAssignTargetBoiler");
 
+    int red_middle = -1035;
+    int red_close = -2750;
+    int red_hopper = -2300;
+
+    int blue_middle = -4165;
+    int blue_close = -2120;
+    int blue_hopper = -2800;
+
     // ugly as fuck, but ok, like a turtle
     int heading = CommandBase::s_turret->getTurretMotor()->getPosition();
     bool isRed = AutoBase::getAlliance() == RED;
 
-    std::cout << "cBoiler init" << std::endl;
-
     switch(m_position)
     {
     case LIFT_MIDDLE:
-        heading = TURRET_SETPOINT_LIFT_MIDDLE;
+        heading = isRed ? red_middle : blue_middle;
         CommandBase::s_turret->m_heading = TurretShootPosition::CenterLift;
         break;
     case LIFT_CLOSE:
-        heading = TURRET_SETPOINT_LIFT_CLOSE;
+        heading = isRed ? red_close : blue_close;
         CommandBase::s_turret->m_heading = TurretShootPosition::CloseLift;
         break;
     case HOPPER_CLOSE:
-        heading = TURRET_SETPOINT_HOPPER_CLOSE;
+        heading = isRed ? red_hopper : blue_hopper;
         CommandBase::s_turret->m_heading = TurretShootPosition::WhiteLine;
         break;
     }
 
     // TODO: update conversion functions so that we don't
     // have to deal with stupid ass ticks. whatever
-
-    // mirror
-    heading = isRed ? heading : TURRET_SWEEP_RANGE - heading;
 
     // set orientation
     std::cout << "heading: " << heading << std::endl;
@@ -56,7 +59,7 @@ void cAssignTargetBoiler::Initialize()
 
 void cAssignTargetBoiler::Execute()
 {
-
+	std::cout << CommandBase::s_turret->m_heading << std::endl;
 }
 
 bool cAssignTargetBoiler::IsFinished()
@@ -72,6 +75,9 @@ void cAssignTargetBoiler::End()
 
 void cAssignTargetBoiler::Interrupted()
 {
+	for(int i = 0; i < 100; i++) {
+		std::cout << "Interrupted" << std::endl;
+	}
     LOG_INFO("interrupted cAssignTargetBoiler");
     End();
 }

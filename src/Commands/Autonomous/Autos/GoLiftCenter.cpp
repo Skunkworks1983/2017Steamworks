@@ -13,17 +13,17 @@ AutoBase* AutoBase::goLiftCenter()
     // constants
     float driveToLiftDistance = 7200;
     float driveToLiftSpeed = 0.35;
-    float driveToLiftTimeout = 5;
+    float driveToLiftTimeout = 3;
 
-    float backupFromLiftDistance = -250;
+    float backupFromLiftDistance = -50;
     float backupFromLiftSpeed = -0.35;
-    float backupFromLiftTimeout = 5;
+    float backupFromLiftTimeout = 0.5;
 
     // FUUUUUUUUUUUUdge
     float WIGGLE_SWEEP_ANGLE = 60; // the total angle we turn, far left to far right
     float WIGGLE_TURN_TIMEOUT = 1;
 
-    float WIGGLE_BACKUP_DISTANCE = 1500;
+    float WIGGLE_BACKUP_DISTANCE = 400;
     float WIGGLE_BACKUP_SPEED = .4;
     float WIGGLE_BACKUP_TIMEOUT = 1.5;
 
@@ -33,38 +33,45 @@ AutoBase* AutoBase::goLiftCenter()
     CommandGroup* driveToLift = new CommandGroup();
 
     CommandGroup* shoot = new CommandGroup();
-    CommandGroup* wiggle = new CommandGroup();
+    //CommandGroup* wiggle = new CommandGroup();
 
-    driveToLift->AddParallel(new cAssignTargetBoiler(LIFT_MIDDLE)); // turn turret
-    driveToLift->AddSequential(new cDriveStraight(driveToLiftDistance, driveToLiftSpeed, driveToLiftTimeout)); // drive to lift
-    driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
+    driveToLift->AddSequential(new cAssignTargetBoiler(LIFT_MIDDLE)); // turn turret
+    driveToLift->AddSequential(new cDriveStraight(FLIP*driveToLiftDistance, driveToLiftSpeed, driveToLiftTimeout)); // drive to lift
+    driveToLift->AddSequential(new cDriveStraight(FLIP*backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
+    driveToLift->AddSequential(new cWait(2));
+    driveToLift->AddSequential(new cDriveStraight(500, 0.5, 1));
+    //driveToLift->AddSequential(new cTurnAngle(-CommandBase::s_drivebase->getGyro()->getAngle(), 1, false));
 
-    shoot->AddParallel(new cRunFuelConveyor(1, 10));
+	driveToLift->AddSequential(new cConditionalWiggle()); // ugly
+
+	driveToLift->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, .75, true, true)); // don't even get me started here
+	driveToLift->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+	driveToLift->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
+	driveToLift->AddSequential(new cTurnAngle((-WIGGLE_SWEEP_ANGLE / 2) - 5, WIGGLE_TURN_TIMEOUT, true));
+	driveToLift->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 4, WIGGLE_BACKUP_SPEED, 5, true, true));
+
+
+    shoot->AddParallel(new cWait(0.01));
+    shoot->AddParallel(new cShootPID(0));
+    shoot->AddSequential(new cWait(5));
+    shoot->AddSequential(new cRunFuelConveyor(1, 10));
 
     // HOLLLYYY shirt TTHIS IS UALGY AS fudge AND TRIGGERING
     // AS heck PELASE FIX AFTER SEASON OR SOMETHIGN juan FSCHIREST
-    wiggle->AddSequential(new cWait(2));
-
-    wiggle->AddSequential(new cConditionalWiggle()); // ugly
-
-    wiggle->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
-    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cTurnAngle((-WIGGLE_SWEEP_ANGLE / 2) - 5, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
 
 
     // add commands and return base
-    commands->AddParallel(new cShootPID(0));
-    commands->AddSequential(driveToLift);
+    //commands->AddParallel(wiggle);
+    commands->AddParallel(driveToLift);
 
     commands->AddParallel(shoot);
-    commands->AddParallel(wiggle);
+
 
     return commands;
 }
 
     /*
+     * floating turtles
 	float WAIT_TIME = 6;
 	float DRIVE_DISTANCE = -7250; // not used for wiggle
 	float DRIVE_STRAIGHT_SPEED = 0.25; // not used wiggle

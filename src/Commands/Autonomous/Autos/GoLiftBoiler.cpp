@@ -13,7 +13,7 @@
 
 AutoBase* AutoBase::goLiftBoiler()
 {
-    float backupFromLiftDistance = -100;
+    float backupFromLiftDistance = -75;
     float backupFromLiftSpeed = -0.25;
     float backupFromLiftTimeout = 5;
 
@@ -36,32 +36,37 @@ AutoBase* AutoBase::goLiftBoiler()
     CommandGroup* wiggle = new CommandGroup();
 
     driveToLift->AddParallel(new cAssignTargetBoiler(LIFT_CLOSE)); // turn turret
-    driveToLift->AddSequential(new cDriveStraight(7250, 0.5, 7)); // drive to lift
+    driveToLift->AddSequential(new cDriveStraight(FLIP*6700, 0.5, 7)); // drive to lift
     driveToLift->AddSequential(new cTurnAngle(-60 * mult, 3));
-    driveToLift->AddSequential(new cDriveStraight(3000, 0.5, 3)); // drive to lift
-    driveToLift->AddSequential(new cDriveStraight(backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
+    driveToLift->AddSequential(new cDriveStraight(FLIP*1750, 0.5, 3)); // drive to lif
+    driveToLift->AddSequential(new cWait(.5));
+    driveToLift->AddSequential(new cDriveStraight(FLIP*backupFromLiftDistance, backupFromLiftSpeed, backupFromLiftTimeout)); // back up to relieve spring pressure
+    driveToLift->AddSequential(new cWait(2));
+    driveToLift->AddSequential(new cDriveStraight(500, 0.5, 1));
 
-    shoot->AddParallel(new cRunFuelConveyor(1, 10));
+	driveToLift->AddSequential(new cConditionalWiggle()); // ugly
+
+	driveToLift->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
+	driveToLift->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+	driveToLift->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
+	driveToLift->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
+	driveToLift->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, 5, true, true));
+
+	shoot->AddParallel(new cWait(0.01));
+	shoot->AddParallel(new cShootPID(0));
+	shoot->AddSequential(new cWait(5));
+	shoot->AddSequential(new cRunFuelConveyor(1, 10));
 
     // HOLLLYYY shirt TTHIS IS UALGY AS fudge AND TRIGGERING
     // AS heck PELASE FIX AFTER SEASON OR SOMETHIGN juan FSCHIREST
-    wiggle->AddSequential(new cWait(2));
 
-    wiggle->AddSequential(new cConditionalWiggle()); // ugly
-
-    wiggle->AddSequential(new cDriveStraight(-WIGGLE_BACKUP_DISTANCE, -WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true)); // don't even get me started here
-    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cTurnAngle(WIGGLE_SWEEP_ANGLE, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cTurnAngle(-WIGGLE_SWEEP_ANGLE / 2, WIGGLE_TURN_TIMEOUT, true));
-    wiggle->AddSequential(new cDriveStraight(WIGGLE_BACKUP_DISTANCE * 2, WIGGLE_BACKUP_SPEED, WIGGLE_BACKUP_TIMEOUT, true, true));
 
 
     // add commands and return base
-    commands->AddParallel(new cShootPID(0));
-    commands->AddSequential(driveToLift);
+    commands->AddParallel(driveToLift);
 
     commands->AddParallel(shoot);
-    commands->AddParallel(wiggle);
+    //commands->AddParallel(wiggle);
 
     return commands;
 }

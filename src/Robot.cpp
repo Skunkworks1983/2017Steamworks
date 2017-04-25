@@ -121,12 +121,12 @@ private:
         // ugly for readability reasons
         if(CommandBase::s_drivebase->getGyro()->isDead())
         {
-            std::cout << "DEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO" << std::endl;
+            //std::cout << "DEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO\nDEAD GYRO" << std::endl;
             AutoBase::m_relay->Set(Relay::Value::kOn);
         }
         else
         {
-            std::cout << "GOOD GYRO! :-)" << std::endl;
+            //std::cout << "GOOD GYRO! :-)" << std::endl;
             AutoBase::m_relay->Set(Relay::Value::kOff);
         }
     }
@@ -143,14 +143,8 @@ private:
     {
         Scheduler::GetInstance()->Run();
 
-        std::cout << CommandBase::s_shooter->getShooterMotor()->getPosition() << std::endl;
-
         //CommandBase::s_boilerMessenger->sendMessage("auto");
         //CommandBase::s_liftMessenger->sendMessage("auto");
-
-        // ugly for readability reasons
-        std::cout << "d1:" << AutoBase::m_d1->Get() << std::endl;
-        std::cout << "d2:" << AutoBase::m_d2->Get() << std::endl;
     }
 
     void TeleopInit()
@@ -167,9 +161,6 @@ private:
     void TeleopPeriodic()
     {
         Scheduler::GetInstance()->Run();
-
-        std::cout << CommandBase::s_shooter->getShooterMotor()->getPosition() << std::endl;;
-
 
         CommandBase::s_boilerMessenger->sendMessage("tele");
         CommandBase::s_liftMessenger->sendMessage("tele");
