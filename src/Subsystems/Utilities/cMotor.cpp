@@ -40,7 +40,7 @@ void cMotor::setOutput(float output) {
 			if (m_motor.GetOutputCurrent() >= BANEBOTS775_STALLING_CURRENT) {
 				m_motor.Set(0);
 				m_timeStall = GetFPGATime();
-				LOG_WARNING("BaneBots775 stall");
+				std::cout << "BaneBots775 stall" << std::endl;
 				return;
 			}
 			break;
@@ -48,7 +48,7 @@ void cMotor::setOutput(float output) {
 			if (m_motor.GetOutputCurrent() >= NEVEREST40_STALLING_CURRENT) {
 				m_motor.Set(0);
 				m_timeStall = GetFPGATime();
-				LOG_WARNING("NeveRest40 stall");
+				std::cout << "NeveRest40 stall" << std::endl;
 				return;
 			}
 			break;
@@ -56,7 +56,7 @@ void cMotor::setOutput(float output) {
 			if (m_motor.GetOutputCurrent() >= CIM_STALLING_CURRENT) {
 				m_motor.Set(0);
 				m_timeStall = GetFPGATime();
-				LOG_WARNING("CIM stall");
+				std::cout << "CIM stall" << std::endl;
 				return;
 			}
 			break;
